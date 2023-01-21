@@ -1,3 +1,4 @@
 */obj
 */bin
-references/*.dll
+references/*
+!references/.gitkeep

@@ -5,4 +5,8 @@
     <RootNamespace>Bnfour.MuseDashMods.ScoreboardCharacters</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
+    <Reference Include="../references/MelonLoader.dll"/>
+  </ItemGroup>
 </Project>
