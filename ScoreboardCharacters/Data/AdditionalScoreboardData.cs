@@ -6,16 +6,16 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
     public class AdditionalScoreboardData
     {
         /// <summary>Data for the current player, displayed at the bottom of the scoreboard.</summary>
-        public AdditionalScoreboardDataEntry SelfData { get; set; }
+        public AdditionalScoreboardDataEntry Self { get; set; }
 
-        /// <summary>Data for the scoreboard. May include an entry duplicationg <see cref="SelfData"/>,
+        /// <summary>Data for the scoreboard. May include an entry duplicationg <see cref="Self"/>,
         /// if the player is good enough.</summary>
-        public List<AdditionalScoreboardData> ScoreboardData { get; set; }
+        public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; }
 
         public void Clear()
         {
-            SelfData = null;
-            ScoreboardData = new List<AdditionalScoreboardData>(99);
+            Self = null;
+            Scoreboard = new List<AdditionalScoreboardDataEntry>(99);
         }
     }
 }

@@ -8,5 +8,14 @@
   <ItemGroup>
     <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
     <Reference Include="../references/MelonLoader.dll"/>
+    <Reference Include="../references/Assembly-CSharp.dll"/>
+    <Reference Include="../references/Il2Cppmscorlib.dll"/>
+    <Reference Include="../references/UnhollowerBaseLib.dll"/>
+    <Reference Include="../references/Il2CppNewtonsoft.Json.dll"/>
+    <Reference Include="../references/Newtonsoft.Json.dll"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
 </Project>

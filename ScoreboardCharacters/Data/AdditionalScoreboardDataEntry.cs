@@ -7,12 +7,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         public string CharacterId { get; set; }
         public string ElfinId { get; set; }
 
-        // temporarily to make sure it's filled properly
-        public string DebugData { get; set; }
-
         public override string ToString()
         {
-            return $"{DebugData} {CharacterIdToReadableForm()}/{ElfinIdToReadableForm()}";
+            return $"{CharacterIdToReadableForm()}/{ElfinIdToReadableForm()}";
         }
 
         // TODO check the id format, ints as strings are silly
