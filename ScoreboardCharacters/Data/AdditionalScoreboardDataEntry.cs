@@ -9,7 +9,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
 
         public override string ToString()
         {
-            return $"{CharacterIdToReadableForm()}/{ElfinIdToReadableForm()}";
+            // human-readable proved to be too long for a name label copy we have now
+            return $"{CharacterId}/{ElfinId}";
         }
 
         // TODO check the id format, ints as strings are silly

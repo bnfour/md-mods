@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 
 using Assets.Scripts.UI.Panels;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 {
@@ -56,6 +58,38 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                     scoreboardData.Scoreboard.Add(storedData);
                 }
             }
+
+            // TODO this is basically copypaste of FastPoolManagerCreatePoolPatch
+            // except for scale/positions fixes, but we have to figure out positioning anyway
+
+            // couldn't find a better place to update it beforehand :(
+
+            var prefab = __instance.server;
+
+            var alreadyAdded = prefab.transform.FindChild("BnExtraTextField");
+            if (alreadyAdded == null)
+            {
+                // copy existing thing for now, so most setup is already done
+                var toCopy = prefab.transform.FindChild("TxtIdValueS");
+                var duplicate = GameObject.Instantiate(toCopy);
+                duplicate.name = "BnExtraTextField";
+                duplicate.GetComponent<RectTransform>().SetParent(prefab.transform);
+                // for whatever reason, scale out of the box is (100, 100, 100) here
+                var scaleFix = new Vector3(1, 1, 1);
+                // position is hardcoded for 1080 for now
+                var localPositionFix = new Vector3(550, -20, 0);
+                // TODO instantiate once
+                duplicate.GetComponent<RectTransform>().set_localScale_Injected(ref scaleFix);
+                duplicate.GetComponent<RectTransform>().set_localPosition_Injected(ref localPositionFix);
+
+                duplicate.gameObject.layer = prefab.layer;
+                var textComponent = duplicate.GetComponent<Text>();
+                if (textComponent != null)
+                {
+                    textComponent.text = "test message please ignore";
+                }
+                duplicate.transform.SetParent(prefab.transform);
+            }
         }
 
         private static void Postfix(string uid, PnlRank __instance)
@@ -68,23 +102,45 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             if (scoreboardData.Self != null)
             {
                 // this is the "PlayerRankCell_4-3" used for self rank
-                var selfRankCell = __instance.server;
-                // TODO patch somewhere (constructor?) to add fields to store extra data,
-                // set values from ScoreboardData.Self
+                var selfRankCell = __instance.server.gameObject;
+                var extraField = selfRankCell.transform.FindChild("BnExtraTextField");
+                if (extraField != null)
+                {
+                    var textComponent = extraField.GetComponent<Text>();
+                    if (textComponent != null)
+                    {
+                        textComponent.text = scoreboardData.Self.ToString();
+                    }
+                }
             }
             // the scoreboard itself is pooled
             // first objects seems to be the template (?), never shown on screen
+            // then actual ranks to be shown, in reverse order
+            // so, 100 objects in pool:
+            //   #0 is unused,
+            //   #1 is scoreboard #99,
+            //   #2 is scoreboard #98,
+            //   and so on
             for (int i = 1; i < __instance.m_RankPool.gameObjects.Count; i++)
             {
                 var actualEntry = __instance.m_RankPool.gameObjects[i]; //.GetComponent<RankCell>(); ??
                 // these can be mapped to RankCell, but we will interact with components not present in it,
                 // but added in runtime
 
-                // we skip the first template entry in the for loop, so index is adjusted for extra data
-                var correspondingExtraData = scoreboardData.Scoreboard[i - 1];
+                // we skip the first template entry in the for loop,
+                // and also entries seem to be in reverse order (see notes above)
+                // so index is adjusted
+                var correspondingExtraData = scoreboardData.Scoreboard[99 - i];
 
-                // TODO patch somewhere to add fields to store extra data,
-                // set values from correspondingExtraData
+                var extraField = actualEntry.transform.FindChild("BnExtraTextField");
+                if (extraField != null)
+                {
+                    var textComponent = extraField.GetComponent<Text>();
+                    if (textComponent != null)
+                    {
+                        textComponent.text = correspondingExtraData.ToString();
+                    }
+                }
             }
         }
     }
