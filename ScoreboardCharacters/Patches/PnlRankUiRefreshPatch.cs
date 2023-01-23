@@ -57,5 +57,35 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 }
             }
         }
+
+        private static void Postfix(string uid, PnlRank __instance)
+        {
+            // if we're really setting this here, we won't need to include scoreboardData in the Mod itself,
+            // it will be only ever used in this class
+            var scoreboardData = Melon<ScoreboardCharactersMod>.Instance.ScoreboardData;
+
+            // self-rank is handled separately
+            if (scoreboardData.Self != null)
+            {
+                // this is the "PlayerRankCell_4-3" used for self rank
+                var selfRankCell = __instance.server;
+                // TODO patch somewhere (constructor?) to add fields to store extra data,
+                // set values from ScoreboardData.Self
+            }
+            // the scoreboard itself is pooled
+            // first objects seems to be the template (?), never shown on screen
+            for (int i = 1; i < __instance.m_RankPool.gameObjects.Count; i++)
+            {
+                var actualEntry = __instance.m_RankPool.gameObjects[i]; //.GetComponent<RankCell>(); ??
+                // these can be mapped to RankCell, but we will interact with components not present in it,
+                // but added in runtime
+
+                // we skip the first template entry in the for loop, so index is adjusted for extra data
+                var correspondingExtraData = scoreboardData.Scoreboard[i - 1];
+
+                // TODO patch somewhere to add fields to store extra data,
+                // set values from correspondingExtraData
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@
     <Reference Include="../references/UnhollowerBaseLib.dll"/>
     <Reference Include="../references/Il2CppNewtonsoft.Json.dll"/>
     <Reference Include="../references/Newtonsoft.Json.dll"/>
+    <Reference Include="../references/UnityEngine.CoreModule.dll"/>
+    <Reference Include="../references/UnityEngine.UI.dll"/>
   </ItemGroup>
 
   <ItemGroup>
