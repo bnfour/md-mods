@@ -3,8 +3,7 @@ using Newtonsoft.Json;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api
 {
-    // TODO "Detail" seems to be an awful name
-    public class Detail
+    public class PlayInfo
     {
         [JsonProperty("character_uid")]
         public string CharacterId { get; set; }

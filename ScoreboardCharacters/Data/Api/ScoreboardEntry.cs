@@ -6,7 +6,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api
     public class ScoreboardEntry
     {
         [JsonProperty("play")]
-        public Detail Detail { get; set; }
+        public PlayInfo Info { get; set; }
 
         // also includes user details,
         // not used there

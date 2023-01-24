@@ -33,9 +33,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 // TODO consider better conversion
                 var selfRank = JsonConvert.DeserializeObject<Data.Api.SelfRank>(__instance.m_SelfRank[uid].ToString());
                 
-                if (selfRank.Detail != null)
+                if (selfRank.Info != null)
                 {
-                    ScoreboardData.Self = new Data.AdditionalScoreboardDataEntry(selfRank.Detail);
+                    ScoreboardData.Self = new Data.AdditionalScoreboardDataEntry(selfRank.Info);
                     // couldn't find a better place to update it beforehand :(
                     // add extra components to self rank cell
                     UiPatcher.CreateModUi(__instance.server);
@@ -44,12 +44,12 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 
             if (__instance.m_Ranks.ContainsKey(uid))
             {
-                // same scuffed "render to string, then use a proper library to get only relevant data" approach
+                // same scuffed "render to a string, then use a proper library to get only relevant data" approach
                 var scoreboard = JsonConvert.DeserializeObject<List<Data.Api.ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
 
                 foreach (var entry in scoreboard)
                 {
-                    var data = new Data.AdditionalScoreboardDataEntry(entry.Detail);
+                    var data = new Data.AdditionalScoreboardDataEntry(entry.Info);
                     ScoreboardData.Scoreboard.Add(data);
                 }
             }
@@ -60,7 +60,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             // self-rank is handled separately
             if (ScoreboardData.Self != null)
             {
-                // this is the "PlayerRankCell_4-3" used for self rank
                 var selfRankCell = __instance.server;
                 UiPatcher.FillData(selfRankCell, ScoreboardData.Self);
             }
@@ -73,17 +72,14 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             //   #2 is second last scoreboard entry,
             //   ...and so on...
             //   last entry is scoreboard entry #1
-            for (int i = 1; i < __instance.m_RankPool.gameObjects.Count; i++)
+            var poolCount = __instance.m_RankPool.gameObjects.Count;
+            for (int i = 1; i < poolCount; i++)
             {
                 var actualEntry = __instance.m_RankPool.gameObjects[i];
                 
                 // we skip the first template entry in the for loop,
-                // and also entries seem to be in reverse order (see notes above)
-                // so index is adjusted
-                
-                // TODO what if there's less than 99 entries in the scoreboard?
-                // we'll get out of bounds
-                var correspondingExtraData = ScoreboardData.Scoreboard[99 - i];
+                // and also entries are in reverse order (see notes above)
+                var correspondingExtraData = ScoreboardData.Scoreboard[poolCount - 1 - i];
 
                 UiPatcher.FillData(actualEntry, correspondingExtraData);
             }

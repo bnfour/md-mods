@@ -10,7 +10,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         // just in case, probably not necessary
         public AdditionalScoreboardDataEntry() { }
 
-        public AdditionalScoreboardDataEntry(Api.Detail detail)
+        public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
         {
             CharacterId = detail.CharacterId;
             ElfinId = detail.ElfinId;
@@ -36,8 +36,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
                 case "5": return "Idol Buro";
                 case "6": return "Zombie Buro";
                 case "7": return "Joker Buro";
-                case "8": return "Violin Marija";
-                case "9": return "Maid Maria";
+                case "8": return "Violinist Marija";
+                case "9": return "Maid Marija";
                 case "10": return "Mahou Shoujo Marija";
                 case "11": return "Akuma Marija";
                 case "12": return "Girl in Black Marija";
