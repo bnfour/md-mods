@@ -7,13 +7,22 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         public string CharacterId { get; set; }
         public string ElfinId { get; set; }
 
+        // just in case, probably not necessary
+        public AdditionalScoreboardDataEntry() { }
+
+        public AdditionalScoreboardDataEntry(Api.Detail detail)
+        {
+            CharacterId = detail.CharacterId;
+            ElfinId = detail.ElfinId;
+        }
+
         public override string ToString()
         {
             // human-readable proved to be too long for a name label copy we have now
             return $"{CharacterId}/{ElfinId}";
         }
 
-        // TODO check the id format, ints as strings are silly
+        // TODO check the id format, ints as strings are silly (but it's the same way in the api)
         // TODO move to extensions?
         private string CharacterIdToReadableForm()
         {
@@ -46,22 +55,22 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
             }
         }
 
-            private string ElfinIdToReadableForm()
+        private string ElfinIdToReadableForm()
+        {
+            switch (ElfinId)
             {
-                switch (ElfinId)
-                {
-                    case "0": return "Mio Sir";
-                    case "1": return "Angela";
-                    case "2": return "Thanatos";
-                    case "3": return "Rabbot";
-                    case "4": return "Robot Nurse";
-                    case "5": return "Little Witch";
-                    case "6": return "Dragon Girl";
-                    case "7": return "Lilith";
-                    case "8": return "Rhythm Doctor Bird";
-                    case "9": return "Silencer";
-                    default: return "Unknown Elfin";
-                }
+                case "0": return "Mio Sir";
+                case "1": return "Angela";
+                case "2": return "Thanatos";
+                case "3": return "Rabbot";
+                case "4": return "Robot Nurse";
+                case "5": return "Little Witch";
+                case "6": return "Dragon Girl";
+                case "7": return "Lilith";
+                case "8": return "Rhythm Doctor Bird";
+                case "9": return "Silencer";
+                default: return "Unknown Elfin";
             }
+        }
     }
 }

@@ -35,12 +35,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 
                 if (selfRank.Detail != null)
                 {
-                    ScoreboardData.Self = new Data.AdditionalScoreboardDataEntry
-                    {
-                        CharacterId = selfRank.Detail.CharacterId,
-                        ElfinId = selfRank.Detail.ElfinId
-                    };
-
+                    ScoreboardData.Self = new Data.AdditionalScoreboardDataEntry(selfRank.Detail);
                     // couldn't find a better place to update it beforehand :(
                     // add extra components to self rank cell
                     UiPatcher.CreateModUi(__instance.server);
@@ -54,12 +49,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 
                 foreach (var entry in scoreboard)
                 {
-                    var storedData = new Data.AdditionalScoreboardDataEntry
-                    {
-                        CharacterId = entry.Detail.CharacterId,
-                        ElfinId = entry.Detail.ElfinId
-                    };
-                    ScoreboardData.Scoreboard.Add(storedData);
+                    var data = new Data.AdditionalScoreboardDataEntry(entry.Detail);
+                    ScoreboardData.Scoreboard.Add(data);
                 }
             }
         }
