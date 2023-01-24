@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
@@ -36,6 +37,19 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
                 duplicate.gameObject.layer = rankCell.layer;
                 duplicate.transform.SetParent(rankCell.transform);
+            }
+        }
+
+        public static void FillData(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry)
+        {
+            var extraField = rankCell.transform.FindChild(NewTextfieldId);
+            if (extraField != null)
+            {
+                var textComponent = extraField.GetComponent<Text>();
+                if (textComponent != null)
+                {
+                    textComponent.text = dataEntry.ToString();
+                }
             }
         }
     }

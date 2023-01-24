@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using HarmonyLib;
 using MelonLoader;
 using Newtonsoft.Json;
-using UnityEngine.UI;
-using UnityEngine;
 
 using Assets.Scripts.UI.Panels;
 
@@ -75,16 +73,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             if (scoreboardData.Self != null)
             {
                 // this is the "PlayerRankCell_4-3" used for self rank
-                var selfRankCell = __instance.server.gameObject;
-                var extraField = selfRankCell.transform.FindChild("BnExtraTextField");
-                if (extraField != null)
-                {
-                    var textComponent = extraField.GetComponent<Text>();
-                    if (textComponent != null)
-                    {
-                        textComponent.text = scoreboardData.Self.ToString();
-                    }
-                }
+                var selfRankCell = __instance.server;
+                UiPatcher.FillData(selfRankCell, scoreboardData.Self);
             }
             // the scoreboard itself is pooled
             // first objects seems to be the template (?), never shown on screen
@@ -105,15 +95,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 // so index is adjusted
                 var correspondingExtraData = scoreboardData.Scoreboard[99 - i];
 
-                var extraField = actualEntry.transform.FindChild("BnExtraTextField");
-                if (extraField != null)
-                {
-                    var textComponent = extraField.GetComponent<Text>();
-                    if (textComponent != null)
-                    {
-                        textComponent.text = correspondingExtraData.ToString();
-                    }
-                }
+                UiPatcher.FillData(actualEntry, correspondingExtraData);
             }
         }
     }
