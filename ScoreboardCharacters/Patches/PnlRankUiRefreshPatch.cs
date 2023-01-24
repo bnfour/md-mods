@@ -1,12 +1,13 @@
-using System;
+using System.Collections.Generic;
 using HarmonyLib;
 using MelonLoader;
 using Newtonsoft.Json;
-
-using Assets.Scripts.UI.Panels;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+
+using Assets.Scripts.UI.Panels;
+
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 {
@@ -41,6 +42,10 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                         CharacterId = selfRank.Detail.CharacterId,
                         ElfinId = selfRank.Detail.ElfinId
                     };
+
+                    // couldn't find a better place to update it beforehand :(
+                    // add extra components to self rank cell
+                    UiPatcher.CreateModUi(__instance.server);
                 }
             }
 
@@ -57,38 +62,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                     };
                     scoreboardData.Scoreboard.Add(storedData);
                 }
-            }
-
-            // TODO this is basically copypaste of FastPoolManagerCreatePoolPatch
-            // except for scale/positions fixes, but we have to figure out positioning anyway
-
-            // couldn't find a better place to update it beforehand :(
-
-            var prefab = __instance.server;
-
-            var alreadyAdded = prefab.transform.FindChild("BnExtraTextField");
-            if (alreadyAdded == null)
-            {
-                // copy existing thing for now, so most setup is already done
-                var toCopy = prefab.transform.FindChild("TxtIdValueS");
-                var duplicate = GameObject.Instantiate(toCopy);
-                duplicate.name = "BnExtraTextField";
-                duplicate.GetComponent<RectTransform>().SetParent(prefab.transform);
-                // for whatever reason, scale out of the box is (100, 100, 100) here
-                var scaleFix = new Vector3(1, 1, 1);
-                // position is hardcoded for 1080 for now
-                var localPositionFix = new Vector3(550, -20, 0);
-                // TODO instantiate once
-                duplicate.GetComponent<RectTransform>().set_localScale_Injected(ref scaleFix);
-                duplicate.GetComponent<RectTransform>().set_localPosition_Injected(ref localPositionFix);
-
-                duplicate.gameObject.layer = prefab.layer;
-                var textComponent = duplicate.GetComponent<Text>();
-                if (textComponent != null)
-                {
-                    textComponent.text = "test message please ignore";
-                }
-                duplicate.transform.SetParent(prefab.transform);
             }
         }
 
