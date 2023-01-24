@@ -5,11 +5,16 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
 {
     public class AdditionalScoreboardData
     {
-        /// <summary>Data for the current player, displayed at the bottom of the scoreboard.</summary>
+        /// <summary>
+        /// Data for the current player, displayed at the bottom of the scoreboard.
+        /// Can be null if the player is not in top 2000 for the song/diff.
+        /// </summary>
         public AdditionalScoreboardDataEntry Self { get; set; }
 
-        /// <summary>Data for the scoreboard. May include an entry duplicationg <see cref="Self"/>,
-        /// if the player is good enough.</summary>
+        /// <summary>
+        /// Data for the scoreboard. May include an entry duplicating <see cref="Self"/>,
+        /// if the player is good enough.
+        /// </summary>
         public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; }
 
         public void Clear()
