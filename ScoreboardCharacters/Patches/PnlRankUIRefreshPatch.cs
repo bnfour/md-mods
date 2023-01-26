@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
     /// from the full API response and display it as part of the scoreboard.
     /// </summary>
     [HarmonyPatch(typeof(PnlRank), "UIRefresh")]
-    public class PnlRankUiRefreshPatch
+    public class PnlRankUIRefreshPatch
     {
         private static readonly Data.AdditionalScoreboardData ScoreboardData = new Data.AdditionalScoreboardData();
 
