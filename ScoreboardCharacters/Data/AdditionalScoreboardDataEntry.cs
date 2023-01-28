@@ -72,5 +72,42 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
                 default: return "Unknown Elfin";
             }
         }
+
+        // TODO just floating here, check and move somewhere relevant
+        // used to scroll the menus on switch
+        private int GetCharacterMenuOrder()
+        {
+            switch (CharacterId)
+            {
+                case "0": return 0;
+                case "1": return 1;
+                case "2": return 2;
+                case "3": return 3;
+                // Santa (13) and Worker (17) go here
+                case "4": return 6;
+                case "5": return 7;
+                case "6": return 8;
+                case "7": return 9;
+                // JK (14) here
+                case "8": return 11;
+                case "9": return 12;
+                case "10": return 13;
+                case "11": return 14;
+                case "12": return 15;
+                // Sister (20) here
+                case "13": return 4;
+                case "14": return 10;
+                case "15": return 17;
+                case "16": return 18;
+                case "17": return 5;
+                case "18": return 19;
+                case "19": return 20;
+                case "20": return 16;
+                case "21": return 21;
+                case "22": return 22;
+                default: return 0;
+            }
+        }
+        // elfin menu order matches id order
     }
 }
