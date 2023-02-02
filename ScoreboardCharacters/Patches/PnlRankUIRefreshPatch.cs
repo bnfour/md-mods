@@ -36,8 +36,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 if (selfRank.Info != null)
                 {
                     ScoreboardData.Self = new Data.AdditionalScoreboardDataEntry(selfRank.Info);
+                    
                     // couldn't find a better place to update it beforehand :(
-                    // add extra components to self rank cell
+                    // TODO search for a way to permanently apply the mod UI like for the scoreboard pool
                     UiPatcher.CreateModUi(__instance.server);
                 }
             }
@@ -75,7 +76,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             var poolCount = __instance.m_RankPool.gameObjects.Count;
             for (int i = 1; i < poolCount; i++)
             {
-                var actualEntry = __instance.m_RankPool.gameObjects[i];
+                var actualEntry = __instance.m_RankPool.gameObjects[i].gameObject;
                 
                 // we skip the first template entry in the for loop,
                 // and also entries are in reverse order (see notes above)
