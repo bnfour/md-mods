@@ -3,6 +3,8 @@ using Assets.Scripts.Database;
 using Assets.Scripts.PeroTools.Commons;
 using Assets.Scripts.PeroTools.Managers;
 using Assets.Scripts.PeroTools.Nice.Components;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Extensions;
 using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
@@ -13,42 +15,51 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         private static bool ScrollOnSwitchEnabled = false;
         private const string PanelSharedPath = "UI/Standerd/PnlMenu/Panels/";
 
-        public static void Switch(string characterId, string elfinId)
+        public static void Switch(Character character, Elfin elfin)
         {
-            var currentCharacterId = DataHelper.selectedRoleIndex;
-            var currentElfinId = DataHelper.selectedElfinIndex;
-            // here, these are finally used as ints
-            var newCharacterId = int.Parse(characterId);
-            var newElfinId = int.Parse(elfinId);
+            var currentCharacter = (Character)DataHelper.selectedRoleIndex;
+            var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
+            var anyChanges = currentCharacter != character || currentElfin != elfin;
 
-            DataHelper.selectedRoleIndex = newCharacterId;
-            DataHelper.selectedElfinIndex = newElfinId;
-            // play a different sound if already switched to this combination
-            var soundToPlay = currentCharacterId != newCharacterId || currentElfinId != newElfinId
+
+            // play a different sound (and do nothing)
+            // if already switched to this combination
+            var soundToPlay = anyChanges
                 ? "sfx_switch"
                 : "sfx_common_back";
             var volume = DataHelper.sfxVolume;
             var audioManager = Singleton<AudioManager>.instance;
             audioManager.PlayOneShot(soundToPlay, volume, null);
 
+            if (!anyChanges)
+            {
+                return;
+            }
+
+            DataHelper.selectedRoleIndex = (int)character;
+            DataHelper.selectedElfinIndex = (int)elfin;
+
             if (ScrollOnSwitchEnabled)
             {
-                // do not scroll if elfin is unequipped
-                if (newElfinId >= 0)
+                // do not scroll if elfin is unequipped or we don't know where to scroll
+                // TODO nag about update on mystery IDs?
+                if (elfin.IsActuallyAnElfin() && !elfin.IsMystery())
                 {
                     // TODO consider caching the panel references
                     // also this seems to break some animations for the heart background a little (?)
                     var elfinPanel = GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
                     if (elfinPanel != null)
                     {
-                        elfinPanel.currentScrollPosition = OrderHelper.GetElfinMenuOrder(newElfinId);
+                        elfinPanel.currentScrollPosition = elfin.GetMenuOrder();
                     }
                 }
-
-                var characterPanel = GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
-                if (characterPanel != null)
+                if (!character.IsMystery())
                 {
-                    characterPanel.currentScrollPosition = OrderHelper.GetCharacterMenuOrder(newCharacterId);
+                    var characterPanel = GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
+                    if (characterPanel != null)
+                    {
+                        characterPanel.currentScrollPosition = character.GetMenuOrder();
+                    }
                 }
             }
         }
