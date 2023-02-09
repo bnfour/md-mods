@@ -17,6 +17,7 @@
     <Reference Include="../references/UnityEngine.UI.dll"/>
     <Reference Include="../references/UnityEngine.AudioModule.dll"/>
     <Reference Include="../references/Sirenix.Serialization.dll"/>
+    <Reference Include="../references/UnityEngine.ImageConversionModule.dll"/>
   </ItemGroup>
 
   <ItemGroup>
