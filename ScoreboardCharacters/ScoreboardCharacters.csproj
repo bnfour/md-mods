@@ -7,17 +7,17 @@
 
   <ItemGroup>
     <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
-    <Reference Include="../references/MelonLoader.dll"/>
-    <Reference Include="../references/Assembly-CSharp.dll"/>
-    <Reference Include="../references/Il2Cppmscorlib.dll"/>
-    <Reference Include="../references/UnhollowerBaseLib.dll"/>
-    <Reference Include="../references/Il2CppNewtonsoft.Json.dll"/>
-    <Reference Include="../references/Newtonsoft.Json.dll"/>
-    <Reference Include="../references/UnityEngine.CoreModule.dll"/>
-    <Reference Include="../references/UnityEngine.UI.dll"/>
-    <Reference Include="../references/UnityEngine.AudioModule.dll"/>
-    <Reference Include="../references/Sirenix.Serialization.dll"/>
-    <Reference Include="../references/UnityEngine.ImageConversionModule.dll"/>
+    <Reference Include="../references/MelonLoader.dll" />
+    <Reference Include="../references/Assembly-CSharp.dll" />
+    <Reference Include="../references/Il2Cppmscorlib.dll" />
+    <Reference Include="../references/UnhollowerBaseLib.dll" />
+    <Reference Include="../references/Il2CppNewtonsoft.Json.dll" />
+    <Reference Include="../references/Newtonsoft.Json.dll" />
+    <Reference Include="../references/UnityEngine.CoreModule.dll" />
+    <Reference Include="../references/UnityEngine.UI.dll" />
+    <Reference Include="../references/UnityEngine.AudioModule.dll" />
+    <Reference Include="../references/Sirenix.Serialization.dll" />
+    <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
   </ItemGroup>
 
   <ItemGroup>

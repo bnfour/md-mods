@@ -1,5 +1,6 @@
-using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using UnityEngine;
 
@@ -10,14 +11,22 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         // very WIP, excuse the mess
         private const string HardcodedAtlasFilename = "testimage.png";
 
+        // TODO make file loading an optional override, provide a default atlas
+        private readonly static Bitmap CustomAtlas = new Bitmap(Path.Combine(Application.dataPath, HardcodedAtlasFilename));
+
         private static readonly Dictionary<(Character, Elfin), Sprite> Cache = new Dictionary<(Character, Elfin), Sprite>();
 
         private const int CharactersPerRow = 5;
         private const int ElfinsPerRow = 3;
         private const int ElfinStartColumn = 5;
         // 3× the supposed size
-        private const int ImageSize = 120;
+        // TODO support for non-square sprites?
+        private const int SpriteSize = 120;
 
+        private static readonly Rectangle CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
+        private static readonly Rectangle ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+
+        // TODO pre-cache combos popular on the scoreboard, such as 11/7, 3/6, 3/5, 7/6?
         public static Sprite GetSprite(Character character, Elfin elfin)
         {
             var keyTuple = (character, elfin);
@@ -34,30 +43,36 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
         private static Sprite CreateSprite(Character character, Elfin elfin)
         {
-            // get character part, get elfin part, mash them together somehow
-            // dunno if unity itself can do this
-            throw new NotImplementedException("soon™");
-            // let's assume we did this, and rawImageData contains bytes of the result
-            byte[] rawImageData = new byte[1];
-            // texture size here is irrelevant as it gets changed by LoadImage
-            var texture = new Texture2D(1, 1);
-            ImageConversion.LoadImage(texture, rawImageData);
-            var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * ImageSize, ImageSize), new Vector2(0.5f, 0.5f));
+            var buttonBitmap = new Bitmap(2 * SpriteSize, SpriteSize);
+            using (var graphics = System.Drawing.Graphics.FromImage(buttonBitmap))
+            {
+                graphics.DrawImage(CustomAtlas, CharacterDestinationRectangle, GetSpriteRectangle(character), GraphicsUnit.Pixel);
+                graphics.DrawImage(CustomAtlas, ElfinDestinationRectangle, GetSpriteRectangle(elfin), GraphicsUnit.Pixel);
+                using (var byteStream = new MemoryStream())
+                {
+                    buttonBitmap.Save(byteStream, System.Drawing.Imaging.ImageFormat.Png);
+                    // texture size here is irrelevant as it gets changed by LoadImage
+                    var texture = new Texture2D(1, 1);
+                    ImageConversion.LoadImage(texture, byteStream.ToArray());
+                    // Rect is not a Rectangle, unfortunate mixing in one file
+                    var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * SpriteSize, SpriteSize), new Vector2(0.5f, 0.5f));
 
-            return sprite;
+                    return sprite;
+                }
+            }
         }
 
-        private static (int x, int y) GetSpriteTopLeft(Character character)
+        private static Rectangle GetSpriteRectangle(Character character)
         {
             var spriteIndex = (int)character;
 
             var columnIndex = spriteIndex % CharactersPerRow;
             var rowIndex = spriteIndex / CharactersPerRow;
 
-            return (columnIndex * ImageSize, rowIndex * ImageSize);
+            return new Rectangle(columnIndex * SpriteSize, rowIndex * SpriteSize, SpriteSize, SpriteSize);
         }
 
-        private static (int x, int y) GetSpriteTopLeft(Elfin elfin)
+        private static Rectangle GetSpriteRectangle(Elfin elfin)
         {
             // elfins start from -1
             var spriteIndex = (int)elfin + 1;
@@ -65,7 +80,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             var columnIndex = spriteIndex % ElfinsPerRow;
             var rowIndex = spriteIndex / ElfinsPerRow;
 
-            return ((ElfinStartColumn + columnIndex) * ImageSize, rowIndex * ImageSize);
+            return new Rectangle((ElfinStartColumn + columnIndex) * SpriteSize, rowIndex * SpriteSize, SpriteSize, SpriteSize);
         }
     }
 }
