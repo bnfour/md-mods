@@ -8,9 +8,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters
     {
         public readonly ButtonImageProvider ButtonImageProvider = new ButtonImageProvider();
 
-        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
         {
-            base.OnSceneWasLoaded(buildIndex, sceneName);
+            base.OnSceneWasUnloaded(buildIndex, sceneName);
 
             if (sceneName == "UISystem_PC")
             {
