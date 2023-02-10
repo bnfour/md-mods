@@ -1,4 +1,5 @@
 using System;
+using MelonLoader;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -54,7 +55,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 var imageComponent = extraField.GetComponentInChildren<Image>();
                 if (imageComponent != null)
                 {
-                    imageComponent.sprite = ButtonImageProvider.GetSprite(dataEntry.CharacterId, dataEntry.ElfinId);
+                    var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
+                    imageComponent.sprite = provider.GetSprite(dataEntry.CharacterId, dataEntry.ElfinId);
                 }
             }
         }

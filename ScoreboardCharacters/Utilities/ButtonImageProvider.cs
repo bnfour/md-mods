@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
-    public static class ButtonImageProvider
+    public class ButtonImageProvider
     {
         // very WIP, excuse the mess
         private const string HardcodedAtlasFilename = "testimage.png";
 
         // TODO make file loading an optional override, provide a default atlas
-        private readonly static Bitmap CustomAtlas = new Bitmap(Path.Combine(Application.dataPath, HardcodedAtlasFilename));
+        private readonly Bitmap CustomAtlas = new Bitmap(Path.Combine(Application.dataPath, HardcodedAtlasFilename));
 
-        private static readonly Dictionary<(Character, Elfin), Sprite> Cache = new Dictionary<(Character, Elfin), Sprite>();
+        private readonly Dictionary<(Character, Elfin), Sprite> Cache = new Dictionary<(Character, Elfin), Sprite>();
 
         private const int CharactersPerRow = 5;
         private const int ElfinsPerRow = 3;
@@ -23,11 +23,11 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         // TODO support for non-square sprites?
         private const int SpriteSize = 120;
 
-        private static readonly Rectangle CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
-        private static readonly Rectangle ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+        private readonly Rectangle CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
+        private readonly Rectangle ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
 
         // TODO pre-cache combos popular on the scoreboard, such as 11/7, 3/6, 3/5, 7/6?
-        public static Sprite GetSprite(Character character, Elfin elfin)
+        public Sprite GetSprite(Character character, Elfin elfin)
         {
             var keyTuple = (character, elfin);
 
@@ -41,7 +41,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             return newSprite;
         }
 
-        private static Sprite CreateSprite(Character character, Elfin elfin)
+        private Sprite CreateSprite(Character character, Elfin elfin)
         {
             var buttonBitmap = new Bitmap(2 * SpriteSize, SpriteSize);
             using (var graphics = System.Drawing.Graphics.FromImage(buttonBitmap))
@@ -62,7 +62,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             }
         }
 
-        private static Rectangle GetSpriteRectangle(Character character)
+        private Rectangle GetSpriteRectangle(Character character)
         {
             var spriteIndex = (int)character;
 
@@ -72,7 +72,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             return new Rectangle(columnIndex * SpriteSize, rowIndex * SpriteSize, SpriteSize, SpriteSize);
         }
 
-        private static Rectangle GetSpriteRectangle(Elfin elfin)
+        private Rectangle GetSpriteRectangle(Elfin elfin)
         {
             // elfins start from -1
             var spriteIndex = (int)elfin + 1;
