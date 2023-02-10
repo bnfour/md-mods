@@ -41,6 +41,11 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             return newSprite;
         }
 
+        public void ResetCache()
+        {
+            Cache.Clear();
+        }
+
         private Sprite CreateSprite(Character character, Elfin elfin)
         {
             var buttonBitmap = new Bitmap(2 * SpriteSize, SpriteSize);
