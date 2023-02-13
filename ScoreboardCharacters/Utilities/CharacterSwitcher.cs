@@ -9,13 +9,16 @@ using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
-    public static class CharacterSwitcher
+    public class CharacterSwitcher
     {
         // TODO make this switchable externally
-        private static bool ScrollOnSwitchEnabled = false;
+        private bool ScrollOnSwitchEnabled = false;
         private const string PanelSharedPath = "UI/Standerd/PnlMenu/Panels/";
 
-        public static void Switch(Character character, Elfin elfin)
+        private FancyScrollView characterScrollView;
+        private FancyScrollView elfinScrollView;
+
+        public void Switch(Character character, Elfin elfin)
         {
             var currentCharacter = (Character)DataHelper.selectedRoleIndex;
             var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
@@ -35,23 +38,27 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 // TODO nag about update on mystery IDs?
                 if (elfin.IsActuallyAnElfin() && !elfin.IsMystery())
                 {
-                    // TODO consider caching the panel references
-                    // also this seems to break some animations for the heart background a little (?)
-                    var elfinPanel = GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
-                    if (elfinPanel != null)
+                    elfinScrollView = elfinScrollView ?? GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
+                    if (elfinScrollView != null)
                     {
-                        elfinPanel.currentScrollPosition = elfin.GetMenuOrder();
+                        elfinScrollView.currentScrollPosition = elfin.GetMenuOrder();
                     }
                 }
                 if (!character.IsMystery())
                 {
-                    var characterPanel = GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
-                    if (characterPanel != null)
+                    characterScrollView = characterScrollView ?? GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
+                    if (characterScrollView != null)
                     {
-                        characterPanel.currentScrollPosition = character.GetMenuOrder();
+                        characterScrollView.currentScrollPosition = character.GetMenuOrder();
                     }
                 }
             }
+        }
+
+        public void ResetCache()
+        {
+            characterScrollView = null;
+            elfinScrollView = null;
         }
     }
 }

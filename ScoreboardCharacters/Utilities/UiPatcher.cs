@@ -49,7 +49,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                     buttonComponent.onClick.RemoveAllListeners();
                     buttonComponent.onClick.AddListener((UnityAction) new Action(() =>
                     {
-                        CharacterSwitcher.Switch(dataEntry.CharacterId, dataEntry.ElfinId);
+                        var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
+                        switcher.Switch(dataEntry.CharacterId, dataEntry.ElfinId);
                     }));
                 }
                 var imageComponent = extraField.GetComponentInChildren<Image>();
