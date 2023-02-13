@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using UnityEngine;
 
@@ -8,11 +9,10 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
     public class ButtonImageProvider
     {
-        // very WIP, excuse the mess
-        private const string HardcodedAtlasFilename = "testimage.png";
+        private const string EmbeddedResourceName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.png";
+        private const string OverrideFilename = "scoreboard_characters_override.png";
 
-        // TODO make file loading an optional override, provide a default atlas
-        private readonly Bitmap CustomAtlas = new Bitmap(Path.Combine(Application.dataPath, HardcodedAtlasFilename));
+        private readonly Bitmap CustomAtlas;
 
         private readonly Dictionary<(Character, Elfin), Sprite> Cache = new Dictionary<(Character, Elfin), Sprite>();
 
@@ -26,7 +26,34 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         private readonly Rectangle CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
         private readonly Rectangle ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
 
-        // TODO pre-cache combos popular on the scoreboard, such as 11/7, 3/6, 3/5, 7/6?
+        public ButtonImageProvider()
+        {
+            // TODO notify the user we did picked up the override?
+
+            var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
+            var defaultImageStream = assembly.GetManifestResourceStream(EmbeddedResourceName);
+            var defaultBitmap = new Bitmap(defaultImageStream);
+
+            var overrideActive = false;
+
+            var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
+            if (File.Exists(overrideFullPath))
+            {
+                var overrideBitmap = new Bitmap(overrideFullPath);
+                if (overrideBitmap.Width == defaultBitmap.Width
+                    && overrideBitmap.Height == defaultBitmap.Height)
+                {
+                    overrideActive = true;
+                    CustomAtlas = overrideBitmap;
+                }
+            }
+
+            if (!overrideActive)
+            {
+                CustomAtlas = defaultBitmap;
+            }
+        }
+
         public Sprite GetSprite(Character character, Elfin elfin)
         {
             var keyTuple = (character, elfin);

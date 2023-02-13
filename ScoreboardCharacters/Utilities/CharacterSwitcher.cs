@@ -21,7 +21,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
             var anyChanges = currentCharacter != character || currentElfin != elfin;
 
-
             // play a different sound (and do nothing)
             // if already switched to this combination
             var soundToPlay = anyChanges
