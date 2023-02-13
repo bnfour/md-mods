@@ -5,10 +5,15 @@ using Assets.Scripts.PeroTools.Managers;
 using Assets.Scripts.PeroTools.Nice.Components;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Extensions;
+using MelonLoader;
 using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
+    /// <summary>
+    /// Handles changes to the selected character and/or elfin.
+    /// Also autoscrolls relevant menus.
+    /// </summary>
     public class CharacterSwitcher
     {
         private const string PanelSharedPath = "UI/Standerd/PnlMenu/Panels/";
@@ -31,22 +36,34 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             DataHelper.selectedElfinIndex = (int)elfin;
 
             // do not scroll if elfin is unequipped or we don't know where to scroll
-            // TODO nag about update on mystery IDs?
-            if (elfin.IsActuallyAnElfin() && !elfin.IsMystery())
+            if (elfin.IsActuallyAnElfin())
             {
-                elfinScrollView = elfinScrollView ?? GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
-                if (elfinScrollView != null)
+                if (!elfin.IsPlaceholderForFuture())
                 {
-                    elfinScrollView.currentScrollPosition = elfin.GetMenuOrder();
+                    elfinScrollView = elfinScrollView ?? GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
+                    if (elfinScrollView != null)
+                    {
+                        elfinScrollView.currentScrollPosition = elfin.GetMenuOrder();
+                    }
+                }
+                else
+                {
+                    var logger = Melon<ScoreboardCharactersMod>.Logger;
+                    logger.Msg($"Unknown order for elfin {(int)elfin}, unable to scroll to");
                 }
             }
-            if (!character.IsMystery())
+            if (!character.IsPlaceholderForFuture())
             {
                 characterScrollView = characterScrollView ?? GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
                 if (characterScrollView != null)
                 {
                     characterScrollView.currentScrollPosition = character.GetMenuOrder();
                 }
+            }
+            else
+            {
+                var logger = Melon<ScoreboardCharactersMod>.Logger;
+                logger.Msg($"Unknown order for character {(int)character}, unable to scroll to");
             }
         }
 

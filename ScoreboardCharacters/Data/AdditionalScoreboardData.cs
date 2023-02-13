@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
 {
+    /// <summary>
+    /// Represents data for all the extra buttons on a level scoreboard.
+    /// </summary>
     public class AdditionalScoreboardData
     {
         /// <summary>

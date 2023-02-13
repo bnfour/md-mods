@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
     /// <summary>
-    /// A class to encapsulate operations with added UI elements.
+    /// Creates extra UI at runtime, sets click handlers.
     /// </summary>
     // static to be called in patches
     public static class UiPatcher
@@ -32,7 +32,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
                 var rect = buttonObj.GetComponent<RectTransform>();
                 rect.sizeDelta = new Vector2(80, 40);
-                // TODO adjust as the button got narrower
                 rect.anchoredPosition3D = new Vector3(200, 0, 0);
             }
         }

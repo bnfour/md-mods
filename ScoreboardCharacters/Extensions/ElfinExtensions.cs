@@ -5,17 +5,16 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
 {
     public static class ElfinExtensions
     {
-        private const Elfin LastImplemented = Elfin.Silencer;
+        private const Elfin LastKnown = Elfin.Silencer;
 
         public static bool IsActuallyAnElfin(this Elfin elfin)
         {
             return elfin > Elfin.NoElfin;
         }
 
-        // TODO scuffed naming
-        public static bool IsMystery(this Elfin elfin)
+        public static bool IsPlaceholderForFuture(this Elfin elfin)
         {
-            return elfin > LastImplemented;
+            return elfin > LastKnown;
         }
 
         // elfin menu order matches id order
@@ -23,12 +22,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
         // (so never?)
         public static int GetMenuOrder(this Elfin elfin)
         {
-            // return something for elfins when order is N/A or unknown
-            //  just in case
-            // TODO consider throwing and catching with a log warning?
-            if (!elfin.IsActuallyAnElfin() || elfin.IsMystery())
+            if (!elfin.IsActuallyAnElfin() || elfin.IsPlaceholderForFuture())
             {
-                return 0;
+                throw new NotImplementedException("Menu order not known");
             }
             return (int)elfin;
         }

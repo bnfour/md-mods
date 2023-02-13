@@ -2,13 +2,13 @@ using System;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
 {
+    /// <summary>
+    /// Represents data for a single custom button.
+    /// </summary>
     public class AdditionalScoreboardDataEntry
     {
-        public Character CharacterId { get; set; }
-        public Elfin ElfinId { get; set; }
-
-        // just in case, probably not necessary
-        public AdditionalScoreboardDataEntry() { }
+        public Character CharacterId { get; private set; }
+        public Elfin ElfinId { get; private set; }
 
         public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
         {

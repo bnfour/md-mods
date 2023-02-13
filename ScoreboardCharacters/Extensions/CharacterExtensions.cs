@@ -6,7 +6,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
 {
     public static class CharacterExtensions
     {
-        private const Character LastImplemented = Character.Amiya;
+        private const Character LastKnown = Character.Amiya;
 
         private static readonly List<Character> KnownOrder = new List<Character>
         {
@@ -35,18 +35,16 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
             Character.Amiya
         };
 
-        // TODO scuffed naming
-        public static bool IsMystery(this Character character)
+        public static bool IsPlaceholderForFuture(this Character character)
         {
-            return character > LastImplemented;
+            return character > LastKnown;
         }
 
         public static int GetMenuOrder(this Character character)
         {
-            // TODO consider throwing and catching with a log warning?
-            if (character.IsMystery())
+            if (character.IsPlaceholderForFuture())
             {
-                return 0;
+                throw new NotImplementedException("Menu order not known");
             }
             return KnownOrder.IndexOf(character);
         }

@@ -4,7 +4,7 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>Bnfour.MuseDashMods.ScoreboardCharacters</RootNamespace>
   </PropertyGroup>
-
+  <!-- Local references -->
   <ItemGroup>
     <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
     <Reference Include="../references/MelonLoader.dll" />
@@ -19,11 +19,11 @@
     <Reference Include="../references/Sirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
   </ItemGroup>
-
+  <!-- NuGet references -->
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
-
+  <!-- Resources -->
   <ItemGroup>
     <EmbeddedResource Include="Resources/sprites.png" />
   </ItemGroup>

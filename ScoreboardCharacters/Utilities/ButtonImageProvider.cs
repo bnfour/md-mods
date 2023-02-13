@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
+    /// <summary>
+    /// Generates images for the custom buttons from the built-in spritesheet or file-based override.
+    /// Has an internal image cache that lasts until playing a level.
+    /// </summary>
     public class ButtonImageProvider
     {
         private const string EmbeddedResourceName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.png";
@@ -28,7 +32,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
         public ButtonImageProvider()
         {
-            // TODO notify the user we did picked up the override?
+            // TODO notify the user we did pick up the override?
 
             var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
             var defaultImageStream = assembly.GetManifestResourceStream(EmbeddedResourceName);

@@ -61,8 +61,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             // self-rank is handled separately
             if (ScoreboardData.Self != null)
             {
-                var selfRankCell = __instance.server;
-                UiPatcher.FillData(selfRankCell, ScoreboardData.Self);
+                UiPatcher.FillData(__instance.server, ScoreboardData.Self);
             }
             // the scoreboard itself is pooled
             // first objects seems to be the template (?), never shown on screen
@@ -79,7 +78,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 var actualEntry = __instance.m_RankPool.gameObjects[i].gameObject;
                 
                 // we skip the first template entry in the for loop,
-                // and also entries are in reverse order (see notes above)
+                // and the data entries are in reverse order (see notes above)
                 var correspondingExtraData = ScoreboardData.Scoreboard[poolCount - 1 - i];
 
                 UiPatcher.FillData(actualEntry, correspondingExtraData);
