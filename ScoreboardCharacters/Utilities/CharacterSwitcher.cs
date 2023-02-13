@@ -35,7 +35,18 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             DataHelper.selectedRoleIndex = (int)character;
             DataHelper.selectedElfinIndex = (int)elfin;
 
-            // do not scroll if elfin is unequipped or we don't know where to scroll
+            ScrollMenus(character, elfin);
+        }
+
+        public void ResetCache()
+        {
+            characterScrollView = null;
+            elfinScrollView = null;
+        }
+
+        private void ScrollMenus(Character character, Elfin elfin)
+        {
+            // do not scroll if elfin is unequipped
             if (elfin.IsActuallyAnElfin())
             {
                 if (!elfin.IsPlaceholderForFuture())
@@ -65,12 +76,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 var logger = Melon<ScoreboardCharactersMod>.Logger;
                 logger.Msg($"Unknown order for character {(int)character}, unable to scroll to");
             }
-        }
-
-        public void ResetCache()
-        {
-            characterScrollView = null;
-            elfinScrollView = null;
         }
     }
 }
