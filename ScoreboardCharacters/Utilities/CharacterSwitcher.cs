@@ -21,15 +21,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
             var anyChanges = currentCharacter != character || currentElfin != elfin;
 
-            // play a different sound (and do nothing)
-            // if already switched to this combination
-            var soundToPlay = anyChanges
-                ? "sfx_switch"
-                : "sfx_common_back";
-            var volume = DataHelper.sfxVolume;
-            var audioManager = Singleton<AudioManager>.instance;
-            audioManager.PlayOneShot(soundToPlay, volume, null);
-
             if (!anyChanges)
             {
                 return;
