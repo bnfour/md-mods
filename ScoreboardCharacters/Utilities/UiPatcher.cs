@@ -24,7 +24,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
                 // default button also contains a text component, we're not using it
                 var text = buttonObj.GetComponentInChildren<Text>();
-                text.gameObject.transform.parent = null;
+                text.transform.parent = null;
 
                 buttonObj.transform.SetParent(rankCell.transform);
                 // for whatever reason, scale for self rank cell is set to 100 100 100 by default
@@ -44,19 +44,19 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 var buttonComponent = extraField.GetComponent<Button>();
                 if (buttonComponent != null)
                 {
-                    // just in case
                     buttonComponent.onClick.RemoveAllListeners();
                     buttonComponent.onClick.AddListener((UnityAction) new Action(() =>
                     {
                         var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
                         switcher.Switch(dataEntry.CharacterId, dataEntry.ElfinId);
                     }));
-                }
-                var imageComponent = extraField.GetComponentInChildren<Image>();
-                if (imageComponent != null)
-                {
-                    var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
-                    imageComponent.sprite = provider.GetSprite(dataEntry.CharacterId, dataEntry.ElfinId);
+
+                    var imageComponent = buttonComponent.image;
+                    if (imageComponent != null)
+                    {
+                        var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
+                        imageComponent.sprite = provider.GetSprite(dataEntry.CharacterId, dataEntry.ElfinId);
+                    }
                 }
             }
         }

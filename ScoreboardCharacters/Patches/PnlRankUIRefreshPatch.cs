@@ -75,7 +75,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             var poolCount = __instance.m_RankPool.gameObjects.Count;
             for (int i = 1; i < poolCount; i++)
             {
-                var actualEntry = __instance.m_RankPool.gameObjects[i].gameObject;
+                var actualEntry = __instance.m_RankPool.gameObjects[i];
                 
                 // we skip the first template entry in the for loop,
                 // and the data entries are in reverse order (see notes above)
