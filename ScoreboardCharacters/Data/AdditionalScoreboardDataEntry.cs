@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
         {
             CharacterId = (Character)int.Parse(detail.CharacterId);
-            ElfinId = (Elfin)int.Parse(detail.ElfinId);
+            ElfinId = string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
         }
     }
 }
