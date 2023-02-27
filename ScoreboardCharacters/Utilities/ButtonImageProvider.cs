@@ -32,8 +32,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
         public ButtonImageProvider()
         {
-            // TODO notify the user we did pick up the override?
-
             var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
             var defaultImageStream = assembly.GetManifestResourceStream(EmbeddedResourceName);
             var defaultBitmap = new Bitmap(defaultImageStream);

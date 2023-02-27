@@ -1,7 +1,5 @@
 using System;
 using Assets.Scripts.Database;
-using Assets.Scripts.PeroTools.Commons;
-using Assets.Scripts.PeroTools.Managers;
 using Assets.Scripts.PeroTools.Nice.Components;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Extensions;
@@ -60,7 +58,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 else
                 {
                     var logger = Melon<ScoreboardCharactersMod>.Logger;
-                    logger.Msg($"Unknown order for elfin {(int)elfin}, unable to scroll to");
+                    logger.Warning($"Unknown order for elfin {(int)elfin}, unable to scroll to");
                 }
             }
             if (!character.IsPlaceholderForFuture())
@@ -74,7 +72,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             else
             {
                 var logger = Melon<ScoreboardCharactersMod>.Logger;
-                logger.Msg($"Unknown order for character {(int)character}, unable to scroll to");
+                logger.Warning($"Unknown order for character {(int)character}, unable to scroll to");
             }
         }
     }
