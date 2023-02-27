@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreboardCharacters", "ScoreboardCharacters\ScoreboardCharacters.csproj", "{794ED994-0083-46EF-8C66-AB3CB5BF0279}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueAbove1kRank", "TrueAbove1kRank\TrueAbove1kRank.csproj", "{8E4EE83A-B128-4AEA-97D2-48F394FD2028}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{794ED994-0083-46EF-8C66-AB3CB5BF0279}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{794ED994-0083-46EF-8C66-AB3CB5BF0279}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{794ED994-0083-46EF-8C66-AB3CB5BF0279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E4EE83A-B128-4AEA-97D2-48F394FD2028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E4EE83A-B128-4AEA-97D2-48F394FD2028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E4EE83A-B128-4AEA-97D2-48F394FD2028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E4EE83A-B128-4AEA-97D2-48F394FD2028}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
