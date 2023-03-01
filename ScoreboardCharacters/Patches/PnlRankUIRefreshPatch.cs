@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Assets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
-using System.Threading;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 {
@@ -74,22 +73,24 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             //   ...and so on...
             //   last entry is scoreboard entry #1
             var poolCount = __instance.m_RankPool.gameObjects.Count;
+            
             // TODO remove
             var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
-            for (int i = 1; i < poolCount; i++)
+            
+            for (int i = poolCount - 1; i > 1; i--)
             {
                 var actualEntry = __instance.m_RankPool.gameObjects[i];
                 
                 // we skip the first template entry in the for loop,
                 // and the data entries are in reverse order (see notes above)
                 var extraDataIndex = poolCount - 1 - i;
-                // try to wait for the data to fill up to avoid index exceptions there?
-                // just a wild guess
-                while (extraDataIndex >= ScoreboardData.Scoreboard.Count)
+                // check for missing data and explode somewhat less violently
+                if (extraDataIndex >= ScoreboardData.Scoreboard.Count)
                 {
-                    logger.Msg($"probably averted an index exception? Have {ScoreboardData.Scoreboard.Count}, want {extraDataIndex}");
-                    // what if it is never updated here though?
-                    Thread.Sleep(50);
+                    // should probably retry getting the scoreboard data from __instance.m_SelfRank ?
+                    logger.Error($"Aaaaa index exception imminent! Have {ScoreboardData.Scoreboard.Count}, want {extraDataIndex}");
+                    // will probably flood the console for everything from missing index to 98
+                    continue;
                 }
                 var correspondingExtraData = ScoreboardData.Scoreboard[extraDataIndex];
 
