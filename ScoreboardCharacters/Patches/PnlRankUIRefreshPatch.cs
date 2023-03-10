@@ -73,10 +73,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             //   ...and so on...
             //   last entry is scoreboard entry #1
             var poolCount = __instance.m_RankPool.gameObjects.Count;
-            
-            // TODO remove
-            var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
-            
             for (int i = poolCount - 1; i > 0; i--)
             {
                 var actualEntry = __instance.m_RankPool.gameObjects[i];
@@ -84,13 +80,18 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 // we skip the first template entry in the for loop,
                 // and the data entries are in reverse order (see notes above)
                 var extraDataIndex = poolCount - 1 - i;
-                // check for missing data and explode somewhat less violently
+                // check for missing data and let the user know
                 if (extraDataIndex >= ScoreboardData.Scoreboard.Count)
                 {
-                    // should probably retry getting the scoreboard data from __instance.m_SelfRank ?
-                    logger.Error($"Aaaaa index exception imminent! Have {ScoreboardData.Scoreboard.Count}, want {extraDataIndex}");
-                    // will probably flood the console for everything from missing index to 98
-                    continue;
+                    // a few words on the issue:
+                    // so far, it very rarely happens randomly (incomplete server response?)
+                    // or sometimes when quickly switching difficulties (data reset before this loop is completed?)
+                    // it's not that common or breaking (a refresh fixes it), so just a warning for now
+                    // if we want to prevent this,
+                    // we should probably look into retrying the scoreboard data from __instance.m_SelfRank ?
+                    var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
+                    logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
+                    break;
                 }
                 var correspondingExtraData = ScoreboardData.Scoreboard[extraDataIndex];
 
