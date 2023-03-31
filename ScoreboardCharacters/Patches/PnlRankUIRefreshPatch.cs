@@ -76,16 +76,24 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             for (int i = poolCount - 1; i > 0; i--)
             {
                 var actualEntry = __instance.m_RankPool.gameObjects[i];
-                
-                // we skip the first template entry in the for loop,
-                // and the data entries are in reverse order (see notes above)
+                // if it's not active (not shown on the scoreboard),
+                // we should silently skip filling from it onwards
+                // (most likely, there are less than 99 entries)
+                if (!actualEntry.active)
+                {
+                    break;
+                }
+
+                // unlike the pool, scoreboard data is stored simply:
+                // index 0 is entry #1, index 1 is entry #2 and so on
+                // this calculates the scoreboard data index from the pool index
                 var extraDataIndex = poolCount - 1 - i;
                 // check for missing data and let the user know
                 if (extraDataIndex >= ScoreboardData.Scoreboard.Count)
                 {
                     // a few words on the issue:
                     // so far, it very rarely happens randomly (incomplete server response?)
-                    // or sometimes when quickly switching difficulties (data reset before this loop is completed?)
+                    // or sometimes when *quickly* switching difficulties (data reset before this loop is completed?)
                     // it's not that common or breaking (a refresh fixes it), so just a warning for now
                     // if we want to prevent this,
                     // we should probably look into retrying the scoreboard data from __instance.m_SelfRank ?
