@@ -25,8 +25,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         MarijaSister,
         Marisa,
         Amiya,
+        OlaBoxer,
         // these are here so that we can use the IDs even without an update
-        MysteryCharacter23,
         MysteryCharacter24,
         MysteryCharacter25,
         MysteryCharacter26,
