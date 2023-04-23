@@ -11,6 +11,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         LittleNurse,
         LittleWitch,
         DragonGirl,
+        Lilith,
         DrPaige,
         Silencer,
         // these are here so that we can use the IDs even without an update
