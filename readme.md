@@ -9,11 +9,11 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 # Mod list
 Currently, this repo contains two scoreboard-related mods. (More to come?)  
 
-These can be used together. Support for other mods is unknown -- probably should work if other mods do not change the scoreboard itself and character selection too much. No guarantees though.
+These can be used together. Compatibility with other mods is unknown -- probably should work if other mods do not mess with the scoreboard itself and character selection too much. No guarantees though.
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`  
-This mod adds buttons to show charater and elfin used to obtain the score within the in-game scoreboard:
+This mod adds buttons to show charater and elfin used to obtain the score to the in-game scoreboard:
 
 TODO image
 
@@ -39,7 +39,7 @@ Please note that the game servers track only top 2000 entries. If you score less
 
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** (for now?), absolutely no idea about compatibility with newer versions.  
-Once you have MelonLoader installed, drop the DLLs of desired mods into mods folder.
+Once you have MelonLoader installed, drop the DLLs of desired mods into mods folder. Remove to uninstall.
 
 Rather than downloading these, I suggest (reviewing the source and) building them yourself -- this way you'll be sure the mods behave as advertised. See "Building Instructions" section below.  
 Otherwise, please verify the downloads via checksums provided for every release.
@@ -95,8 +95,7 @@ _Workaround: bear with it ¯\\\_(ツ)\_/¯_
 TODO image  
 I'm too lazy too investigate what exactly in the long pipeline of  
 `image embedded in DLL -> in-mod magic -> Unity magic -> image on the screen`  
-(everything while running .NET 4.7.2 via Proton for me)  
-actually adds these. Sorry.
+actually adds these. Sorry.  
 
 ## True rank
 None, unless something that I think comes from Scoreboard characters actually comes from here. Then again, this one is way more simplier.
@@ -104,7 +103,7 @@ None, unless something that I think comes from Scoreboard characters actually co
 # Building instructions
 This repo is a run-of-the-mill .NET solution targeting .NET 4.7.2.
 
-The only gotcha is that some libraries required to build it are not included because of file size (and licensing issues). Your installation of MelonLoader will generate them for you:
+The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you:
 * Copy all files from `MelonLoader/Managed` folder from the game install to the `references` folder of this repo.
 * Copy `MelonLoader.dll` from `MelonLoader` folder from the game install to the `references` folder of this repo.
 
