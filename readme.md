@@ -107,6 +107,6 @@ The only gotcha is that some libraries required to build it are not included bec
 * Copy all files from `MelonLoader/Managed` folder from the game install to the `references` folder of this repo.
 * Copy `MelonLoader.dll` from `MelonLoader` folder from the game install to the `references` folder of this repo.
 
-This should cover the existing references. If the build fails with a missing library, try searching for it in `MelonLoader` folder you got all other libraries from. And please let me know so I can update this section.
+This should cover the existing references.
 
 There are few places that definitely need improvements in the code, see TODOs. I'd love to get help with these, feel free to fork/make pull requests.
