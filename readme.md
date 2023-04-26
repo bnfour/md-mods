@@ -3,13 +3,12 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 # Disclaimers
 * These mods are unofficial and are not associated with, related to, and/or endorsed by peropero, hasuhasu, and/or XD.
 * USE AT YOUR OWN RISK. NO WARRANTIES.
-* Please read FAQ and "Known Issues" sections below.
-* Do not expect 100% reliability from stuff made by one guy in spare time. 
+* Please read [FAQ](#frequently-asked-questions) and ["Known Issues"](#known-issues).
 
 # Mod list
-Currently, this repo contains two scoreboard-related mods. (More to come?)  
+Currently, this repo contains two scoreboard-related mods.
 
-These can be used together. Compatibility with other mods is unknown -- probably should work if other mods do not mess with the scoreboard itself and character selection too much. No guarantees though.
+They can be used together. Compatibility with other mods is unknown -- probably should work if other mods do not mess with the scoreboard itself and character selection too much. No guarantees though.
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`
@@ -21,13 +20,10 @@ This mod adds buttons to show charater and elfin used to obtain the score to the
 These can be clicked, and will set your current character and elfin to these. It will even scroll the selection screens for you.
 
 ### Image overload
-If you don't like the provided default images on the buttons (my quick and dirty cropped screenshots of the selection screen; devs please let me know if this is an infrigiment before firing a complaint), these can be changed.
+If you don't like the provided default images on the buttons (my quick and dirty cropped screenshots of the selection screen; devs please let me know if this is an infrigiment before firing a complaint), they can be changed.
 
-To override, you need to place a 960×960 PNG image named `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. Individual sprites are 120×120, see `ScoreboardCharacters/Resources/sprites.png` for aligning them to the spritesheet.  
+To override the default builtin image, you need to place a 960×960 PNG named `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. Individual sprites are 120×120, see `ScoreboardCharacters/Resources/sprites.png` for aligning them to the spritesheet.  
 The override will silently fail if any of these differ from expected values. If you don't see your custom images, please double-check the file name, location, and resolution.
-
-### Futureproofing
-The mod is designed to survive new character/elfin additions: new characters and elfins won't have a proper image and the mod will warn you it's unable to scroll the selection screens to them, but the core function of switching on click still work.
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
@@ -39,11 +35,14 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 Please note that the game servers only track top 2000 entries. If you score less, it won't be tracked and there's nothing this mod can do.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** (for now?), absolutely no idea about compatibility with newer versions.  
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported**, absolutely no idea about compatibility with newer versions.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into mods folder. Remove to uninstall.
 
-Rather than downloading these, I suggest (reviewing the source and) building them yourself -- this way you'll be sure the mods behave as advertised. See "Building Instructions" section below.  
+Rather than downloading these, I suggest (reviewing the source and) building them yourself -- this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads via checksums provided for every release.
+
+## Verification
+Every version to be released will be accompanied with SHA256 hashes of every DLL. MelonLoader do print these in console when loading mods, but I suggest to verify hashes before running any code.
 
 # Frequently Asked Questions
 (or, more accurately, "I thought you may want to know this")
@@ -67,11 +66,11 @@ _tl;dr: read known issues section first, and remember: NO WARRANTIES_
 
 Please make sure you're using supported **(0.5.7)** version of MelonLoader.
 
-There are some issues I do know about, but too lazy and/or incompetent to fix. These are listed in the "Known Issues" section below. Please do not open issues for them.  
+There are some issues I do know about, see ["Known Issues"](#known-issues). Please do not report these, I'm well aware of them.  
 There might be (and probably are) issues I do not know about, feel free to report these and we'll see what can be done.
 
 # Known issues
-I play the game on GNU/Linux, so some of these may be attributed to Proton shenanigans rather than shenanigans of Unity, game itself, or dotnet runtime. If you're not experiencing these, good for you.
+I play the game on GNU/Linux, so some of these may be attributed to Proton/Wine shenanigans rather than shenanigans of Unity, game itself, or dotnet runtime. If you're not experiencing these, good for you.
 
 ## Scoreboard characters
 ### The buttons may not work on first click
@@ -100,13 +99,11 @@ actually creates these. Sorry. It's not that noticeable anyway, I hope.
 ## True rank
 None, unless something that I think comes from Scoreboard characters actually comes from here. Then again, this one is way more simplier.
 
-# Building instructions
+# Building from source
 This repo is a run-of-the-mill .NET solution targeting .NET 4.7.2.
 
 The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you:
 * Copy all files from `MelonLoader/Managed` folder from the game install to the `references` folder of this repo.
 * Copy `MelonLoader.dll` from `MelonLoader` folder from the game install to the `references` folder of this repo.
 
-This should cover the existing references.
-
-There are few places that definitely need improvements in the code, see TODOs. I'd love to get help with these, feel free to fork/make pull requests.
+This should cover the references in both mods.
