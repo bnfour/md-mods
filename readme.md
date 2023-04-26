@@ -6,9 +6,7 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 * Please read [FAQ](#frequently-asked-questions) and ["Known Issues"](#known-issues).
 
 # Mod list
-Currently, this repo contains two scoreboard-related mods.
-
-They can be used together. Compatibility with other mods is unknown -- probably should work if other mods do not mess with the scoreboard itself and character selection too much. No guarantees though.
+Currently, this repo contains two scoreboard-related mods. They can be used together.
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`
@@ -39,18 +37,18 @@ These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you
 Once you have MelonLoader installed, drop the DLLs of desired mods into mods folder. Remove to uninstall.
 
 Rather than downloading these, I suggest (reviewing the source and) building them yourself -- this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
-Otherwise, please verify the downloads via checksums provided for every release.
+Otherwise, please verify the downloads.
 
 ## Verification
-Every version to be released will be accompanied with SHA256 hashes of every DLL. MelonLoader do print these in console when loading mods, but I suggest to verify hashes before running any code.
+Every release will be accompanied with SHA256 hashes of every DLL. MelonLoader do print these in console when loading mods, but I suggest to verify hashes before running any code.
 
 # Frequently Asked Questions
 (or, more accurately, "I thought you may want to know this")
 ### Is this cheating?
-_tl;dr: most likely not, depends on your definition_
+_tl;dr: no_
 
-These mods provide with the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game and on the website on another screen (and forgetting that second character in "YInMn Blue" is an uppercase I and not a lowercase L. Every single time).  
-The mods provide no advantage in the actual gameplay, only some convinence in track selection stage. You still have to git gud to get high scores; you just know what character to pick.
+These mods provide with the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game and on the website on another screen.  
+The mods provide no advantage in the actual gameplay, only some convinence in track selection stage. You still have to git gud to get high scores; you just know what character to pick and where exactly on the scoreboard you are.
 
 Unless you count _any_ intervention for _any_ purpose with the game as cheating, this is not cheating.
 
@@ -61,13 +59,18 @@ As I stated in previous question, I don't believe this is cheating. I've been us
 
 Remember that you're using the mods **at your own risk**. I warned you many times in this readme.
 
+### I have other mods. What about compability with them?
+_tl;dr: idk_
+
+The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other ones, unless the other mods change the default scoreboard components or character selection logic.
+
 ### My game broke because of you, how can I blame you?
 _tl;dr: read known issues section first, and remember: NO WARRANTIES_
 
 Please make sure you're using supported **(0.5.7)** version of MelonLoader.
 
-There are some issues I do know about, see ["Known Issues"](#known-issues). Please do not report these, I'm well aware of them.  
-There might be (and probably are) issues I do not know about, feel free to report these and we'll see what can be done.
+There are some known issues, see [just below](#known-issues). Please do not report these, I'm well aware of them.  
+There might be (and probably are) other issues, feel free to report these.
 
 # Known issues
 I play the game on GNU/Linux, so some of these may be attributed to Proton/Wine shenanigans rather than shenanigans of Unity, game itself, or dotnet runtime. If you're not experiencing these, good for you.
@@ -79,7 +82,7 @@ _Workaround: doubleclick them ¯\\\_(ツ)\_/¯_
 For whatever reason, for me, buttons (not just these added by the mod) do not respond to the first click on the screen. The issue is not that noticeable because everything else also has keyboard controls. Clicking once anywhere seems to fix the issue for the current menu.
 
 ### The scoreboard may not be fully populated
-_Workaround: try to refresh [F5] if there are less than 99 entries_
+_Workaround: try to refresh \[F5\] if there are less than 99 entries_
 
 For whatever reason, the scoreboard data is rarely appears to be cut short at the time of populating the custom buttons. Refresing the scoreboard _usually_ works. It didn't for me only once so far.  
 Please note that the scoreboard might actually have less than 99 entries, if the track was relased a few hours ago.
@@ -107,3 +110,5 @@ The only gotcha is that some libraries required to build it are not included bec
 * Copy `MelonLoader.dll` from `MelonLoader` folder from the game install to the `references` folder of this repo.
 
 This should cover the references in both mods.
+
+After that, just run `dotnet build`.
