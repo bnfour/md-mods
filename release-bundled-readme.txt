@@ -1,5 +1,5 @@
-Please see https://github.com/bnfour/md-mods for full information.
-==================================================================
+Please see https://github.com/bnfour/md-mods for full information, most importantly, the checksums.
+===================================================================================================
 
 Use these with MelonLoader 0.5.7
 --------------------------------
