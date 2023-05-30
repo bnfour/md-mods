@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Bnfour.MuseDashMods.Experimental</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Local references -->
+  <ItemGroup>
+    <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
+    <Reference Include="../references/MelonLoader.dll" />
+    <Reference Include="../references/Assembly-CSharp.dll" />
+    <Reference Include="../references/Il2Cppmscorlib.dll" />
+    <Reference Include="../references/UnhollowerBaseLib.dll" />
+  </ItemGroup>
+  <!-- NuGet references -->
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+  </ItemGroup>
+
+</Project>
