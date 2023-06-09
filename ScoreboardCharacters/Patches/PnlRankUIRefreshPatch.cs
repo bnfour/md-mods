@@ -12,7 +12,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
     /// A patch to extract additional data (character and elfin ids)
     /// from the full API response and display it as part of the scoreboard.
     /// </summary>
-    [HarmonyPatch(typeof(PnlRank), "UIRefresh")]
+    [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.UIRefresh))]
     public class PnlRankUIRefreshPatch
     {
         private static readonly Data.AdditionalScoreboardData ScoreboardData = new Data.AdditionalScoreboardData();
