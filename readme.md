@@ -1,9 +1,9 @@
-Unofficial quality of life modifications for the PC version of the hit video game Muse Dash using MelonLoader **0.5.7**
+Unofficial quality of life modifications for the PC version of the hit video game Muse Dash using MelonLoader.
 
 # Disclaimers
 * These mods are unofficial and are not associated with, related to, and/or endorsed by peropero, hasuhasu, and/or XD.
 * USE AT YOUR OWN RISK. NO WARRANTIES.
-* Please read [FAQ](#frequently-asked-questions) and ["Known Issues"](#known-issues).
+* Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Mod list
 Currently, this repo contains two scoreboard-related mods. They can be used together.
@@ -13,6 +13,7 @@ Mod file: `ScoreboardCharacters.dll`
 
 This mod adds buttons to show charater and elfin used to obtain the score to the in-game scoreboard:
 
+TODO update the image  
 ![earlier in the development there were numerical IDs, so that's an improvement](readme-images/scoreboard-characters.png)
 
 These can be clicked, and will set your current character and elfin to these. It will even scroll the selection screens for you.
@@ -21,7 +22,7 @@ These can be clicked, and will set your current character and elfin to these. It
 If you don't like the provided default images on the buttons (my quick and dirty cropped screenshots of the selection screen; devs please let me know if this is an infrigiment before firing a complaint), they can be changed.
 
 To override the default builtin image, you need to place a 960×960 PNG named `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. Individual sprites are 120×120, see `ScoreboardCharacters/Resources/sprites.png` for aligning them to the spritesheet.  
-The override will silently fail if any of these differ from expected values. If you don't see your custom images, please double-check the file name, location, and resolution.
+The override will be silently ignored if any of these differ from expected values. If you don't see your custom images, please double-check the file name, location, and resolution.
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
@@ -33,14 +34,14 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 Please note that the game servers only track top 2000 entries. If you score less, it won't be tracked and there's nothing this mod can do.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported**, absolutely no idea about compatibility with newer versions.  
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** for now, absolutely no idea about compatibility with newer versions.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into mods folder. Remove to uninstall.
 
 Rather than downloading these, I suggest (reviewing the source and) building them yourself -- this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
 
 ## Verification
-Every release will be accompanied with SHA256 hashes of every DLL. MelonLoader do print these in console when loading mods, but I suggest to verify hashes before running any code.
+Every release will be accompanied with SHA256 hashes of every DLL. MelonLoader does print these in console when loading mods, but I suggest to verify hashes before installation.
 
 # Frequently Asked Questions
 (or, more accurately, "I thought you may want to know this")
@@ -53,54 +54,24 @@ The mods provide no advantage in the actual gameplay, only some convinence in tr
 Unless you count _any_ intervention for _any_ purpose with the game as cheating, this is not cheating.
 
 ### Will I get banned for using these?
-_tl;dr: probably not, but NO WARRANTIES; USE AT YOUR OWN RISK and don't blame me_
+_tl;dr: probably not, but NO WARRANTIES; USE AT YOUR OWN RISK_
 
-As I stated in previous question, I don't believe this is cheating. I've been using these in various in-development stages for a few months, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility unintentionally.  
+As I stated in previous question, I don't believe this is cheating. I've been using these in various in-development stages for a few months, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.  
 
-Remember that you're using the mods **at your own risk**. I warned you many times in this readme.
+Remember that you're using the mods **at your own risk**. I have warned you many times in this readme.
 
 ### I have other mods. What about compability with them?
-_tl;dr: idk_
+_tl;dr: ¯\\\_(ツ)\_/¯_
 
 The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other ones, unless the other mods change the default scoreboard components or character selection logic.
 
 ### My game broke because of you, how can I blame you?
-_tl;dr: read known issues section first, and remember: NO WARRANTIES_
+_tl;dr: see issues, and remember: NO WARRANTIES_
 
-Please make sure you're using supported **(0.5.7)** version of MelonLoader.
+* Please make sure you're using supported **(0.5.7)** version of MelonLoader.
+* Try to remove mods not from this repo.
 
-There are some known issues, see [just below](#known-issues). Please do not report these, I'm well aware of them.  
-There might be (and probably are) other issues, feel free to report these.
-
-# Known issues
-I play the game on GNU/Linux, so some of these may be attributed to Proton/Wine shenanigans rather than shenanigans of Unity, game itself, or dotnet runtime. If you're not experiencing these, good for you.
-
-## Scoreboard characters
-### The buttons may not work on first click
-_Workaround: doubleclick them ¯\\\_(ツ)\_/¯_
-
-For whatever reason, for me, buttons (not just these added by the mod) do not respond to the first click on the screen. The issue is not that noticeable because everything else also has keyboard controls. Clicking once anywhere seems to fix the issue for the current menu.
-
-### The scoreboard may not be fully populated
-_Workaround: try to refresh \[F5\] if there are less than 99 entries_
-
-For whatever reason, the scoreboard data is rarely appears to be cut short at the time of populating the custom buttons. Refresing the scoreboard _usually_ works. It didn't for me only once so far.  
-Please note that the scoreboard might actually have less than 99 entries, if the track was relased a few hours ago.
-
-### The heart symbol of selected character or elfin may linger for a few frames after leaving the selection screen
-_Workaround: bear with it ¯\\\_(ツ)\_/¯_
-
-Absolutely no data on this one. It's just there, no idea why.
-
-### The scoreboard images may have slight artifacts
-_Workaround: bear with it ¯\\\_(ツ)\_/¯_
-
-I'm too lazy too investigate what exactly in the long pipeline of  
-`image embedded in DLL -> in-mod magic -> Unity magic -> image on the screen`  
-actually creates these. Sorry. It's not that noticeable anyway, I hope.
-
-## True rank
-None, unless something that I think comes from Scoreboard characters actually comes from here. Then again, this one is way more simplier.
+If none of these helps, feel free to write an issue, unless it's already present.
 
 # Building from source
 This repo is a run-of-the-mill .NET solution targeting .NET 4.7.2.
