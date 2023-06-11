@@ -26,7 +26,7 @@ The override will be silently ignored if any of these differ from expected value
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
 
-This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000--2000 range:
+This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000–2000 range:
 
 ![simulated image, no (you)s were harmed during production](readme-images/true-rank-showcase.png)
 
@@ -36,7 +36,7 @@ Please note that the game servers only track top 2000 entries. If you score less
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** for now, absolutely no idea about compatibility with newer versions.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into mods folder. Remove to uninstall.
 
-Rather than downloading these, I suggest (reviewing the source and) building them yourself -- this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
+Rather than downloading these, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
 
 ## Verification
