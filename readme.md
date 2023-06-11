@@ -13,8 +13,7 @@ Mod file: `ScoreboardCharacters.dll`
 
 This mod adds buttons to show charater and elfin used to obtain the score to the in-game scoreboard:
 
-TODO update the image  
-![earlier in the development there were numerical IDs, so that's an improvement](readme-images/scoreboard-characters.png)
+![earlier in the development these were numerical IDs, so that's an improvement](readme-images/scoreboard-characters.png)
 
 These can be clicked, and will set your current character and elfin to these. It will even scroll the selection screens for you.
 
