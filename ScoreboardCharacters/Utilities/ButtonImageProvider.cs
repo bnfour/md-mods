@@ -26,6 +26,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         // 3× the supposed size
         // TODO support for non-square sprites?
         private const int SpriteSize = 120;
+        // the texture's dimensions should be powers of two to avoid mipmapping artifacts
+        private const int TextureWidth = 256;
+        private const int TextureHeight = 128;
 
         private readonly Rectangle CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
         private readonly Rectangle ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
@@ -77,7 +80,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
         private Sprite CreateSprite(Character character, Elfin elfin)
         {
-            var buttonBitmap = new Bitmap(2 * SpriteSize, SpriteSize);
+            var buttonBitmap = new Bitmap(TextureWidth, TextureHeight);
             using (var graphics = System.Drawing.Graphics.FromImage(buttonBitmap))
             {
                 graphics.DrawImage(CustomAtlas, CharacterDestinationRectangle, GetSpriteRectangle(character), GraphicsUnit.Pixel);
