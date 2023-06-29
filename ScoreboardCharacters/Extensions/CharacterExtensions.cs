@@ -6,7 +6,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
 {
     public static class CharacterExtensions
     {
-        private const Character LastKnown = Character.OlaBoxer;
+        private const Character LastKnown = Character.BuroExorcist;
 
         private static readonly List<Character> KnownOrder = new List<Character>
         {
@@ -21,6 +21,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
             Character.BuroZombie,
             Character.BuroJoker,
             Character.BuroJK,
+            Character.BuroExorcist,
             Character.OlaBoxer,
             Character.MarijaDefault,
             Character.MarijaMaid,
