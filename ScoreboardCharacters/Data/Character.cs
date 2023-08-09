@@ -1,9 +1,5 @@
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
 {
-    // TODO find a similar enum within the game so we still store data in a somewhat typed way,
-    // but without having to maintain our own copy of data
-    // same with Elfin
-
     public enum Character
     {
         RinDefault,
