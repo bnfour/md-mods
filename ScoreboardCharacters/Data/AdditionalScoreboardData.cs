@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
@@ -19,11 +18,5 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         /// if the player is good enough.
         /// </summary>
         public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; }
-
-        public void Clear()
-        {
-            Self = null;
-            Scoreboard = new List<AdditionalScoreboardDataEntry>(99);
-        }
     }
 }
