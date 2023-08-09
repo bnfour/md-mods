@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Assets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 {
@@ -15,15 +16,15 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
     [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.UIRefresh))]
     public class PnlRankUIRefreshPatch
     {
-        private static readonly Data.AdditionalScoreboardData ScoreboardData = new Data.AdditionalScoreboardData();
-
         /// <summary>
-        /// Prefix method to populate additional data to display from full response,
-        /// which should be in "cache" dict when UIRefresh is called.
+        /// Prefix method to populate additional data to display from full API response.
         /// </summary>
-        private static void Prefix(string uid, PnlRank __instance)
+        /// <param name="uid">Song unique id, used to get data from the scoreboard.</param>
+        /// <param name="__instance">The instance of <see cref="PnlRank"/> to patch UI in.</param>
+        /// <param name="__state">Additional scoreboard data to pass to <see cref="Postfix"/>.</param>
+        private static void Prefix(string uid, PnlRank __instance, out AdditionalScoreboardData __state)
         {
-            ScoreboardData.Clear();
+            __state = new AdditionalScoreboardData();
 
             if (__instance.m_SelfRank.ContainsKey(uid))
             {
@@ -35,7 +36,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 
                 if (selfRank.Info != null)
                 {
-                    ScoreboardData.Self = new Data.AdditionalScoreboardDataEntry(selfRank.Info);
+                    __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
                     
                     // couldn't find a better place to update it beforehand :(
                     // TODO search for a way to permanently apply the mod UI like for the scoreboard pool
@@ -50,22 +51,32 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
 
                 foreach (var entry in scoreboard)
                 {
-                    var data = new Data.AdditionalScoreboardDataEntry(entry.Info);
-                    ScoreboardData.Scoreboard.Add(data);
+                    var data = new AdditionalScoreboardDataEntry(entry.Info);
+                    __state.Scoreboard.Add(data);
                 }
             }
         }
 
-        private static void Postfix(string uid, PnlRank __instance)
+        // uid is unused in Postfix, but still required
+        // for method to qualify as a patch for PnlRank.UIRefresh
+        #pragma warning disable IDE0060
+
+        /// <summary>
+        /// Postfix method to actually display the data gathered in <see cref="Prefix"/> in the UI.
+        /// </summary>
+        /// <param name="uid">Song unique id, unused.</param>
+        /// <param name="__instance">The instance of <see cref="PnlRank"/> to patch UI in.</param>
+        /// <param name="__state">Scoreboard data to display, filled in <see cref="Prefix"/>.</param>
+        private static void Postfix(string uid, PnlRank __instance, AdditionalScoreboardData __state)
         {
             // self-rank is handled separately
-            if (ScoreboardData.Self != null)
+            if (__state.Self != null)
             {
-                UiPatcher.FillData(__instance.server, ScoreboardData.Self);
+                UiPatcher.FillData(__instance.server, __state.Self);
             }
             // the scoreboard itself is pooled
-            // first objects seems to be the template (?), never shown on screen
-            // then actual ranks to be shown, in reverse order
+            // the first object seems to be the template (?), never shown on screen
+            // then there are actual ranks to be shown, in reverse order
             // so, at most 100 objects in pool:
             //   #0 is unused,
             //   #1 is last scoreboard entry (#99 in most cases),
@@ -89,7 +100,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 // this calculates the scoreboard data index from the pool index
                 var extraDataIndex = poolCount - 1 - i;
                 // check for missing data and let the user know
-                if (extraDataIndex >= ScoreboardData.Scoreboard.Count)
+                if (extraDataIndex >= __state.Scoreboard.Count)
                 {
                     // a few words on the issue:
                     // so far, it very rarely happens randomly (incomplete server response?)
@@ -101,10 +112,12 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                     logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
                     break;
                 }
-                var correspondingExtraData = ScoreboardData.Scoreboard[extraDataIndex];
+                var correspondingExtraData = __state.Scoreboard[extraDataIndex];
 
                 UiPatcher.FillData(actualEntry, correspondingExtraData);
             }
         }
+
+        #pragma warning restore IDE0060
     }
 }
