@@ -4,6 +4,10 @@ using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Extensions
 {
+    // TODO this entire class is probably no longer needed
+    // as I found the way to query the game's database for ordering
+    // same with ElfinExtensions
+
     public static class CharacterExtensions
     {
         private const Character LastKnown = Character.BuroExorcist;
