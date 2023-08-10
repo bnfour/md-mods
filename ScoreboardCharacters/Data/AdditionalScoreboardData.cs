@@ -17,6 +17,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         /// Data for the scoreboard. May include an entry duplicating <see cref="Self"/>,
         /// if the player is good enough.
         /// </summary>
-        public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; }
+        public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; } = new List<AdditionalScoreboardDataEntry>(99);
     }
 }

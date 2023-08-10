@@ -41,17 +41,19 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             elfinScrollView = null;
         }
 
-        // TODO actually test once servers are up
         private void ScrollMenus(Character character, Elfin elfin)
         {
-            
+            // one thing to note:
+            // DBConfig<N>.Get<N>InfoByIndex returns 1-based order,
+            // FancyScrollView uses 0-based order
+
             var elfinOrder = Singleton<ConfigManager>.instance.GetConfigObject<DBConfigElfin>(-1).GetElfinInfoByIndex((int)elfin)?.order;
             if (elfinOrder != null)
             {
                 elfinScrollView = elfinScrollView ?? GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
                 if (elfinScrollView != null)
                 {
-                    elfinScrollView.currentScrollPosition = elfinOrder.Value;
+                    elfinScrollView.currentScrollPosition = elfinOrder.Value - 1;
                 }
             }
 
@@ -61,7 +63,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 characterScrollView = characterScrollView ?? GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
                 if (characterScrollView != null)
                 {
-                    characterScrollView.currentScrollPosition = characterOrder.Value;
+                    characterScrollView.currentScrollPosition = characterOrder.Value - 1;
                 }
             }
         }
