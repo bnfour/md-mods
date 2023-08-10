@@ -48,14 +48,14 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                     buttonComponent.onClick.AddListener((UnityAction) new Action(() =>
                     {
                         var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
-                        switcher.Switch(dataEntry.CharacterId, dataEntry.ElfinId);
+                        switcher.Switch(dataEntry.Character, dataEntry.Elfin);
                     }));
 
                     var imageComponent = buttonComponent.image;
                     if (imageComponent != null)
                     {
                         var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
-                        imageComponent.sprite = provider.GetSprite(dataEntry.CharacterId, dataEntry.ElfinId);
+                        imageComponent.sprite = provider.GetSprite(dataEntry.Character, dataEntry.Elfin);
                     }
                 }
             }

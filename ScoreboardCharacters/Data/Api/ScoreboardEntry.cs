@@ -1,4 +1,3 @@
-using System;
 using Newtonsoft.Json;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api

@@ -23,8 +23,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         private const int CharactersPerRow = 5;
         private const int ElfinsPerRow = 3;
         private const int ElfinStartColumn = 5;
-        // 3× the supposed size
-        // TODO support for non-square sprites?
+
         private const int SpriteSize = 120;
         // the texture's dimensions should be powers of two to avoid mipmapping artifacts
         private const int TextureWidth = 256;

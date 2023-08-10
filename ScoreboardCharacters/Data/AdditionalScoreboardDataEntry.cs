@@ -1,5 +1,3 @@
-using System;
-
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
 {
     /// <summary>
@@ -7,13 +5,13 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
     /// </summary>
     public class AdditionalScoreboardDataEntry
     {
-        public Character CharacterId { get; private set; }
-        public Elfin ElfinId { get; private set; }
+        public Character Character { get; private set; }
+        public Elfin Elfin { get; private set; }
 
         public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
         {
-            CharacterId = (Character)int.Parse(detail.CharacterId);
-            ElfinId = string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
+            Character = (Character)int.Parse(detail.CharacterId);
+            Elfin = string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
         }
     }
 }
