@@ -57,17 +57,12 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
             }
         }
 
-        // uid is unused in Postfix, but still required
-        // for method to qualify as a patch for PnlRank.UIRefresh
-        #pragma warning disable IDE0060
-
         /// <summary>
         /// Postfix method to actually display the data gathered in <see cref="Prefix"/> in the UI.
         /// </summary>
-        /// <param name="uid">Song unique id, unused.</param>
         /// <param name="__instance">The instance of <see cref="PnlRank"/> to patch UI in.</param>
         /// <param name="__state">Scoreboard data to display, filled in <see cref="Prefix"/>.</param>
-        private static void Postfix(string uid, PnlRank __instance, AdditionalScoreboardData __state)
+        private static void Postfix(PnlRank __instance, AdditionalScoreboardData __state)
         {
             // self-rank is handled separately
             if (__state.Self != null)
@@ -117,7 +112,5 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
                 UiPatcher.FillData(actualEntry, correspondingExtraData);
             }
         }
-
-        #pragma warning restore IDE0060
     }
 }
