@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches
         // hook the creation of pool of reused objects for scoreboard entries
         // just before it's populated and modify the template to our needs,
         // so every instance from the pool has our extra component
-        private static void Prefix(GameObject prefab, bool warmOnLoad, int preloadCount, int capacity, [Optional] Transform newRootTransform)
+        private static void Prefix(GameObject prefab)
         {
             if (prefab.name == "RankCell_4-3")
             {

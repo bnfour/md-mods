@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
@@ -18,12 +17,6 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         /// Data for the scoreboard. May include an entry duplicating <see cref="Self"/>,
         /// if the player is good enough.
         /// </summary>
-        public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; }
-
-        public void Clear()
-        {
-            Self = null;
-            Scoreboard = new List<AdditionalScoreboardDataEntry>(99);
-        }
+        public List<AdditionalScoreboardDataEntry> Scoreboard { get; set; } = new List<AdditionalScoreboardDataEntry>(99);
     }
 }
