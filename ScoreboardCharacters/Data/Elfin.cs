@@ -14,8 +14,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         Lilith,
         DrPaige,
         Silencer,
+        NeonEgg,
         // these are here so that we can use the IDs even without an update
-        MysteryElfin10,
         MysteryElfin11,
         MysteryElfin12
     }
