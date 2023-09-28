@@ -27,8 +27,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
         Amiya,
         OlaBoxer,
         BuroExorcist,
+        HatsuneMiku,
         // these are here so that we can use the IDs even without an update
-        MysteryCharacter25,
         MysteryCharacter26,
         MysteryCharacter27,
         MysteryCharacter28,
