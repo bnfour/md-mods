@@ -91,7 +91,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                     var texture = new Texture2D(1, 1);
                     ImageConversion.LoadImage(texture, byteStream.ToArray());
                     // Rect is not a Rectangle, unfortunate mixing in one file
-                    var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * SpriteSize, SpriteSize), new Vector2(0.5f, 0.5f));
+                    // it seems that vertical positioning for those is also different,
+                    // so we need to adjust the coordinates to crop
+                    var sprite = Sprite.Create(texture, new Rect(0, TextureHeight - SpriteSize, 2 * SpriteSize, SpriteSize), new Vector2(0.5f, 0.5f));
 
                     return sprite;
                 }
