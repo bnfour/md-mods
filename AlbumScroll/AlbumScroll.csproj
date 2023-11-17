@@ -12,6 +12,8 @@
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
     <Reference Include="../references/UnhollowerBaseLib.dll" />
+    <Reference Include="../references/UnityEngine.CoreModule.dll" />
+    <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
   </ItemGroup>
   <!-- NuGet references -->
   <ItemGroup>
