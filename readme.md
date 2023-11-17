@@ -6,7 +6,7 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 * Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Mod list
-Currently, this repo contains two scoreboard-related mods. They can be used together.
+Currently, this repo contains three mods: two are scoreboard related, and another one enhances song select screen. They can be used together.
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`
@@ -32,8 +32,15 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 
 Please note that the game servers only track top 2000 entries. If you score less, it won't be tracked and there's nothing this mod can do.
 
+## Album scroll
+Mod file: `AlbumScroll.dll`
+
+This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold Shift key while scrolling (A/D, ←/→, mouse wheel, on-screen buttons — this mods works with all of these). This will scroll to the closest song from a different album.
+
+Please note that this mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode. It's best to use single taps with this mod.
+
 ## Experimental mod
-That's not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without changing existing proper mods. Some of my internal random stuff testing may find its way to this repo as a next mod. Maybe.
+This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without changing existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way) in this project and then moved to it's own permanent project. 
 
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** for now, absolutely no idea about compatibility with newer versions.  
