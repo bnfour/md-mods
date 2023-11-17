@@ -4,7 +4,7 @@ using MelonLoader;
 
 using Bnfour.MuseDashMods.AlbumScroll;
 
-[assembly: MelonInfo(typeof(AlbumScrollMod), "Album Scroll", "0.0.1", "bnfour", "https://github.com/bnfour/md-mods")]
+[assembly: MelonInfo(typeof(AlbumScrollMod), "Album Scroll", "1.0.0", "bnfour", "https://github.com/bnfour/md-mods")]
 [assembly: MelonGame("PeroPeroGames", "MuseDash")]
 [assembly: MelonColor(ConsoleColor.Cyan)]
 [assembly: MelonAuthorColor(ConsoleColor.Gray)]
