@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueAbove1kRank", "TrueAbov
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimental", "Experimental\Experimental.csproj", "{082914E7-F674-44DE-A368-8DDC9071E5D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlbumScroll", "AlbumScroll\AlbumScroll.csproj", "{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{082914E7-F674-44DE-A368-8DDC9071E5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{082914E7-F674-44DE-A368-8DDC9071E5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{082914E7-F674-44DE-A368-8DDC9071E5D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
