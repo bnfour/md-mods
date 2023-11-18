@@ -1,8 +1,10 @@
-using Assets.Scripts.PeroTools.Nice.Components;
-using Bnfour.MuseDashMods.AlbumScroll.Data;
-using Bnfour.MuseDashMods.AlbumScroll.Utilities;
 using HarmonyLib;
 using MelonLoader;
+
+using Assets.Scripts.PeroTools.Nice.Components;
+
+using Bnfour.MuseDashMods.AlbumScroll.Data;
+using Bnfour.MuseDashMods.AlbumScroll.Utilities;
 
 namespace Bnfour.MuseDashMods.AlbumScroll.Patches
 {

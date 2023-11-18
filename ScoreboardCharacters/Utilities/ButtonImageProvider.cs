@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using UnityEngine;
+
+using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {

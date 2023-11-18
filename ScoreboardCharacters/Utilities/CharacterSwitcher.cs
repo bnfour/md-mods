@@ -1,9 +1,11 @@
+using UnityEngine;
+
 using Assets.Scripts.Database;
 using Assets.Scripts.PeroTools.Commons;
 using Assets.Scripts.PeroTools.Managers;
 using Assets.Scripts.PeroTools.Nice.Components;
+
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
-using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {

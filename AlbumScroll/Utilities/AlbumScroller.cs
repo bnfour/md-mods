@@ -1,12 +1,14 @@
 using System.Linq;
+
 using Assets.Scripts.Database;
 using Assets.Scripts.PeroTools.Nice.Components;
+
 using Bnfour.MuseDashMods.AlbumScroll.Data;
 
 namespace Bnfour.MuseDashMods.AlbumScroll.Utilities
 {
     /// <summary>
-    /// Contains the album-scrolling logic to be used in both patches.
+    /// Contains the album-scrolling logic to be reused in both patches.
     /// </summary>
     public static class AlbumScroller
     {
@@ -18,11 +20,10 @@ namespace Bnfour.MuseDashMods.AlbumScroll.Utilities
 
         private static int GetIndex(Direction direction)
         {
-            var currentIndex = GlobalDataBase.dbMusicTag.curSelectedMusicIdx;
-
             // this contains ids of songs included in the current view
             // random song entry is always included last with "?" instead of id
             var list = GlobalDataBase.dbMusicTag.m_StageShowMusicUids;
+            var currentIndex = GlobalDataBase.dbMusicTag.curSelectedMusicIdx;
             
             var currentAlbum = GetAlbumId(list[currentIndex]);
 
@@ -36,12 +37,10 @@ namespace Bnfour.MuseDashMods.AlbumScroll.Utilities
                     return i;
                 }
             }
-            // if index was not found during the for loop, we're going to loop through the list
-            // if moving forward, we're looping from random song to the very first one
-            // if moving backward, we're looping from the first album to the random song
-            return direction == Direction.Forward
-                ? 0
-                : listCount - 1;
+            // if index was not found during the for loop, we have to loop through the list:
+            // if moving forward, we're looping from random song to the first one,
+            // if moving backward, we're looping from the first album to random song
+            return direction == Direction.Forward ? 0 : listCount - 1;
         }
 
         private static string GetAlbumId(string songId)
@@ -49,7 +48,7 @@ namespace Bnfour.MuseDashMods.AlbumScroll.Utilities
             // the list contains song ids like "56-1", where the first number is album id,
             // and the second number is zero-based order of a song in the album
 
-            // we're only interested in the album number
+            // we're only comparing album ids here
             return songId.Split('-').First();
         }
     }

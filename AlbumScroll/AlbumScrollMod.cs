@@ -15,7 +15,6 @@ namespace Bnfour.MuseDashMods.AlbumScroll
 
         /// <summary>
         /// Used to track whether the UI scene is currently active.
-        /// If not, do not track keys.
         /// </summary>
         private bool _uiActive;
 
@@ -37,7 +36,7 @@ namespace Bnfour.MuseDashMods.AlbumScroll
         }
 
         /// <summary>
-        /// If the scene is right, keeps track of shift keys' state.
+        /// If the UI scene is loaded, keeps track of shift keys' state.
         /// </summary>
         public override void OnLateUpdate()
         {
