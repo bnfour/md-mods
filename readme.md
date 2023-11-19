@@ -37,6 +37,10 @@ Mod file: `AlbumScroll.dll`
 
 This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold Shift key while scrolling (A/D, ←/→, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
 
+Here's a little demo of switching entire albums by single Shift+Arrow key taps:
+
+https://github.com/bnfour/md-mods/assets/853426/92bb0375-95cb-40d3-81a8-8972ba9207af
+
 Please note that this mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode. It's best to use single taps to scroll albums.
 
 ## Experimental mod
