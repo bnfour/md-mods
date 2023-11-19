@@ -6,21 +6,21 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 * Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Mod list
-Currently, this repo contains two scoreboard-related mods. They can be used together.
+Currently, this repo contains three mods: two are scoreboard related, and another one enhances song select screen. They can be used together.
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`
 
 This mod adds buttons to show charater and elfin used to obtain the score to the in-game scoreboard:
 
-![It's hard to find scoreboards with different characters, more so with off-meta ones. This image was made just after an update, so the top scores aren't all the same character/elfin.](readme-images/scoreboard-characters.png)
+![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters.png)
 
 These buttons can be clicked, and will set your current character and elfin to these on the button. It will even scroll the selection screens for you.
 
 ### Image overload
 If you don't like the provided default images on the buttons (my quick and dirty cropped screenshots of the selection screen; devs please let me know if this is an infrigiment before firing a complaint), they can be changed to anything you want, as long as it fits a square image.
 
-To override the default builtin image, place a 960×960 PNG named `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. Individual sprites are 120×120, see `ScoreboardCharacters/Resources/sprites.png` for a reference for spritesheet placement.  
+To override the default image, place a 960×960 PNG named `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. Individual sprites are 120×120, see `ScoreboardCharacters/Resources/sprites.png` for a reference for spritesheet placement.  
 The override will be silently ignored if anything differs from expected values. If you don't see your custom images in the game, please double-check the file name, location, and resolution.
 
 ## True rank
@@ -32,8 +32,15 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 
 Please note that the game servers only track top 2000 entries. If you score less, it won't be tracked and there's nothing this mod can do.
 
+## Album scroll
+Mod file: `AlbumScroll.dll`
+
+This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold Shift key while scrolling (A/D, ←/→, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
+
+Please note that this mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode. It's best to use single taps to scroll albums.
+
 ## Experimental mod
-That's not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without changing existing proper mods. Some of my internal random stuff testing may find its way to this repo as a next mod. Maybe.
+This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without changing existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way) in this project and then moved to it's own permanent project. 
 
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** for now, absolutely no idea about compatibility with newer versions.  
@@ -66,7 +73,7 @@ Remember that you're using the mods **at your own risk**. I have warned you many
 ### I have other mods. What about compatibility with them?
 _tl;dr: ¯\\\_(ツ)\_/¯_
 
-The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other ones, unless the other mods change the default scoreboard components or character selection logic.
+The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other ones, unless the other mods change the vanilla code they use too much.
 
 ### My game is broken because of you and your mods, how can I blame you?
 _tl;dr: uninstall, and remember: NO WARRANTIES_
