@@ -4,9 +4,14 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>Bnfour.MuseDashMods.TrueAbove1kRank</RootNamespace>
   </PropertyGroup>
-  <!-- Local references -->
-  <ItemGroup>
-    <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
+
+  <!-- The following disables copying referenced dlls to the output folder -->
+  <ItemDefinitionGroup>
+    <PackageReference ExcludeAssets="runtime" />
+    <Reference Private="false" />
+  </ItemDefinitionGroup>
+
+  <ItemGroup Label="Local references">
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
@@ -16,8 +21,8 @@
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
   </ItemGroup>
-  <!-- NuGet references -->
-  <ItemGroup>
+  <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
+  
 </Project>
