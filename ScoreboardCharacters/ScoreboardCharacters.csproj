@@ -20,7 +20,6 @@
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
-    <Reference Include="../references/UnityEngine.AudioModule.dll" />
     <Reference Include="../references/Sirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
   </ItemGroup>
