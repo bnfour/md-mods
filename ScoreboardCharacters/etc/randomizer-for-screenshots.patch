@@ -1,0 +1,19 @@
+diff --git a/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs b/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs
+index ef87158..a70e786 100644
+--- a/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs
++++ b/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs
+@@ -8,10 +8,12 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data
+         public Character Character { get; private set; }
+         public Elfin Elfin { get; private set; }
+ 
++        private static readonly System.Random DemoScreenshotRandomizer = new System.Random();
++
+         public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
+         {
+-            Character = (Character)int.Parse(detail.CharacterId);
+-            Elfin = string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
++            Character = (Character)DemoScreenshotRandomizer.Next(26);//(Character)int.Parse(detail.CharacterId);
++            Elfin = (Elfin)DemoScreenshotRandomizer.Next(11);//string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
+         }
+     }
+ }
