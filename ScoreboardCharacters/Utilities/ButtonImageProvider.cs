@@ -14,7 +14,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
     /// </summary>
     public class ButtonImageProvider
     {
-        private const string EmbeddedResourceName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.png";
+        private const string EmbeddedResourceName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.1080.png";
         private const string OverrideFilename = "scoreboard_characters_override.png";
 
         private readonly Bitmap CustomAtlas;
@@ -25,7 +25,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         private const int ElfinsPerRow = 3;
         private const int ElfinStartColumn = 5;
 
-        private const int SpriteSize = 120;
+        // 40 at 1080 vertical resolution
+        private const int SpriteSize = 40;
         // the texture's dimensions should be powers of two to avoid mipmapping artifacts
         private const int TextureWidth = 256;
         private const int TextureHeight = 128;
@@ -89,7 +90,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 {
                     buttonBitmap.Save(byteStream, System.Drawing.Imaging.ImageFormat.Png);
                     // texture size here is irrelevant as it gets changed by LoadImage
-                    var texture = new Texture2D(1, 1);
+                    var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
                     ImageConversion.LoadImage(texture, byteStream.ToArray());
                     // Rect is not a Rectangle, unfortunate mixing in one file
                     // it seems that vertical positioning for those is also different,

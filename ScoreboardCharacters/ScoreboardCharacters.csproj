@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="Resources/sprites.png" />
+    <EmbeddedResource Include="Resources/sprites.1080.png" />
   </ItemGroup>
 
 </Project>
