@@ -8,6 +8,7 @@ using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using System;
 using System.Linq;
 
+
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
     /// <summary>
@@ -17,12 +18,18 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
     public class ButtonImageProvider
     {
         private const string EmbeddedResourcePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
-        // TODO remove, use closest/highest res prescale
-        private const string EmbeddedResourceFallbackName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.png";
+
+        private readonly string EmbeddedResourceFallbackName;
+
+        // TODO restore overriding
         // private const string OverrideFilename = "scoreboard_characters_override.png";
+
+        // please note that this class only cares about vertical resolution,
+        // horizontal one is never used
 
         private readonly int[] SupportedResolutions = { 1080, 1440 };
 
+        // using 1920×1080 as baseline resolution
         private const int BaseSpriteSize = 40;
         private const int BaseResolution = 1080;
 
@@ -35,17 +42,16 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         private const int ElfinStartColumn = 5;
 
 
-        // the texture's dimensions should be powers of two to avoid mipmapping artifacts
-        private const int TextureWidth = 256;
-        private const int TextureHeight = 128;
-
         private int SpriteSize;
-        private Rectangle CharacterDestinationRectangle;// = new Rectangle(0, 0, SpriteSize, SpriteSize);
-        private Rectangle ElfinDestinationRectangle;// = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+        private Rectangle CharacterDestinationRectangle;
+        private Rectangle ElfinDestinationRectangle;
         private int CurrentResolution;
 
         public ButtonImageProvider()
         {
+            // use highest res available as fallback for non-supported resolution
+            EmbeddedResourceFallbackName = string.Format(EmbeddedResourcePrescaledNameTemplate, SupportedResolutions.Max());
+
             ConfigureScaling();
         }
 
@@ -80,19 +86,50 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
             CurrentResolution = screenHeight;
 
-            var isSupported = SupportedResolutions.Contains(screenHeight);
-
             SpriteSize = (int)Math.Round(BaseSpriteSize * (decimal)screenHeight / BaseResolution, MidpointRounding.ToEven);
             CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
             ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
 
+            LoadSpriteSheet();
+
+            // clear the cache in case resolution was switched at runtime
+            ResetCache();
+        }
+
+        private void LoadSpriteSheet()
+        {
+            var isSupported = SupportedResolutions.Contains(CurrentResolution);
             var resName = isSupported
-                ? string.Format(EmbeddedResourcePrescaledNameTemplate, screenHeight)
+                ? string.Format(EmbeddedResourcePrescaledNameTemplate, CurrentResolution)
                 : EmbeddedResourceFallbackName;
 
             var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
             var defaultImageStream = assembly.GetManifestResourceStream(resName);
             var defaultBitmap = new Bitmap(defaultImageStream);
+
+            if (!isSupported)
+            {
+                // get number of rows from builtin image (premature optimization if it will be extended downwards for more character space),
+                // assuming individual sprites are square
+                var spriteRows = defaultBitmap.Height / (defaultBitmap.Width / (CharactersPerRow + ElfinsPerRow));
+                
+                var scaledBitmap = new Bitmap((CharactersPerRow + ElfinsPerRow) * SpriteSize, spriteRows * SpriteSize);
+
+                var sourceRect = new Rectangle(0, 0, defaultBitmap.Width, defaultBitmap.Height);
+                var destRect = new Rectangle(0, 0, scaledBitmap.Width, scaledBitmap.Height);
+
+                using (var graphics = System.Drawing.Graphics.FromImage(scaledBitmap))
+                {
+                    graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                    graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+                    graphics.DrawImage(defaultBitmap, destRect, sourceRect, GraphicsUnit.Pixel);
+                    defaultBitmap = scaledBitmap;
+                }
+            }
 
             var overrideActive = false;
             // TODO overriding here?
@@ -101,14 +138,11 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
             {
                 CustomAtlas = defaultBitmap;
             }
-            // clear the cache in case resolution was switched at runtime
-            // as this is pretty mush the way for me to test it
-            ResetCache();
         }
 
         private Sprite CreateSprite(Character character, Elfin elfin)
         {
-            var buttonBitmap = new Bitmap(TextureWidth, TextureHeight);
+            var buttonBitmap = new Bitmap(2 * SpriteSize, SpriteSize);
             using (var graphics = System.Drawing.Graphics.FromImage(buttonBitmap))
             {
                 graphics.DrawImage(CustomAtlas, CharacterDestinationRectangle, GetSpriteRectangle(character), GraphicsUnit.Pixel);
@@ -116,13 +150,12 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
                 using (var byteStream = new MemoryStream())
                 {
                     buttonBitmap.Save(byteStream, System.Drawing.Imaging.ImageFormat.Png);
-                    // texture size here is irrelevant as it gets changed by LoadImage
+                    // texture size here is irrelevant as it gets changed by LoadImage,
+                    // also turning mipmapping off
                     var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
                     ImageConversion.LoadImage(texture, byteStream.ToArray());
                     // Rect is not a Rectangle, unfortunate mixing in one file
-                    // it seems that vertical positioning for those is also different,
-                    // so we need to adjust the coordinates to crop
-                    var sprite = Sprite.Create(texture, new Rect(0, TextureHeight - SpriteSize, 2 * SpriteSize, SpriteSize), new Vector2(0.5f, 0.5f));
+                    var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * SpriteSize, SpriteSize), new Vector2(0.5f, 0.5f));
 
                     return sprite;
                 }
