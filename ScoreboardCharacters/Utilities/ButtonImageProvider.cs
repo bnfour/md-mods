@@ -5,6 +5,8 @@ using System.Reflection;
 using UnityEngine;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using System;
+using System.Linq;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 {
@@ -14,10 +16,17 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
     /// </summary>
     public class ButtonImageProvider
     {
-        private const string EmbeddedResourceName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.1080.png";
-        private const string OverrideFilename = "scoreboard_characters_override.png";
+        private const string EmbeddedResourcePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
+        // TODO remove, use closest/highest res prescale
+        private const string EmbeddedResourceFallbackName = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.png";
+        // private const string OverrideFilename = "scoreboard_characters_override.png";
 
-        private readonly Bitmap CustomAtlas;
+        private readonly int[] SupportedResolutions = { 1080, 1440 };
+
+        private const int BaseSpriteSize = 40;
+        private const int BaseResolution = 1080;
+
+        private Bitmap CustomAtlas;
 
         private readonly Dictionary<(Character, Elfin), Sprite> Cache = new Dictionary<(Character, Elfin), Sprite>();
 
@@ -25,43 +34,25 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         private const int ElfinsPerRow = 3;
         private const int ElfinStartColumn = 5;
 
-        // 40 at 1080 vertical resolution
-        private const int SpriteSize = 40;
+
         // the texture's dimensions should be powers of two to avoid mipmapping artifacts
         private const int TextureWidth = 256;
         private const int TextureHeight = 128;
 
-        private readonly Rectangle CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
-        private readonly Rectangle ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+        private int SpriteSize;
+        private Rectangle CharacterDestinationRectangle;// = new Rectangle(0, 0, SpriteSize, SpriteSize);
+        private Rectangle ElfinDestinationRectangle;// = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+        private int CurrentResolution;
 
         public ButtonImageProvider()
         {
-            var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
-            var defaultImageStream = assembly.GetManifestResourceStream(EmbeddedResourceName);
-            var defaultBitmap = new Bitmap(defaultImageStream);
-
-            var overrideActive = false;
-
-            var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
-            if (File.Exists(overrideFullPath))
-            {
-                var overrideBitmap = new Bitmap(overrideFullPath);
-                if (overrideBitmap.Width == defaultBitmap.Width
-                    && overrideBitmap.Height == defaultBitmap.Height)
-                {
-                    overrideActive = true;
-                    CustomAtlas = overrideBitmap;
-                }
-            }
-
-            if (!overrideActive)
-            {
-                CustomAtlas = defaultBitmap;
-            }
+            ConfigureScaling();
         }
 
         public Sprite GetSprite(Character character, Elfin elfin)
         {
+            ConfigureScaling();
+
             var keyTuple = (character, elfin);
 
             if (Cache.ContainsKey(keyTuple))
@@ -77,6 +68,42 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         public void ResetCache()
         {
             Cache.Clear();
+        }
+
+        private void ConfigureScaling()
+        {
+            var screenHeight = Screen.height;
+            if (CurrentResolution == screenHeight)
+            {
+                return;
+            }
+
+            CurrentResolution = screenHeight;
+
+            var isSupported = SupportedResolutions.Contains(screenHeight);
+
+            SpriteSize = (int)Math.Round(BaseSpriteSize * (decimal)screenHeight / BaseResolution, MidpointRounding.ToEven);
+            CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
+            ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+
+            var resName = isSupported
+                ? string.Format(EmbeddedResourcePrescaledNameTemplate, screenHeight)
+                : EmbeddedResourceFallbackName;
+
+            var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
+            var defaultImageStream = assembly.GetManifestResourceStream(resName);
+            var defaultBitmap = new Bitmap(defaultImageStream);
+
+            var overrideActive = false;
+            // TODO overriding here?
+            // skip the method alltogether if already overriden and no scaling?
+            if (!overrideActive)
+            {
+                CustomAtlas = defaultBitmap;
+            }
+            // clear the cache in case resolution was switched at runtime
+            // as this is pretty mush the way for me to test it
+            ResetCache();
         }
 
         private Sprite CreateSprite(Character character, Elfin elfin)
