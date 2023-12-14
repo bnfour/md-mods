@@ -17,18 +17,18 @@ This mod adds buttons to show charater and elfin used to obtain the score to the
 
 These buttons can be clicked, and will set your current character and elfin to these on the button. It will even scroll the selection screens for you.
 
-### Image overload (advanced)
+### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, they can be changed by providing an override spritesheet.
 
-Please note that the override is designed to not apply scaling to the images, and the sprites are placed to the buttons as is.
+Please note that the override is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
 #### Image preparation
 
 ##### Sprite size
-First, select a size for individual sprites. It's best to use the size that matches the button size for your screen resolution. As a baseline, 〇×1080 resolution uses 40 px sprites. Scale this for your resolution.
+First, pick a size for individual sprites. It's best to use the size that matches the button size for your screen resolution. As a baseline, 〇×1080 resolution uses 40 px sprites. Scale this for your resolution.
 
-For example, a 2560×1440 screen size will work best with  
-40 × 1440 / 1080 = **53** px  
+For example, 2560×1440 screen size will work best with  
+40 × 1440 / 1080 = 53 px  
 sprite size.
 
 ##### Spritesheet resolution
