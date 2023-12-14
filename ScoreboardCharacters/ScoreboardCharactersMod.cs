@@ -1,6 +1,7 @@
 using MelonLoader;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters
 {
