@@ -21,10 +21,14 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         // please note that this class only cares about vertical resolution,
         // so any mention of "resolution" there is a single number of screen height
 
+        // TODO this is rather convoluted now, consider splitting image loading to a helper class:
+        // - the helper class does all the loading and provides spritesheet and sprite size
+        // - this class just cuts the images on demand
+        // -- 2023-12-14
+
         private const string EmbeddedResourcePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
 
-        // TODO restore overriding
-        // private const string OverrideFilename = "scoreboard_characters_override.png";
+        private const string OverrideFilename = "scoreboard_characters_override.png";
 
         private readonly int[] SupportedResolutions = { 720, 1080, 1440, 2160 };
 
@@ -40,12 +44,16 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
         private const int CharactersPerRow = 5;
         private const int ElfinsPerRow = 3;
+
+        private const int SpritesPerRow = CharactersPerRow + ElfinsPerRow;
         private const int ElfinStartColumn = 5;
 
         private int SpriteSize;
         private Rectangle CharacterDestinationRectangle;
         private Rectangle ElfinDestinationRectangle;
         private int CurrentResolution;
+
+        private bool OverrideActive;
 
         public ButtonImageProvider()
         {
@@ -78,26 +86,35 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
         private void ConfigureScalingIfNeeded()
         {
+            // do nothing if resulotion is current or the image override is in effect
             var screenHeight = Screen.height;
-            if (CurrentResolution == screenHeight)
+            if (CurrentResolution == screenHeight || OverrideActive)
             {
                 return;
             }
 
             CurrentResolution = screenHeight;
 
-            SpriteSize = (int)Math.Round(BaseSpriteSize * (decimal)screenHeight / BaseResolution, MidpointRounding.ToEven);
-            CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
-            ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
-
-            LoadSpriteSheet(CurrentResolution, SpriteSize);
+            if (!TryLoadOverride())
+            {
+                LoadDefaultSpritesheet(CurrentResolution);
+            }
 
             // clear the cache in case resolution was switched at runtime
             ResetCache();
         }
 
-        private void LoadSpriteSheet(int resolution, int spriteSize)
+        /// <summary>
+        /// Loads the default spritesheet for a given resolution.
+        /// If no pre-scaled version is available in the resources, on the fly rescale is performed.
+        /// </summary>
+        /// <param name="resolution">Target vertical resolution.</param>
+        private void LoadDefaultSpritesheet(int resolution)
         {
+            SpriteSize = (int)Math.Round(BaseSpriteSize * (decimal)resolution / BaseResolution, MidpointRounding.ToEven);
+            CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
+            ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+
             var isSupported = SupportedResolutions.Contains(resolution);
             var resName = isSupported
                 ? string.Format(EmbeddedResourcePrescaledNameTemplate, resolution)
@@ -109,25 +126,58 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
 
             if (!isSupported)
             {
-                defaultBitmap = RescaleSpritesheet(defaultBitmap, spriteSize);
+                defaultBitmap = RescaleSpritesheet(defaultBitmap, SpriteSize);
             }
 
-            var overrideActive = false;
-            // TODO overriding here?
-            // skip the method alltogether if already overriden and no scaling?
-            if (!overrideActive)
+            CustomAtlas = defaultBitmap;
+        }
+
+        /// <summary>
+        /// Tries to load the override image, and sets it as the sprite source
+        /// if it contains square sprites with the same size, <see cref="SpritesPerRow"/> per row.
+        /// Please note it only checks image dimensions, not the contents.
+        /// </summary>
+        /// <returns>True if the override was successfully loaded, false otherwise.</returns>
+        private bool TryLoadOverride()
+        {
+            var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
+            if (File.Exists(overrideFullPath))
             {
-                CustomAtlas = defaultBitmap;
+                var overrideBitmap = new Bitmap(overrideFullPath);
+                
+                if (overrideBitmap.Width % SpritesPerRow != 0)
+                {
+                    // TODO consider some kind of exception to indicate what exactly went wrong with override load -- 2023-12-14
+                    // there should be 8 sprites per row
+                    return false;
+                }
+                int potentialOverrideSpriteSize = overrideBitmap.Width / SpritesPerRow;
+                if (overrideBitmap.Height % potentialOverrideSpriteSize != 0)
+                {
+                    // there should be integer amount of rows
+                    return false;
+                }
+
+                SpriteSize = potentialOverrideSpriteSize;
+                CharacterDestinationRectangle = new Rectangle(0, 0, SpriteSize, SpriteSize);
+                ElfinDestinationRectangle = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+
+                OverrideActive = true;
+                CustomAtlas = overrideBitmap;
+
+                return true;
             }
+
+            return false;
         }
 
         private Bitmap RescaleSpritesheet(Bitmap source, int targetSpriteSize)
         {
             // get number of rows from builtin image (premature optimization if it will be extended downwards for more character space),
             // assuming individual sprites are square
-            var spriteRows = source.Height / (source.Width / (CharactersPerRow + ElfinsPerRow));
+            var spriteRows = source.Height / (source.Width / SpritesPerRow);
             
-            var scaledBitmap = new Bitmap((CharactersPerRow + ElfinsPerRow) * targetSpriteSize, spriteRows * targetSpriteSize);
+            var scaledBitmap = new Bitmap(SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
 
             var sourceRect = new Rectangle(0, 0, source.Width, source.Height);
             var destRect = new Rectangle(0, 0, scaledBitmap.Width, scaledBitmap.Height);
