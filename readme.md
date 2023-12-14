@@ -17,11 +17,34 @@ This mod adds buttons to show charater and elfin used to obtain the score to the
 
 These buttons can be clicked, and will set your current character and elfin to these on the button. It will even scroll the selection screens for you.
 
-### Image overload
-If you don't like the provided default images on the buttons (my quick and dirty cropped screenshots of the selection screen; devs please let me know if this is an infrigiment before firing a complaint), they can be changed to anything you want, as long as it fits a square image.
+### Image overload (advanced)
+If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, they can be changed by providing an override spritesheet.
 
-To override the default image, place a 960×960 PNG named `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. Individual sprites are 120×120, see `ScoreboardCharacters/Resources/sprites.png` for a reference for spritesheet placement.  
-The override will be silently ignored if anything differs from expected values. If you don't see your custom images in the game, please double-check the file name, location, and resolution.
+Please note that the override is designed to not apply scaling to the images, and the sprites are placed to the buttons as is.
+
+#### Image preparation
+
+##### Sprite size
+First, select a size for individual sprites. It's best to use the size that matches the button size for your screen resolution. As a baseline, 〇×1080 resolution uses 40 px sprites. Scale this for your resolution.
+
+For example, a 2560×1440 screen size will work best with  
+40 × 1440 / 1080 = **53** px  
+sprite size.
+
+##### Spritesheet resolution
+The spritesheet must have 8 sprites (5 characters, 3 elfins) per row; so its width should be 8 times the width of a single sprite. The height must also be divisible by the sprite size, as the sprites are square.  
+There should be enough rows to cover all existing characters and elfins; for now, an 8×8 grid will suffice.
+
+Continuing the example, the size of custom spritesheet for 2560×1440 should be:
+- width: 8 × 53 = 424 px
+- height: 8 × 53 = 424 px
+
+##### Sprites placement
+Use the reference image (`ScoreboardCharacters/etc/sprites.png`) to place the sprites on the spritesheet. The sprites with the numbers are placeholders for possible future updates, it's not mandatory to fill them in an override.
+
+#### Image override
+To override the default image, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. 
+The override will be silently ignored if its dimensions differ from expected values. If you don't see your custom images in the game, please double-check the file name, location, and resolution.
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
