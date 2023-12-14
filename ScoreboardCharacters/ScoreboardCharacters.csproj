@@ -27,7 +27,10 @@
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup Label="Resources">
-    <EmbeddedResource Include="Resources/sprites.png" />
+    <EmbeddedResource Include="Resources/sprites.720.png" />
+    <EmbeddedResource Include="Resources/sprites.1080.png" />
+    <EmbeddedResource Include="Resources/sprites.1440.png" />
+    <EmbeddedResource Include="Resources/sprites.2160.png" />
   </ItemGroup>
 
 </Project>
