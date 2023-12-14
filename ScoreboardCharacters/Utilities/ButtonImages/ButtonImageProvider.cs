@@ -10,7 +10,7 @@ using UnityEngine;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
-namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
+namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages
 {
     /// <summary>
     /// Generates images for the custom buttons from the built-in spritesheet or file-based override.
@@ -21,10 +21,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities
         // please note that this class only cares about vertical resolution,
         // so any mention of "resolution" there is a single number of screen height
 
-        // TODO this is rather convoluted now, consider splitting image loading to a helper class:
-        // - the helper class does all the loading and provides spritesheet and sprite size
-        // - this class just cuts the images on demand
-        // -- 2023-12-14
+        // TODO move constants and some fields to other classes
 
         private const string EmbeddedResourcePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
 
