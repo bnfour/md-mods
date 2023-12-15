@@ -1,5 +1,5 @@
 # et cetera
-This folder contains stuff that's somewhat related to development process, and is too specific to be placed elsewhere.
+This folder contains stuff that's somewhat related to development process, but is not included directly in the mod DLL.
 
 ## Randomizer for screenshots
 `randomizer-for-screenshots.patch` is a git patch that changes loading characters and elfins data from the API response to completely random values. It's used to create screenshots for readme, as the real scoreboards mostly contain few same characters and elfins over and over. If you're not me, this is probably useless.
@@ -16,9 +16,11 @@ Note that the hardcoded random maximums are up to date as of game version 3.11.0
 - put updated image to repo's readme
 
 ## Spritesheet source
-`sprites.png` is the reference spritesheet.
+`sprites.png` is the reference spritesheet:
 
-It has 120×120 sprites -- three times the size needed for 1080 resolution. Only scaled down versions for common resolutions are included in the mod DLL -- see `ScoreboardCharacters/Resources` folder.
+![fun fact: it used to be the actual spritesheet for about a year before scaling update](sprites.png)
+
+It has 120×120 sprites – that would be proper size for a hypothetical 5760×3240 display resolution. Only scaled down versions for common resolutions are included in the mod DLL, see [`ScoreboardCharacters/Resources`](../Resources) folder.
 
 ### Sprites placement
-The spritesheet is 8 sprites in width: the first 5 columns are used for the character sprites, and the last 3 for the elfin sprites. Please note that elfins sprites include "no elfin" sprite (in-game id -1) before the elfin with id 0.
+The spritesheet is 8 sprites in width: the first 5 columns are used for the character sprites, and the last 3 for the elfin sprites. Please note that elfins sprites include "no elfin" sprite (in-game id `-1`) before the elfin with id `0` (Mio Sir). There are also placeholders for possible future characters and/or elfins so there will be _something_ on the buttons if the mod is outdated.

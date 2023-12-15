@@ -23,6 +23,9 @@ If you don't like the provided default images on the buttons or the way they are
 Please note that the override is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
 #### Image preparation
+A good way to start with an override is to use the default spritesheet for your resolution as a template. The defaults are located in [`ScoreboardCharacters/Resources`](ScoreboardCharacters/Resources) folder. There's also a bigger source and/or reference image in [`ScoreboardCharacters/etc`](ScoreboardCharacters/etc).
+
+If there is no default image for your desired resolution, the source/reference can be scaled to form a template. The rest of this section describes the requirements the override image must meet; see ["Image override"](#image-override) for the way to enable the override image.
 
 ##### Sprite size
 First, pick a size for individual sprites. It's best to use the size that matches the button size for your screen resolution. As a baseline, 〇×1080 resolution uses 40 px sprites. Scale this for your resolution.
@@ -40,11 +43,10 @@ Continuing the example, the size of custom spritesheet for 2560×1440 should be:
 - height: 8 × 53 = 424 px
 
 ##### Sprites placement
-Use the reference image (`ScoreboardCharacters/etc/sprites.png`) to place the sprites on the spritesheet. The sprites with the numbers are placeholders for possible future updates, it's not mandatory to fill them in an override.
+Use the [reference image](ScoreboardCharacters/etc/sprites.png) to place the sprites on the spritesheet. The sprites with the numbers are placeholders for possible future updates, it's not mandatory to fill them in an override.
 
 #### Image override
-To override the default image, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. 
-The override will be silently ignored if its dimensions differ from expected values. If you don't see your custom images in the game, please double-check the file name, location, and resolution.
+To override the default image, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. The override will be silently ignored if its dimensions differ from expected values. If you don't see your custom images in the game, please double-check the file name, location, and resolution.
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
