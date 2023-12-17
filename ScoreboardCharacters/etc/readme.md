@@ -1,8 +1,8 @@
 # et cetera
-This folder contains stuff that's somewhat related to development process, but is not included directly in the mod DLL.
+This folder contains stuff that's somewhat related to the development process, but is not included directly in the mod DLL.
 
 ## Randomizer for screenshots
-`randomizer-for-screenshots.patch` is a git patch that changes loading characters and elfins data from the API response to completely random values. It's used to create screenshots for readme, as the real scoreboards mostly contain few same characters and elfins over and over. If you're not me, this is probably useless.
+[`randomizer-for-screenshots.patch`](./randomizer-for-screenshots.patch) is a git patch that changes loading characters and elfins data from the API response to completely random values. It's used to create screenshots for readme, as the real scoreboards mostly contain few same characters and elfins over and over. If you're not me, this is probably useless.
 
 After re-implementing this again after yet another rendering improvement, I thought it's a good idea to store it for future use.
 
@@ -16,11 +16,32 @@ Note that the hardcoded random maximums are up to date as of game version 3.11.0
 - put updated image to repo's readme
 
 ## Spritesheet source
-`sprites.png` is the reference spritesheet:
+[`sprites.png`](./sprites.png) is the reference spritesheet:
 
-![fun fact: it used to be the actual spritesheet for about a year before scaling update](sprites.png)
+![fun fact: it used to be the actual spritesheet for about a year before v7 scaling update](sprites.png)
 
 It has 120×120 sprites – that would be proper size for a hypothetical 5760×3240 display resolution. Only scaled down versions for common resolutions are included in the mod DLL, see [`ScoreboardCharacters/Resources`](../Resources) folder.
 
 ### Sprites placement
-The spritesheet is 8 sprites in width: the first 5 columns are used for the character sprites, and the last 3 for the elfin sprites. Please note that elfins sprites include "no elfin" sprite (in-game id `-1`) before the elfin with id `0` (Mio Sir). There are also placeholders for possible future characters and/or elfins so there will be _something_ on the buttons if the mod is outdated.
+The spritesheet is 8 sprites in width: the first 5 columns are used for the character sprites, and the last 3 for the elfin sprites. Please note that elfins sprites include "no elfin" sprite (in-game id `-1`) before the elfin with id `0` (Mio Sir). There are also placeholders for possible future characters and/or elfins so there will be _something_ on the buttons if the mod is outdated. If there will be more characters or elfins than the current image can fit, it will be extended downwards, adding more rows as necessary.
+
+### Placeholder
+[`placeholder.xcf`](./placeholder.xcf) is the source for the placeholder sprites at the bottom of the spritesheet.
+
+#### XCF?
+That's the native format of GIMP — ~~Green Is My Pepper~~ [GNU Image Manipulation Program](https://www.gimp.org/), which I use to edit the spritesheet and produce high(er than before) quality downscaled versions to display in the game.
+
+#### Other requirements
+You'll need to have Impact font available. For Windows, it's included by default; for other systems, look up "corefonts".
+
+#### Usage
+_(at least thats's how I do it; I'm not exactly an image editing pro, so there might be easier and faster way ¯\\\_(ツ)\_/¯)_
+- change the text on the text layer (the top one) to desired value
+- select the text
+- switch to the second layer ("THE stroke")
+- `Edit → Stroke Selection...`, line width should be 16 px, color should be #000000
+- resize the entire image to 120×120 to put on the spritesheet
+
+### Image credit
+All character and elfin images are sourced from screenshots of the game itself.  
+The placeholder image "bear man doubts" is a part of "Daily Life of the RMB from Muse Dash 1.0" stickers pack, [available for download on the official site](https://musedash.peropero.net/#/special/stickers).
