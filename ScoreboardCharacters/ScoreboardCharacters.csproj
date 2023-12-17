@@ -4,9 +4,14 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>Bnfour.MuseDashMods.ScoreboardCharacters</RootNamespace>
   </PropertyGroup>
-  <!-- Local references -->
-  <ItemGroup>
-    <!-- TODO we do not need these in output folder, find a way to not copy them over? -->
+
+  <!-- The following disables copying referenced dlls to the output folder -->
+  <ItemDefinitionGroup>
+    <PackageReference ExcludeAssets="runtime" />
+    <Reference Private="false" />
+  </ItemDefinitionGroup>
+
+  <ItemGroup Label="Local references">
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
@@ -15,16 +20,17 @@
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
-    <Reference Include="../references/UnityEngine.AudioModule.dll" />
     <Reference Include="../references/Sirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
   </ItemGroup>
-  <!-- NuGet references -->
-  <ItemGroup>
+  <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
-  <!-- Resources -->
-  <ItemGroup>
-    <EmbeddedResource Include="Resources/sprites.png" />
+  <ItemGroup Label="Resources">
+    <EmbeddedResource Include="Resources/sprites.720.png" />
+    <EmbeddedResource Include="Resources/sprites.1080.png" />
+    <EmbeddedResource Include="Resources/sprites.1440.png" />
+    <EmbeddedResource Include="Resources/sprites.2160.png" />
   </ItemGroup>
+
 </Project>
