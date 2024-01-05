@@ -78,6 +78,7 @@ This is not a mod intended for using. Rather, it's a developmental test bed for 
 The project contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
+TODO: write about 0.6.1 support
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** for now, absolutely no idea about compatibility with newer versions.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into the mods folder. Remove to uninstall.
 
@@ -114,7 +115,7 @@ The mods are pretty much self-contained, so I think ("think" being the operative
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-
+TODO: 0.6.1
 * Please make sure you're using supported (**0.5.7**) version of MelonLoader.
 * If you're playing on GNU/Linux via Proton, setting its version to 7 might help with modloader compatibility.
 * Try to remove mods not from this repo.
@@ -123,6 +124,7 @@ If you just want to play the game, removing the mods (and maybe the modloader it
 If none of these helps, feel free to submit an issue, unless it's already have been reported.
 
 # Building from source
+TODO: new build process for .NET 6 after it's figured out, not the "drop every DLL you can see into the folder" i have now
 This repo is a run-of-the-mill .NET solution targeting .NET 4.7.2.
 
 The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you:
