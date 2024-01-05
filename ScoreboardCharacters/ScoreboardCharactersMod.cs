@@ -3,22 +3,21 @@ using MelonLoader;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 
-namespace Bnfour.MuseDashMods.ScoreboardCharacters
+namespace Bnfour.MuseDashMods.ScoreboardCharacters;
+
+public class ScoreboardCharactersMod : MelonMod
 {
-    public class ScoreboardCharactersMod : MelonMod
+    public readonly ButtonImageProvider ButtonImageProvider = new();
+    public readonly CharacterSwitcher CharacterSwitcher = new();
+
+    public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
     {
-        public readonly ButtonImageProvider ButtonImageProvider = new ButtonImageProvider();
-        public readonly CharacterSwitcher CharacterSwitcher = new CharacterSwitcher();
+        base.OnSceneWasUnloaded(buildIndex, sceneName);
 
-        public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
+        if (sceneName == "UISystem_PC")
         {
-            base.OnSceneWasUnloaded(buildIndex, sceneName);
-
-            if (sceneName == "UISystem_PC")
-            {
-                ButtonImageProvider.ResetCache();
-                CharacterSwitcher.ResetCache();
-            }
+            ButtonImageProvider.ResetCache();
+            CharacterSwitcher.ResetCache();
         }
     }
 }

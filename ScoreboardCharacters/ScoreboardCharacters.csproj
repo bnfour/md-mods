@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Bnfour.MuseDashMods.ScoreboardCharacters</RootNamespace>
   </PropertyGroup>
 
@@ -15,13 +15,14 @@
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
-    <Reference Include="../references/UnhollowerBaseLib.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
     <Reference Include="../references/Il2CppNewtonsoft.Json.dll" />
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
-    <Reference Include="../references/Sirenix.Serialization.dll" />
+    <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+    
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
