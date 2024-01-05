@@ -1,18 +1,16 @@
 using MelonLoader;
 
-namespace Bnfour.MuseDashMods.Experimental
+namespace Bnfour.MuseDashMods.Experimental;
+/// <summary>
+/// Experimental mod to test things before actually implementing them,
+/// the code here will be local only before moving to an actual mod or deleting.
+/// </summary>
+public class ExperimentalMod : MelonMod
 {
-    /// <summary>
-    /// Experimental mod to test things before actually implementing them,
-    /// the code here will be local only before moving to an actual mod or deleting.
-    /// </summary>
-    public class ExperimentalMod : MelonMod
+    public override void OnInitializeMelon()
     {
-        public override void OnInitializeMelon()
-        {
-            base.OnInitializeMelon();
+        base.OnInitializeMelon();
 
-            LoggerInstance.Msg("experimental mod online");
-        }
+        LoggerInstance.Msg("experimental mod online, now on dotnet 6!!1");
     }
 }
