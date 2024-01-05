@@ -60,14 +60,15 @@ public class SpritesheetManager
             var overrideBitmap = SKImage.FromEncodedData(overrideFullPath);
             if (overrideBitmap.Width % Constants.SpritesPerRow != 0)
             {
-                // TODO consider some kind of exception to indicate what exactly went wrong with override load -- 2023-12-14
-                // there should be 8 sprites per row
+                var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
+                logger.Warning($"The width of the override image ({overrideBitmap.Width}) is not divisible by 8. The override will not be applied.");
                 return null;
             }
             int potentialOverrideSpriteSize = overrideBitmap.Width / Constants.SpritesPerRow;
             if (overrideBitmap.Height % potentialOverrideSpriteSize != 0)
             {
-                // there should be an integer amount of rows
+                var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
+                logger.Warning($"The height of the override image ({overrideBitmap.Height}) is not divisible by sprite size ({potentialOverrideSpriteSize}). The override will not be applied.");
                 return null;
             }
 
@@ -91,7 +92,7 @@ public class SpritesheetManager
             ? string.Format(EmbeddedResourcePrescaledNameTemplate, _currentResolution)
             : EmbeddedResourceFallbackName;
 
-        var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
+        var assembly = GetType().GetTypeInfo().Assembly;
 
         using (var defaultImageStream = assembly.GetManifestResourceStream(resName))
         {
