@@ -1,9 +1,8 @@
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using SkiaSharp;
 using UnityEngine;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
@@ -25,6 +24,8 @@ public class SpritesheetManager
     private int _currentResolution;
     private bool _overrideActive;
 
+    private bool _initialized;
+
     public SpritesheetManager()
     {
         // use highest res available as fallback for non-supported resolution
@@ -33,13 +34,14 @@ public class SpritesheetManager
 
     public SpritesheetSettings LoadSpritesheet()
     {
+        _initialized = true;
         _currentResolution = Screen.height;
         return LoadOverride() ?? LoadDefault();
     }
 
     public bool ReloadRequired()
     {
-        return !_overrideActive && Screen.height != _currentResolution;
+        return !_initialized && !_overrideActive && Screen.height != _currentResolution;
     }
 
     /// <summary>
@@ -55,7 +57,7 @@ public class SpritesheetManager
         var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
         if (File.Exists(overrideFullPath))
         {
-            var overrideBitmap = new Bitmap(overrideFullPath);
+            var overrideBitmap = SKImage.FromEncodedData(overrideFullPath);
             if (overrideBitmap.Width % Constants.SpritesPerRow != 0)
             {
                 // TODO consider some kind of exception to indicate what exactly went wrong with override load -- 2023-12-14
@@ -70,7 +72,7 @@ public class SpritesheetManager
             }
 
             _overrideActive = true;
-            return new SpritesheetSettings(overrideBitmap, potentialOverrideSpriteSize);
+            return new SpritesheetSettings(SKBitmap.FromImage(overrideBitmap), potentialOverrideSpriteSize);
         }
 
         return null;
@@ -90,38 +92,23 @@ public class SpritesheetManager
             : EmbeddedResourceFallbackName;
 
         var assembly = typeof(ButtonImageProvider).GetTypeInfo().Assembly;
-        var defaultImageStream = assembly.GetManifestResourceStream(resName);
-        var defaultBitmap = new Bitmap(defaultImageStream);
-        if (!isSupported)
-        {
-            defaultBitmap = RescaleSpritesheet(defaultBitmap, spriteSize);
-        }
 
-        return new SpritesheetSettings(defaultBitmap, spriteSize);
+        using (var defaultImageStream = assembly.GetManifestResourceStream(resName))
+        {
+            var defaultBitmap = SKBitmap.Decode(defaultImageStream);
+
+            if (!isSupported)
+            {
+                defaultBitmap = RescaleSpritesheet(defaultBitmap, spriteSize);
+            }
+
+            return new SpritesheetSettings(defaultBitmap, spriteSize);
+        }
     }
 
-    private Bitmap RescaleSpritesheet(Bitmap source, int targetSpriteSize)
+    private SKBitmap RescaleSpritesheet(SKBitmap source, int targetSpriteSize)
     {
-        // get number of rows from builtin image (premature optimization if it will be extended downwards for more character space),
-        // assuming individual sprites are square
-        var spriteRows = source.Height / (source.Width / Constants.SpritesPerRow);
-        
-        var scaledBitmap = new Bitmap(Constants.SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
-
-        var sourceRect = new Rectangle(0, 0, source.Width, source.Height);
-        var destRect = new Rectangle(0, 0, scaledBitmap.Width, scaledBitmap.Height);
-
-        using (var graphics = System.Drawing.Graphics.FromImage(scaledBitmap))
-        {
-            graphics.CompositingMode = CompositingMode.SourceCopy;
-            graphics.CompositingQuality = CompositingQuality.HighQuality;
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-            graphics.DrawImage(source, destRect, sourceRect, GraphicsUnit.Pixel);
-
-            return scaledBitmap;
-        }
+        // TODO rescale using Skia
+        throw new NotImplementedException("soon™");
     }
 }

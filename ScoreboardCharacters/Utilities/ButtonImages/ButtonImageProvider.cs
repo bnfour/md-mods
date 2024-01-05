@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using UnityEngine;
-
-using Graphics = System.Drawing.Graphics;
+using SkiaSharp;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
@@ -21,11 +18,6 @@ public class ButtonImageProvider
     private readonly SpritesheetManager _manager = new();
 
     private SpritesheetSettings _settings;
-
-    public ButtonImageProvider()
-    {
-        _settings = _manager.LoadSpritesheet();
-    }
 
     public Sprite GetSprite(Character character, Elfin elfin)
     {
@@ -55,20 +47,23 @@ public class ButtonImageProvider
     private Sprite CreateSprite(Character character, Elfin elfin)
     {
         var size = _settings.SpriteSize;
-        var buttonBitmap = new Bitmap(2 * size, size);
-        using (var graphics = Graphics.FromImage(buttonBitmap))
+        var bitmap = new SKBitmap(2 * size, size);
+        using (var canvas = new SKCanvas(bitmap))
         {
-            graphics.DrawImage(_settings.Bitmap, _settings.CharacterDest, GetSpriteRectangle(character), GraphicsUnit.Pixel);
-            graphics.DrawImage(_settings.Bitmap, _settings.ElfinDest, GetSpriteRectangle(elfin), GraphicsUnit.Pixel);
-            using (var byteStream = new MemoryStream())
+            canvas.Clear();
+            canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(character), _settings.CharacterDest);
+            canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(elfin), _settings.ElfinDest);
+            canvas.Flush();
+
+            using (var data = bitmap.Encode(SKEncodedImageFormat.Png, 100))
+            using (var stream = new MemoryStream())
             {
-                buttonBitmap.Save(byteStream, ImageFormat.Png);
+                data.SaveTo(stream);
                 // texture size here is irrelevant as it gets changed by LoadImage,
                 // mipmap is off as we supply pre-scaled images and do not want any unity scaling involved
                 var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                ImageConversion.LoadImage(texture, byteStream.ToArray());
-                // (UnityEngine.)Rect is not a (System.Drawing.)Rectangle, unfortunate mixing in one file
-                // just for reference, their vertical axis seem to go to different directions, it was an issue earlier (see #8)
+                ImageConversion.LoadImage(texture, stream.ToArray());
+                // (UnityEngine.)Rect is not a (SkiaSharp.)SKRect(I), unfortunate mixing in one file
                 var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * size, size), new Vector2(0.5f, 0.5f));
 
                 return sprite;
@@ -76,7 +71,7 @@ public class ButtonImageProvider
         }
     }
 
-    private Rectangle GetSpriteRectangle(Character character)
+    private SKRectI GetSpriteRectangle(Character character)
     {
         var spriteIndex = (int)character;
         var size = _settings.SpriteSize;
@@ -84,18 +79,24 @@ public class ButtonImageProvider
         var columnIndex = spriteIndex % Constants.CharactersPerRow;
         var rowIndex = spriteIndex / Constants.CharactersPerRow;
 
-        return new Rectangle(columnIndex * size, rowIndex * size, size, size);
+        var x = columnIndex * size;
+        var y = rowIndex * size;
+
+        return new SKRectI(x, y, x + size, y + size);
     }
 
-    private Rectangle GetSpriteRectangle(Elfin elfin)
+    private SKRectI GetSpriteRectangle(Elfin elfin)
     {
         // elfins start from -1
         var spriteIndex = (int)elfin + 1;
         var size = _settings.SpriteSize;
 
-        var columnIndex = spriteIndex % Constants.ElfinsPerRow;
+        var columnIndex = Constants.ElfinStartColumn + (spriteIndex % Constants.ElfinsPerRow);
         var rowIndex = spriteIndex / Constants.ElfinsPerRow;
 
-        return new Rectangle((Constants.ElfinStartColumn + columnIndex) * size, rowIndex * size, size, size);
+        var x = columnIndex * size;
+        var y = rowIndex * size;
+
+        return new SKRectI(x, y, x + size, y + size);
     }
 }

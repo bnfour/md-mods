@@ -1,4 +1,4 @@
-using System.Drawing;
+using SkiaSharp;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 
@@ -11,7 +11,7 @@ public class SpritesheetSettings
     /// <summary>
     /// The image that contains the spritesheet.
     /// </summary>
-    public readonly Bitmap Bitmap;
+    public readonly SKBitmap Bitmap;
     /// <summary>
     /// Size of an individual sprite in the spritesheet, in pixels.
     /// </summary>
@@ -20,19 +20,19 @@ public class SpritesheetSettings
     /// The rectangle to put character sprite in the button.
     /// The left square of the entire button sprite.
     /// </summary>
-    public readonly Rectangle CharacterDest;
+    public readonly SKRectI CharacterDest;
     /// <summary>
     /// The rectangle to put elfin sprite in the button.
     /// The right square of the entire button sprite.
     /// </summary>
-    public readonly Rectangle ElfinDest;
+    public readonly SKRectI ElfinDest;
 
-    public SpritesheetSettings(Bitmap bitmap, int spriteSize)
+    public SpritesheetSettings(SKBitmap bitmap, int spriteSize)
     {
         Bitmap = bitmap;
         SpriteSize = spriteSize;
 
-        CharacterDest = new Rectangle(0, 0, SpriteSize, SpriteSize);
-        ElfinDest = new Rectangle(SpriteSize, 0, SpriteSize, SpriteSize);
+        CharacterDest = new SKRectI(0, 0, SpriteSize, SpriteSize);
+        ElfinDest = new SKRectI(SpriteSize, 0, 2 * SpriteSize, SpriteSize);
     }
 }
