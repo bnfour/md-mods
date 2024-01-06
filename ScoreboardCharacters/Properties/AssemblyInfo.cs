@@ -9,4 +9,4 @@ using Bnfour.MuseDashMods.ScoreboardCharacters;
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Adds character and elfin info to scoreboard")]
-[assembly: AssemblyCopyright("bnfour 2023; open-source")]
+[assembly: AssemblyCopyright("bnfour 2023-2024; open-source")]

@@ -12,7 +12,6 @@
   </ItemDefinitionGroup>
 
   <ItemGroup Label="Local references">
-    <!-- TODO some of these might not be used after net6.0 migration -->
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
@@ -23,8 +22,6 @@
     <Reference Include="../references/UnityEngine.UI.dll" />
   </ItemGroup>
   <ItemGroup Label="NuGet references">
-    <!-- TODO some version of Harmony is also included in updated references,
-      check if it can be used -->
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
   

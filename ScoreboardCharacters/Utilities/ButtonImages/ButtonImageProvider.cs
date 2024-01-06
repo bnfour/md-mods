@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 /// </summary>
 public class ButtonImageProvider
 {
-    private readonly Dictionary<(Character, Elfin), Sprite> _cache = new Dictionary<(Character, Elfin), Sprite>();
+    private readonly Dictionary<(Character, Elfin), Sprite> _cache = new();
 
     private readonly SpritesheetManager _manager = new();
 
