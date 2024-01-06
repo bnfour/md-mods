@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Bnfour.MuseDashMods.TrueAbove1kRank</RootNamespace>
   </PropertyGroup>
 
@@ -14,8 +14,8 @@
   <ItemGroup Label="Local references">
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
     <Reference Include="../references/Il2Cppmscorlib.dll" />
-    <Reference Include="../references/UnhollowerBaseLib.dll" />
     <Reference Include="../references/Il2CppNewtonsoft.Json.dll" />
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />

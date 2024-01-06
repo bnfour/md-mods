@@ -1,12 +1,11 @@
 using Newtonsoft.Json;
 
-namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api
+namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api;
+
+public class SelfRank
 {
-    public class SelfRank
-    {
-        [JsonProperty("detail")]
-        public PlayInfo Info { get; set; }
-        
-        // also includes zero-based order
-    }
+    [JsonProperty("detail")]
+    public PlayInfo Info { get; set; }
+    
+    // also includes zero-based order
 }

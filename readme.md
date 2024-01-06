@@ -5,6 +5,13 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 - USE AT YOUR OWN RISK. NO WARRANTIES.
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
+# Warning: runtime version switch!
+Starting from version 8, the mods are built for .NET 6 and MelonLoader 0.6.1, as opposed to .NET 4.7.2 and MelonLoader 0.5.7 for earlier versions. To continue using latest versions of my mods, you should update the loader.
+
+The main reason for this is that MelonLoader 0.5.7 just refused to launch on Proton after 3.12.1 patch of the game for whatever reason, so I had to move to newer version that works for me.
+
+The source for old versions (1.x.x, v7 and earlier) of the mods is available in [`legacy-framework`](https://github.com/bnfour/md-mods/tree/legacy-framework) branch. As long as the old modloader itself continues to work for you, these should too. I'll probably keep updating the legacy Scoreboard characters with new characters and elfins for some time.
+
 # Mod list
 Currently, this repo contains three mods: two are scoreboard related, and another one enhances song select screen. They can be used together.
 
@@ -13,7 +20,7 @@ Currently, this repo contains three mods: two are scoreboard related, and anothe
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
 
 ## Scoreboard characters
-Mod file: `ScoreboardCharacters.dll`
+Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
 This mod adds buttons to show charater and elfin used to obtain the score to the in-game scoreboard:
 
@@ -78,8 +85,9 @@ This is not a mod intended for using. Rather, it's a developmental test bed for 
 The project contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. **Only 0.5.7 version of MelonLoader is supported** for now, absolutely no idea about compatibility with newer versions.  
-Once you have MelonLoader installed, drop the DLLs of desired mods into the mods folder. Remove to uninstall.
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.6.1 Open-Beta of MelonLoader is supported.  
+Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
+Scoreboard characters mod also requires additional libraries to be placed in `UserLibs` folder.
 
 Rather than downloading these, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
@@ -114,21 +122,33 @@ The mods are pretty much self-contained, so I think ("think" being the operative
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-
-* Please make sure you're using supported (**0.5.7**) version of MelonLoader.
-* If you're playing on GNU/Linux via Proton, setting its version to 7 might help with modloader compatibility.
+* Please make sure you're using supported (**0.6.1**) version of MelonLoader.
 * Try to remove mods not from this repo.
 * Try to remove mods and/or modloader and check whether the vanilla game is broken too.
 
 If none of these helps, feel free to submit an issue, unless it's already have been reported.
 
 # Building from source
-This repo is a run-of-the-mill .NET solution targeting .NET 4.7.2.
+This repo is a run-of-the-mill .NET solution targeting .NET 6.
 
-The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you:
-* Copy all files from `MelonLoader/Managed` folder from the game install to the `references` folder of this repo.
-* Copy `MelonLoader.dll` from `MelonLoader` folder from the game install to the `references` folder of this repo.
+The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you.
 
-This should cover the local references for all the projects. (Actually, most of the files from `Managed` folder are not necessary to build the solution, I just don't plan on keeping an accurate and up to date list of required libraries.)
+Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `net6` folders from the game install to the `references` folder of this repo. All the DLLs should be directly in the `references` folder, no subfolders.
+
+
+This should cover the local references for all the projects. (Actually, **most** of the DLLs are not necessary to build the solution, I just don't plan on keeping an accurate and up to date list of required libraries.)
 
 After that, just run `dotnet build`.
+
+## Enabling SkiaSharp for Scoreboard characters
+Scoreboard characters mod uses SkiaSharp library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and I include these in downloads for convenience.
+
+If you want to get these straight from NuGet instead, you can use `dotnet publish` command:
+```bash
+dotnet publish -c Release -r win-x64 --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj
+```
+The SkiaSharp DLLs will be in `ScoreboardCharacters/bin/Release/net6.0/win-x64/publish` folder.
+
+Why `win-x64` runtime? There is no native Muse Dash version for GNU/Linux, and I run the game via Proton, so the Windows binaries should work on both Windows and GNU/Linux for the time being. [Mac? No idea.](https://tenor.com/view/13786657)
+
+You can also extract the DLLs from the nupkg files manually. Remember to look for `net6.0` and `win-x64` monikers.

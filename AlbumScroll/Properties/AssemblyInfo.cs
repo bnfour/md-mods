@@ -1,13 +1,12 @@
-using System;
 using System.Reflection;
 using MelonLoader;
 
 using Bnfour.MuseDashMods.AlbumScroll;
 
-[assembly: MelonInfo(typeof(AlbumScrollMod), "Album scroll", "1.0.0", "bnfour", "https://github.com/bnfour/md-mods")]
+[assembly: MelonInfo(typeof(AlbumScrollMod), "Album scroll", "2.0.0", "bnfour", "https://github.com/bnfour/md-mods")]
 [assembly: MelonGame("PeroPeroGames", "MuseDash")]
-[assembly: MelonColor(ConsoleColor.Cyan)]
-[assembly: MelonAuthorColor(ConsoleColor.Gray)]
+[assembly: MelonColor(255, 202, 80, 16)]
+[assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Hold shift to scroll to the next album")]
-[assembly: AssemblyCopyright("bnfour 2023; open-source")]
+[assembly: AssemblyCopyright("bnfour 2023-2024; open-source")]

@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Bnfour.MuseDashMods.ScoreboardCharacters</RootNamespace>
   </PropertyGroup>
 
   <!-- The following disables copying referenced dlls to the output folder -->
   <ItemDefinitionGroup>
-    <PackageReference ExcludeAssets="runtime" />
     <Reference Private="false" />
   </ItemDefinitionGroup>
 
@@ -15,16 +14,18 @@
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
-    <Reference Include="../references/UnhollowerBaseLib.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll" />
     <Reference Include="../references/Il2CppNewtonsoft.Json.dll" />
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
-    <Reference Include="../references/Sirenix.Serialization.dll" />
+    <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+    
   </ItemGroup>
   <ItemGroup Label="NuGet references">
-    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+    <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
+    <PackageReference Include="SkiaSharp" Version="2.88.6" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="Resources/sprites.720.png" />
