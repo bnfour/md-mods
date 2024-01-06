@@ -133,7 +133,7 @@ This repo is a run-of-the-mill .NET solution targeting .NET 6.
 
 The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you.
 
-Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `net6` folders from the game install to the `references` folder of this repo. All the DLLs should be directly in the `references` folder, no subfolders.
+Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All the DLLs should be directly in the `references` folder, no subfolders.
 
 
 This should cover the local references for all the projects. (Actually, **most** of the DLLs are not necessary to build the solution, I just don't plan on keeping an accurate and up to date list of required libraries.)
