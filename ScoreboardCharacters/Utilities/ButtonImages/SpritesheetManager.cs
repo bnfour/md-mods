@@ -61,7 +61,7 @@ public class SpritesheetManager
             if (overrideBitmap.Width % Constants.SpritesPerRow != 0)
             {
                 var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
-                logger.Warning($"The width of the override image ({overrideBitmap.Width}) is not divisible by 8. The override will not be applied.");
+                logger.Warning($"The width of the override image ({overrideBitmap.Width}) is not divisible by {Constants.SpritesPerRow}. The override will not be applied.");
                 return null;
             }
             int potentialOverrideSpriteSize = overrideBitmap.Width / Constants.SpritesPerRow;
@@ -109,7 +109,12 @@ public class SpritesheetManager
 
     private SKBitmap RescaleSpritesheet(SKBitmap source, int targetSpriteSize)
     {
-        // TODO rescale using Skia
-        throw new NotImplementedException("soon™");
+        // get number of rows from builtin image (premature optimization if it will be extended downwards for more character space),
+        // assuming individual sprites are square
+        var spriteRows = source.Height / (source.Width / Constants.SpritesPerRow);
+        
+        var scaledSize = new SKImageInfo(Constants.SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
+
+        return source.Resize(scaledSize, SKFilterQuality.High);
     }
 }
