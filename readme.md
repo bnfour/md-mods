@@ -57,7 +57,7 @@ Continuing the example, the size of custom spritesheet for 2560×1440 should be:
 Use the [reference image](ScoreboardCharacters/etc/sprites.png) to place the sprites on the spritesheet. The sprites with the numbers are placeholders for possible future updates, it's not mandatory to fill them in an override.
 
 #### Image override
-To override the default image, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. The override will be silently ignored if its dimensions differ from expected values. If you don't see your custom images in the game, please double-check the file name, location, and resolution.
+To override the default image, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. You'll see a warning in the console if its dimensions differ from expected values. If you don't see your custom images in the game and there's nothing in the console, double-check the file name and location.
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
