@@ -6,11 +6,11 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Warning: runtime version switch!
-Starting from version 8, the mods are built for .NET 6 and MelonLoader 0.6.1, as opposed to .NET 4.7.2 and MelonLoader 0.5.7 for earlier versions. To continue using latest versions of my mods, you should update the loader.
+Starting from version 8, the mods are built for .NET 6 and MelonLoader 0.6.1, as opposed to .NET 4.7.2 and MelonLoader 0.5.7 for earlier versions. To continue using latest versions of these mods, you should update the loader.
 
 The main reason for this is that MelonLoader 0.5.7 just refused to launch on Proton after 3.12.1 patch of the game for whatever reason, so I had to move to newer version that works for me.
 
-The source for old versions (1.x.x, v7 and earlier) of the mods is available in [`legacy-framework`](https://github.com/bnfour/md-mods/tree/legacy-framework) branch. As long as the old modloader itself continues to work for you, these should too. I'll probably keep updating the legacy Scoreboard characters with new characters and elfins for some time.
+The source for old versions (1.x.x, v7 and earlier) of the mods is available in [`legacy-framework`](https://github.com/bnfour/md-mods/tree/legacy-framework) branch. As long as the old modloader continues to work for you, these should too.
 
 # Mod list
 Currently, this repo contains three mods: two are scoreboard related, and another one enhances song select screen. They can be used together.
@@ -22,16 +22,16 @@ Currently, this repo contains three mods: two are scoreboard related, and anothe
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
-This mod adds buttons to show charater and elfin used to obtain the score to the in-game scoreboard:
+This mod adds buttons to show character and elfin used to obtain the score to the in-game scoreboard:
 
-![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters.png)
+![image simulated for variety, real scoreboards are pretty boring most of the time; see ScoreboardCharacters/etc/randomizer-for-screenshots.patch](readme-images/scoreboard-characters.png)
 
 These buttons can be clicked, and will set your current character and elfin to these on the button. It will even scroll the selection screens for you.
 
 ### Image override (advanced)
-If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, they can be changed by providing an override spritesheet.
+If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
 
-Please note that the override is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
+Please note that the overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
 #### Image preparation
 A good way to start with an override is to use the default spritesheet for your resolution as a template. The defaults are located in [`ScoreboardCharacters/Resources`](ScoreboardCharacters/Resources) folder. There's also a bigger source and/or reference image in [`ScoreboardCharacters/etc`](ScoreboardCharacters/etc).
@@ -46,8 +46,8 @@ For example, 2560×1440 screen size will work best with
 sprite size.
 
 ##### Spritesheet resolution
-The spritesheet must have 8 sprites (5 characters, 3 elfins) per row; so its width should be 8 times the width of a single sprite. The height must also be divisible by the sprite size, as the sprites are square.  
-There should be enough rows to cover all existing characters and elfins; for now, an 8×8 grid will suffice.
+The spritesheet must have 8 sprites (5 characters, 3 elfins) per row -- its width should be 8 times the width of a single sprite. The height must also be divisible by the sprite size, as the sprites are square.  
+There should be enough rows to cover all existing characters and elfins; for now, an 8×8 grid will suffice, as shown by default spritesheets.
 
 Continuing the example, the size of custom spritesheet for 2560×1440 should be:
 - width: 8 × 53 = 424 px
@@ -57,7 +57,7 @@ Continuing the example, the size of custom spritesheet for 2560×1440 should be:
 Use the [reference image](ScoreboardCharacters/etc/sprites.png) to place the sprites on the spritesheet. The sprites with the numbers are placeholders for possible future updates, it's not mandatory to fill them in an override.
 
 #### Image override
-To override the default image, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. You'll see a warning in the console if its dimensions differ from expected values. If you don't see your custom images in the game and there's nothing in the console, double-check the file name and location.
+To apply the override, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. You'll see a warning in the console if its dimensions differ from expected values. If you don't see your custom images in the game and there's nothing in the console, double-check the file name and location.
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
