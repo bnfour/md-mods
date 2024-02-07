@@ -28,8 +28,8 @@ public enum Character
     OlaBoxer,
     BuroExorcist,
     HatsuneMiku,
+    KagamineRinAndLen,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter26,
     MysteryCharacter27,
     MysteryCharacter28,
     MysteryCharacter29,
