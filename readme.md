@@ -5,13 +5,6 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 - USE AT YOUR OWN RISK. NO WARRANTIES.
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
-# Warning: runtime version switch!
-Starting from version 8, the mods are built for .NET 6 and MelonLoader 0.6.1, as opposed to .NET 4.7.2 and MelonLoader 0.5.7 for earlier versions. To continue using latest versions of these mods, you should update the loader.
-
-The main reason for this is that MelonLoader 0.5.7 just refused to launch on Proton after 3.12.1 patch of the game for whatever reason, so I had to move to newer version that works for me.
-
-The source for old versions (1.x.x, v7 and earlier) of the mods is available in [`legacy-framework`](https://github.com/bnfour/md-mods/tree/legacy-framework) branch. As long as the old modloader continues to work for you, these should too.
-
 # Mod list
 Currently, this repo contains three mods: two are scoreboard related, and another one enhances song select screen. They can be used together.
 
