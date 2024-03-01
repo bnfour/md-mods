@@ -24,7 +24,8 @@ These buttons can be clicked, and will set your current character and elfin to t
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
 
-Please note that the overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
+> [!NOTE]
+> The overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
 #### Image preparation
 A good way to start with an override is to use the default spritesheet for your resolution as a template. The defaults are located in [`ScoreboardCharacters/Resources`](ScoreboardCharacters/Resources) folder. There's also a bigger source and/or reference image in [`ScoreboardCharacters/etc`](ScoreboardCharacters/etc).
@@ -56,10 +57,12 @@ To apply the override, place your custom spritesheet as `scoreboard_characters_o
 Mod file: `TrueAbove1kRank.dll`
 
 This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000–2000 range:
+| Before | After |
+| --- | --- |
+| ![simulated image, no (you)s were harmed during production](readme-images/true-rank-before.png) | ![simulated image, no (you)s were harmed during production](readme-images/true-rank-after.png) |
 
-![simulated image, no (you)s were harmed during production](readme-images/true-rank-showcase.png)
-
-Please note that the game servers only track top 2000 entries. If you score less, it won't be tracked and there's nothing this mod can do.
+> [!NOTE]
+> The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
 
 ## Album scroll
 Mod file: `AlbumScroll.dll`
@@ -70,7 +73,10 @@ Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
 https://github.com/bnfour/md-mods/assets/853426/92bb0375-95cb-40d3-81a8-8972ba9207af
 
-Please note that this mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode. It's best to use single taps to scroll albums.
+> [!TIP]
+> It's best to use single taps to scroll albums.
+>
+> This mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode.
 
 ## Experimental mod
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without changing existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) in this project and then moved to its own permanent project.
