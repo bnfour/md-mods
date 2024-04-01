@@ -34,7 +34,7 @@ public class PnlRankUIRefreshPatch
             // TODO consider better conversion
             var selfRank = JsonConvert.DeserializeObject<Data.Api.SelfRank>(__instance.m_SelfRank[uid].ToString());
             
-            if (selfRank.Info != null)
+            if (selfRank != null && selfRank.Info != null)
             {
                 __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
                 
@@ -48,6 +48,11 @@ public class PnlRankUIRefreshPatch
         {
             // same scuffed "render to a string, then use a proper library to get only relevant data" approach
             var scoreboard = JsonConvert.DeserializeObject<List<Data.Api.ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
+
+            if (scoreboard == null)
+            {
+                return;
+            }
 
             foreach (var entry in scoreboard)
             {
@@ -97,12 +102,10 @@ public class PnlRankUIRefreshPatch
             // check for missing data and let the user know
             if (extraDataIndex >= __state.Scoreboard.Count)
             {
-                // a few words on the issue:
+                // a few words on the issue (tracked as #5):
                 // so far, it very rarely happens randomly (incomplete server response?)
                 // or sometimes when *quickly* switching difficulties (data reset before this loop is completed?)
-                // it's not that common or breaking (a refresh fixes it), so just a warning for now
-                // if we want to prevent this,
-                // we should probably look into retrying the scoreboard data from __instance.m_SelfRank ?
+                // it's not that common (didn't have this in months) or breaking (a refresh fixes it), so just a warning for now
                 var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
                 logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
                 break;
