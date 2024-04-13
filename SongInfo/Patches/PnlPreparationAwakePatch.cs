@@ -41,7 +41,8 @@ public class PnlPreparationAwakePatch
 
         var awardIcon = GameObject.Find("ImgStageAchievement");
         awardIcon.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
-        // TODO the x coordinate assignment apparently does not work
+        // TODO the x coordinate assignment apparently does not work,
+        // see also PnlPreparationOnEnablePatch.Prefix
         awardIcon.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-109, 355, 0);
     }
 }
