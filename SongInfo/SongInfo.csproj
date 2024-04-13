@@ -16,7 +16,11 @@
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
     <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
+    <Reference Include="../references/Il2CppPeroTools2.Resources.dll"/>
+    <Reference Include="../references/Il2CppSirenix.Serialization.dll"/>
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
+    <Reference Include="../references/UnityEngine.AudioModule.dll" />
+    <Reference Include="../references/Newtonsoft.Json.dll" />
   </ItemGroup>
 
   <ItemGroup Label="NuGet references">
