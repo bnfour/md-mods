@@ -11,6 +11,7 @@ Mods folder:
   ScoreboardCharacters.dll : mod to show character/elfin info on the scoreboard
   TrueAbove1kRank.dll : changes "999+" in the scoreboard to an actual rank
   AlbumScroll.dll : enables to scroll through current album using Shift keys
+  SongInfo.dll : shows song's BPM and duration
 
 UserLibs folder, only required for ScoreboardCharacters:
   SkiaSharp.dll : https://www.nuget.org/packages/SkiaSharp
