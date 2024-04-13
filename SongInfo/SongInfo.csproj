@@ -20,6 +20,8 @@
     <Reference Include="../references/Il2CppSirenix.Serialization.dll"/>
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.AudioModule.dll" />
+    <Reference Include="../references/UnityEngine.UI.dll" />
+    <Reference Include="../references/UnityEngine.TextRenderingModule.dll" />
     <Reference Include="../references/Newtonsoft.Json.dll" />
   </ItemGroup>
 

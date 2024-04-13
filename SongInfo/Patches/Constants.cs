@@ -5,5 +5,6 @@ namespace Bnfour.MuseDashMods.SongInfo.Patches;
 /// </summary>
 internal class Constants
 {
-    // TODO component ids
+    internal const string BpmStringComponentName = "BnSongInfoBPM";
+    internal const string DurationStringComponentName = "BnSongInfoDuration";
 }
