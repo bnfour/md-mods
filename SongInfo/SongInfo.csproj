@@ -18,8 +18,13 @@
     <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
   </ItemGroup>
+
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup Label="Resources">
+    <EmbeddedResource Include="Resources/duration_data.json" />
   </ItemGroup>
 
 </Project>
