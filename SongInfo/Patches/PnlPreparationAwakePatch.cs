@@ -29,11 +29,10 @@ public class PnlPreparationAwakePatch
 
         // move and restyle the achievements display as its original place
         // is taken by the new UI
-        // TODO fine-tune the positions
 
         var achievementsText = __instance.stageAchievementValue;
         achievementsText.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
-        achievementsText.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-40, 357, 0);
+        achievementsText.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-45, 355, 0);
 
         var achievementsPanelHeader = GameObject.Find("TxtContent").GetComponent<Text>();
         achievementsText.fontSize = achievementsPanelHeader.fontSize;
@@ -42,6 +41,7 @@ public class PnlPreparationAwakePatch
 
         var awardIcon = GameObject.Find("ImgStageAchievement");
         awardIcon.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
-        awardIcon.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-60, 357, 0);
+        // TODO the x coordinate assignment apparently does not work
+        awardIcon.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-109, 355, 0);
     }
 }

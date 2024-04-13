@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.SongInfo.Patches;
 [HarmonyPatch(typeof(PnlPreparation), nameof(PnlPreparation.OnEnable))]
 public class PnlPreparationOnEnablePatch
 {
-    private static void Postfix(PnlPreparation __instance)
+    private static void Postfix()
     {
         var info = GlobalDataBase.s_DbMusicTag.CurMusicInfo();
         var bpm = info.bpm;
