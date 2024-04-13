@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-
+using MelonLoader;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -90,6 +90,9 @@ public class SongDurationProvider
         {
             var duration = FormatDuration(GetDurationDirectly(info));
             _overrideCache[info.uid] = duration;
+
+            Melon<SongInfoMod>.Logger.Warning($"Apologies for the lag, needed to get duration data not present in the cache.");
+
             return duration;
         }
     }
@@ -125,7 +128,7 @@ public class SongDurationProvider
         // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
 
-        // AudioClips in the game are not set up for preloading (why would they?),
+        // AudioClips in the game are not set up for loading metadata only first (why would they?),
         // so the entire file is loaded, hence the delay
 
         var ac = ResourcesManager.instance.LoadFromName<AudioClip>(info.music);

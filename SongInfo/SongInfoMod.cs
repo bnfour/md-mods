@@ -35,7 +35,7 @@ public class SongInfoMod : MelonMod
         as an override, the mod also automatically creates and saves overrides for
         the unknown songs, which are also automatically removed when the mod is updated.
         As such, this mode is not available at all at the release build, and the
-        steps to the super-seecret way to start the process are officialy undocumented.
+        steps to the super-seecret way to start the process are officially undocumented.
         (protip: check the code below)
 
         Due to the quick-and-dirty nature of this feature, it runs extremely ugly:
