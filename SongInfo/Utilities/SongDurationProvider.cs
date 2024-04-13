@@ -56,6 +56,24 @@ public class SongDurationProvider
         {
             _overrideCache = new();
         }
+
+        if (_overrideCache.Count > 0)
+        {
+            // removes all override entries that match the (updated) data,
+            // because those were probably generated with not up-to-date version of the mod
+            var toRemove = new List<string>();
+            foreach (var kvp in _overrideCache)
+            {
+                if (_internalData.ContainsKey(kvp.Key) && _internalData[kvp.Key] == kvp.Value)
+                {
+                    toRemove.Add(kvp.Key);
+                }
+            }
+            foreach (var key in toRemove)
+            {
+                _overrideCache.Remove(key);
+            }
+        }
     }
 
     public string GetDuration(MusicInfo info)
@@ -78,21 +96,7 @@ public class SongDurationProvider
 
     public void Shutdown()
     {
-        // removes all override entries that match the (updated) data,
-        // because those were probably generated with not up-to-date version of the mod
-        var toRemove = new List<string>();
-        foreach (var kvp in _overrideCache)
-        {
-            if (_internalData.ContainsKey(kvp.Key) && _internalData[kvp.Key] == kvp.Value)
-            {
-                toRemove.Add(kvp.Key);
-            }
-        }
-        foreach (var key in toRemove)
-        {
-            _overrideCache.Remove(key);
-        }
-        // save the remaining overrides back to the file,
+        // save the updated overrides back to the file,
         // or remove the file if it's present, but no overrides remain
         var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
         if (_overrideCache.Count == 0)
