@@ -115,12 +115,12 @@ public class SongDurationProvider
         }
     }
 
-    private static string FormatDuration(float rawDuration)
+    public static string FormatDuration(float rawDuration)
     {
         return $"{(int)(rawDuration / 60):00}:{(int)(rawDuration % 60):00}";
     }
 
-    private static float GetDurationDirectly(MusicInfo info)
+    public static float GetDurationDirectly(MusicInfo info)
     {
         // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
