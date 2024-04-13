@@ -21,10 +21,10 @@ public class PnlPreparationOnEnablePatch
 
         var bpmField = GameObject.Find(Constants.BpmStringComponentName)
             ?.GetComponent<LongSongNameController>();
-        bpmField?.Refresh(bpm, delay: 0);
+        bpmField?.Refresh($"BPM: {bpm}", delay: 0);
 
         var durationField = GameObject.Find(Constants.DurationStringComponentName)
             ?.GetComponent<LongSongNameController>();
-        durationField?.Refresh(duration, delay: 0);
+        durationField?.Refresh($"Length: {duration}", delay: 0);
     }
 }
