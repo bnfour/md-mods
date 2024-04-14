@@ -118,12 +118,23 @@ public class SongDurationProvider
         }
     }
 
+    // these are only used outside of this class in debug-only developer mode,
+    // no need for them to be accessible outside this class in a release build
+
+#if DEBUG
     public static string FormatDuration(float rawDuration)
+#else
+    private static string FormatDuration(float rawDuration)
+#endif
     {
         return $"{(int)(rawDuration / 60):00}:{(int)(rawDuration % 60):00}";
     }
 
+#if DEBUG
     public static float GetDurationDirectly(MusicInfo info)
+#else
+    private static float GetDurationDirectly(MusicInfo info)
+#endif
     {
         // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
