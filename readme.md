@@ -6,11 +6,12 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Mod list
-Currently, this repo contains three mods: two are scoreboard related, and another one enhances song select screen. They can be used together.
+Currently, this repo contains four mods: two are scoreboard related, another one enhances song select screen, and the last one provides more info about the selected song. They can be used together.
 
 - [Scoreboard characters](#scoreboard-characters) — shows character/elfin info on the scoreboard
 - [True rank](#true-rank) — changes "999+" in the scoreboard to an actual rank
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
+- [Song info](#song-info) — shows song's BPM and duration
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
@@ -24,7 +25,8 @@ These buttons can be clicked, and will set your current character and elfin to t
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
 
-Please note that the overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
+> [!NOTE]
+> The overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
 #### Image preparation
 A good way to start with an override is to use the default spritesheet for your resolution as a template. The defaults are located in [`ScoreboardCharacters/Resources`](ScoreboardCharacters/Resources) folder. There's also a bigger source and/or reference image in [`ScoreboardCharacters/etc`](ScoreboardCharacters/etc).
@@ -47,7 +49,7 @@ Continuing the example, the size of custom spritesheet for 2560×1440 should be:
 - height: 8 × 53 = 424 px
 
 ##### Sprites placement
-Use the [reference image](ScoreboardCharacters/etc/sprites.png) to place the sprites on the spritesheet. The sprites with the numbers are placeholders for possible future updates, it's not mandatory to fill them in an override.
+Use the [reference image](ScoreboardCharacters/etc/sprites.png) to place the sprites on the spritesheet. The sprites with numbers on them are placeholders for possible future updates, it's not mandatory to fill them in an override.
 
 #### Image override
 To apply the override, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. You'll see a warning in the console if its dimensions differ from expected values. If you don't see your custom images in the game and there's nothing in the console, double-check the file name and location.
@@ -56,10 +58,12 @@ To apply the override, place your custom spritesheet as `scoreboard_characters_o
 Mod file: `TrueAbove1kRank.dll`
 
 This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000–2000 range:
+| Before | After |
+| --- | --- |
+| ![simulated image, no (you)s were harmed during production](readme-images/true-rank-before.png) | ![simulated image, no (you)s were harmed during production](readme-images/true-rank-after.png) |
 
-![simulated image, no (you)s were harmed during production](readme-images/true-rank-showcase.png)
-
-Please note that the game servers only track top 2000 entries. If you score less, it won't be tracked and there's nothing this mod can do.
+> [!NOTE]
+> The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
 
 ## Album scroll
 Mod file: `AlbumScroll.dll`
@@ -70,19 +74,37 @@ Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
 https://github.com/bnfour/md-mods/assets/853426/92bb0375-95cb-40d3-81a8-8972ba9207af
 
-Please note that this mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode. It's best to use single taps to scroll albums.
+> [!TIP]
+> It's best to use single taps to scroll albums.
+>  
+> This mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode.
+
+## Song info
+Mod file: `SongInfo.dll`
+
+This mod adds song's BPM and duration display to the song info screen:
+
+| State | Illustration |
+| --- | --- |
+| Before | ![can't think of a caption right now >_<](readme-images/song-info-before.png) |
+| After[*](https://github.com/bnfour/md-mods/issues/11) | ![the new data is supposed to be symmetrical with the level designer label](readme-images/song-info-after.png) |
+
+> [!NOTE]  
+> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
 
 ## Experimental mod
-This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without changing existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) in this project and then moved to its own permanent project.
+This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to its own permanent project.
 
 The project contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.6.1 Open-Beta of MelonLoader is supported.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
-Scoreboard characters mod also requires additional libraries to be placed in `UserLibs` folder.
 
-Rather than downloading these, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
+> [!NOTE]
+> Scoreboard characters mod also requires SkiaSharp libraries to be placed in `UserLibs` folder. These libraries are included in the download.
+
+Rather than downloading the mods, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
 
 ## Verification
@@ -94,8 +116,8 @@ Every published release is accompanied with SHA256 hashes of every DLL. MelonLoa
 ### Is this cheating?
 _tl;dr: no_
 
-The scoreboard mods show the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game to the website on another display. The Album scroll mod only affects the song selection menu.  
-The mods provide no advantage for the actual gameplay, only some convinence in song selection stage. You still have to git gud to earn high scores; you just know what character to pick and where exactly on the scoreboard you are.
+The scoreboard mods show the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game to the website on another display. The Album scroll mod only affects the song selection menu. The Song info mod is simply displaying the data from game, too.  
+The mods provide no advantage for the actual gameplay, only some convinence in preparation stage. You still have to git gud to earn high scores; you just know what character to pick and where exactly on the scoreboard you are.
 
 Unless you count _any_ changes to the game for _any_ purpose as cheating, this is not cheating.
 
@@ -109,7 +131,7 @@ Remember that you're using the mods **at your own risk**. I have warned you many
 ### I have other mods. What about compatibility with them?
 _tl;dr: ¯\\\_(ツ)\_/¯_
 
-The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other mods, unless these other mods change the vanilla code too much.
+The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other mods, unless those other mods change the vanilla code too much.
 
 ### My game is broken because of you and your mods, how can I fix this and blame you?
 _tl;dr: uninstall, and remember: NO WARRANTIES_
@@ -119,7 +141,7 @@ If you just want to play the game, removing the mods (and maybe the modloader it
 * Try to remove mods not from this repo.
 * Try to remove mods and/or modloader and check whether the vanilla game is broken too.
 
-If none of these helps, feel free to submit an issue, unless it's already have been reported.
+If none of these helps, feel free to submit an issue, unless the problem was already reported.
 
 # Building from source
 This repo is a run-of-the-mill .NET solution targeting .NET 6.
@@ -127,7 +149,6 @@ This repo is a run-of-the-mill .NET solution targeting .NET 6.
 The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you.
 
 Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All the DLLs should be directly in the `references` folder, no subfolders.
-
 
 This should cover the local references for all the projects. (Actually, **most** of the DLLs are not necessary to build the solution, I just don't plan on keeping an accurate and up to date list of required libraries.)
 

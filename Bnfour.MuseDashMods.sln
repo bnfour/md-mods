@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimental", "Experimenta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlbumScroll", "AlbumScroll\AlbumScroll.csproj", "{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongInfo", "SongInfo\SongInfo.csproj", "{A4EB0070-E2DE-4570-9CE6-0E0FFC462324}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A2BDAAF-4AF3-433C-9C75-B6D3ACE5D2B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4EB0070-E2DE-4570-9CE6-0E0FFC462324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EB0070-E2DE-4570-9CE6-0E0FFC462324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EB0070-E2DE-4570-9CE6-0E0FFC462324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EB0070-E2DE-4570-9CE6-0E0FFC462324}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
