@@ -86,11 +86,11 @@ This mod adds song's BPM and duration display to the song info screen:
 
 | State | Illustration |
 | --- | --- |
-| Before | ![](readme-images/song-info-before.png) |
-| After* TODO link the issue | ![](readme-images/song-info-after.png) |
+| Before | ![can't think of a caption right now >_<](readme-images/song-info-before.png) |
+| After[*](https://github.com/bnfour/md-mods/issues/11) | ![the new data is supposed to be symmetrical with the level designer label](readme-images/song-info-after.png) |
 
 > [!NOTE]  
-> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go" intro, and maybe the "Full combo" outro as well.
+> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
 
 ## Experimental mod
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to its own permanent project.
