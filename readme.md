@@ -94,11 +94,11 @@ This mod adds song's BPM and duration display to the song info screen:
 
 ### Cache (ab)use (advanced; also useless)
 
-This mod uses an external file to store the lengths of the songs obtained locally from the game data. It can happen when new songs are added in a new game update. Ususaly, direct access to game data is avoided because it's a slower operation that slightly lags the game.
+This mod uses an external file to store the lengths of the songs obtained locally from the game data. This happens when new songs are added to the game and the mod's built in database becomes outdated. Usually, direct access to game data is avoided because it's a slow operation that slightly lags the game. When song's length is acquired locally, it's cached in an external file.
 
-The overide file, `song_info_override.json`, is stored in `MuseDash_Data` directory of the game install. If there are no overrides to store, the file will not be present.
+The file, `song_info_override.json`, is stored in `MuseDash_Data` directory of the game install. If there are no overrides to store, the file will not be present.
 
-Ususally, the overrides are created in the period when the game had a new update and the mod was not yet updated. After a mod update, the overrides are automatically removed from the file.
+After a mod update, the gathered overrides are automatically removed from the file if they match with the updated default data. The file itself is removed if no overrides remain.
 
 However, the mod _currently_ does not remove overrides that do not match its own data. Therefore, it's possible to store arbitrary strings in there to be displayed instead of a song's length.
 
