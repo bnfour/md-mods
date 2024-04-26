@@ -120,6 +120,9 @@ Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
 
 To revert to the default display, just remove the entry from the overrides file, ot the file itself.
 
+> [!WARNING]  
+> If `song_info_override.json` does not contain valid JSON in expected format, it might get deleted.
+
 ## Experimental mod
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to its own permanent project.
 
