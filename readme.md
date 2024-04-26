@@ -92,6 +92,37 @@ This mod adds song's BPM and duration display to the song info screen:
 > [!NOTE]  
 > The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
 
+### Cache (ab)use (advanced; also useless)
+
+This mod uses an external file to store the lengths of the songs obtained locally from the game data. It can happen when new songs are added in a new game update. Ususaly, direct access to game data is avoided because it's a slower operation that slightly lags the game.
+
+The overide file, `song_info_override.json`, is stored in `MuseDash_Data` directory of the game install. If there are no overrides to store, the file will not be present.
+
+Ususally, the overrides are created in the period when the game had a new update and the mod was not yet updated. After a mod update, the overrides are automatically removed from the file.
+
+However, the mod _currently_ does not remove overrides that do not match its own data. Therefore, it's possible to store arbitrary strings in there to be displayed instead of a song's length.
+
+The file itself is a simple string to string JSON dictionary:
+- the key is a song's so called `uid`; a string in `{album id}-{song id}` format
+- the value is the string to display; _supposed_ to be the song length
+
+For instance, if the cache file contains
+```json
+{
+  "8-1": "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
+}
+```
+the data for Brain Power will look like this:
+
+![the full gif is larger than the entire repo, and the low-res video will also probably look bad stretched, so this will have to do](readme-images/song-info-override.png)
+
+Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
+
+To revert to the default display, just remove the entry from the overrides file, ot the file itself.
+
+> [!WARNING]  
+> If `song_info_override.json` does not contain valid JSON in expected format, it might get deleted.
+
 ## Experimental mod
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to its own permanent project.
 
