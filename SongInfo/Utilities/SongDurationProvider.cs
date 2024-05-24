@@ -29,7 +29,8 @@ public class SongDurationProvider
             using (var reader = new StreamReader(embeddedDataStream))
             {
                 var raw = reader.ReadToEnd();
-                _internalData = JsonConvert.DeserializeObject<SortedList<string, string>>(raw);
+                var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
+                _internalData = new(dataOnly, new MusicInfoUidComparer());
             }
         }
 
@@ -41,7 +42,8 @@ public class SongDurationProvider
                 using (var reader = new StreamReader(overrideFullPath))
                 {
                     var raw = reader.ReadToEnd();
-                    _overrideCache = JsonConvert.DeserializeObject<SortedList<string, string>>(raw);
+                    var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
+                    _overrideCache = new(dataOnly, new MusicInfoUidComparer());
                 }
             }
             catch (JsonException)
@@ -49,12 +51,12 @@ public class SongDurationProvider
                 // TODO a warning here would be nice
                 // but this is (probably) called when the logger is still unavailable
                 // (that was the case with the scoreboard characters before)
-                _overrideCache = new();
+                _overrideCache = new(new MusicInfoUidComparer());
             }
         }
         else
         {
-            _overrideCache = new();
+            _overrideCache = new(new MusicInfoUidComparer());
         }
 
         if (_overrideCache.Count > 0)

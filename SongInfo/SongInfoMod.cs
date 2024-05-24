@@ -10,7 +10,6 @@ using Il2CppAssets.Scripts.Database;
 
 using Bnfour.MuseDashMods.SongInfo.Utilities;
 
-
 namespace Bnfour.MuseDashMods.SongInfo;
 
 public class SongInfoMod : MelonMod
@@ -68,9 +67,8 @@ public class SongInfoMod : MelonMod
 
             uint counter = 0;
             var total = GlobalDataBase.s_DbMusicTag.allMusicCount;
-            // the SortedLists are used to maintain some resemblance of order in the file
-            // so the unlikely event of changing the length of existing song can be easily seen
-            var result = new SortedList<string, string>();
+            // the sorting is used to maintain order in the file
+            var result = new SortedList<string, string>(new MusicInfoUidComparer());
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
