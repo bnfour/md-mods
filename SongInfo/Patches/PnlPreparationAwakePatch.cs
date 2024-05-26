@@ -41,8 +41,14 @@ public class PnlPreparationAwakePatch
 
         var awardIcon = GameObject.Find("ImgStageAchievement");
         awardIcon.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
-        // TODO the x coordinate assignment apparently does not work,
-        // see also PnlPreparationOnEnablePatch.Prefix
-        awardIcon.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-109, 355, 0);
+
+        var rectTransform = awardIcon.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition3D = new Vector3(-109, 355, 0);
+        // for some reason X coordinate assignment refuses to work (see #11),
+        // so an "alternative" way to move it horizontally is used
+        // (no idea which anchor does the trick, maybe both?)
+        rectTransform.anchorMax = new Vector2(1.05f, 0.5f);
+        rectTransform.anchorMin = new Vector2(1.05f, 0.5f);
+        // in 1080 resolution, 1px of moving the image is 0.00125 of anchor
     }
 }
