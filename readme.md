@@ -25,6 +25,9 @@ These buttons can be clicked, and will set your current character and elfin to t
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
 
+<details>
+<summary>Details</summary>
+
 > [!NOTE]
 > The overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
@@ -53,6 +56,8 @@ Use the [reference image](ScoreboardCharacters/etc/sprites.png) to place the spr
 
 #### Image override
 To apply the override, place your custom spritesheet as `scoreboard_characters_override.png` to `MuseDash_Data` directory of the game install. You'll see a warning in the console if its dimensions differ from expected values. If you don't see your custom images in the game and there's nothing in the console, double-check the file name and location.
+
+</details>
 
 ## True rank
 Mod file: `TrueAbove1kRank.dll`
@@ -93,6 +98,10 @@ This mod adds song's BPM and duration display to the song info screen:
 > The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
 
 ### Cache (ab)use (advanced; also useless)
+For technical reasons, it is possible to replace the song duration with an arbitrary string. Why though?
+
+<details>
+<summary>Details</summary>
 
 This mod uses an external file to store the lengths of the songs obtained locally from the game data. This happens when new songs are added to the game and the mod's built in database becomes outdated. Usually, direct access to game data is avoided because it's a slow operation that slightly lags the game. When song's length is acquired locally, it's cached in an external file.
 
@@ -122,6 +131,8 @@ To revert to the default display, just remove the entry from the overrides file,
 
 > [!WARNING]  
 > If `song_info_override.json` does not contain valid JSON in expected format, it might get deleted.
+
+</details>
 
 ## Experimental mod
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to its own permanent project.
