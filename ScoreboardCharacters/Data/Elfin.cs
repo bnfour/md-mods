@@ -15,8 +15,8 @@ public enum Elfin
     DrPaige,
     Silencer,
     NeonEgg,
+    BetaGo,
     // these are here so that we can use typed IDs even without an update
-    MysteryElfin11,
     MysteryElfin12,
     MysteryElfin13,
     MysteryElfin14,
