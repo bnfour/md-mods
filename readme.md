@@ -28,8 +28,7 @@ If you don't like the provided default images on the buttons or the way they are
 <details>
 <summary>Details</summary>
 
-> [!NOTE]
-> The overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
+The overriding is designed to **not** apply any scaling to the images, and the sprites will be placed to the buttons as is.
 
 #### Image preparation
 A good way to start with an override is to use the default spritesheet for your resolution as a template. The defaults are located in [`ScoreboardCharacters/Resources`](ScoreboardCharacters/Resources) folder. There's also a bigger source and/or reference image in [`ScoreboardCharacters/etc`](ScoreboardCharacters/etc).
@@ -128,9 +127,8 @@ the data for Brain Power will look like this:
 Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
 
 To revert to the default display, just remove the entry from the overrides file, ot the file itself.
-
-> [!WARNING]  
-> If `song_info_override.json` does not contain valid JSON in expected format, it might get deleted.
+ 
+If `song_info_override.json` does not contain valid JSON in expected format, it might get deleted.
 
 </details>
 
