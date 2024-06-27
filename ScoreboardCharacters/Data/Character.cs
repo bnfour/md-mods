@@ -29,8 +29,8 @@ public enum Character
     BuroExorcist,
     HatsuneMiku,
     KagamineRinAndLen,
+    RinRacer,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter27,
     MysteryCharacter28,
     MysteryCharacter29,
     MysteryCharacter30,

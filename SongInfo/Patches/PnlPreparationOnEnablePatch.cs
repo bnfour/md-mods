@@ -13,15 +13,6 @@ namespace Bnfour.MuseDashMods.SongInfo.Patches;
 [HarmonyPatch(typeof(PnlPreparation), nameof(PnlPreparation.OnEnable))]
 public class PnlPreparationOnEnablePatch
 {
-    // TODO fix the underlying issue
-    private static void Prefix()
-    {
-        // this assignment to x coordinate does not work the first time the screen is opened,
-        // works later, better than nothing ¯\_(ツ)_/¯
-        var awardIcon = GameObject.Find("ImgStageAchievement");
-        awardIcon.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-109, 355, 0);
-    }
-
     private static void Postfix()
     {
         var info = GlobalDataBase.s_DbMusicTag.CurMusicInfo();
