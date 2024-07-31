@@ -22,6 +22,8 @@ public class SongDurationProvider
     private readonly SortedList<string, string> _internalData;
     private readonly SortedList<string, string> _overrideCache;
 
+    public bool ErrorLoadingOverride { get; private set; }
+
     public SongDurationProvider()
     {
         using (var embeddedDataStream = GetType().GetTypeInfo().Assembly.GetManifestResourceStream(EmbeddedDataName))
@@ -48,9 +50,7 @@ public class SongDurationProvider
             }
             catch (JsonException)
             {
-                // TODO a warning here would be nice
-                // but this is (probably) called when the logger is still unavailable
-                // (that was the case with the scoreboard characters before)
+                ErrorLoadingOverride = true;
                 _overrideCache = new(new MusicInfoUidComparer());
             }
         }
@@ -102,18 +102,26 @@ public class SongDurationProvider
     public void Shutdown()
     {
         // save the updated overrides back to the file,
-        // or remove the file if it's present, but no overrides remain
+        // or remove the file if it's present, but no overrides remain,
+        // unless there was an exception loading the override itself --
+        // in this case we'll give a chance to fix the file
         var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
         if (_overrideCache.Count == 0)
         {
-            if (File.Exists(overrideFullPath))
+            if (File.Exists(overrideFullPath) && !ErrorLoadingOverride)
             {
                 File.Delete(overrideFullPath);
             }
         }
         else
         {
-            using (var writer = new StreamWriter(overrideFullPath, false))
+            // if we collected any overrides ourselves, we can't help but rewrite the file
+            if (ErrorLoadingOverride)
+            {
+                Melon<SongInfoMod>.Logger.Warning("Overwriting malformed overrides file with data collected this run. You've been warned before.");
+            }
+
+            using (var writer = new StreamWriter(overrideFullPath, append: false))
             {
                 writer.Write(JsonConvert.SerializeObject(_overrideCache, Formatting.Indented));
             }
