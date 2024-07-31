@@ -16,6 +16,16 @@ public class SongInfoMod : MelonMod
 {
     public readonly SongDurationProvider DurationProvider = new();
 
+    public override void OnLateInitializeMelon()
+    {
+        base.OnLateInitializeMelon();
+
+        if (DurationProvider.ErrorLoadingOverride)
+        {
+            LoggerInstance.Warning("Unable to load the overrides file (bad JSON?). It will be overwritten if this mod encounters any song not present in its database. To avoid data loss, please quit now and fix the file.");
+        }
+    }
+
     public override void OnApplicationQuit()
     {
         base.OnApplicationQuit();
