@@ -128,7 +128,7 @@ Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
 
 To revert to the default display, just remove the entry from the overrides file, ot the file itself.
  
-If `song_info_override.json` does not contain valid JSON in expected format, it might get deleted.
+If `song_info_override.json` does not contain valid JSON in expected format, a warning will be displayed at startup. The file will get overwritten by mod if it encounters a song it doesn't have data for — it will be stored in the file.
 
 </details>
 
