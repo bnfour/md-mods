@@ -17,5 +17,5 @@ public class AdditionalScoreboardData
     /// Data for the scoreboard. May include an entry duplicating <see cref="Self"/>,
     /// if the player is good enough.
     /// </summary>
-    public List<AdditionalScoreboardDataEntry> Scoreboard { get; } = new List<AdditionalScoreboardDataEntry>(99);
+    public List<AdditionalScoreboardDataEntry> Scoreboard { get; } = new List<AdditionalScoreboardDataEntry>(100);
 }
