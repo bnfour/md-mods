@@ -74,28 +74,29 @@ public class PnlRankUIRefreshPatch
         {
             UiPatcher.FillData(__instance.server, __state.Self);
         }
-        // the scoreboard itself is pooled
-        // the first object seems to be the template (?), never shown on screen
-        // then there are actual ranks to be shown, in reverse order
-        // so, at most 100 objects in pool:
-        //   #0 is unused,
-        //   #1 is last scoreboard entry (#99 in most cases),
-        //   #2 is second last scoreboard entry,
+        // the scoreboard itself is pooled, there are 100 objects in the pool,
+        // and the rank objects are in reverse order:
+        //   - #0 is _mostly_ unused (_sometimes_ #100 entry),
+        //   - #1 is the usual last scoreboard entry (#99),
+        //   - #2 is the second last scoreboard entry (#98),
         //   ...and so on...
-        //   last entry is scoreboard entry #1
+        //   - last entry is the first scoreboard entry for the top score
+        // so if the scoreboard is not full, objects from the _beginning_ of the pool
+        // are inactive
         var poolCount = __instance.m_RankPool.gameObjects.Count;
-        for (int i = poolCount - 1; i > 0; i--)
+        for (int i = poolCount - 1; i >= 0; i--)
         {
             var actualEntry = __instance.m_RankPool.gameObjects[i];
             // if it's not active (not shown on the scoreboard),
             // we should silently skip filling from it onwards
-            // (most likely, there are less than 99 entries)
+            // (most likely, there are less entries than there are places in the scoreboard,
+            // in particular, #100 is rarely used (is it an API bug?))
             if (!actualEntry.active)
             {
                 break;
             }
 
-            // unlike the pool, scoreboard data is stored simply:
+            // unlike the objects pool, scoreboard data is stored simply:
             // index 0 is entry #1, index 1 is entry #2 and so on
             // this calculates the scoreboard data index from the pool index
             var extraDataIndex = poolCount - 1 - i;
