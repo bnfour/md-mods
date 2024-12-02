@@ -14,6 +14,9 @@
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
+    <Reference Include="../references/Assembly-CSharp-firstpass.dll" />
+    <Reference Include="../references/UnityEngine.CoreModule.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll" />
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
