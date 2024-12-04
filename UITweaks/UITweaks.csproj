@@ -17,6 +17,7 @@
     <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/Il2CppInterop.Runtime.dll" />
+    <Reference Include="../references/UnityEngine.UIModule.dll" />
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />

@@ -5,11 +5,12 @@ using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.UITweaks.Data;
+using Bnfour.MuseDashMods.UITweaks.Utilities;
 
 namespace Bnfour.MuseDashMods.UITweaks.Patches;
 
-[HarmonyPatch(typeof(PnlBattle), nameof(PnlBattle.Awake))]
-public class PnlBattleAwakePatch
+[HarmonyPatch(typeof(PnlBattle), nameof(PnlBattle.GameStart))]
+public class PnlBattleGameStartPatch
 {
     private static void Postfix(PnlBattle __instance)
     {
@@ -30,6 +31,6 @@ public class PnlBattleAwakePatch
             return;
         }
 
-        // TODO call some util class to change __instance.currentComps based on mode
+        HpFeverBarsSynchronizer.Sync(__instance.currentComps, syncMode);
     }
 }
