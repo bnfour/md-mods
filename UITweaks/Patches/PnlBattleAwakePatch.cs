@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MelonLoader;
 
+using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.UITweaks.Data;
@@ -22,10 +23,9 @@ public class PnlBattleAwakePatch
             ? HpFeverFlowSyncMode.HpToFever
             : HpFeverFlowSyncMode.FeverToHp;
 
-        // TODO actually check
-        var isTouhouMode = false;
         // do nothing to fever bar if touhou mode is enabled
-        if (isTouhouMode && syncMode == HpFeverFlowSyncMode.FeverToHp)
+        if (GlobalDataBase.s_DbTouhou.isTouhouEasterEgg
+            && syncMode == HpFeverFlowSyncMode.FeverToHp)
         {
             return;
         }
