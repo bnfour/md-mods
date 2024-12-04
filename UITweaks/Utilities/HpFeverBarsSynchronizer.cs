@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using MelonLoader;
 
 using Il2CppAssets.Scripts.UI.Panels;
 
@@ -11,6 +10,7 @@ namespace Bnfour.MuseDashMods.UITweaks.Utilities;
 internal static class HpFeverBarsSynchronizer
 {
     private const string FillPathTemplate = "Below/UpUI/Sld{0}/Fill Area/Fill";
+    private const string TexturePathTemplate = "Bnfour.MuseDashMods.UITweaks.Resources.bubbles.{0}.png";
     // TODO consider to also get this value at runtime like the widths
     private const float DefaultXScale = 4f;
 

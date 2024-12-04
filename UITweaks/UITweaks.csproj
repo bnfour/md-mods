@@ -23,7 +23,8 @@
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup Label="Resources">
-    <!-- soon™ -->
+    <EmbeddedResource Include="Resources/bubbles.-116.png" />
+    <EmbeddedResource Include="Resources/bubbles.+118.png" />
   </ItemGroup>
 
 </Project>
