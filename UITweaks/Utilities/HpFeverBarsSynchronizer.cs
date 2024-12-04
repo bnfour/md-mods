@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using System.IO;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.UI.Panels;
@@ -38,7 +40,10 @@ internal static class HpFeverBarsSynchronizer
             // the bubbles are also not exact circles due to separate H and V scaling,
             // the more you know...
 
-            // TODO set the texture
+            // i really wanted to avoid replacing the texture outright,
+            // but neither _FlowOffsetX float nor material's offset
+            // for the flow texture worked, so here we go
+            material.SetTexture("_FlowTex", GetReplacementTexture(mode));
         }
     }
 
@@ -47,7 +52,6 @@ internal static class HpFeverBarsSynchronizer
     /// </summary>
     /// <param name="mode"></param>
     /// <returns></returns>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private static string PathToModifiedComponent(HpFeverFlowSyncMode mode)
     {
         var part = mode switch
@@ -65,7 +69,6 @@ internal static class HpFeverBarsSynchronizer
     /// </summary>
     /// <param name="mode"></param>
     /// <returns></returns>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private static string PathToReferenceComponent(HpFeverFlowSyncMode mode)
     {
         var part = mode switch
@@ -76,5 +79,37 @@ internal static class HpFeverBarsSynchronizer
         };
 
         return string.Format(FillPathTemplate, part);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mode"></param>
+    /// <returns></returns>
+    private static Texture2D GetReplacementTexture(HpFeverFlowSyncMode mode)
+    {
+        var part = mode switch
+        {
+            HpFeverFlowSyncMode.FeverToHp => "-116",
+            HpFeverFlowSyncMode.HpToFever => "+118",
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), "Unsupported change mode")
+        };
+
+        var resourcePath = string.Format(TexturePathTemplate, part);
+        var assembly = typeof(HpFeverBarsSynchronizer).GetTypeInfo().Assembly;
+
+        using (var textureStream = assembly.GetManifestResourceStream(resourcePath))
+        using (var memoryStream = new MemoryStream())
+        {
+            // MemoryStream is directly convertable to byte[]
+            textureStream.CopyTo(memoryStream);
+            // size is irrelevant, Alpha8 works and should save some memory,
+            // and we want mipmap off, because the textures are 160x160 -- not powers of two
+            var texture = new Texture2D(1, 1, TextureFormat.Alpha8, false);
+            ImageConversion.LoadImage(texture, memoryStream.ToArray());
+
+            return texture;
+        }
+
     }
 }
