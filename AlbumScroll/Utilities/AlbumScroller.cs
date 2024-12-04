@@ -8,7 +8,7 @@ using Bnfour.MuseDashMods.AlbumScroll.Data;
 namespace Bnfour.MuseDashMods.AlbumScroll.Utilities;
 
 /// <summary>
-/// Contains the album-scrolling logic to be reused in both patches.
+/// Contains the album-scrolling logic.
 /// </summary>
 public static class AlbumScroller
 {
