@@ -20,7 +20,7 @@ public class UITweaksMod : MelonMod
         _widerTitlesEnabled = _prefsCategory.CreateEntry("WiderAlbumTitles", true,
             "Wider album titles", "Enables wider album titles on song selection screen.");
 
-        if (!WiderAlbumTitlesEnabled)
+        if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled && !HpFeverFlowSyncEnabled)
         {
             LoggerInstance.Warning("No features of the mod enabled, might as well uninstall it.");
         }
