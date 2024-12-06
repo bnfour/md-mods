@@ -9,6 +9,8 @@ public class UITweaksMod : MelonMod
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
     internal bool AchievementIconsSyncEnabled => true;
+    internal bool HpFeverFlowSyncEnabled => true;
+    internal bool HpFeverFlowSyncUseAltMode => false;
 
     public override void OnInitializeMelon()
     {
