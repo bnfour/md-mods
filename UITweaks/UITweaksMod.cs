@@ -6,6 +6,8 @@ public class UITweaksMod : MelonMod
 {
     private MelonPreferences_Category _prefsCategory;
 
+    internal bool WiderAlbumTitlesEnabled => true;
+
     public override void OnInitializeMelon()
     {
         base.OnInitializeMelon();
