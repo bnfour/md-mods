@@ -6,12 +6,13 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Mod list
-Currently, this repo contains four mods: two are scoreboard related, another one enhances song select screen, and the last one provides more info about the selected song. They can be used together.
+This repo currently contains five mods. They can be used in any combination.
 
 - [Scoreboard characters](#scoreboard-characters) — shows character/elfin info on the scoreboard
 - [True rank](#true-rank) — changes "999+" in the scoreboard to an actual rank
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
 - [Song info](#song-info) — shows song's BPM and duration
+- [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
@@ -132,8 +133,26 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 
 </details>
 
-## Experimental mod
-This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll mod was first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to its own permanent project.
+## UI tweaks
+TODO write that it's a bunch of separately toggleable small things bundled together
+
+### Wider album names
+TODO desc, before/after demo (gifs?), list of affected albums (under a spoiler?)
+
+### Achievement icons sync
+TODO desc, before/afer videos(?)
+
+### HP and Fever bars animation sync
+TODO desc, demos (screens? videos?), mention intreactions with 2hu mode?
+
+#### Alternative mode
+TODO desc, comparison
+
+### Configuration
+TODO paste the generated cfg
+
+## Experimental mod (not included in the download)
+This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll and UI tweaks mods were first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to their own permanent projects.
 
 The project contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
@@ -156,8 +175,8 @@ Every published release is accompanied with SHA256 hashes of every DLL. MelonLoa
 ### Is this cheating?
 _tl;dr: no_
 
-The scoreboard mods show the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game to the website on another display. The Album scroll mod only affects the song selection menu. The Song info mod is simply displaying the data from game, too.  
-The mods provide no advantage for the actual gameplay, only some convinence in preparation stage. You still have to git gud to earn high scores; you just know what character to pick and where exactly on the scoreboard you are.
+The scoreboard mods show the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game to the website on another display. The Album scroll mod only affects the song selection menu. The Song info mod is simply displaying the data from game, too. All UI tweaks are purely cosmetic. All mods provide no gameplay advantage.  
+You still have to git gud to earn high scores.
 
 Unless you count _any_ changes to the game for _any_ purpose as cheating, this is not cheating.
 
