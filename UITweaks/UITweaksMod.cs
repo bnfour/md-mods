@@ -8,6 +8,7 @@ public class UITweaksMod : MelonMod
     private MelonPreferences_Entry<bool> _widerTitlesEnabled;
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
+    internal bool AchievementIconsSyncEnabled => true;
 
     public override void OnInitializeMelon()
     {
