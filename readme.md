@@ -134,22 +134,78 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 </details>
 
 ## UI tweaks
-TODO write that it's a bunch of separately toggleable small things bundled together
+Mod file: `UITweaks.dll`
+
+This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue. They are bundled together only to keep the mod count manageable; each feature can be toggled on and off independently of others.
+
+There are currently three UI tweaks available.
 
 ### Wider album names
-TODO desc, before/after demo (gifs?), list of affected albums (under a spoiler?)
+This feature widens the space for the song's album name on the song selection screen, so wider names fit without scrolling. Only intended for English locale.
+
+| Before | After |
+| --- | --- |
+| TODO | TODO |
+
+<details>
+<summary>List of affected albums (in no particular order)</summary>
+
+- [Happy Otaku Pack]s Vol.10 and beyond
+- [Give Up Treatment] packs, all volumes
+- [Legends of Muse Warriors]
+- [COSMIC RADIO PEROLIST]
+- [CHUNITHM COURSE MUSE]
+- [Let's Do Bad Things Together]
+- [Budget Is Burning: Nano Core]
+- [maimai DX Limited-time Suite]
+
+</details>
 
 ### Achievement icons sync
-TODO desc, before/afer videos(?)
+This feature synchronizes the spinning cup achievement icons on song info screen. By default, these easily go out of sync on difficulty level switching.
+
+| Before | After |
+| --- | --- |
+| TODO | TODO |
+
+The difference is clearly seen on last frames of both videos.
+
+<details>
+<summary>Why does it get out of sync in the first place?</summary>
+
+The icons are reused between difficulty levels on this screen. The icon for the first achievement is shared between all three difficulty levels; the icon for the second achievement is shared between Hard and Master difficulty levels. By default, whenever the icon appears on the screen, its animation starts from beginning, regardless of any other icons, which may keep their animation state from another difficulty level.
+
+This mod feature corrects this by matching the state of new icons to the state of previously active icons (if any) on difficulty level switches.
+
+</details>
 
 ### HP and Fever bars animation sync
-TODO desc, demos (screens? videos?), mention intreactions with 2hu mode?
+This feature syncs the "bubble flow" animation between HP and Fever bars.
+
+TODO table comparison with both modes. (layout?)
+
+> [!NOTE]  
+> This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used. In [Bad Apple!!]'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
-TODO desc, comparison
+By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
 
 ### Configuration
-TODO paste the generated cfg
+This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
+
+The preferences are stored in MelonLoader's default preferences file, 'UserData/MelonPreferences.cfg'. Launching the game with the mod installed should create the following section in the file:
+```toml
+[Bnfour_UITweaks]
+# Enables wider album titles on song selection screen.
+WiderAlbumTitles = true
+# Syncs the spinning cup images for song achievements.
+AchievementIconsSync = true
+# Syncs the bubble animation for HP and Fever bars.
+SyncHpFeverAnim = true
+# Syncs HP bar to Fever bar.
+SyncHpFeverAnimAlt = false
+```
+Set a relevant value to `false` to disable a feature. The mod will notify you if it's configured to do nothing.
 
 ## Experimental mod (not included in the download)
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll and UI tweaks mods were first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to their own permanent projects.
