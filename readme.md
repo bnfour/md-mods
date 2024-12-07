@@ -193,7 +193,7 @@ By default, Fever bar's texture is modified to match the default HP bar's one. I
 ### Configuration
 This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
-The preferences are stored in MelonLoader's default preferences file, 'UserData/MelonPreferences.cfg'. Launching the game with the mod installed should create the following section in the file:
+The preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directiry). Launching the game with the mod installed should create the following section in the file:
 ```toml
 [Bnfour_UITweaks]
 # Enables wider album titles on song selection screen.
@@ -205,7 +205,10 @@ SyncHpFeverAnim = true
 # Syncs HP bar to Fever bar.
 SyncHpFeverAnimAlt = false
 ```
-Set a relevant value to `false` to disable a feature. The mod will notify you if it's configured to do nothing.
+By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
+
+> [!NOTE]  
+> The mod will notify you when all its features are disabled, so it does nothing.
 
 ## Experimental mod (not included in the download)
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll and UI tweaks mods were first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to their own permanent projects.
