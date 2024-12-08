@@ -98,10 +98,8 @@ This mod adds song's BPM and duration display to the song info screen:
 > The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
 
 ### Cache (ab)use (advanced; also useless)
-For technical reasons, it is possible to replace the song duration with an arbitrary string. Why though?
-
 <details>
-<summary>Details</summary>
+<summary>For technical reasons, it is possible to replace the song duration with an arbitrary string. Why though?</summary>
 
 This mod uses an external file to store the lengths of the songs obtained locally from the game data. This happens when new songs are added to the game and the mod's built in database becomes outdated. Usually, direct access to game data is avoided because it's a slow operation that slightly lags the game. When song's length is acquired locally, it's cached in an external file.
 
@@ -141,17 +139,20 @@ This mod is a collection of various cosmetic changes to the game UI that fix a p
 There are currently three UI tweaks available.
 
 ### Wider album names
-This feature widens the space for the song's album name on the song selection screen, so wider names fit without scrolling. Only intended for English locale.
+This feature widens the space for the song's album name on the song selection screen, so wider names fit without scrolling:
 
 | Before | After |
 | --- | --- |
 | TODO | TODO |
 
+> [!NOTE]  
+> This feature is intended to be used with English locale.
+
 <details>
 <summary>List of affected albums (in no particular order)</summary>
 
 - [Happy Otaku Pack]s Vol.10 and beyond
-- [Give Up Treatment] packs, all volumes
+- [Give Up TREATMENT] packs, all volumes
 - [Legends of Muse Warriors]
 - [COSMIC RADIO PEROLIST]
 - [CHUNITHM COURSE MUSE]
@@ -162,7 +163,7 @@ This feature widens the space for the song's album name on the song selection sc
 </details>
 
 ### Achievement icons sync
-This feature synchronizes the spinning cup achievement icons on song info screen. By default, these easily go out of sync on difficulty level switching.
+This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:
 
 | Before | After |
 | --- | --- |
@@ -180,12 +181,12 @@ This mod feature corrects this by matching the state of new icons to the state o
 </details>
 
 ### HP and Fever bars animation sync
-This feature syncs the "bubble flow" animation between HP and Fever bars.
+This feature syncs the "bubble flow" animation between HP and Fever bars:
 
 TODO table comparison with both modes. (layout?)
 
 > [!NOTE]  
-> This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used. In [Bad Apple!!]'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
+> This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used. In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
@@ -207,20 +208,20 @@ SyncHpFeverAnimAlt = false
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
-> [!NOTE]  
-> The mod will notify you when all its features are disabled, so it does nothing.
+> [!TIP]  
+> The mod will notify you when all its features are disabled, and it does nothing.
 
 ## Experimental mod (not included in the download)
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll and UI tweaks mods were first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to their own permanent projects.
 
-The project contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
+The project (as published) contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.6.1 Open-Beta of MelonLoader is supported.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
-> [!NOTE]
-> Scoreboard characters mod also requires SkiaSharp libraries to be placed in `UserLibs` folder. These libraries are included in the download.
+> [!IMPORTANT]
+> Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder. These libraries are included in the download.
 
 Rather than downloading the mods, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
