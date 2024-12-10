@@ -143,7 +143,7 @@ This feature widens the space for the song's album name on the song selection sc
 
 | Before | After |
 | --- | --- |
-| TODO | TODO |
+| ![i really wanted this to be a gif, but it, again, were larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding part](readme-images/ui-tweaks/wide-album.png) |
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
@@ -163,11 +163,14 @@ This feature widens the space for the song's album name on the song selection sc
 </details>
 
 ### Achievement icons sync
-This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:
+This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
+(achievements header modified by [Song info](#song-info))
 
-| Before | After |
-| --- | --- |
-| TODO | TODO |
+Before:
+TODO readme-images/ui-tweaks/cups-before.mp4
+
+After:
+TODO readme-images/ui-tweaks/cups-after.mp4
 
 The difference is clearly seen on last frames of both videos.
 
