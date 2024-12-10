@@ -167,10 +167,12 @@ This feature synchronizes the spinning award achievement icons on song info scre
 (achievements header modified by [Song info](#song-info))
 
 Before:
-TODO readme-images/ui-tweaks/cups-before.mp4
+
+https://github.com/user-attachments/assets/7c4c8911-acc5-4425-9bd1-c3ba6b57e5a2
 
 After:
-TODO readme-images/ui-tweaks/cups-after.mp4
+
+https://github.com/user-attachments/assets/3764291b-e8b8-4ab1-86ce-b4bf324272ab
 
 The difference is clearly seen on last frames of both videos.
 
