@@ -143,7 +143,7 @@ This feature widens the space for the song's album name on the song selection sc
 
 | Before | After |
 | --- | --- |
-| ![i really wanted this to be a gif, but it, again, were larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding part](readme-images/ui-tweaks/wide-album.png) |
+| ![i really wanted this to be a gif, but it, again, was larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding part](readme-images/ui-tweaks/wide-album.png) |
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
@@ -186,7 +186,13 @@ This mod feature corrects this by matching the state of new icons to the state o
 ### HP and Fever bars animation sync
 This feature syncs the "bubble flow" animation between HP and Fever bars:
 
-TODO table comparison with both modes. (layout?)
+| State | Illustration |
+| --- | --- |
+| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars_vanilla.gif) |
+| After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars_mod.gif) |
+| After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars_mod_alt.gif) |
+
+(please forgive the compression artifacts, the bars look better in-game)
 
 > [!NOTE]  
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used. In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
