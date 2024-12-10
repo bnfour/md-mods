@@ -65,7 +65,7 @@ Mod file: `TrueAbove1kRank.dll`
 This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000–2000 range:
 | Before | After |
 | --- | --- |
-| ![simulated image, no (you)s were harmed during production](readme-images/true-rank-before.png) | ![simulated image, no (you)s were harmed during production](readme-images/true-rank-after.png) |
+| ![simulated image, no (you)s were harmed during production](readme-images/true-rank/true-rank-before.png) | ![simulated image, no (you)s were harmed during production](readme-images/true-rank/true-rank-after.png) |
 
 > [!NOTE]
 > The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
@@ -91,8 +91,8 @@ This mod adds song's BPM and duration display to the song info screen:
 
 | State | Illustration |
 | --- | --- |
-| Before | ![can't think of a caption right now >_<](readme-images/song-info-before.png) |
-| After | ![the new data is supposed to be symmetrical with the level designer label](readme-images/song-info-after.png) |
+| Before | ![can't think of a caption right now >_<](readme-images/song-info/song-info-before.png) |
+| After | ![the new data is supposed to be symmetrical with the level designer label](readme-images/song-info/song-info-after.png) |
 
 > [!NOTE]  
 > The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
@@ -121,7 +121,7 @@ For instance, if the cache file contains
 ```
 the data for Brain Power will look like this:
 
-![the full gif is larger than the entire repo, and the low-res video will also probably look bad stretched, so this will have to do](readme-images/song-info-override.png)
+![the full gif is larger than the entire repo, and the low-res video will also probably look bad stretched, so this will have to do](readme-images/song-info/song-info-override.png)
 
 Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
 
