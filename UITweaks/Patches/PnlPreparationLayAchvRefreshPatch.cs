@@ -12,8 +12,8 @@ namespace Bnfour.MuseDashMods.UITweaks.Patches;
 public class PnlPreparationLayAchvRefreshPatch
 {
     /// <summary>
-    /// Called before difficulty level switch. Passes the current animation state info
-    /// to postfix, if necessary.
+    /// Called just before difficulty level switch. Passes the current animation
+    /// state info to postfix, if necessary.
     /// </summary>
     /// <param name="__instance">Instance of the panel to perform sync on.</param>
     /// <param name="__state">Normalized animation time to sync animators to.
@@ -21,13 +21,13 @@ public class PnlPreparationLayAchvRefreshPatch
     /// the feature is disabled altogether.</param>
     private static void Prefix(PnlPreparationLayAchv __instance, out float? __state)
     {
-        // tell the postfix to do nothing if not enabled
+        // tell the postfix to do nothing if the feature is not enabled
         if (!Melon<UITweaksMod>.Instance.AchievementIconsSyncEnabled)
         {
             __state = null;
             return;
         }
-        // return the first active animator's (if any) state to sync others to
+        // store the first active animator's (if any) state to sync others to
         foreach (var animator in __instance.achvAnimators)
         {
             if (animator.isActiveAndEnabled)

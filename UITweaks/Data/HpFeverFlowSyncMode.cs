@@ -1,7 +1,7 @@
 namespace Bnfour.MuseDashMods.UITweaks.Data;
 
 /// <summary>
-/// Represents a way used to sync the two bars.
+/// Represents a way used to sync the HP and Fever bars.
 /// </summary>
 internal enum HpFeverFlowSyncMode
 {

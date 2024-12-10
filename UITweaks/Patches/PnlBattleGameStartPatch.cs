@@ -9,6 +9,9 @@ using Bnfour.MuseDashMods.UITweaks.Utilities;
 
 namespace Bnfour.MuseDashMods.UITweaks.Patches;
 
+/// <summary>
+/// Patch that calls the bar changes on game start, if needed.
+/// </summary>
 [HarmonyPatch(typeof(PnlBattle), nameof(PnlBattle.GameStart))]
 public class PnlBattleGameStartPatch
 {

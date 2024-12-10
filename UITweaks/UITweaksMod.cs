@@ -2,6 +2,9 @@ using MelonLoader;
 
 namespace Bnfour.MuseDashMods.UITweaks;
 
+/// <summary>
+/// Mod class that handles preferences, mostly to toggle different features.
+/// </summary>
 public class UITweaksMod : MelonMod
 {
     private MelonPreferences_Category _prefsCategory;

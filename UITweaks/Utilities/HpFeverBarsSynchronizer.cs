@@ -1,6 +1,6 @@
 using System;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.UI.Panels;
@@ -9,13 +9,25 @@ using Bnfour.MuseDashMods.UITweaks.Data;
 
 namespace Bnfour.MuseDashMods.UITweaks.Utilities;
 
+/// <summary>
+/// Utility class that actually modifies one of the HP/Fever bars in order to
+/// sync their animations.
+/// </summary>
 internal static class HpFeverBarsSynchronizer
 {
     private const string FillPathTemplate = "Below/UpUI/Sld{0}/Fill Area/Fill";
     private const string TexturePathTemplate = "Bnfour.MuseDashMods.UITweaks.Resources.bubbles.{0}.png";
+    // this is the default horizontal "scale" for both bars' flow overlay
+    // 4 means the whole bar will be filled by exactly 4 repetitions of the texture
     // TODO consider to also get this value at runtime like the widths
     private const float DefaultXScale = 4f;
 
+    /// <summary>
+    /// Actually syncs the bars by replacing the texture and rescaling the material
+    /// and/or shader on one of them.
+    /// </summary>
+    /// <param name="panel">The <see cref="PnlBattleComps"/> instance to work on.</param>
+    /// <param name="mode">Sets which bar to modify.</param>
     internal static void Sync(PnlBattleComps panel, HpFeverFlowSyncMode mode)
     {
         var targetFill = panel.others.transform.Find(PathToModifiedComponent(mode));
@@ -37,21 +49,18 @@ internal static class HpFeverBarsSynchronizer
 
             // yes, the heights are also different, but 2 px difference over 35% of texture
             // is not really noticeable;
-            // the bubbles are also not exact circles due to separate H and V scaling,
-            // the more you know...
 
-            // i really wanted to avoid replacing the texture outright,
-            // but neither _FlowOffsetX float nor material's offset
-            // for the flow texture worked, so here we go
+            // i _really_ wanted to avoid replacing the texture outright,
+            // but neither _FlowOffsetX float
+            // nor material's offset for the flow texture worked, so here we go
             material.SetTexture("_FlowTex", GetReplacementTexture(mode));
         }
     }
 
     /// <summary>
-    /// 
+    /// Returns the name of the bar to modify; to be templated into
+    /// <see cref="FillPathTemplate"/>.
     /// </summary>
-    /// <param name="mode"></param>
-    /// <returns></returns>
     private static string PathToModifiedComponent(HpFeverFlowSyncMode mode)
     {
         var part = mode switch
@@ -65,10 +74,9 @@ internal static class HpFeverBarsSynchronizer
     }
 
     /// <summary>
-    /// 
+    /// Returns the name of the other bar to source scaling-related values from;
+    /// to be templated into <see cref="FillPathTemplate"/>.
     /// </summary>
-    /// <param name="mode"></param>
-    /// <returns></returns>
     private static string PathToReferenceComponent(HpFeverFlowSyncMode mode)
     {
         var part = mode switch
@@ -82,10 +90,9 @@ internal static class HpFeverBarsSynchronizer
     }
 
     /// <summary>
-    /// 
+    /// Returns the offset texture to replace the original one, loaded from
+    /// this assembly's resources.
     /// </summary>
-    /// <param name="mode"></param>
-    /// <returns></returns>
     private static Texture2D GetReplacementTexture(HpFeverFlowSyncMode mode)
     {
         var part = mode switch
@@ -99,7 +106,7 @@ internal static class HpFeverBarsSynchronizer
         var assembly = typeof(HpFeverBarsSynchronizer).GetTypeInfo().Assembly;
 
         using (var textureStream = assembly.GetManifestResourceStream(resourcePath))
-        using (var memoryStream = new MemoryStream())
+        using (MemoryStream memoryStream = new())
         {
             // MemoryStream is directly convertable to byte[]
             textureStream.CopyTo(memoryStream);
@@ -110,6 +117,5 @@ internal static class HpFeverBarsSynchronizer
 
             return texture;
         }
-
     }
 }
