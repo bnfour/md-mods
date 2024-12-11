@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
-    <PackageReference Include="SkiaSharp" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="Resources/sprites.720.png" />
