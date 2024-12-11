@@ -18,7 +18,12 @@ public class PnlBattleGameStartPatch
     private static void Postfix(PnlBattle __instance)
     {
         var modInstance = Melon<UITweaksMod>.Instance;
-        if (!modInstance.HpFeverFlowSyncEnabled)
+
+        if (!modInstance.HpFeverFlowSyncEnabled
+            // the meme level (P E R O P E R O兄✰貴✰乱✰舞) has no ui to modify
+            // TODO replace literal with MusicUidDefine.peropero_aniki_ranbu
+            // when newer game assembly is used as a reference
+            || GlobalDataBase.dbBattleStage.musicUid == "72-0")
         {
             return;
         }

@@ -197,7 +197,9 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 (please forgive the compression artifacts, the bars look better in-game)
 
 > [!NOTE]  
-> This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used. In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
+> This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
+> In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.  
+> P E R O P E R O兄✰貴✰乱✰舞 has no visible UI.
 
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
