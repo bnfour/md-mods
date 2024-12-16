@@ -188,9 +188,9 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 
 | State | Illustration |
 | --- | --- |
-| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars_vanilla.gif) |
-| After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars_mod.gif) |
-| After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars_mod_alt.gif) |
+| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars-vanilla.gif) |
+| After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
+| After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
 
 (please forgive the compression artifacts, the bars look better in-game)
 
