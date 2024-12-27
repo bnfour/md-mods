@@ -26,11 +26,12 @@ public class PnlStageAwakePatch
 
         // new width found empirically, fits all currently (4.10) available titles,
         // the widest probably being maimai's pack full title
-        objectTransform.sizeDelta = new Vector2(506, 60);
-        textTransform.sizeDelta = new Vector2(506, 60);
+        objectTransform.sizeDelta = new Vector2(550, 60);
+        textTransform.sizeDelta = new Vector2(550, 60);
 
         // originally set to width - 86
         // makes the component aware of its new extra width
-        __instance.m_AlbumTitleTxt.m_LongBound = 420;
+        // we set it to cover slightly move because we don't expect any scroll to happen
+        __instance.m_AlbumTitleTxt.m_LongBound = 480;
     }
 }
