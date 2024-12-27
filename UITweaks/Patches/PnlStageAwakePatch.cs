@@ -25,7 +25,7 @@ public class PnlStageAwakePatch
         var textTransform = __instance.m_AlbumTitleTxt.GetComponent<RectTransform>();
 
         // new width found empirically, fits all currently (4.10) available titles,
-        // the widest being maimai's pack full title
+        // the widest probably being maimai's pack full title
         objectTransform.sizeDelta = new Vector2(506, 60);
         textTransform.sizeDelta = new Vector2(506, 60);
 

@@ -17,12 +17,17 @@
     <Reference Include="../references/Assembly-CSharp-firstpass.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/Il2CppInterop.Runtime.dll" />
+    <Reference Include="../references/UnityEngine.AnimationModule.dll" />
+    <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
+    <Reference Include="../references/UnityEngine.UIModule.dll" />
+    <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup Label="Resources">
-    <!-- soon™ -->
+    <EmbeddedResource Include="Resources/bubbles.-116.png" />
+    <EmbeddedResource Include="Resources/bubbles.+118.png" />
   </ItemGroup>
 
 </Project>
