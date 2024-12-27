@@ -1,12 +1,12 @@
 using System.Reflection;
 using MelonLoader;
 
-using Bnfour.MuseDashMods.SongInfo;
+using Bnfour.MuseDashMods.UITweaks;
 
-[assembly: MelonInfo(typeof(SongInfoMod), "Song info", "1.2.4", "bnfour", "https://github.com/bnfour/md-mods")]
+[assembly: MelonInfo(typeof(UITweaksMod), "UI tweaks", "1.0.0", "bnfour", "https://github.com/bnfour/md-mods")]
 [assembly: MelonGame("PeroPeroGames", "MuseDash")]
 [assembly: MelonColor(255, 202, 80, 16)]
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
-[assembly: AssemblyDescription("Shows song BPM and duration")]
+[assembly: AssemblyDescription("Various UI changes")]
 [assembly: AssemblyCopyright("bnfour 2024; open-source")]

@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Bnfour.MuseDashMods.ScoreboardCharacters</RootNamespace>
+    <RootNamespace>Bnfour.MuseDashMods.UITweaks</RootNamespace>
   </PropertyGroup>
 
   <!-- The following disables copying referenced dlls to the output folder -->
@@ -14,24 +14,20 @@
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
-    <Reference Include="../references/Il2CppInterop.Runtime.dll" />
-    <Reference Include="../references/Il2CppNewtonsoft.Json.dll" />
-    <Reference Include="../references/Newtonsoft.Json.dll" />
+    <Reference Include="../references/Assembly-CSharp-firstpass.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
-    <Reference Include="../references/UnityEngine.UI.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll" />
+    <Reference Include="../references/UnityEngine.AnimationModule.dll" />
     <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
+    <Reference Include="../references/UnityEngine.UIModule.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
-    
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
-    <PackageReference Include="SkiaSharp" Version="2.88.9" />
   </ItemGroup>
   <ItemGroup Label="Resources">
-    <EmbeddedResource Include="Resources/sprites.720.png" />
-    <EmbeddedResource Include="Resources/sprites.1080.png" />
-    <EmbeddedResource Include="Resources/sprites.1440.png" />
-    <EmbeddedResource Include="Resources/sprites.2160.png" />
+    <EmbeddedResource Include="Resources/bubbles.-116.png" />
+    <EmbeddedResource Include="Resources/bubbles.+118.png" />
   </ItemGroup>
 
 </Project>
