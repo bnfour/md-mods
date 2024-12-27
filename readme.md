@@ -157,6 +157,7 @@ This feature widens the space for the song's album name on the song selection sc
 - [Let's Do Bad Things Together]
 - [Budget Is Burning: Nano Core]
 - [maimai DX Limited-time Suite]
+- [MD-level Tactical Training Blu-ray]
 
 </details>
 
