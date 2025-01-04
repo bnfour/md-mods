@@ -7,6 +7,7 @@ using UnityEngine;
 
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
+using Il2CppPeroPeroGames.GlobalDefines;
 
 using Bnfour.MuseDashMods.SongInfo.Utilities;
 
@@ -53,7 +54,7 @@ public class SongInfoMod : MelonMod
 #if DEBUG
 
     private const string OutputFilename = "duration_data.json";
-    private const int BestGirl = 15;
+    private readonly int BestGirl = CharacterDefine.yume;
 
     public override void OnLateUpdate()
     {
