@@ -9,4 +9,4 @@ using Bnfour.MuseDashMods.UITweaks;
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Various UI changes")]
-[assembly: AssemblyCopyright("bnfour 2024; open-source")]
+[assembly: AssemblyCopyright("bnfour 2024-2025; open-source")]

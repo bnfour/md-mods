@@ -9,4 +9,4 @@ using Bnfour.MuseDashMods.AlbumScroll;
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Hold shift to scroll to the next album")]
-[assembly: AssemblyCopyright("bnfour 2023-2024; open-source")]
+[assembly: AssemblyCopyright("bnfour 2023-2025; open-source")]
