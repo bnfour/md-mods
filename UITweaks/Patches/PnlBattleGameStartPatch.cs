@@ -3,6 +3,7 @@ using MelonLoader;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
+using Il2CppPeroPeroGames.GlobalDefines;
 
 using Bnfour.MuseDashMods.UITweaks.Data;
 using Bnfour.MuseDashMods.UITweaks.Utilities;
@@ -21,9 +22,7 @@ public class PnlBattleGameStartPatch
 
         if (!modInstance.HpFeverFlowSyncEnabled
             // the meme level (P E R O P E R O兄✰貴✰乱✰舞) has no ui to modify
-            // TODO replace literal with MusicUidDefine.peropero_aniki_ranbu
-            // when newer game assembly is used as a reference
-            || GlobalDataBase.dbBattleStage.musicUid == "72-0")
+            || GlobalDataBase.dbBattleStage.musicUid == MusicUidDefine.peropero_aniki_ranbu)
         {
             return;
         }

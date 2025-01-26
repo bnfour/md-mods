@@ -10,4 +10,4 @@ using Bnfour.MuseDashMods.Experimental;
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Playground for experimenting. Not a real mod.")]
-[assembly: AssemblyCopyright("bnfour 2023-2024; open-source")]
+[assembly: AssemblyCopyright("bnfour 2023-2025; open-source")]
