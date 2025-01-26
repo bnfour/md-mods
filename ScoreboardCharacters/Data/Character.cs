@@ -31,8 +31,8 @@ public enum Character
     KagamineRinAndLen,
     RinRacer,
     MarijaMecha,
+    Wisadel,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter29,
     MysteryCharacter30,
     MysteryCharacter31,
     MysteryCharacter32,
