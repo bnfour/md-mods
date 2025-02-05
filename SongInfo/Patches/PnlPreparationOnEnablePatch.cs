@@ -32,6 +32,6 @@ public class PnlPreparationOnEnablePatch
         
         var isVanillaChart = info.uid[..3] != "999";
         __instance.stageAchievementValue.gameObject.SetActive(isVanillaChart);
-        __instance.transform.Find("ImgStageAchievement").gameObject.SetActive(isVanillaChart);
+        __instance.pnlPreparationLayAchv.transform.Find("ImgStageAchievement")?.gameObject.SetActive(isVanillaChart);
     }
 }
