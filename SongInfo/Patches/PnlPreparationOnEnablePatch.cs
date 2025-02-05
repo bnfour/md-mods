@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.SongInfo.Patches;
 [HarmonyPatch(typeof(PnlPreparation), nameof(PnlPreparation.OnEnable))]
 public class PnlPreparationOnEnablePatch
 {
-    private static void Postfix()
+    private static void Postfix(PnlPreparation __instance)
     {
         var info = GlobalDataBase.s_DbMusicTag.CurMusicInfo();
         var bpm = info.bpm;
@@ -27,6 +27,11 @@ public class PnlPreparationOnEnablePatch
             ?.GetComponent<LongSongNameController>();
         durationField?.Refresh($"Length: {duration}", delay: 0);
         
-        PnlPreparationAwakePatch.SetAchievementsVisibility();
+        // for Custom Albums mod compatibility:
+        // hide achievements in custom charts (uid start with 999), show in vanilla charts
+        
+        var isVanillaChart = info.uid[..3] != "999";
+        __instance.stageAchievementValue.gameObject.SetActive(isVanillaChart);
+        __instance.transform.Find("ImgStageAchievement").gameObject.SetActive(isVanillaChart);
     }
 }
