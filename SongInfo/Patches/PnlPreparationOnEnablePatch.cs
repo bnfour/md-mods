@@ -26,5 +26,7 @@ public class PnlPreparationOnEnablePatch
         var durationField = GameObject.Find(Constants.DurationStringComponentName)
             ?.GetComponent<LongSongNameController>();
         durationField?.Refresh($"Length: {duration}", delay: 0);
+        
+        PnlPreparationAwakePatch.SetAchievementsVisibility();
     }
 }
