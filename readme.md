@@ -17,11 +17,11 @@ This repo currently contains the following mods. They can be used in any combina
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
-This mod adds buttons to show character and elfin used to obtain the score to the in-game scoreboard:
+This mod adds buttons to show character and elfin used to the in-game scoreboard:
 
-![image simulated for variety, real scoreboards are pretty boring most of the time; see ScoreboardCharacters/etc/randomizer-for-screenshots.patch](readme-images/scoreboard-characters.png)
+![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters.png)
 
-These buttons can be clicked, and will set your current character and elfin to these on the button. It will even scroll the selection screens for you.
+The buttons can be clicked, and will set your current character and elfin to these shown. It will even scroll the selection screens for you.
 
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
@@ -85,15 +85,15 @@ https://github.com/bnfour/md-mods/assets/853426/92bb0375-95cb-40d3-81a8-8972ba92
 ## Song info
 Mod file: `SongInfo.dll`
 
-This mod adds song's BPM and duration display to the song info screen:
+This mod adds song's BPM and duration display to the song info screen (the data is supposed to be symmetrical with the level designer label):
 
 | State | Illustration |
 | --- | --- |
-| Before | ![can't think of a caption right now >_<](readme-images/song-info/song-info-before.png) |
-| After | ![the new data is supposed to be symmetrical with the level designer label](readme-images/song-info/song-info-after.png) |
+| Before | ![君に沼った!](readme-images/song-info/song-info-before.png) |
+| After | ![推しに決まった!!](readme-images/song-info/song-info-after.png) |
 
 > [!NOTE]  
-> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!" intro. The "Full combo" outro _seems_ to be included though.
+> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
 
 ### Cache (ab)use (advanced; also useless)
 <details>
@@ -132,7 +132,7 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
-This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue. They are bundled together only to keep the mod count manageable; each feature can be toggled on and off independently of others.
+This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue I noticed. They are bundled together only to keep the mod count manageable; each feature can be toggled on and off independently of others.
 
 The following UI tweaks are currently available:
 
@@ -141,7 +141,7 @@ This feature widens the space for the song's album name on the song selection sc
 
 | Before | After |
 | --- | --- |
-| ![i really wanted this to be a gif, but it, again, was larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding part](readme-images/ui-tweaks/wide-album.png) |
+| ![i really wanted this to be a gif, but it, again, was larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding task](readme-images/ui-tweaks/wide-album.png) |
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
@@ -193,7 +193,7 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 | After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
 | After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
 
-(please forgive the compression artifacts, the bars look better in-game)
+(please excuse the compression artifacts)
 
 > [!NOTE]  
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
@@ -247,15 +247,20 @@ Every published release is accompanied with SHA256 hashes of every DLL. MelonLoa
 ### Is this cheating?
 _tl;dr: no_
 
-The scoreboard mods show the information the game already receives directly from its API, it's just not shown anywhere by default. You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboard. In fact, this repo is born from my frustration of having to mirror my track selection in-game to the website on another display. The Album scroll mod only affects the song selection menu. The Song info mod is simply displaying the data from game, too. All UI tweaks are purely cosmetic. All mods provide no gameplay advantage.  
-You still have to git gud to earn high scores.
+All mods provide no gameplay advantage whatsoever. You still have to git gud to earn high scores.
+
+- The scoreboard mods show information the game already receives directly from its backend API, it's just not shown anywhere by default.  
+You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboards. In fact, this repo was born from my frustration of having to mirror my track selection in-game to the website on another display.
+- Album scroll only affects the song selection menu.
+- Song info is simply displaying exisitng data from the game.
+- All UI tweaks are purely cosmetic.
 
 Unless you count _any_ changes to the game for _any_ purpose as cheating, this is not cheating.
 
 ### Will I get banned for using these?
 _tl;dr: probably not, but NO WARRANTIES; USE AT YOUR OWN RISK_
 
-As I stated in previous question, I don't believe this is cheating. I've been using these continiously, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
+As I stated in previous question, I don't believe this is cheating. I've been using these continiously for years now, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
 
 Remember that you're using the mods **at your own risk**. I have warned you many times in this readme.
 
@@ -264,36 +269,38 @@ _tl;dr: ¯\\\_(ツ)\_/¯_
 
 The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other mods, unless those other mods change the vanilla code too much.
 
+In case there is a breaking incompatibility with other mods, and it can be traced back to mods from this repo (e.g. errors in the log include mod's name), feel free to open an issue, or, better yet, submit a pull request. We'll see what can be done.
+
 ### My game is broken because of you and your mods, how can I fix this and blame you?
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-* Please make sure you're using supported (**0.6.1**) version of MelonLoader.
-* Try to remove mods not from this repo.
-* Try to remove mods and/or modloader and check whether the vanilla game is broken too.
+- Please make sure you're using supported (**0.6.1**) version of MelonLoader.
+- Try to remove mods not from this repo.
+- Try to remove mods and/or modloader and check whether the vanilla game is broken too.
 
-If none of these helps, feel free to submit an issue, unless the problem was already reported.
+If none of these helps, feel free to open an issue, unless the problem was already reported.
 
 # Building from source
 This repo is a run-of-the-mill .NET solution targeting .NET 6.
 
 The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you.
 
-Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All the DLLs should be directly in the `references` folder, no subfolders.
+Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be dumped directly inside the folder, no subfolders needed.
 
-This should cover the local references for all the projects. (Actually, **most** of the DLLs are not necessary to build the solution, I just don't plan on keeping an accurate and up to date list of required libraries.)
+This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries.)
 
 After that, just run `dotnet build`.
 
 ## Enabling SkiaSharp for Scoreboard characters
-Scoreboard characters mod uses SkiaSharp library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and I include these in downloads for convenience.
+Scoreboard characters mod uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and I include these in downloads for convenience.
 
 If you want to get these straight from NuGet instead, you can use `dotnet publish` command:
 ```bash
 dotnet publish -c Release -r win-x64 --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj
 ```
-The SkiaSharp DLLs will be in `ScoreboardCharacters/bin/Release/net6.0/win-x64/publish` folder.
+The SkiaSharp DLLs will be placed in `ScoreboardCharacters/bin/Release/net6.0/win-x64/publish` folder.
 
 Why `win-x64` runtime? There is no native Muse Dash version for GNU/Linux, and I run the game via Proton, so the Windows binaries should work on both Windows and GNU/Linux for the time being. [Mac? No idea.](https://tenor.com/view/13786657)
 
-You can also extract the DLLs from the nupkg files manually. Remember to look for `net6.0` and `win-x64` monikers.
+You can also extract the DLLs from nupkg files manually. Remember match the version with mod's csproj and look for `net6.0` and `win-x64` monikers.

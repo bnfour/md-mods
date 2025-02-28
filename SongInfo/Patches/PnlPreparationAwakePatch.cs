@@ -39,7 +39,7 @@ public class PnlPreparationAwakePatch
         achievementsText.color = achievementsPanelHeader.color;
         achievementsText.fontStyle = achievementsPanelHeader.fontStyle;
 
-        var awardIcon = GameObject.Find("ImgStageAchievement");
+        var awardIcon = __instance.transform.Find("ImgStageAchievement").gameObject;
         awardIcon.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
 
         var rectTransform = awardIcon.GetComponent<RectTransform>();
