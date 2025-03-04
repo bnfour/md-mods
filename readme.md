@@ -136,12 +136,14 @@ This mod is a collection of various cosmetic changes to the game UI that fix a p
 
 The following UI tweaks are currently available:
 
-### Wider album names
-This feature widens the space for the song's album name on the song selection screen, so wider names fit without scrolling:
+### Wider album titles
+This feature widens the space for the song's album name on the song selection screen, so wider titles fit without scrolling:
 
-| Before | After |
-| --- | --- |
-| ![i really wanted this to be a gif, but it, again, was larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding task](readme-images/ui-tweaks/wide-album.png) |
+| State | Illustration |
+| --- | :---: |
+| _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
+| Before | ![everything here is scaled down for file size reasons, imagine using a 1989 standard in 1989+36](readme-images/ui-tweaks/narrow-album-title.gif) |
+| After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
