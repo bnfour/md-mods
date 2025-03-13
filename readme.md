@@ -206,10 +206,10 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
 
 ### Options menu text case
-This small feature fixes some of the buttons ("Audio", "Streaming mode", "Goods store") not being all caps like the rest of the buttons there:
+This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
 | Before | After |
 | --- | --- |
-| img | img |
+| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
