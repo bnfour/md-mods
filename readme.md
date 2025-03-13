@@ -205,6 +205,15 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
 
+### Options menu text case
+This small feature fixes some of the buttons ("Audio", "Streaming mode", "Goods store") not being all caps like the rest of the buttons there:
+| Before | After |
+| --- | --- |
+| img | img |
+
+> [!NOTE]  
+> This feature is intended to be used with English locale.
+
 ### Configuration
 This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
@@ -219,6 +228,10 @@ AchievementIconsSync = true
 SyncHpFeverAnim = true
 # Syncs HP bar to Fever bar.
 SyncHpFeverAnimAlt = false
+# Changes text to "AUTO" on the fever bar if automatic fever is enabled.
+AutoFeverText = true
+# Fixes some texts in options being not uppercase like the rest.
+OptionsFullCaps = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
