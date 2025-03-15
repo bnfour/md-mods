@@ -205,6 +205,20 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
 
+### Notice for automatic fever
+This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is currently active:
+
+| Manual fever | Automatic fever |
+| --- | --- |
+![what type it even is?](readme-images/ui-tweaks/fever-manual-default.png) | ![i went for impact because i first thought it is used originally, guess i was wrong](readme-images/ui-tweaks/fever-auto-default.png) |
+
+> [!NOTE]
+> I'm aware of the font mismatch. These can't be seen side-to-side in game anyway ¯\\\_(ツ)\_/¯  
+<!-- TODO issue link? -->
+
+<!-- TODO promote to a note when the font mismatch is resolved -->
+(Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported)
+
 ### Configuration
 This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
@@ -219,6 +233,8 @@ AchievementIconsSync = true
 SyncHpFeverAnim = true
 # Syncs HP bar to Fever bar.
 SyncHpFeverAnimAlt = false
+# Changes text to "AUTO" on the fever bar if automatic fever is enabled.
+AutoFeverText = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 

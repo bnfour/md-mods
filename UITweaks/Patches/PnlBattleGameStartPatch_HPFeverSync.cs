@@ -14,7 +14,7 @@ namespace Bnfour.MuseDashMods.UITweaks.Patches;
 /// Patch that calls the bar changes on game start, if needed.
 /// </summary>
 [HarmonyPatch(typeof(PnlBattle), nameof(PnlBattle.GameStart))]
-public class PnlBattleGameStartPatch
+public class PnlBattleGameStartPatch_HPFeverSync
 {
     private static void Postfix(PnlBattle __instance)
     {
