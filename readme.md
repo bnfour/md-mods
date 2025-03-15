@@ -219,6 +219,15 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 <!-- TODO promote to a note when the font mismatch is resolved -->
 (Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported)
 
+### Options menu text case
+This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
+| Before | After |
+| --- | --- |
+| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
+
+> [!NOTE]  
+> This feature is intended to be used with English locale.
+
 ### Configuration
 This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
@@ -235,6 +244,8 @@ SyncHpFeverAnim = true
 SyncHpFeverAnimAlt = false
 # Changes text to "AUTO" on the fever bar if automatic fever is enabled.
 AutoFeverText = true
+# Fixes some texts in options being not uppercase like the rest.
+OptionsFullCaps = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 

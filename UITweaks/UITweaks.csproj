@@ -22,6 +22,7 @@
     <Reference Include="../references/UnityEngine.UIModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+    <Reference Include="../references/UnityEngine.UI.dll" />
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
