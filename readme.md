@@ -132,12 +132,19 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
-This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue I noticed. They are bundled together only to keep the mod count manageable; each feature can be toggled on and off independently of others.
+This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue I noticed. They are bundled together only to keep the mod count manageable.
 
 The following UI tweaks are currently available:
+- [Wider album titles](#wider-album-titles) for song selection screen
+- [Achievement icons sync](#achievement-icons-sync) for song info screen
+- [HP and Fever bars animation sync](#hp-and-fever-bars-animation-sync) for in-game UI
+- [Notice for automatic fever](#notice-for-automatic-fever) for in-game UI
+- [Options menu text case](#options-menu-text-case)
+
+Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature widens the space for the song's album name on the song selection screen, so wider titles fit without scrolling:
+This feature widens the space for the album title on the song selection screen, so wider ones fit without scrolling:
 
 | State | Illustration |
 | --- | :---: |
@@ -195,8 +202,6 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 | After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
 | After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
 
-(please excuse the compression artifacts)
-
 > [!NOTE]  
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
 > In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.  
@@ -210,7 +215,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 
 | Manual fever | Automatic fever |
 | --- | --- |
-![what type it even is?](readme-images/ui-tweaks/fever-manual-default.png) | ![i went for impact because i first thought it is used originally, guess i was wrong](readme-images/ui-tweaks/fever-auto-default.png) |
+![what font it even is?](readme-images/ui-tweaks/fever-manual-default.png) | ![i went for impact because i first thought it is used originally, guess i was wrong](readme-images/ui-tweaks/fever-auto-default.png) |
 
 > [!NOTE]
 > I'm aware of the font mismatch. These can't be seen side-to-side in game anyway ¯\\\_(ツ)\_/¯  
