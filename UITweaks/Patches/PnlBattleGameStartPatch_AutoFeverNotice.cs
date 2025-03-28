@@ -24,6 +24,8 @@ public class PnlBattleGameStartPatch_AutoFeverNotice
         // finally check if the sprite needs to be changed
         if (!Melon<UITweaksMod>.Instance.AutoFeverNoticeEnabled
             || GlobalDataBase.dbBattleStage.musicUid == MusicUidDefine.peropero_aniki_ranbu
+            // TODO find the define
+            || GlobalDataBase.dbBattleStage.musicUid == "84-0"
             || GlobalDataBase.s_DbTouhou.isTouhouEasterEgg
             || !DataHelper.isAutoFever)
         {

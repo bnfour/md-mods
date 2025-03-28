@@ -21,8 +21,10 @@ public class PnlBattleGameStartPatch_HPFeverSync
         var modInstance = Melon<UITweaksMod>.Instance;
 
         if (!modInstance.HpFeverFlowSyncEnabled
-            // the meme level (P E R O P E R O兄✰貴✰乱✰舞) has no ui to modify
-            || GlobalDataBase.dbBattleStage.musicUid == MusicUidDefine.peropero_aniki_ranbu)
+            // the meme levels have no ui to modify
+            || GlobalDataBase.dbBattleStage.musicUid == MusicUidDefine.peropero_aniki_ranbu
+            // TODO find the define for this as well
+            || GlobalDataBase.dbBattleStage.musicUid == "84-0")
         {
             return;
         }
