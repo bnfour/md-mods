@@ -30,8 +30,8 @@ internal static class HpFeverBarsSynchronizer
     /// <param name="mode">Sets which bar to modify.</param>
     internal static void Sync(PnlBattleComps panel, HpFeverFlowSyncMode mode)
     {
-        var targetFill = panel.others.transform.Find(PathToModifiedComponent(mode));
-        var referenceFill = panel.others.transform.Find(PathToReferenceComponent(mode));
+        var targetFill = panel?.others?.transform?.Find(PathToModifiedComponent(mode));
+        var referenceFill = panel?.others?.transform?.Find(PathToReferenceComponent(mode));
 
         if (targetFill != null && referenceFill != null)
         {

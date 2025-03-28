@@ -19,7 +19,7 @@ internal static class FeverTextTextureReplacer
     internal static void Replace(PnlBattle panel)
     {
         // component to replace the sprite in
-        var image = panel.currentComps.others.transform.Find("Below/UpUI/ImgFever")?.GetComponent<Image>();
+        var image = panel?.currentComps?.others?.transform?.Find("Below/UpUI/ImgFever")?.GetComponent<Image>();
 
         if (image != null)
         {
