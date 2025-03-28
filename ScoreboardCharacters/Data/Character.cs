@@ -32,8 +32,8 @@ public enum Character
     RinRacer,
     MarijaMecha,
     Wisadel,
+    BuroDivineGear,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter30,
     MysteryCharacter31,
     MysteryCharacter32,
     MysteryCharacter33,

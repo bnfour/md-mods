@@ -5,7 +5,6 @@
     (let* (
             (in-filename "sprites.png")
             (in-image (car (gimp-file-load RUN-NONINTERACTIVE in-filename in-filename)))
-            (drawable (car (gimp-image-get-active-layer in-image)))
             ; deconstruct the data tuple(?)
             (target-size (car params))
             (filename-resolution (cadr params))
@@ -13,8 +12,8 @@
             (out-filename (string-append "../Resources/sprites." filename-resolution ".png"))
         )
         (gimp-image-scale in-image target-size target-size)
-        ; 9 is compression (0-9), all the zeroes are optional(?) metadata disabled
-        (file-png-save2 RUN-NONINTERACTIVE in-image drawable out-filename out-filename 0 9 0 0 0 0 0 0 0)
+        ; TODO read up un new script-fu more
+        (file-png-export #:run-mode RUN-NONINTERACTIVE #:image in-image #:file out-filename #:compression 9)
         ; prevents leakage of GeglBuffers (EEEEeEeek!)
         (gimp-image-delete in-image)
     )
