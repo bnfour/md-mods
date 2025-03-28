@@ -132,16 +132,25 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
-This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue I noticed. They are bundled together only to keep the mod count manageable; each feature can be toggled on and off independently of others.
+This mod is a collection of various cosmetic changes to the game UI that fix a particular "I can't unsee this (╯°□°)╯︵ ┻━┻" issue I noticed. They are bundled together only to keep the mod count manageable.
 
 The following UI tweaks are currently available:
+- [Wider album titles](#wider-album-titles) for song selection screen
+- [Achievement icons sync](#achievement-icons-sync) for song info screen
+- [HP and Fever bars animation sync](#hp-and-fever-bars-animation-sync) for in-game UI
+- [Notice for automatic fever](#notice-for-automatic-fever) for in-game UI
+- [Options menu text case](#options-menu-text-case)
 
-### Wider album names
-This feature widens the space for the song's album name on the song selection screen, so wider names fit without scrolling:
+Each feature can be toggled on and off independently of others.
 
-| Before | After |
-| --- | --- |
-| ![i really wanted this to be a gif, but it, again, was larger than the rest of the repo combined](readme-images/ui-tweaks/narrow-album.png) | ![creating illustrations for the mods has to be the most demanding task](readme-images/ui-tweaks/wide-album.png) |
+### Wider album titles
+This feature widens the space for the album title on the song selection screen, so wider ones fit without scrolling:
+
+| State | Illustration |
+| --- | :---: |
+| _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
+| Before | ![everything here is scaled down for file size reasons, imagine using a 1989 standard in 1989+36](readme-images/ui-tweaks/narrow-album-title.gif) |
+| After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
@@ -193,8 +202,6 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 | After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
 | After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
 
-(please excuse the compression artifacts)
-
 > [!NOTE]  
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
 > In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.  
@@ -202,6 +209,29 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
+
+### Notice for automatic fever
+This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is currently active:
+
+| Manual fever | Automatic fever |
+| --- | --- |
+![what font it even is?](readme-images/ui-tweaks/fever-manual-default.png) | ![i went for impact because i first thought it is used originally, guess i was wrong](readme-images/ui-tweaks/fever-auto-default.png) |
+
+> [!NOTE]
+> I'm aware of the font mismatch. These can't be seen side-to-side in game anyway ¯\\\_(ツ)\_/¯  
+<!-- TODO issue link? -->
+
+<!-- TODO promote to a note when the font mismatch is resolved -->
+(Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported)
+
+### Options menu text case
+This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
+| Before | After |
+| --- | --- |
+| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
+
+> [!NOTE]  
+> This feature is intended to be used with English locale.
 
 ### Configuration
 This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
@@ -217,6 +247,10 @@ AchievementIconsSync = true
 SyncHpFeverAnim = true
 # Syncs HP bar to Fever bar.
 SyncHpFeverAnimAlt = false
+# Changes text to "AUTO" on the fever bar if automatic fever is enabled.
+AutoFeverText = true
+# Fixes some texts in options being not uppercase like the rest.
+OptionsFullCaps = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
@@ -229,7 +263,7 @@ This is not a mod intended for using. Rather, it's a developmental test bed for 
 The project (as published) contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.6.1 Open-Beta of MelonLoader is supported.  
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.7.0 Open-Beta of MelonLoader is supported.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
 > [!IMPORTANT]
@@ -275,7 +309,7 @@ In case there is a breaking incompatibility with other mods, and it can be trace
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-- Please make sure you're using supported (**0.6.1**) version of MelonLoader.
+- Please make sure you're using supported (**0.7.0**) version of MelonLoader.
 - Try to remove mods not from this repo.
 - Try to remove mods and/or modloader and check whether the vanilla game is broken too.
 

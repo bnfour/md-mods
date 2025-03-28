@@ -12,11 +12,15 @@ public class UITweaksMod : MelonMod
     private MelonPreferences_Entry<bool> _cupImageSyncEnabled;
     private MelonPreferences_Entry<bool> _hpFeverSyncEnabled;
     private MelonPreferences_Entry<bool> _hpFeverSyncUseAltMode;
+    private MelonPreferences_Entry<bool> _autoFeverNoticeEnabled;
+    private MelonPreferences_Entry<bool> _optionButtonsFullCaps;
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
     internal bool AchievementIconsSyncEnabled => _cupImageSyncEnabled.Value;
     internal bool HpFeverFlowSyncEnabled => _hpFeverSyncEnabled.Value;
     internal bool HpFeverFlowSyncUseAltMode => _hpFeverSyncUseAltMode.Value;
+    internal bool AutoFeverNoticeEnabled => _autoFeverNoticeEnabled.Value;
+    internal bool FullCapsForOptionButtons => _optionButtonsFullCaps.Value;
 
     public override void OnInitializeMelon()
     {
@@ -31,8 +35,14 @@ public class UITweaksMod : MelonMod
             "HP and Fever bar animation sync", "Syncs the bubble animation for HP and Fever bars.");
         _hpFeverSyncUseAltMode = _prefsCategory.CreateEntry("SyncHpFeverAnimAlt", false,
             "Alternate HP-Fever sync", "Syncs HP bar to Fever bar.");
+        _autoFeverNoticeEnabled = _prefsCategory.CreateEntry("AutoFeverText", true,
+            "Auto fever text", "Changes text to \"AUTO\" on the fever bar if automatic fever is enabled.");
+        _optionButtonsFullCaps = _prefsCategory.CreateEntry("OptionsFullCaps", true,
+            "Uppercase for options", "Fixes some texts in options being not uppercase like the rest.");
 
-        if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled && !HpFeverFlowSyncEnabled)
+        if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled
+            && !HpFeverFlowSyncEnabled && !AutoFeverNoticeEnabled
+            && !FullCapsForOptionButtons)
         {
             LoggerInstance.Warning("No features of the mod enabled, might as well uninstall it.");
         }
