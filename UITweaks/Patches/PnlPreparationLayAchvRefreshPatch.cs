@@ -30,7 +30,7 @@ public class PnlPreparationLayAchvRefreshPatch
         // store the first active animator's (if any) state to sync others to
         foreach (var animator in __instance.achvAnimators)
         {
-            if (animator.isActiveAndEnabled)
+            if (animator.enabled)
             {
                 __state = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 return;
@@ -52,7 +52,7 @@ public class PnlPreparationLayAchvRefreshPatch
         {
             foreach (var animator in __instance.achvAnimators)
             {
-                if (animator.isActiveAndEnabled)
+                if (animator.enabled)
                 {
                     animator.Play(0, 0, __state.Value);
                 }
