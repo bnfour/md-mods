@@ -22,9 +22,7 @@ public class PnlBattleGameStartPatch_HPFeverSync
 
         if (!modInstance.HpFeverFlowSyncEnabled
             // the meme levels have no ui to modify
-            || GlobalDataBase.dbBattleStage.musicUid == MusicUidDefine.peropero_aniki_ranbu
-            // TODO find the define for this as well
-            || GlobalDataBase.dbBattleStage.musicUid == "84-0")
+            || MusicUidChecker.IsMemeLevel())
         {
             return;
         }
