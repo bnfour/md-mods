@@ -3,7 +3,6 @@ using MelonLoader;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
-using Il2CppPeroPeroGames.GlobalDefines;
 
 using Bnfour.MuseDashMods.UITweaks.Data;
 using Bnfour.MuseDashMods.UITweaks.Utilities;
