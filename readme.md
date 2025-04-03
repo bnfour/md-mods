@@ -204,8 +204,7 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 
 > [!NOTE]  
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
-> In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.  
-> P E R O P E R O兄✰貴✰乱✰舞 has no visible UI.
+> In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
@@ -215,14 +214,10 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 
 | Manual fever | Automatic fever |
 | --- | --- |
-![what font it even is?](readme-images/ui-tweaks/fever-manual-default.png) | ![i went for impact because i first thought it is used originally, guess i was wrong](readme-images/ui-tweaks/fever-auto-default.png) |
+![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.png) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.png) |
 
-> [!NOTE]
-> I'm aware of the font mismatch. These can't be seen side-to-side in game anyway ¯\\\_(ツ)\_/¯  
-<!-- TODO issue link? -->
-
-<!-- TODO promote to a note when the font mismatch is resolved -->
-(Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported)
+> [!NOTE]  
+> Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
 
 ### Options menu text case
 This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
