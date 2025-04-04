@@ -75,7 +75,7 @@ This mod adds an option to quickly scroll to the next album in the song selectio
 
 Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
-https://github.com/bnfour/md-mods/assets/853426/92bb0375-95cb-40d3-81a8-8972ba9207af
+https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
 > [!TIP]
 > It's best to use single taps to scroll albums.
@@ -176,11 +176,11 @@ This feature synchronizes the spinning award achievement icons on song info scre
 
 Before:
 
-https://github.com/user-attachments/assets/7c4c8911-acc5-4425-9bd1-c3ba6b57e5a2
+https://github.com/user-attachments/assets/97dac033-f012-4264-988b-97a1e607c6ea
 
 After:
 
-https://github.com/user-attachments/assets/3764291b-e8b8-4ab1-86ce-b4bf324272ab
+https://github.com/user-attachments/assets/c8b6b49a-d14a-4d26-9170-2f16a3333731
 
 The difference is clearly seen on last frames of both videos.
 
