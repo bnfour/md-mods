@@ -77,6 +77,8 @@ Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
+(the album title is widened by [one of UI tweaks](#wider-album-titles), the featured titles do not fit without scrolling by default)
+
 > [!TIP]
 > It's best to use single taps to scroll albums.
 >  
