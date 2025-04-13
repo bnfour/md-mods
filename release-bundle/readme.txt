@@ -8,10 +8,10 @@ The folders go into the game install folder
 (the one where MuseDash.exe is, you'll see them if it's already modded)
 
 Mods folder:
-  ScoreboardCharacters.dll : mod to show character/elfin info on the scoreboard
-  TrueAbove1kRank.dll : changes "999+" in the scoreboard to an actual rank
   AlbumScroll.dll : enables to scroll through current album using Shift keys
+  ScoreboardCharacters.dll : mod to show character/elfin info on the scoreboard
   SongInfo.dll : shows song's BPM and duration
+  TrueAbove1kRank.dll : changes "999+" in the scoreboard to an actual rank
   UITweaks.dll : various small UI fixes
 
 UserLibs folder, only required for ScoreboardCharacters:
