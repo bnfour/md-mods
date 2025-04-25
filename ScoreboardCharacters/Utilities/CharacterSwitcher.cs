@@ -6,6 +6,8 @@ using Il2CppAssets.Scripts.PeroTools.Managers;
 using Il2CppAssets.Scripts.PeroTools.Nice.Components;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Il2CppAssets.Scripts.UI.Panels;
+using HarmonyLib;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -20,7 +22,8 @@ public class CharacterSwitcher
     private FancyScrollView _characterScrollView;
     private FancyScrollView _elfinScrollView;
 
-    public void Switch(Character character, Elfin elfin)
+    // TODO find a better way to get the panel instance, like search for it like the scrollviews here
+    public void Switch(Character character, Elfin elfin, PnlRank panelToRefresh)
     {
         var currentCharacter = (Character)DataHelper.selectedRoleIndex;
         var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
@@ -30,11 +33,16 @@ public class CharacterSwitcher
         {
             return;
         }
-
+        // TODO these now check for "overriding just for this level" mode
         DataHelper.selectedRoleIndex = (int)character;
         DataHelper.selectedElfinIndex = (int)elfin;
 
         ScrollMenus(character, elfin);
+
+        if (panelToRefresh != null)
+        {
+            Traverse.Create(panelToRefresh).Method("RefreshLevelConfigUi").GetValue();
+        }
     }
 
     public void ResetCache()

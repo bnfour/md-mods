@@ -1,4 +1,5 @@
 using System;
+using Il2CppAssets.Scripts.UI.Panels;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Events;
@@ -36,7 +37,9 @@ public static class UiPatcher
         }
     }
 
-    public static void FillData(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry)
+    public static void FillData(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry,
+        // TODO looks kinda scuffed passing a reference through here to CharacterSwitcher
+        PnlRank panelToRefresh)
     {
         var extraField = rankCell.transform.FindChild(NewComponentId);
         if (extraField != null)
@@ -48,7 +51,7 @@ public static class UiPatcher
                 buttonComponent.onClick.AddListener((UnityAction) new Action(() =>
                 {
                     var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
-                    switcher.Switch(dataEntry.Character, dataEntry.Elfin);
+                    switcher.Switch(dataEntry.Character, dataEntry.Elfin, panelToRefresh);
                 }));
 
                 var imageComponent = buttonComponent.image;
