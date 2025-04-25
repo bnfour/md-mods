@@ -13,7 +13,8 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 /// <summary>
 /// Handles changes to the selected character and/or elfin.
-/// Also autoscrolls relevant menus.
+/// Sets the the global character/elfin config and then resets the current level's config to that.
+/// Also autoscrolls relevant settings menus.
 /// </summary>
 public class CharacterSwitcher
 {
@@ -24,23 +25,41 @@ public class CharacterSwitcher
     private FancyScrollView _elfinScrollView;
     private PnlRank _pnlRank;
 
-    // TODO find a better way to get the panel instance, like search for it like the scrollviews here
     public void Switch(Character character, Elfin elfin)
     {
-        var currentCharacter = (Character)DataHelper.selectedRoleIndex;
-        var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
-        var anyChanges = currentCharacter != character || currentElfin != elfin;
+        // it's probably on Custom there
+        // TODO confirm
+        var levelConfigState = DataHelper.m_CurLeveState;
+
+        var currentLevelCharacter = (Character)DataHelper.selectedRoleIndex;
+        var currentLevelElfin = (Elfin)DataHelper.selectedElfinIndex;
+
+        GlobalDataBase.s_DbLevelConfig.curLevelConfigState = CurLevelConfigState.Default;
+        // the rest of the method operates on the global config
+
+        var currentGlobalCharacter = (Character)DataHelper.selectedRoleIndex;
+        var currentGlobalElfin = (Elfin)DataHelper.selectedElfinIndex;
+
+        var anyChanges = currentLevelCharacter != character || currentLevelElfin != elfin
+            || currentGlobalCharacter != character || currentGlobalElfin != elfin;
 
         if (!anyChanges)
         {
             return;
         }
-        // TODO these now check for "overriding just for this level" mode
+
         DataHelper.selectedRoleIndex = (int)character;
         DataHelper.selectedElfinIndex = (int)elfin;
+        // resetting the current level config effectively saves the character/elfin
+        // we're setting now for this level (even if the global config changes later)
+        // until they are changed via custom buttons and/or J/K shortcut keys for this specific level
+        // TODO confirm
+        GlobalDataBase.s_DbLevelConfig.ResetCurLevelConfig();
+        UpdateLevelConfigUI();
 
         ScrollMenus(character, elfin);
-        UpdateLevelConfigUI();
+
+        GlobalDataBase.s_DbLevelConfig.curLevelConfigState = levelConfigState;
     }
 
     public void ResetCache()
