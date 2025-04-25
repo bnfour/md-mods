@@ -1,13 +1,13 @@
+using HarmonyLib;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.PeroTools.Commons;
 using Il2CppAssets.Scripts.PeroTools.Managers;
 using Il2CppAssets.Scripts.PeroTools.Nice.Components;
+using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
-using Il2CppAssets.Scripts.UI.Panels;
-using HarmonyLib;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -17,13 +17,15 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 /// </summary>
 public class CharacterSwitcher
 {
-    private const string PanelSharedPath = "UI/Standerd/PnlMenu/Panels/";
+    private const string scrollviewsPanelSharedPath = "UI/Standerd/PnlMenu/Panels/";
+    private const string pnlRankPath = "UI/Standerd/PnlPreparation/Panels/PnlRankLocalization/Pc/PnlRank";
 
     private FancyScrollView _characterScrollView;
     private FancyScrollView _elfinScrollView;
+    private PnlRank _pnlRank;
 
     // TODO find a better way to get the panel instance, like search for it like the scrollviews here
-    public void Switch(Character character, Elfin elfin, PnlRank panelToRefresh)
+    public void Switch(Character character, Elfin elfin)
     {
         var currentCharacter = (Character)DataHelper.selectedRoleIndex;
         var currentElfin = (Elfin)DataHelper.selectedElfinIndex;
@@ -38,17 +40,15 @@ public class CharacterSwitcher
         DataHelper.selectedElfinIndex = (int)elfin;
 
         ScrollMenus(character, elfin);
-
-        if (panelToRefresh != null)
-        {
-            Traverse.Create(panelToRefresh).Method("RefreshLevelConfigUi").GetValue();
-        }
+        UpdateLevelConfigUI();
     }
 
     public void ResetCache()
     {
         _characterScrollView = null;
         _elfinScrollView = null;
+
+        _pnlRank = null;
     }
 
     private void ScrollMenus(Character character, Elfin elfin)
@@ -60,7 +60,7 @@ public class CharacterSwitcher
         var elfinOrder = Singleton<ConfigManager>.instance.GetConfigObject<DBConfigElfin>(-1).GetElfinInfoByIndex((int)elfin)?.order;
         if (elfinOrder != null)
         {
-            _elfinScrollView ??= GameObject.Find(PanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
+            _elfinScrollView ??= GameObject.Find(scrollviewsPanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
             if (_elfinScrollView != null)
             {
                 _elfinScrollView.currentScrollPosition = elfinOrder.Value - 1;
@@ -70,11 +70,20 @@ public class CharacterSwitcher
         var characterOrder = Singleton<ConfigManager>.instance.GetConfigObject<DBConfigCharacter>(-1).GetCharacterInfoByIndex((int)character)?.order;
         if (characterOrder != null)
         {
-            _characterScrollView ??= GameObject.Find(PanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
+            _characterScrollView ??= GameObject.Find(scrollviewsPanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
             if (_characterScrollView != null)
             {
                 _characterScrollView.currentScrollPosition = characterOrder.Value - 1;
             }
+        }
+    }
+
+    private void UpdateLevelConfigUI()
+    {
+        _pnlRank ??= GameObject.Find(pnlRankPath)?.GetComponent<PnlRank>();
+        if (_pnlRank != null)
+        {
+            Traverse.Create(_pnlRank).Method("RefreshLevelConfigUi").GetValue();
         }
     }
 }
