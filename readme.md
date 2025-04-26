@@ -75,7 +75,9 @@ This mod adds an option to quickly scroll to the next album in the song selectio
 
 Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
-https://github.com/bnfour/md-mods/assets/853426/92bb0375-95cb-40d3-81a8-8972ba9207af
+https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
+
+The space for album titles is widened by [one of UI tweaks](#wider-album-titles), the featured titles do not fit without scrolling by default.
 
 > [!TIP]
 > It's best to use single taps to scroll albums.
@@ -176,11 +178,11 @@ This feature synchronizes the spinning award achievement icons on song info scre
 
 Before:
 
-https://github.com/user-attachments/assets/7c4c8911-acc5-4425-9bd1-c3ba6b57e5a2
+https://github.com/user-attachments/assets/97dac033-f012-4264-988b-97a1e607c6ea
 
 After:
 
-https://github.com/user-attachments/assets/3764291b-e8b8-4ab1-86ce-b4bf324272ab
+https://github.com/user-attachments/assets/c8b6b49a-d14a-4d26-9170-2f16a3333731
 
 The difference is clearly seen on last frames of both videos.
 
@@ -204,8 +206,7 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 
 > [!NOTE]  
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
-> In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.  
-> P E R O P E R O兄✰貴✰乱✰舞 has no visible UI.
+> In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
@@ -215,14 +216,10 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 
 | Manual fever | Automatic fever |
 | --- | --- |
-![what font it even is?](readme-images/ui-tweaks/fever-manual-default.png) | ![i went for impact because i first thought it is used originally, guess i was wrong](readme-images/ui-tweaks/fever-auto-default.png) |
+![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.png) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.png) |
 
-> [!NOTE]
-> I'm aware of the font mismatch. These can't be seen side-to-side in game anyway ¯\\\_(ツ)\_/¯  
-<!-- TODO issue link? -->
-
-<!-- TODO promote to a note when the font mismatch is resolved -->
-(Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported)
+> [!NOTE]  
+> Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
 
 ### Options menu text case
 This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
@@ -320,7 +317,7 @@ This repo is a run-of-the-mill .NET solution targeting .NET 6.
 
 The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you.
 
-Copy everything from `MelonLoader/Managed`, `MelonLoader/Il2CppAssemblies`, and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be dumped directly inside the folder, no subfolders needed.
+Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be dumped directly inside the folder, no subfolders needed.
 
 This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries.)
 

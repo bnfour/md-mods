@@ -3,7 +3,6 @@ using MelonLoader;
 
 using Il2CppAssets.Scripts.UI.Panels;
 using Il2CppAssets.Scripts.Database;
-using Il2CppPeroPeroGames.GlobalDefines;
 
 using Bnfour.MuseDashMods.UITweaks.Utilities;
 
@@ -19,13 +18,11 @@ public class PnlBattleGameStartPatch_AutoFeverNotice
     private static void Postfix(PnlBattle __instance)
     {
         // first check if the feature is enabled at all,
-        // peropero aniki ranbu has no ui,
+        // some levels have different ui,
         // touhou mode uses different sprite and has no fever,
         // finally check if the sprite needs to be changed
         if (!Melon<UITweaksMod>.Instance.AutoFeverNoticeEnabled
-            || GlobalDataBase.dbBattleStage.musicUid == MusicUidDefine.peropero_aniki_ranbu
-            // TODO find the define
-            || GlobalDataBase.dbBattleStage.musicUid == "84-0"
+            || MusicUidChecker.IsMemeLevel()
             || GlobalDataBase.s_DbTouhou.isTouhouEasterEgg
             || !DataHelper.isAutoFever)
         {
