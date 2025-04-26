@@ -27,9 +27,9 @@ public class CharacterSwitcher
 
     public void Switch(Character character, Elfin elfin)
     {
-        // it's probably on Custom there
-        // TODO confirm
-        var levelConfigState = DataHelper.m_CurLeveState;
+        // can be either custom or default
+        // depends on whether the level has a curstom config at the moment
+        var levelConfigState = GlobalDataBase.s_DbLevelConfig.curLevelConfigState;
 
         var currentLevelCharacter = (Character)DataHelper.selectedRoleIndex;
         var currentLevelElfin = (Elfin)DataHelper.selectedElfinIndex;
@@ -51,9 +51,8 @@ public class CharacterSwitcher
         DataHelper.selectedRoleIndex = (int)character;
         DataHelper.selectedElfinIndex = (int)elfin;
         // resetting the current level config effectively saves the character/elfin
-        // we're setting now for this level (even if the global config changes later)
+        // we're setting now, for this level (even if the global config changes later)
         // until they are changed via custom buttons and/or J/K shortcut keys for this specific level
-        // TODO confirm
         GlobalDataBase.s_DbLevelConfig.ResetCurLevelConfig();
         UpdateLevelConfigUI();
 
