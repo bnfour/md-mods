@@ -3,7 +3,6 @@ using MelonLoader;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.UI.Panels;
-using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.UITweaks.Patches;
 
@@ -33,40 +32,29 @@ public class PnlStageAwakePatch
         // makes the component aware of its new extra width
         // originally set to sizeDelta's width - 86
         // set to cover slightly more because we don't expect any scrolling to happen
+        // and shrink the side gradients
         __instance.m_AlbumTitleTxt.m_LongBound = 480;
 
-        var logger = Melon<UITweaksMod>.Logger;
-
-        logger.Msg($"root name {__instance.m_AlbumTitleObj.name}");
-
-        var maskL = __instance.m_AlbumTitleObj.transform.Find("DisplayArea/ImgMaskL");
-        var maskR = __instance.m_AlbumTitleObj.transform.Find("DisplayArea/ImgMaskR");
-
-        var cs = maskL.GetComponents<Component>();
-        foreach (var c in cs)
+        // shrink the gradients on the sides somewhat so they don't cover even the longest title
+        var leftMaskTransform = __instance.m_AlbumTitleObj.transform
+            .Find("DisplayArea/ImgMaskL")
+            .GetComponent<RectTransform>();
+        leftMaskTransform.sizeDelta = new Vector2
         {
-            logger.Msg($"{c.name} -- {c.GetIl2CppType().Name}");
-        }
-
-        // maskL.GetComponent<Image>().color = Color.clear;
-        // maskR.GetComponent<Image>().color = Color.clear;
-
-        var rt = maskL.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2
-        {
-            x = rt.sizeDelta.x / 2,
-            y = rt.sizeDelta.y
+            x = leftMaskTransform.sizeDelta.x / 2,
+            y = leftMaskTransform.sizeDelta.y
         };
 
-        var rtR = maskR.GetComponent<RectTransform>();
-        var originalRight = rtR.right;
-        rtR.sizeDelta = new Vector2
+        var rightMaskTransform = __instance.m_AlbumTitleObj.transform
+            .Find("DisplayArea/ImgMaskR")
+            .GetComponent<RectTransform>();
+        // the right image should also be moved after resizing
+        var originalRight = rightMaskTransform.right;
+        rightMaskTransform.sizeDelta = new Vector2
         {
-            x = rtR.sizeDelta.x / 2,
-            y = rtR.sizeDelta.y
+            x = rightMaskTransform.sizeDelta.x / 2,
+            y = rightMaskTransform.sizeDelta.y
         };
-        rtR.right = originalRight;
-
-        // logger.Msg($"l = null {maskL == null}, r = null {maskR == null}");
+        rightMaskTransform.right = originalRight;
     }
 }
