@@ -3,7 +3,6 @@ using UnityEngine;
 
 using Il2CppAssets.Scripts.UI.Panels;
 using UnityEngine.UI;
-using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
@@ -47,13 +46,12 @@ public class PnlRankInitPatch
         var someImage = topLevelConfigTransform.Find("ButtonReset/Image").gameObject;
         var newImage = GameObject.Instantiate(someImage, topLevelConfigTransform);
         newImage.name = "BnTopLevelConfigState";
-
         newImage.GetComponent<Image>().color = Color.white;
-
-        var newImageRectTransform = newImage.GetComponent<RectTransform>();
         // copy all the anchor-related stuff from another rect transform that always had
         // our new parent as parent so that this transform is moved similarly
         // TODO this may work for song info's achievements header image probably?
+        var newImageRectTransform = newImage.GetComponent<RectTransform>();
+
         var btnCharacterRectTransform = btnCharacter.GetComponent<RectTransform>();
         newImageRectTransform.anchorMin = btnCharacterRectTransform.anchorMin;
         newImageRectTransform.anchorMax = btnCharacterRectTransform.anchorMax;
@@ -67,7 +65,7 @@ public class PnlRankInitPatch
         // to form a line
         var btnElfinRectTransform = btnElfin.GetComponent<RectTransform>();
         var btnResetRectTransform = topLevelConfigTransform.Find("ButtonReset").gameObject.GetComponent<RectTransform>();
-
+        // TODO finetune the positions
         btnCharacterRectTransform.anchoredPosition3D = new Vector3(100, -50, 0);
         // i still have no idea how anchoring works, this kinda works
         newImageRectTransform.anchoredPosition3D = new Vector3(124, -50, 0);
@@ -78,11 +76,43 @@ public class PnlRankInitPatch
         // at least no hierarchy move is required, yay
         var topRectTransform = topLevelConfigTransform.gameObject.GetComponent<RectTransform>();
         topRectTransform.anchoredPosition3D = new Vector3
-        {
-            x = topRectTransform.anchoredPosition3D.x + 315,
-            y = topRectTransform.anchoredPosition3D.y + 74,
-            z = topRectTransform.anchoredPosition3D.z
-        };
+        (
+            topRectTransform.anchoredPosition3D.x + 315,
+            topRectTransform.anchoredPosition3D.y + 74,
+            topRectTransform.anchoredPosition3D.z
+        );
+
+        // edit the expanded scoreboard to fill the empty space created from
+        // minimizing the switcher completely (still less space than OG though)
+
+        // the scoreboard itself
+        var viewportRectTransform = __instance.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ScvRank/Viewport")
+            .GetComponent<RectTransform>();
+        viewportRectTransform.sizeDelta = new Vector2
+        (
+            viewportRectTransform.sizeDelta.x,
+            viewportRectTransform.sizeDelta.y + 33
+        );
+        // its background, which technically belongs to the tips panel ("lost contact with headquarters kaomoji facepalm")
+        // took me way too long to find
+        // TODO resize to also cover the selfrank space??
+        var bgRectTransform = __instance.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ImgRankTips")
+            .GetComponent<RectTransform>();
+        bgRectTransform.sizeDelta = new Vector2
+        (
+            bgRectTransform.sizeDelta.x,
+            bgRectTransform.sizeDelta.y + 33
+        );
+        // also move by half added size due to positioning quirks
+        bgRectTransform.anchoredPosition3D = new Vector3
+        (
+            bgRectTransform.anchoredPosition3D.x,
+            bgRectTransform.anchoredPosition3D.y - 33f / 2,
+            bgRectTransform.anchoredPosition3D.z
+        );
+
+        // the self rank line is moved in PnlRankRefreshLevelConfigUiPatch
+        // because its position changes outside of this code and can't be set once and for all
 
         // finally, open the extended scoreboard as soon as the screen is seen
         __instance.DoLevelConfigForward();
