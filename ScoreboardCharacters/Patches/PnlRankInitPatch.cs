@@ -83,7 +83,8 @@ public class PnlRankInitPatch
         );
 
         // edit the expanded scoreboard to fill the empty space created from
-        // minimizing the switcher completely (still less space than OG though)
+        // minimizing the switcher completely (still less space than OG though,
+        // fits ~7.5 scoreboard entries as compared to original full 8)
 
         // the scoreboard itself
         var viewportRectTransform = __instance.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ScvRank/Viewport")
@@ -91,23 +92,23 @@ public class PnlRankInitPatch
         viewportRectTransform.sizeDelta = new Vector2
         (
             viewportRectTransform.sizeDelta.x,
-            viewportRectTransform.sizeDelta.y + 33
+            viewportRectTransform.sizeDelta.y + 39
         );
-        // its background, which technically belongs to the tips panel ("lost contact with headquarters kaomoji facepalm")
+        // its background, which technically belongs to the tips panel
+        // (the "lost contact with headquarters *kaomoji facepalm*" one)
         // took me way too long to find
-        // TODO resize to also cover the selfrank space??
         var bgRectTransform = __instance.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ImgRankTips")
             .GetComponent<RectTransform>();
         bgRectTransform.sizeDelta = new Vector2
         (
             bgRectTransform.sizeDelta.x,
-            bgRectTransform.sizeDelta.y + 33
+            bgRectTransform.sizeDelta.y + 74
         );
         // also move by half added size due to positioning quirks
         bgRectTransform.anchoredPosition3D = new Vector3
         (
             bgRectTransform.anchoredPosition3D.x,
-            bgRectTransform.anchoredPosition3D.y - 33f / 2,
+            bgRectTransform.anchoredPosition3D.y - 37,
             bgRectTransform.anchoredPosition3D.z
         );
 

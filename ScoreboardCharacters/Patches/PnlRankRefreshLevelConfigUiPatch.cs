@@ -35,8 +35,8 @@ public class PnlRankRefreshLevelConfigUiPatch
             selfRankRectTransform.anchoredPosition3D = new Vector3
             (
                 selfRankRectTransform.anchoredPosition3D.x,
-                // TODO tweak value
-                selfRankRectTransform.anchoredPosition3D.y - 75,
+                // found empirically, the content stays in one place (for me at least)
+                selfRankRectTransform.anchoredPosition3D.y - 78.5f,
                 selfRankRectTransform.anchoredPosition3D.z
             );
         }
