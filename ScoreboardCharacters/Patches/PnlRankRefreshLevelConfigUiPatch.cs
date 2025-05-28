@@ -7,6 +7,7 @@ using Il2CppAssets.Scripts.UI.Panels;
 using Il2CppAssets.Scripts.Database;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
@@ -18,9 +19,7 @@ public class PnlRankRefreshLevelConfigUiPatch
         // TODO very wip
 
         // update the character/elfin custom image
-        var image = GameObject.Find("BnTopLevelConfigState")
-            .GetComponent<Image>();
-
+        var image = GameObject.Find(UiPatcher.NewConfigUiComponentName).GetComponent<Image>();
         var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
 
         var levelCharacter = (Character)DataHelper.selectedRoleIndex;
