@@ -1,19 +1,22 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
 
 using Il2CppAssets.Scripts.UI.Panels;
-using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
 /// <summary>
-/// A patch that switches to the scoreboard display when the panel is first shown.
+/// A patch that alters the scoreboard UI
+/// and switches to the scoreboard display when the panel is first shown.
 /// </summary>
 [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.InitLevelConfigBtn))]
 // i really wanted it to be an Init patch
 // but whenever i try to patch that, the patch does not fire :(
 public class PnlRankInitPatch
 {
+    // TODO split this up somehow? move to UI patcher
     internal static void Postfix(PnlRank __instance)
     {
         // the following wall of text modifies the vanilla UI to make the
@@ -26,54 +29,46 @@ public class PnlRankInitPatch
         __instance.targetShinkHeight = 0f;
 
         // hide some components from the view, but not remove them to avoid other code breaking
-        Vector3 shadowRealm = new(99_999f, 99_999f, 0f);
-        // just the text for reset button
-        topLevelConfigTransform.Find("ButtonReset/TxtReset")
-            .position = shadowRealm;
-        // text and non-key icon for character and elfin buttons:
-        // moving the icon for some reason moves both icons;
-        // fortunately, we can just set their color to transparent
-        var btnCharacter = topLevelConfigTransform.Find("ButtonCha");
-        btnCharacter.Find("ImgSongTitleMask").position = shadowRealm;
-        btnCharacter.GetComponent<Image>().color = Color.clear;
-        var btnElfin = topLevelConfigTransform.Find("ButtonElfin");
-        btnElfin.Find("ImgSongTitleMask").position = shadowRealm;
-        btnElfin.GetComponent<Image>().color = Color.clear;
+        // everybody stand back, i know regular^W lambda expressions
+        new List<(string componentPath, bool hideImage)>()
+        {
+            ("ButtonReset/TxtReset", false),
+            ("ButtonCha", true),
+            ("ButtonElfin", true)
+        }.ForEach(tuple => BanishComponent(topLevelConfigTransform, tuple.componentPath, tuple.hideImage));
 
-        // get the key legends components to resize and colorize
-        // to match the top bar's original icons and text
-        var resetButtonR = topLevelConfigTransform.Find("ButtonReset/Image");
-        var resetButtonArrow = topLevelConfigTransform.Find("ButtonReset");
-        var characterButtonJ = topLevelConfigTransform.Find("ButtonCha/Image");
-        var elfinButtonK = topLevelConfigTransform.Find("ButtonElfin/Image");
-
-        // resize to match the top bar's size (35 -> 40)
-        Vector2 buttonSize = new(40, 40);
-        resetButtonR.GetComponent<RectTransform>().sizeDelta = buttonSize;
-        resetButtonArrow.GetComponent<RectTransform>().sizeDelta = buttonSize;
-        characterButtonJ.GetComponent<RectTransform>().sizeDelta = buttonSize;
-        elfinButtonK.GetComponent<RectTransform>().sizeDelta = buttonSize;
-
-        // change the color to match the top bar, taken from existing component
-        var originalColor = __instance.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/TxtContent")
+        // resize and recolor moved buttons to match the top bar's original icons and text
+        var originalColor = __instance.transform
+            .Find("Mask/ImgBaseDarkP/ImgTittleBaseP/TxtContent")
             .GetComponent<Text>().color;
-
-        resetButtonR.GetComponent<Image>().color = originalColor;
-        resetButtonArrow.GetComponent<Image>().color = originalColor;
-        characterButtonJ.GetComponent<Image>().color = originalColor;
-        elfinButtonK.GetComponent<Image>().color = originalColor;
+        // this is just "fancy" way to use an (inlined) function 4 times
+        // for 4 different arguments
+        // TODO why am i doing this
+        new List<string>()
+        {
+            "ButtonReset/Image",
+            "ButtonReset",
+            "ButtonCha/Image",
+            "ButtonElfin/Image"
+        }.ForEach(s =>
+        {
+            var transform = topLevelConfigTransform.Find(s);
+            transform.GetComponent<RectTransform>().sizeDelta = new(40, 40);
+            transform.GetComponent<Image>().color = originalColor;
+        });
 
         // clone an image to be the new character/elfin indicator
         var someImage = topLevelConfigTransform.Find("ButtonReset/Image").gameObject;
         var newImage = GameObject.Instantiate(someImage, topLevelConfigTransform);
+        // TODO move to constant available to both new patches
         newImage.name = "BnTopLevelConfigState";
         newImage.GetComponent<Image>().color = Color.white;
+        var newImageRectTransform = newImage.GetComponent<RectTransform>();
         // copy all the anchor-related stuff from another rect transform that always had
         // our new parent as parent so that this transform is moved similarly
-        // TODO this may work for song info's achievements header image probably?
-        var newImageRectTransform = newImage.GetComponent<RectTransform>();
-
-        var btnCharacterRectTransform = btnCharacter.GetComponent<RectTransform>();
+        // i have no idea what is required, so just copy everything to be sure >_<
+        // TODO this may work for song info's achievements header image??
+        var btnCharacterRectTransform = topLevelConfigTransform.Find("ButtonCha").GetComponent<RectTransform>();
         newImageRectTransform.anchorMin = btnCharacterRectTransform.anchorMin;
         newImageRectTransform.anchorMax = btnCharacterRectTransform.anchorMax;
         newImageRectTransform.pivot = btnCharacterRectTransform.pivot;
@@ -82,15 +77,16 @@ public class PnlRankInitPatch
         // resize goes after anchor shenanigans
         newImageRectTransform.sizeDelta = new Vector2(80, 40);
 
-        // move the collapsed level config items within the rootBtnLevelConfigTop
-        // to form a line
-        var btnElfinRectTransform = btnElfin.GetComponent<RectTransform>();
-        var btnResetRectTransform = topLevelConfigTransform.Find("ButtonReset").gameObject.GetComponent<RectTransform>();
-        btnCharacterRectTransform.anchoredPosition3D = new Vector3(100, -50, 0);
-        // i still have no idea how anchoring works
-        newImageRectTransform.anchoredPosition3D = new Vector3(124, -50, 0);
-        btnElfinRectTransform.anchoredPosition3D = new Vector3(240, -50, 0);
-        btnResetRectTransform.anchoredPosition3D = new Vector3(300, -50, 0);
+        // move the collapsed level config items within the rootBtnLevelConfigTop to form a line
+        // at least there are no repeating long invocations anymore
+        // TODO but at what cost?
+        new List<(string name, Vector3 position)>
+        {
+            ("ButtonCha", new Vector3(100, -50, 0)),
+            ("BnTopLevelConfigState", new Vector3(124, -50, 0)),
+            ("ButtonElfin", new Vector3(240, -50, 0)),
+            ("ButtonReset", new Vector3(300, -50, 0))
+        }.ForEach(tuple => topLevelConfigTransform.Find(tuple.name).GetComponent<RectTransform>().anchoredPosition3D = tuple.position);
 
         // move the "fixed" rootBtnLevelConfigTop to the top bar,
         // at least no hierarchy move is required, yay
@@ -138,4 +134,22 @@ public class PnlRankInitPatch
         // finally, open the extended scoreboard as soon as the screen is seen
         __instance.DoLevelConfigForward();
     }
+
+    private static void BanishComponent(Transform root, string searchPath, bool hideImage)
+    {
+        var transform = root.Find(searchPath);
+        // hide this instead of original transform if present;
+        // present for both elfin and character texts,
+        // not present for the random button -- called differently
+        // and we're also not removing the non-key legend from it
+        var subComponentTrasform = transform.Find("ImgSongTitleMask");
+        // to the shadow realm with you
+        (subComponentTrasform ?? transform).position = new(99_999f, 99_999f, 0);
+        if (hideImage)
+        {
+            transform.GetComponent<Image>().color = Color.clear;
+        }
+    }
+
+
 }
