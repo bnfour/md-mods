@@ -40,7 +40,28 @@ public class PnlRankInitPatch
         btnElfin.Find("ImgSongTitleMask").position = shadowRealm;
         btnElfin.GetComponent<Image>().color = Color.clear;
 
-        // TODO button image sizes and color to match ones originally from the bar
+        // get the key legends components to resize and colorize
+        // to match the top bar's original icons and text
+        var resetButtonR = topLevelConfigTransform.Find("ButtonReset/Image");
+        var resetButtonArrow = topLevelConfigTransform.Find("ButtonReset");
+        var characterButtonJ = topLevelConfigTransform.Find("ButtonCha/Image");
+        var elfinButtonK = topLevelConfigTransform.Find("ButtonElfin/Image");
+
+        // resize to match the top bar's size (35 -> 40)
+        Vector2 buttonSize = new(40, 40);
+        resetButtonR.GetComponent<RectTransform>().sizeDelta = buttonSize;
+        resetButtonArrow.GetComponent<RectTransform>().sizeDelta = buttonSize;
+        characterButtonJ.GetComponent<RectTransform>().sizeDelta = buttonSize;
+        elfinButtonK.GetComponent<RectTransform>().sizeDelta = buttonSize;
+
+        // change the color to match the top bar, taken from existing component
+        var originalColor = __instance.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/TxtContent")
+            .GetComponent<Text>().color;
+
+        resetButtonR.GetComponent<Image>().color = originalColor;
+        resetButtonArrow.GetComponent<Image>().color = originalColor;
+        characterButtonJ.GetComponent<Image>().color = originalColor;
+        elfinButtonK.GetComponent<Image>().color = originalColor;
 
         // clone an image to be the new character/elfin indicator
         var someImage = topLevelConfigTransform.Find("ButtonReset/Image").gameObject;
@@ -65,9 +86,8 @@ public class PnlRankInitPatch
         // to form a line
         var btnElfinRectTransform = btnElfin.GetComponent<RectTransform>();
         var btnResetRectTransform = topLevelConfigTransform.Find("ButtonReset").gameObject.GetComponent<RectTransform>();
-        // TODO finetune the positions
         btnCharacterRectTransform.anchoredPosition3D = new Vector3(100, -50, 0);
-        // i still have no idea how anchoring works, this kinda works
+        // i still have no idea how anchoring works
         newImageRectTransform.anchoredPosition3D = new Vector3(124, -50, 0);
         btnElfinRectTransform.anchoredPosition3D = new Vector3(240, -50, 0);
         btnResetRectTransform.anchoredPosition3D = new Vector3(300, -50, 0);
