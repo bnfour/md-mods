@@ -11,13 +11,15 @@ using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
+/// <summary>
+/// A patch that updates the custom level config UI when vanilla one is updated
+/// to keep display state consistent.
+/// </summary>
 [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.RefreshLevelConfigUi))]
 public class PnlRankRefreshLevelConfigUiPatch
 {
     internal static void Postfix(PnlRank __instance)
     {
-        // TODO very wip
-
         // update the character/elfin custom image
         var image = GameObject.Find(UiPatcher.NewConfigUiComponentName).GetComponent<Image>();
         var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
