@@ -30,14 +30,7 @@ public class PnlRankRefreshLevelConfigUiPatch
         // move the self rank to its position if scoreboard is expanded
         if (__instance.isRankExpand)
         {
-            var selfRankRectTransform = __instance.server.GetComponent<RectTransform>();
-            selfRankRectTransform.anchoredPosition3D = new Vector3
-            (
-                selfRankRectTransform.anchoredPosition3D.x,
-                // found empirically, the content stays in one place (for me at least)
-                selfRankRectTransform.anchoredPosition3D.y - 78.5f,
-                selfRankRectTransform.anchoredPosition3D.z
-            );
+            UiPatcher.Move(__instance.server.transform, new(0, -78.5f));
         }
     }
 }
