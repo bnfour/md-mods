@@ -179,6 +179,10 @@ public static class UiPatcher
 
         // the self rank line is moved in PnlRankRefreshLevelConfigUiPatch
         // because its position changes outside of this code and can't be set once and for all
+
+        // fix the random button being slightly off
+        var randomButton = panel.transform.Find("Mask/BtnRandomReset");
+        Move(randomButton, new(0, -2));
     }
 
     private static void BanishComponent(Transform root, string searchPath, bool hideImage)
