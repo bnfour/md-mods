@@ -17,11 +17,18 @@ This repo currently contains the following mods. They can be used in any combina
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
+<!-- TODO the image is already outdated, modded scoreboard now fits 7 lines exactly -->
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
-
-![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters.png)
+| Before | After |
+| --- | --- |
+| ![i was surprized by the vanilla look more than i thought](readme-images/scoreboard-characters/scoreboard-characters-before.png) | ![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png) |
 
 The buttons can be clicked, and will set your current character and elfin to these shown. It will even scroll the selection screens for you.
+
+In addition:
+- The character switch panel takes less space when minimized, leaving more space for the scoreboard.
+- Switch controls (when minimized) are moved to the panel header, and character and elfin icons are shown instead of (scrolling) text.
+- The character switch panel is minimized, and the scoreboard is expanded by default.
 
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
@@ -76,8 +83,6 @@ This mod adds an option to quickly scroll to the next album in the song selectio
 Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
-
-The space for album titles is widened by [one of UI tweaks](#wider-album-titles), the featured titles do not fit without scrolling by default.
 
 > [!TIP]
 > It's best to use single taps to scroll albums.
@@ -146,7 +151,7 @@ The following UI tweaks are currently available:
 Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature widens the space for the album title on the song selection screen, so wider ones fit without scrolling:
+This feature widens the space for the album title on the song selection screen, so that even notorious "MD-level Tactical Training Blu-ray" fits (illustration update pending — the font used to be bigger):
 
 | State | Illustration |
 | --- | :---: |
@@ -156,21 +161,6 @@ This feature widens the space for the album title on the song selection screen, 
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
-
-<details>
-<summary>List of affected albums (in no particular order)</summary>
-
-- [Happy Otaku Pack]s Vol.10 and beyond
-- [Give Up TREATMENT] packs, all volumes
-- [Legends of Muse Warriors]
-- [COSMIC RADIO PEROLIST]
-- [CHUNITHM COURSE MUSE]
-- [Let's Do Bad Things Together]
-- [Budget Is Burning: Nano Core]
-- [maimai DX Limited-time Suite]
-- [MD-level Tactical Training Blu-ray]
-
-</details>
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
