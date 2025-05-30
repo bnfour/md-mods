@@ -77,8 +77,6 @@ Here's a little demo of switching entire albums by single Shift+Arrow key taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
-The space for album titles is widened by [one of UI tweaks](#wider-album-titles), the featured titles do not fit without scrolling by default.
-
 > [!TIP]
 > It's best to use single taps to scroll albums.
 >  
@@ -146,7 +144,7 @@ The following UI tweaks are currently available:
 Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature widens the space for the album title on the song selection screen, so wider ones fit without scrolling:
+This feature widens the space for the album title on the song selection screen, so that even notorious "MD-level Tactical Training Blu-ray" fits (illustration update pending — the font used to be bigger):
 
 | State | Illustration |
 | --- | :---: |
@@ -156,21 +154,6 @@ This feature widens the space for the album title on the song selection screen, 
 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
-
-<details>
-<summary>List of affected albums (in no particular order)</summary>
-
-- [Happy Otaku Pack]s Vol.10 and beyond
-- [Give Up TREATMENT] packs, all volumes
-- [Legends of Muse Warriors]
-- [COSMIC RADIO PEROLIST]
-- [CHUNITHM COURSE MUSE]
-- [Let's Do Bad Things Together]
-- [Budget Is Burning: Nano Core]
-- [maimai DX Limited-time Suite]
-- [MD-level Tactical Training Blu-ray]
-
-</details>
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
