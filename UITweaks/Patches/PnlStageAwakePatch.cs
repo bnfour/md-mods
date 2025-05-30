@@ -26,14 +26,14 @@ public class PnlStageAwakePatch
 
         // new width found empirically, fits all currently (4.11) available titles,
         // the widest being ba's pack full title
-        objectTransform.sizeDelta = new Vector2(550, 60);
-        textTransform.sizeDelta = new Vector2(550, 60);
+        objectTransform.sizeDelta = new Vector2(450, 60);
+        textTransform.sizeDelta = new Vector2(450, 60);
 
         // makes the component aware of its new extra width
         // originally set to sizeDelta's width - 86
         // set to cover slightly more because we don't expect any scrolling to happen
         // and shrink the side gradients
-        __instance.m_AlbumTitleTxt.m_LongBound = 480;
+        __instance.m_AlbumTitleTxt.m_LongBound = 380;
 
         // shrink the gradients on the sides somewhat so they don't cover even the longest title
         var leftMaskTransform = __instance.m_AlbumTitleObj.transform
