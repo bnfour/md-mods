@@ -17,6 +17,7 @@ This repo currently contains the following mods. They can be used in any combina
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
+<!-- TODO the image is already outdated, modded scoreboard now fits 7 lines exactly -->
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
 | Before | After |
 | --- | --- |

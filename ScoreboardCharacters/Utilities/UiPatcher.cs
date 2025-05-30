@@ -163,11 +163,11 @@ public static class UiPatcher
 
         // edit the expanded scoreboard to fill the empty space created from
         // minimizing the switcher completely (still less space than OG though,
-        // fits ~7.5 scoreboard entries as compared to original full 8)
+        // fits ~7 scoreboard entries as compared to original 8)
 
         // the scoreboard itself
         var viewportRect = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ScvRank/Viewport");
-        Resize(viewportRect, new(0, 39));
+        Resize(viewportRect, new(0, 79));
 
         // its background, which technically belongs to the tips panel
         // (the "lost contact with headquarters *kaomoji facepalm*" one)
