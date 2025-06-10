@@ -43,7 +43,6 @@ public class ButtonImageProvider
 
     public Sprite GetRandomSprite()
     {
-        // TODO actual sprite
         return _randomModeSprite ??= CreateRandomModeSprite();
     }
 
@@ -63,26 +62,23 @@ public class ButtonImageProvider
             canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(character), _settings.CharacterDest);
             canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(elfin), _settings.ElfinDest);
             canvas.Flush();
-            // TODO consider reusing sprite creation here and in CreateRandomModeSprite
-            using (var data = bitmap.Encode(SKEncodedImageFormat.Png, 100))
-            using (var stream = new MemoryStream())
-            {
-                data.SaveTo(stream);
-                // texture size here is irrelevant as it gets changed by LoadImage,
-                // mipmap is off as we supply pre-scaled images and do not want any unity scaling involved
-                var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                ImageConversion.LoadImage(texture, stream.ToArray());
-                // (UnityEngine.)Rect is not a (SkiaSharp.)SKRect(I), unfortunate mixing in one file
-                var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * size, size), new Vector2(0.5f, 0.5f));
 
-                return sprite;
-            }
+            return CreateSpriteFromBitmap(bitmap);
         }
     }
 
     private Sprite CreateRandomModeSprite()
+        => CreateSpriteFromBitmap(_settings.RandomButtonBitmap);
+
+    /// <summary>
+    /// Creates a <see cref="UnityEngine.Sprite"/> from a <see cref="SkiaSharp.SKBitmap"/>.
+    /// Bitmap size is assumed to be 2 square sprites wide and 1 high. "Square sprite" size depends on screen resolution.
+    /// </summary>
+    /// <param name="bitmap">Bitmap to turn into a Sprite.</param>
+    /// <returns>Ready to use sprite.</returns>
+    private Sprite CreateSpriteFromBitmap(SKBitmap bitmap)
     {
-        using (var data = _settings.RandomButtonBitmap.Encode(SKEncodedImageFormat.Png, 100))
+        using (var data = bitmap.Encode(SKEncodedImageFormat.Png, 100))
         using (var stream = new MemoryStream())
         {
             data.SaveTo(stream);
