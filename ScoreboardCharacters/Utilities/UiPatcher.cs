@@ -96,7 +96,8 @@ public static class UiPatcher
         {
             ("ButtonReset/TxtReset", false),
             ("ButtonCha", true),
-            ("ButtonElfin", true)
+            ("ButtonElfin", true),
+            ("txtRandomTipTop", false)
         },
         // fun fact: as of now, it's impossible to decostruct the tuple in lambda's definition
         tuple => BanishComponent(topLevelConfigTransform, tuple.componentPath, tuple.hideImage));
