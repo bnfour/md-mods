@@ -23,14 +23,15 @@ public class SpritesheetManager
 
     private bool _initialized;
 
-    private int CurrentSpriteSize => (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
-
     public SpritesheetSettings LoadSpritesheet()
     {
         _initialized = true;
         _currentResolution = Screen.height;
-        return new(LoadOverrideSpritesheet() ?? LoadDefaultSpritesheet(),
-            LoadRandomModeImage(), CurrentSpriteSize);
+
+        var spriteSize = (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
+
+        return new(LoadOverrideSpritesheet() ?? LoadDefaultSpritesheet(spriteSize),
+            LoadRandomModeImage(spriteSize), spriteSize);
     }
 
     public bool ReloadRequired()
@@ -44,10 +45,8 @@ public class SpritesheetManager
     /// <summary>
     /// Tries to load the override image, if it contains square sprites with the same size, <see cref="Constants.SpritesPerRow"/> per row.
     /// </summary>
-    /// <returns>
-    /// A bitmap if the override was successfully loaded,
-    /// null if the override was not loaded for any reason (it doesn't exist or the resolution is wrong).
-    /// </returns>
+    /// <returns> A bitmap if the override was successfully loaded, null if the override was not loaded for any reason
+    /// (it doesn't exist or the resolution is wrong). </returns>
     /// <remarks>It only checks image dimensions, not the contents.
     /// Also sets up <see cref="_overrideActive"/> flag on success.</remarks>
     private SKBitmap LoadOverrideSpritesheet()
@@ -79,27 +78,28 @@ public class SpritesheetManager
 
     /// <summary>
     /// Creates bitmap from built-in spritesheet.
-    /// If no pre-scaled version is available in the resources, on the fly rescale is performed.
+    /// If no pre-scaled version is available in the resources, on the fly rescale to target sprite size is performed.
     /// </summary>
-    private SKBitmap LoadDefaultSpritesheet()
-        => LoadDefaultImage("sprites", RescaleSpritesheet);
+    private SKBitmap LoadDefaultSpritesheet(int targetSpriteSize)
+        => LoadDefaultImage("sprites", targetSpriteSize, RescaleSpritesheet);
 
     /// <summary>
     /// Loads the default random mode image for current resolution.
-    /// If no pre-scaled version is available in the resources, on the fly rescale is performed.
+    /// If no pre-scaled version is available in the resources, on the fly rescale to target sprite size is performed.
     /// This image does not support overriding -- the built-in sprite is always used.
     /// </summary>
-    private SKBitmap LoadRandomModeImage()
-        => LoadDefaultImage("random_mode", RescaleRandomModeImage);
+    private SKBitmap LoadRandomModeImage(int targetSpriteSize)
+        => LoadDefaultImage("random_mode", targetSpriteSize, RescaleRandomModeImage);
 
     /// <summary>
     /// Loads image file from embedded resources to match the current resolution. Rescales if needed.
     /// </summary>
     /// <param name="name">Name of the file to load, "sprites" or "random_mode". Not checked for validity because it's private code.</param>
+    /// <param name="targetSpriteSize">Sprite size to rescale for, if needed.</param>
     /// <param name="resizeFunction">Function that resizes a given bitmap to match provided sprite size.
     /// Called to perform a rescale if the current resolution has no prescaled image variant.</param>
     /// <returns>Bitmap to use with current screen resolution.</returns>
-    private SKBitmap LoadDefaultImage(string name, Func<SKBitmap, int, SKBitmap> resizeFunction)
+    private SKBitmap LoadDefaultImage(string name, int targetSpriteSize, Func<SKBitmap, int, SKBitmap> resizeFunction)
     {
         var isSupported = SupportedResolutions.Contains(_currentResolution);
         var resolutionToUse = isSupported ? _currentResolution : SupportedResolutions.Max();
@@ -112,7 +112,7 @@ public class SpritesheetManager
 
             if (!isSupported)
             {
-                bitmap = resizeFunction(bitmap, CurrentSpriteSize);
+                bitmap = resizeFunction(bitmap, targetSpriteSize);
             }
 
             return bitmap;
