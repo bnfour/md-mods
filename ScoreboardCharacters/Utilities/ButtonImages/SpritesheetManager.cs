@@ -12,10 +12,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 /// </summary>
 public class SpritesheetManager
 {
-    private const string EmbeddedResourcePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
     private const string OverrideFilename = "scoreboard_characters_override.png";
-    private readonly string EmbeddedResourceFallbackName;
-
     private readonly int[] SupportedResolutions = { 720, 1080, 1440, 2160 };
     // 1920×1080 is the baseline resolution
     private const int BaseResolution = 1080;
@@ -26,33 +23,33 @@ public class SpritesheetManager
 
     private bool _initialized;
 
-    public SpritesheetManager()
-    {
-        // use highest res available as fallback for non-supported resolution
-        EmbeddedResourceFallbackName = string.Format(EmbeddedResourcePrescaledNameTemplate, SupportedResolutions.Max());
-    }
-
     public SpritesheetSettings LoadSpritesheet()
     {
         _initialized = true;
         _currentResolution = Screen.height;
-        return LoadOverride() ?? LoadDefault();
+
+        var spriteSize = (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
+
+        return new(LoadOverrideSpritesheet() ?? LoadDefaultSpritesheet(spriteSize),
+            LoadRandomModeImage(spriteSize), spriteSize);
     }
 
     public bool ReloadRequired()
     {
+        // TODO with this, the random mode image will never reload to another resolution if main spritesheet is overridden
+        // the original intent was to avoid reloading the only spritesheet at all if we know it will not change,
+        // so we need to do something about it because we now have two images to load
         return !_initialized && !_overrideActive && Screen.height != _currentResolution;
     }
 
     /// <summary>
     /// Tries to load the override image, if it contains square sprites with the same size, <see cref="Constants.SpritesPerRow"/> per row.
-    /// Please note it only checks image dimensions, not the contents.
     /// </summary>
-    /// <returns>
-    /// Settings for the spritesheet if the override was successfully loaded,
-    /// null if the override is not loaded for any reason (it doesn't exist or the resolution is wrong).
-    /// </returns>
-    private SpritesheetSettings LoadOverride()
+    /// <returns> A bitmap if the override was successfully loaded, null if the override was not loaded for any reason
+    /// (it doesn't exist or the resolution is wrong). </returns>
+    /// <remarks>It only checks image dimensions, not the contents.
+    /// Also sets up <see cref="_overrideActive"/> flag on success.</remarks>
+    private SKBitmap LoadOverrideSpritesheet()
     {
         var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
         if (File.Exists(overrideFullPath))
@@ -73,37 +70,52 @@ public class SpritesheetManager
             }
 
             _overrideActive = true;
-            return new SpritesheetSettings(SKBitmap.FromImage(overrideBitmap), potentialOverrideSpriteSize);
+            return SKBitmap.FromImage(overrideBitmap);
         }
 
         return null;
     }
 
     /// <summary>
-    /// Loads the default spritesheet for current resolution.
-    /// If no pre-scaled version is available in the resources, on the fly rescale is performed.
+    /// Creates bitmap from built-in spritesheet.
+    /// If no pre-scaled version is available in the resources, on the fly rescale to target sprite size is performed.
     /// </summary>
-    private SpritesheetSettings LoadDefault()
-    {
-        int spriteSize = (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
+    private SKBitmap LoadDefaultSpritesheet(int targetSpriteSize)
+        => LoadDefaultImage("sprites", targetSpriteSize, RescaleSpritesheet);
 
+    /// <summary>
+    /// Loads the default random mode image for current resolution.
+    /// If no pre-scaled version is available in the resources, on the fly rescale to target sprite size is performed.
+    /// This image does not support overriding -- the built-in sprite is always used.
+    /// </summary>
+    private SKBitmap LoadRandomModeImage(int targetSpriteSize)
+        => LoadDefaultImage("random_mode", targetSpriteSize, RescaleRandomModeImage);
+
+    /// <summary>
+    /// Loads image file from embedded resources to match the current resolution. Rescales if needed.
+    /// </summary>
+    /// <param name="name">Name of the file to load, "sprites" or "random_mode". Not checked for validity because it's private code.</param>
+    /// <param name="targetSpriteSize">Sprite size to rescale for, if needed.</param>
+    /// <param name="resizeFunction">Function that resizes a given bitmap to match provided sprite size.
+    /// Called to perform a rescale if the current resolution has no prescaled image variant.</param>
+    /// <returns>Bitmap to use with current screen resolution.</returns>
+    private SKBitmap LoadDefaultImage(string name, int targetSpriteSize, Func<SKBitmap, int, SKBitmap> resizeFunction)
+    {
         var isSupported = SupportedResolutions.Contains(_currentResolution);
-        var resName = isSupported
-            ? string.Format(EmbeddedResourcePrescaledNameTemplate, _currentResolution)
-            : EmbeddedResourceFallbackName;
+        var resolutionToUse = isSupported ? _currentResolution : SupportedResolutions.Max();
+        var resName = $"Bnfour.MuseDashMods.ScoreboardCharacters.Resources.{name}.{resolutionToUse}.png";
 
         var assembly = GetType().GetTypeInfo().Assembly;
-
-        using (var defaultImageStream = assembly.GetManifestResourceStream(resName))
+        using (var randomModeImageStream = assembly.GetManifestResourceStream(resName))
         {
-            var defaultBitmap = SKBitmap.Decode(defaultImageStream);
+            var bitmap = SKBitmap.Decode(randomModeImageStream);
 
             if (!isSupported)
             {
-                defaultBitmap = RescaleSpritesheet(defaultBitmap, spriteSize);
+                bitmap = resizeFunction(bitmap, targetSpriteSize);
             }
 
-            return new SpritesheetSettings(defaultBitmap, spriteSize);
+            return bitmap;
         }
     }
 
@@ -112,9 +124,14 @@ public class SpritesheetManager
         // get number of rows from builtin image (premature optimization if it will be extended downwards for more character space),
         // assuming individual sprites are square
         var spriteRows = source.Height / (source.Width / Constants.SpritesPerRow);
-        
         var scaledSize = new SKImageInfo(Constants.SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
 
         return source.Resize(scaledSize, SKFilterQuality.High);
+    }
+
+    private SKBitmap RescaleRandomModeImage(SKBitmap source, int targetSpriteSize)
+    {
+        // the aspect ratio is constant
+        return source.Resize(new SKImageInfo(2 * targetSpriteSize, targetSpriteSize), SKFilterQuality.High);
     }
 }

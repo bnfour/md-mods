@@ -15,6 +15,8 @@ public class ButtonImageProvider
 {
     private readonly Dictionary<(Character, Elfin), Sprite> _cache = new();
 
+    private Sprite _randomModeSprite;
+
     private readonly SpritesheetManager _manager = new();
 
     private SpritesheetSettings _settings;
@@ -39,9 +41,21 @@ public class ButtonImageProvider
         return newSprite;
     }
 
+    public Sprite GetRandomSprite()
+    {
+        if (_manager.ReloadRequired())
+        {
+            _settings = _manager.LoadSpritesheet();
+            ResetCache();
+        }
+
+        return _randomModeSprite ??= CreateRandomModeSprite();
+    }
+
     public void ResetCache()
     {
         _cache.Clear();
+        _randomModeSprite = null;
     }
 
     private Sprite CreateSprite(Character character, Elfin elfin)
@@ -55,19 +69,29 @@ public class ButtonImageProvider
             canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(elfin), _settings.ElfinDest);
             canvas.Flush();
 
-            using (var data = bitmap.Encode(SKEncodedImageFormat.Png, 100))
-            using (var stream = new MemoryStream())
-            {
-                data.SaveTo(stream);
-                // texture size here is irrelevant as it gets changed by LoadImage,
-                // mipmap is off as we supply pre-scaled images and do not want any unity scaling involved
-                var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                ImageConversion.LoadImage(texture, stream.ToArray());
-                // (UnityEngine.)Rect is not a (SkiaSharp.)SKRect(I), unfortunate mixing in one file
-                var sprite = Sprite.Create(texture, new Rect(0, 0, 2 * size, size), new Vector2(0.5f, 0.5f));
+            return CreateSpriteFromBitmap(bitmap);
+        }
+    }
 
-                return sprite;
-            }
+    private Sprite CreateRandomModeSprite()
+        => CreateSpriteFromBitmap(_settings.RandomButtonBitmap);
+
+    /// <summary>
+    /// Creates a <see cref="UnityEngine.Sprite"/> from a <see cref="SkiaSharp.SKBitmap"/>.
+    /// Bitmap size is assumed to be 2 square sprites wide and 1 high. "Square sprite" size depends on screen resolution.
+    /// </summary>
+    /// <param name="bitmap">Bitmap to turn into a Sprite.</param>
+    /// <returns>Ready to use sprite.</returns>
+    private Sprite CreateSpriteFromBitmap(SKBitmap bitmap)
+    {
+        using (var data = bitmap.Encode(SKEncodedImageFormat.Png, 100))
+        using (var stream = new MemoryStream())
+        {
+            data.SaveTo(stream);
+            var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            ImageConversion.LoadImage(texture, stream.ToArray());
+
+            return Sprite.Create(texture, new Rect(0, 0, 2 * _settings.SpriteSize, _settings.SpriteSize), new Vector2(0.5f, 0.5f));
         }
     }
 
