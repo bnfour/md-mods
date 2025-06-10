@@ -12,10 +12,9 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 /// </summary>
 public class SpritesheetManager
 {
-    private const string EmbeddedResourcePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
+    private const string EmbeddedSpritesheetPrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.sprites.{0}.png";
+    private const string EmbeddedRandomModeImagePrescaledNameTemplate = "Bnfour.MuseDashMods.ScoreboardCharacters.Resources.random_mode.{0}.png";
     private const string OverrideFilename = "scoreboard_characters_override.png";
-    private readonly string EmbeddedResourceFallbackName;
-
     private readonly int[] SupportedResolutions = { 720, 1080, 1440, 2160 };
     // 1920×1080 is the baseline resolution
     private const int BaseResolution = 1080;
@@ -26,10 +25,16 @@ public class SpritesheetManager
 
     private bool _initialized;
 
+    private readonly string _embeddedSpritesheetFallbackName;
+    private readonly string _embeddedRandomModeImageFallbackName;
+
+    private int CurrentSpriteSize => (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
+
     public SpritesheetManager()
     {
         // use highest res available as fallback for non-supported resolution
-        EmbeddedResourceFallbackName = string.Format(EmbeddedResourcePrescaledNameTemplate, SupportedResolutions.Max());
+        _embeddedSpritesheetFallbackName = string.Format(EmbeddedSpritesheetPrescaledNameTemplate, SupportedResolutions.Max());
+        _embeddedRandomModeImageFallbackName = string.Format(EmbeddedRandomModeImagePrescaledNameTemplate, SupportedResolutions.Max());
     }
 
     public SpritesheetSettings LoadSpritesheet()
@@ -73,24 +78,22 @@ public class SpritesheetManager
             }
 
             _overrideActive = true;
-            return new SpritesheetSettings(SKBitmap.FromImage(overrideBitmap), potentialOverrideSpriteSize);
+            return new SpritesheetSettings(SKBitmap.FromImage(overrideBitmap), LoadRandomModeImage(), potentialOverrideSpriteSize);
         }
 
         return null;
     }
 
     /// <summary>
-    /// Loads the default spritesheet for current resolution.
+    /// Creates settings instance that uses built-in spritesheet.
     /// If no pre-scaled version is available in the resources, on the fly rescale is performed.
     /// </summary>
     private SpritesheetSettings LoadDefault()
     {
-        int spriteSize = (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
-
         var isSupported = SupportedResolutions.Contains(_currentResolution);
         var resName = isSupported
-            ? string.Format(EmbeddedResourcePrescaledNameTemplate, _currentResolution)
-            : EmbeddedResourceFallbackName;
+            ? string.Format(EmbeddedSpritesheetPrescaledNameTemplate, _currentResolution)
+            : _embeddedSpritesheetFallbackName;
 
         var assembly = GetType().GetTypeInfo().Assembly;
 
@@ -100,10 +103,37 @@ public class SpritesheetManager
 
             if (!isSupported)
             {
-                defaultBitmap = RescaleSpritesheet(defaultBitmap, spriteSize);
+                defaultBitmap = RescaleSpritesheet(defaultBitmap, CurrentSpriteSize);
             }
 
-            return new SpritesheetSettings(defaultBitmap, spriteSize);
+            return new SpritesheetSettings(defaultBitmap, LoadRandomModeImage(), CurrentSpriteSize);
+        }
+    }
+
+    /// <summary>
+    /// Loads the default random mode image for current resolution.
+    /// If no pre-scaled version is available in the resources, on the fly rescale is performed.
+    /// This image does not support overriding -- the built-in sprite is always used.
+    /// </summary>
+    private SKBitmap LoadRandomModeImage()
+    {
+        var isSupported = SupportedResolutions.Contains(_currentResolution);
+        var resName = isSupported
+            ? string.Format(EmbeddedRandomModeImagePrescaledNameTemplate, _currentResolution)
+            : _embeddedRandomModeImageFallbackName;
+
+        var assembly = GetType().GetTypeInfo().Assembly;
+
+        using (var randomModeImageStream = assembly.GetManifestResourceStream(resName))
+        {
+            var bitmap = SKBitmap.Decode(randomModeImageStream);
+
+            if (!isSupported)
+            {
+                bitmap = RescaleRandomModeImage(bitmap, CurrentSpriteSize);
+            }
+
+            return bitmap;
         }
     }
 
@@ -112,9 +142,14 @@ public class SpritesheetManager
         // get number of rows from builtin image (premature optimization if it will be extended downwards for more character space),
         // assuming individual sprites are square
         var spriteRows = source.Height / (source.Width / Constants.SpritesPerRow);
-        
         var scaledSize = new SKImageInfo(Constants.SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
 
         return source.Resize(scaledSize, SKFilterQuality.High);
+    }
+
+    private SKBitmap RescaleRandomModeImage(SKBitmap source, int targetSpriteSize)
+    {
+        // the aspect ratio is constant
+        return source.Resize(new SKImageInfo(2 * targetSpriteSize, targetSpriteSize), SKFilterQuality.High);
     }
 }

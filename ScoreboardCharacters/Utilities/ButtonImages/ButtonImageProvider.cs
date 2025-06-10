@@ -44,7 +44,7 @@ public class ButtonImageProvider
     public Sprite GetRandomSprite()
     {
         // TODO actual sprite
-        return _randomModeSprite ??= GetSprite(Character.MysteryCharacter33, Elfin.MysteryElfin13);
+        return _randomModeSprite ??= CreateRandomModeSprite();
     }
 
     public void ResetCache()
@@ -63,7 +63,7 @@ public class ButtonImageProvider
             canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(character), _settings.CharacterDest);
             canvas.DrawBitmap(_settings.Bitmap, GetSpriteRectangle(elfin), _settings.ElfinDest);
             canvas.Flush();
-
+            // TODO consider reusing sprite creation here and in CreateRandomModeSprite
             using (var data = bitmap.Encode(SKEncodedImageFormat.Png, 100))
             using (var stream = new MemoryStream())
             {
@@ -77,6 +77,19 @@ public class ButtonImageProvider
 
                 return sprite;
             }
+        }
+    }
+
+    private Sprite CreateRandomModeSprite()
+    {
+        using (var data = _settings.RandomButtonBitmap.Encode(SKEncodedImageFormat.Png, 100))
+        using (var stream = new MemoryStream())
+        {
+            data.SaveTo(stream);
+            var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            ImageConversion.LoadImage(texture, stream.ToArray());
+
+            return Sprite.Create(texture, new Rect(0, 0, 2 * _settings.SpriteSize, _settings.SpriteSize), new Vector2(0.5f, 0.5f));
         }
     }
 
