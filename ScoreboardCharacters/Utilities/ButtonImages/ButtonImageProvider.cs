@@ -15,6 +15,8 @@ public class ButtonImageProvider
 {
     private readonly Dictionary<(Character, Elfin), Sprite> _cache = new();
 
+    private Sprite _randomModeSprite;
+
     private readonly SpritesheetManager _manager = new();
 
     private SpritesheetSettings _settings;
@@ -39,9 +41,16 @@ public class ButtonImageProvider
         return newSprite;
     }
 
+    public Sprite GetRandomSprite()
+    {
+        // TODO actual sprite
+        return _randomModeSprite ??= GetSprite(Character.MysteryCharacter33, Elfin.MysteryElfin13);
+    }
+
     public void ResetCache()
     {
         _cache.Clear();
+        _randomModeSprite = null;
     }
 
     private Sprite CreateSprite(Character character, Elfin elfin)

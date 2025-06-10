@@ -26,10 +26,9 @@ public class PnlRankRefreshLevelConfigUiPatch
         {
             var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
 
-            var levelCharacter = (Character)DataHelper.selectedRoleIndex;
-            var levelElfin = (Elfin)DataHelper.selectedElfinIndex;
-
-            image.sprite = provider.GetSprite(levelCharacter, levelElfin);
+            image.sprite = DataHelper.isUseRandomLevelConfig
+                ? provider.GetRandomSprite()
+                : provider.GetSprite((Character)DataHelper.selectedRoleIndex, (Elfin)DataHelper.selectedElfinIndex);
         }
 
         // move the self rank to its position if scoreboard is expanded
