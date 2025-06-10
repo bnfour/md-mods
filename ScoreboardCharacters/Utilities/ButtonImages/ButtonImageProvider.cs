@@ -43,6 +43,12 @@ public class ButtonImageProvider
 
     public Sprite GetRandomSprite()
     {
+        if (_manager.ReloadRequired())
+        {
+            _settings = _manager.LoadSpritesheet();
+            ResetCache();
+        }
+
         return _randomModeSprite ??= CreateRandomModeSprite();
     }
 
