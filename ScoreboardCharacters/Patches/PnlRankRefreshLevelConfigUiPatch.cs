@@ -21,16 +21,19 @@ public class PnlRankRefreshLevelConfigUiPatch
     internal static void Postfix(PnlRank __instance)
     {
         // update the character/elfin custom image
-        var image = GameObject.Find(UiPatcher.NewConfigUiComponentName).GetComponent<Image>();
-        var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
+        var image = GameObject.Find(UiPatcher.NewConfigUiComponentName)?.GetComponent<Image>();
+        if (image != null)
+        {
+            var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
 
-        var levelCharacter = (Character)DataHelper.selectedRoleIndex;
-        var levelElfin = (Elfin)DataHelper.selectedElfinIndex;
+            var levelCharacter = (Character)DataHelper.selectedRoleIndex;
+            var levelElfin = (Elfin)DataHelper.selectedElfinIndex;
 
-        image.sprite = provider.GetSprite(levelCharacter, levelElfin);
+            image.sprite = provider.GetSprite(levelCharacter, levelElfin);
+        }
 
         // move the self rank to its position if scoreboard is expanded
-        if (__instance.isRankExpand)
+        if (__instance != null && __instance.isRankExpand)
         {
             UiPatcher.Move(__instance.server.transform, new(0, -78.5f));
         }
