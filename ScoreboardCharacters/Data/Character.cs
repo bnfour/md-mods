@@ -33,8 +33,8 @@ public enum Character
     MarijaMecha,
     Wisadel,
     BuroDivineGear,
+    BuroVampireNurse,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter31,
     MysteryCharacter32,
     MysteryCharacter33,
     MysteryCharacter34,
