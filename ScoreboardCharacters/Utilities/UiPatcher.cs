@@ -38,7 +38,7 @@ public static class UiPatcher
 
             var rect = buttonObj.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(80, 40);
-            rect.anchoredPosition3D = new Vector3(200, 0, 0);
+            rect.anchoredPosition3D = new Vector3(200, 0, 0) + PixelPerfectishOffsetCorrection(rankCell);
         }
     }
 
@@ -65,6 +65,21 @@ public static class UiPatcher
                 }
             }
         }
+    }
+
+    // emphirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
+    private static Vector3 PixelPerfectishOffsetCorrection(GameObject rankCell)
+    {
+        return rankCell.name switch
+        {
+            // scoreboard cell
+            "RankCell_4-3" => new(0.5f, 0.11f, 0),
+            // self-rank cell
+            "PlayerRankCell_4-3" => new(0.5f, -0.44f, 0),
+            // should never happen
+            // TODO check somewhere?
+            _ => new(0, 0, 0)
+        };
     }
 
     #endregion
@@ -96,7 +111,8 @@ public static class UiPatcher
         {
             ("ButtonReset/TxtReset", false),
             ("ButtonCha", true),
-            ("ButtonElfin", true)
+            ("ButtonElfin", true),
+            ("txtRandomTipTop", false)
         },
         // fun fact: as of now, it's impossible to decostruct the tuple in lambda's definition
         tuple => BanishComponent(topLevelConfigTransform, tuple.componentPath, tuple.hideImage));
