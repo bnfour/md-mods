@@ -1,4 +1,5 @@
 using System;
+
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Events;
@@ -67,7 +68,7 @@ public static class UiPatcher
         }
     }
 
-    // emphirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
+    // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
     private static Vector3 PixelPerfectishOffsetCorrection(GameObject rankCell)
     {
         return rankCell.name switch
@@ -114,7 +115,7 @@ public static class UiPatcher
             ("ButtonElfin", true),
             ("txtRandomTipTop", false)
         },
-        // fun fact: as of now, it's impossible to decostruct the tuple in lambda's definition
+        // fun fact: as of now, it's impossible to deconstruct the tuple in lambda's definition
         tuple => BanishComponent(topLevelConfigTransform, tuple.componentPath, tuple.hideImage));
 
         // resize and recolor moved buttons to match the top bar's original icons and text
@@ -183,7 +184,8 @@ public static class UiPatcher
 
         // the scoreboard itself
         var viewportRect = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ScvRank/Viewport");
-        Resize(viewportRect, new(0, 79));
+        Resize(viewportRect, new(0, 80));
+        Move(viewportRect, new(0, 4));
 
         // its background, which technically belongs to the tips panel
         // (the "lost contact with headquarters *kaomoji facepalm*" one)
@@ -196,9 +198,18 @@ public static class UiPatcher
         // the self rank line is moved in PnlRankRefreshLevelConfigUiPatch
         // because its position changes outside of this code and can't be set once and for all
 
+        // fix the position for the message shown when there is no user rank for the level
+        var noRankMessage = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ImgBaseShrinkAndNotInShankShowText");
+        Move(noRankMessage, new(0, 3));
+
         // fix the random button being slightly off
         var randomButton = panel.transform.Find("Mask/BtnRandomReset");
         Move(randomButton, new(0, -2));
+
+        // fix the 1px gap the vanilla self-rank bg has on the left
+        var selfRankBg = panel.server.transform.Find("ImgBase").GetComponent<Image>();
+        Resize(selfRankBg.rectTransform, new(2, 0));
+        Move(selfRankBg.transform, new(-1, 0));
     }
 
     private static void BanishComponent(Transform root, string searchPath, bool hideImage)
@@ -208,9 +219,9 @@ public static class UiPatcher
         // present for both elfin and character texts,
         // not present for the random button -- called differently
         // and we're also not removing the non-key legend from it
-        var subComponentTrasform = transform.Find("ImgSongTitleMask");
+        var subComponentTransform = transform.Find("ImgSongTitleMask");
         // to the shadow realm with you
-        (subComponentTrasform ?? transform).position = new(99_999f, 99_999f, 0);
+        (subComponentTransform ?? transform).position = new(99_999f, 99_999f, 0);
         if (hideImage)
         {
             transform.GetComponent<Image>().color = Color.clear;
