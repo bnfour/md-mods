@@ -6,7 +6,6 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 using Il2CppAssets.Scripts.UI.Panels;
-using System.Collections.Generic;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -116,7 +115,7 @@ public static class UiPatcher
             ("ButtonElfin", true),
             ("txtRandomTipTop", false)
         },
-        // fun fact: as of now, it's impossible to decostruct the tuple in lambda's definition
+        // fun fact: as of now, it's impossible to deconstruct the tuple in lambda's definition
         tuple => BanishComponent(topLevelConfigTransform, tuple.componentPath, tuple.hideImage));
 
         // resize and recolor moved buttons to match the top bar's original icons and text
