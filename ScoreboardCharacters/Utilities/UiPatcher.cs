@@ -67,7 +67,7 @@ public static class UiPatcher
         }
     }
 
-    // emphirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
+    // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
     private static Vector3 PixelPerfectishOffsetCorrection(GameObject rankCell)
     {
         return rankCell.name switch

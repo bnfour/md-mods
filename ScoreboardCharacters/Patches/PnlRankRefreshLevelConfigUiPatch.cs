@@ -31,10 +31,11 @@ public class PnlRankRefreshLevelConfigUiPatch
                 : provider.GetSprite((Character)DataHelper.selectedRoleIndex, (Elfin)DataHelper.selectedElfinIndex);
         }
 
-        // move the self rank to its position if scoreboard is expanded
-        if (__instance != null && __instance.isRankExpand)
+        // move the self rank to its custom position whenever the scoreboard is expanded or collapsed
+        if (__instance != null)
         {
-            UiPatcher.Move(__instance.server.transform, new(0, -78.5f));
+            Vector2 delta = __instance.isRankExpand ? new(0f, -75.5f) : new(0f, 3f);
+            UiPatcher.Move(__instance.server.transform, delta);
         }
     }
 }
