@@ -183,7 +183,8 @@ public static class UiPatcher
 
         // the scoreboard itself
         var viewportRect = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ScvRank/Viewport");
-        Resize(viewportRect, new(0, 79));
+        Resize(viewportRect, new(0, 80));
+        Move(viewportRect, new(0, 4));
 
         // its background, which technically belongs to the tips panel
         // (the "lost contact with headquarters *kaomoji facepalm*" one)
