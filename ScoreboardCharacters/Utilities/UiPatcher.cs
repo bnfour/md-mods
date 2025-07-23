@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 using Il2CppAssets.Scripts.UI.Panels;
+using System.Collections.Generic;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -197,6 +198,10 @@ public static class UiPatcher
 
         // the self rank line is moved in PnlRankRefreshLevelConfigUiPatch
         // because its position changes outside of this code and can't be set once and for all
+
+        // fix the position for the message shown when there is no user rank for the level
+        var noRankMessage = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ImgBaseShrinkAndNotInShankShowText");
+        Move(noRankMessage, new(0, 3));
 
         // fix the random button being slightly off
         var randomButton = panel.transform.Find("Mask/BtnRandomReset");
