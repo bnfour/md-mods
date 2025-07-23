@@ -206,6 +206,11 @@ public static class UiPatcher
         // fix the random button being slightly off
         var randomButton = panel.transform.Find("Mask/BtnRandomReset");
         Move(randomButton, new(0, -2));
+
+        // fix the 1px gap the vanilla self-rank bg has on the left
+        var selfRankBg = panel.server.transform.Find("ImgBase").GetComponent<Image>();
+        Resize(selfRankBg.rectTransform, new(2, 0));
+        Move(selfRankBg.transform, new(-1, 0));
     }
 
     private static void BanishComponent(Transform root, string searchPath, bool hideImage)
