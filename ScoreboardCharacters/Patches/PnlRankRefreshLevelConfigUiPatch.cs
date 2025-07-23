@@ -34,7 +34,7 @@ public class PnlRankRefreshLevelConfigUiPatch
         // move the self rank to its custom position whenever the scoreboard is expanded or collapsed
         if (__instance != null)
         {
-            Vector2 delta = __instance.isRankExpand ? new(0f, -75.5f) : new(0f, 3f);
+            Vector2 delta = __instance.isRankExpand ? new(0, -75.5f) : new(0, 3);
             UiPatcher.Move(__instance.server.transform, delta);
         }
     }

@@ -1,4 +1,5 @@
 using System;
+
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Events;
@@ -209,9 +210,9 @@ public static class UiPatcher
         // present for both elfin and character texts,
         // not present for the random button -- called differently
         // and we're also not removing the non-key legend from it
-        var subComponentTrasform = transform.Find("ImgSongTitleMask");
+        var subComponentTransform = transform.Find("ImgSongTitleMask");
         // to the shadow realm with you
-        (subComponentTrasform ?? transform).position = new(99_999f, 99_999f, 0);
+        (subComponentTransform ?? transform).position = new(99_999f, 99_999f, 0);
         if (hideImage)
         {
             transform.GetComponent<Image>().color = Color.clear;
