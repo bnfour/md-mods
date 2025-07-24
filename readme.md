@@ -21,7 +21,7 @@ Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
 | Before | After |
 | --- | --- |
-| ![i was surprized by the vanilla look more than i thought](readme-images/scoreboard-characters/scoreboard-characters-before.png) | ![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png) |
+| ![i was surprised by the vanilla look more than i thought](readme-images/scoreboard-characters/scoreboard-characters-before.png) | ![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png) |
 
 The buttons can be clicked, and will set your current character and elfin to these shown. It will even scroll the selection screens for you.
 
@@ -221,7 +221,7 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 > This feature is intended to be used with English locale.
 
 ### Configuration
-This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
+This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
 The preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
@@ -273,7 +273,7 @@ All mods provide no gameplay advantage whatsoever. You still have to git gud to 
 - The scoreboard mods show information the game already receives directly from its backend API, it's just not shown anywhere by default.  
 You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboards. In fact, this repo was born from my frustration of having to mirror my track selection in-game to the website on another display.
 - Album scroll only affects the song selection menu.
-- Song info is simply displaying exisitng data from the game.
+- Song info is simply displaying existing data from the game.
 - All UI tweaks are purely cosmetic.
 
 Unless you count _any_ changes to the game for _any_ purpose as cheating, this is not cheating.
@@ -281,7 +281,7 @@ Unless you count _any_ changes to the game for _any_ purpose as cheating, this i
 ### Will I get banned for using these?
 _tl;dr: probably not, but NO WARRANTIES; USE AT YOUR OWN RISK_
 
-As I stated in previous question, I don't believe this is cheating. I've been using these continiously for years now, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
+As I stated in previous question, I don't believe this is cheating. I've been using these continuously for years now, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
 
 Remember that you're using the mods **at your own risk**. I have warned you many times in this readme.
 
