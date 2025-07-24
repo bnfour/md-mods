@@ -28,14 +28,15 @@ public class CharacterSwitcher
     public void Switch(Character character, Elfin elfin)
     {
         // can be either custom or default
-        // depends on whether the level has a curstom config at the moment
+        // depends on whether the level has a custom config at the moment
         var levelConfigState = GlobalDataBase.s_DbLevelConfig.curLevelConfigState;
 
         var currentLevelCharacter = (Character)DataHelper.selectedRoleIndex;
         var currentLevelElfin = (Elfin)DataHelper.selectedElfinIndex;
 
+        // the rest of the method operates on the global config,
+        // previous value restored by the method after execution
         GlobalDataBase.s_DbLevelConfig.curLevelConfigState = CurLevelConfigState.Default;
-        // the rest of the method operates on the global config
 
         var currentGlobalCharacter = (Character)DataHelper.selectedRoleIndex;
         var currentGlobalElfin = (Elfin)DataHelper.selectedElfinIndex;
@@ -45,6 +46,7 @@ public class CharacterSwitcher
 
         if (!anyChanges)
         {
+            GlobalDataBase.s_DbLevelConfig.curLevelConfigState = levelConfigState;
             return;
         }
 

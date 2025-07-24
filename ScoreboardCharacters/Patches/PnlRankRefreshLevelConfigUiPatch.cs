@@ -20,8 +20,13 @@ public class PnlRankRefreshLevelConfigUiPatch
 {
     internal static void Postfix(PnlRank __instance)
     {
+        if (__instance == null)
+        {
+            return;
+        }
+
         // update the character/elfin custom image
-        var image = GameObject.Find(UiPatcher.NewConfigUiComponentName)?.GetComponent<Image>();
+        var image = __instance.transform.Find("Mask/rootBtnLevelConfigTop/" + UiPatcher.NewConfigUiComponentName)?.GetComponent<Image>();
         if (image != null)
         {
             var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
@@ -31,20 +36,17 @@ public class PnlRankRefreshLevelConfigUiPatch
                 : provider.GetSprite((Character)DataHelper.selectedRoleIndex, (Elfin)DataHelper.selectedElfinIndex);
         }
 
-        if (__instance != null)
-        {
-            // move the self rank to its custom position whenever the scoreboard is expanded or collapsed
-            Vector2 delta = __instance.isRankExpand ? new(0, -75.5f) : new(0, 3);
-            UiPatcher.Move(__instance.server.transform, delta);
+        // move the self rank to its custom position whenever the scoreboard is expanded or collapsed
+        Vector2 delta = __instance.isRankExpand ? new(0, -75.5f) : new(0, 3);
+        UiPatcher.Move(__instance.server.transform, delta);
 
-            // prevent the UI for big character selector blocking clicks for expanded scoreboard when random mode is on (see #21),
-            // restore interactivity when scoreboard is collapsed and the UI in question is shown
-            var rightLevelConfigGroup = __instance.transform.Find("Mask/rootBtnLevelConfigRight")?.GetComponent<CanvasGroup>();
-            if (rightLevelConfigGroup != null)
-            {
-                rightLevelConfigGroup.blocksRaycasts = !__instance.isRankExpand;
-                rightLevelConfigGroup.interactable = !__instance.isRankExpand;
-            }
+        // prevent the UI for big character selector blocking clicks for expanded scoreboard when random mode is on (see #21),
+        // restore interactivity when scoreboard is collapsed and the UI in question is shown
+        var rightLevelConfigGroup = __instance.transform.Find("Mask/rootBtnLevelConfigRight")?.GetComponent<CanvasGroup>();
+        if (rightLevelConfigGroup != null)
+        {
+            rightLevelConfigGroup.blocksRaycasts = !__instance.isRankExpand;
+            rightLevelConfigGroup.interactable = !__instance.isRankExpand;
         }
     }
 }

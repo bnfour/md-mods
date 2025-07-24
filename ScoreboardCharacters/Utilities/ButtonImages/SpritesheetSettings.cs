@@ -1,4 +1,3 @@
-using MelonLoader;
 using SkiaSharp;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;

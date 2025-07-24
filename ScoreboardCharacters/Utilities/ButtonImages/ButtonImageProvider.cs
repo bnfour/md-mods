@@ -1,7 +1,7 @@
+using SkiaSharp;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using SkiaSharp;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
