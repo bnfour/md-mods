@@ -22,14 +22,16 @@ public class PnlPreparationAwakePatch
         var textTransform = iconTransform.Find("TxtValue");
 
         var styleSourceText = __instance.transform.Find("Panels/PnlAchv/ImgTittleBaseP/TxtContent")?.GetComponent<Text>();
-
+        Melon<UITweaksMod>.Logger.Msg($"src anchor is {styleSourceText.alignment}");
         var text = textTransform.GetComponent<Text>();
         text.color = styleSourceText.color;
         text.fontSize = styleSourceText.fontSize;
         text.fontStyle = styleSourceText.fontStyle;
+        // text's positioning strategy is "constant 20px gap to the right edge of the screen"
+        text.alignment = TextAnchor.MiddleRight;
         // move the text closer to the icon
         var textRectTransform = textTransform.GetComponent<RectTransform>();
-        textRectTransform.anchoredPosition3D += new Vector3(-6, -1, 0);
+        textRectTransform.anchoredPosition3D += new Vector3(-22, -1, 0);
         // move the entire icon and text group to the right a bit
         var iconRectTransform = iconTransform.GetComponent<RectTransform>();
         iconRectTransform.anchoredPosition3D += new Vector3(53, 0, 0);
