@@ -14,6 +14,7 @@ public class UITweaksMod : MelonMod
     private MelonPreferences_Entry<bool> _hpFeverSyncUseAltMode;
     private MelonPreferences_Entry<bool> _autoFeverNoticeEnabled;
     private MelonPreferences_Entry<bool> _optionButtonsFullCaps;
+    private MelonPreferences_Entry<bool> _achievementsHeaderStyling;
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
     internal bool AchievementIconsSyncEnabled => _cupImageSyncEnabled.Value;
@@ -21,6 +22,7 @@ public class UITweaksMod : MelonMod
     internal bool HpFeverFlowSyncUseAltMode => _hpFeverSyncUseAltMode.Value;
     internal bool AutoFeverNoticeEnabled => _autoFeverNoticeEnabled.Value;
     internal bool FullCapsForOptionButtons => _optionButtonsFullCaps.Value;
+    internal bool AchievementsHeaderClassicStyling => _achievementsHeaderStyling.Value;
 
     public override void OnInitializeMelon()
     {
@@ -39,10 +41,12 @@ public class UITweaksMod : MelonMod
             "Auto fever text", "Changes text to \"AUTO\" on the fever bar if automatic fever is enabled.");
         _optionButtonsFullCaps = _prefsCategory.CreateEntry("OptionsFullCaps", true,
             "Uppercase for options", "Fixes some texts in options being not uppercase like the rest.");
+        _achievementsHeaderStyling = _prefsCategory.CreateEntry("AchievementsHeaderStyling", true,
+            "Classic achievements header styling", "Restores pre-5.6.0 Song info's achievements header styling");
 
         if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled
             && !HpFeverFlowSyncEnabled && !AutoFeverNoticeEnabled
-            && !FullCapsForOptionButtons)
+            && !FullCapsForOptionButtons && !AchievementsHeaderClassicStyling)
         {
             LoggerInstance.Warning("No features of the mod enabled, might as well uninstall it.");
         }
