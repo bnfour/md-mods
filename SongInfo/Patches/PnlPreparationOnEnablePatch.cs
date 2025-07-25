@@ -1,7 +1,6 @@
 using HarmonyLib;
 using Il2Cpp;
 using MelonLoader;
-using UnityEngine;
 
 using Il2CppAssets.Scripts.Database;
 
@@ -19,17 +18,13 @@ public class PnlPreparationOnEnablePatch
         var bpm = info.bpm;
         var duration = Melon<SongInfoMod>.Instance.DurationProvider.GetDuration(info);
 
-        var bpmField = GameObject.Find(Constants.BpmStringComponentName)
+        var dataField = __instance.transform.Find("TxtStageDesigner/" + Constants.CombinedStringComponentName)
             ?.GetComponent<LongSongNameController>();
-        bpmField?.Refresh($"BPM: {bpm}", delay: 0);
+        dataField?.Refresh($"{duration}, {bpm} BPM", delay: 0);
 
-        var durationField = GameObject.Find(Constants.DurationStringComponentName)
-            ?.GetComponent<LongSongNameController>();
-        durationField?.Refresh($"Length: {duration}", delay: 0);
-        
         // for Custom Albums mod compatibility:
         // hide achievements in custom charts (uid start with 999), show in vanilla charts
-        
+
         var isVanillaChart = info.uid[..3] != "999";
         __instance.stageAchievementValue.gameObject.SetActive(isVanillaChart);
         __instance.pnlPreparationLayAchv.transform.Find("ImgStageAchievement")?.gameObject.SetActive(isVanillaChart);
