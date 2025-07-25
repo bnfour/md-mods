@@ -27,8 +27,11 @@ public class PnlPreparationAwakePatch
         text.color = styleSourceText.color;
         text.fontSize = styleSourceText.fontSize;
         text.fontStyle = styleSourceText.fontStyle;
-
+        // move the text closer to the icon
         var textRectTransform = textTransform.GetComponent<RectTransform>();
-        textRectTransform.anchoredPosition3D += new Vector3(46, -1, 0);
+        textRectTransform.anchoredPosition3D += new Vector3(-6, -1, 0);
+        // move the entire icon and text group to the right a bit
+        var iconRectTransform = iconTransform.GetComponent<RectTransform>();
+        iconRectTransform.anchoredPosition3D += new Vector3(53, 0, 0);
     }
 }
