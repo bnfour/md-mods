@@ -27,6 +27,9 @@ public class CharacterSwitcher
 
     public void Switch(Character character, Elfin elfin)
     {
+        // TODO post 5.6.0 level config state??
+
+
         // can be either custom or default
         // depends on whether the level has a custom config at the moment
         var levelConfigState = GlobalDataBase.s_DbLevelConfig.curLevelConfigState;
@@ -103,7 +106,7 @@ public class CharacterSwitcher
         _pnlRank ??= GameObject.Find(pnlRankPath)?.GetComponent<PnlRank>();
         if (_pnlRank != null)
         {
-            Traverse.Create(_pnlRank).Method("RefreshLevelConfigUi").GetValue();
+            // TODO probably update the new character select floating thingy here
         }
     }
 }
