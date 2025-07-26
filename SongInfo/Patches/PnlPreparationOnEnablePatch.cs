@@ -18,7 +18,7 @@ public class PnlPreparationOnEnablePatch
         var bpm = info.bpm;
         var duration = Melon<SongInfoMod>.Instance.DurationProvider.GetDuration(info);
 
-        var dataField = __instance.transform.Find("TxtStageDesigner/" + Constants.CombinedStringComponentName)
+        var dataField = __instance.transform.Find(Constants.CombinedStringComponentName)
             ?.GetComponent<LongSongNameController>();
         dataField?.Refresh($"{duration}, {bpm} BPM", delay: 0);
 

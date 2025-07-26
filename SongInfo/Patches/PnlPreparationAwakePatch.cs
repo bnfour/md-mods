@@ -15,8 +15,13 @@ public class PnlPreparationAwakePatch
         // clone the song designer string to display bpm and duration,
         // place the clone on the right side of the screen
         var dataField = GameObject.Instantiate(__instance.designerLongNameController,
-            __instance.designerLongNameController.transform.parent);
+            __instance.transform);
         dataField.name = Constants.CombinedStringComponentName;
-        dataField.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(1540, 0, 0);
+
+        var positionReference = __instance.transform.Find("TxtStageDesigner")?.GetComponent<RectTransform>().anchoredPosition3D;
+        if (positionReference != null)
+        {
+            dataField.GetComponent<RectTransform>().anchoredPosition3D = positionReference.Value + new Vector3(1540, 0, 0);
+        }
     }
 }
