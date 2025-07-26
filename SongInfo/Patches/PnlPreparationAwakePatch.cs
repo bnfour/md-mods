@@ -1,6 +1,7 @@
 using HarmonyLib;
 using Il2Cpp;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.SongInfo.Patches;
 
@@ -12,16 +13,19 @@ public class PnlPreparationAwakePatch
 {
     private static void Postfix(PnlPreparation __instance)
     {
-        // clone the song designer string to display bpm and duration,
-        // place the clone on the right side of the screen
-        var dataField = GameObject.Instantiate(__instance.designerLongNameController,
+        var dataField = GameObject.Instantiate(__instance?.transform.Find("TxtStageDesigner")?.gameObject,
             __instance.transform);
         dataField.name = Constants.CombinedStringComponentName;
-
+        // move to the right side of the screen and up a bit
+        // so the second scrollable line of the clone is aligned with the first line of original
         var positionReference = __instance.transform.Find("TxtStageDesigner")?.GetComponent<RectTransform>().anchoredPosition3D;
         if (positionReference != null)
         {
-            dataField.GetComponent<RectTransform>().anchoredPosition3D = positionReference.Value + new Vector3(1540, 0, 0);
+            dataField.GetComponent<RectTransform>().anchoredPosition3D = positionReference.Value + new Vector3(1540, 45, 0);
         }
+        // hide the static text -- we don't need it here
+        dataField.GetComponent<Text>().color = Color.clear;
+
+        // TODO set up the animation like the other mod
     }
 }
