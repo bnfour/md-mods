@@ -1,54 +1,47 @@
 using HarmonyLib;
 using Il2Cpp;
+using Il2CppInterop.Runtime;
+using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.SongInfo.Patches;
 
 /// <summary>
-/// Patch to modify the UI of preparation panel to include textfields
-/// for BPM and duration.
+/// Patch to modify the UI of preparation panel to include a textfield for BPM and duration.
 /// </summary>
 [HarmonyPatch(typeof(PnlPreparation), nameof(PnlPreparation.Awake))]
 public class PnlPreparationAwakePatch
 {
     private static void Postfix(PnlPreparation __instance)
     {
-        // clone the song designer string twice to display bpm and duration,
-        // place the clones on the right side of the screen
+        var dataField = GameObject.Instantiate(__instance?.transform.Find("TxtStageDesigner")?.gameObject,
+            __instance.transform);
+        dataField.name = Constants.CombinedStringComponentName;
+        // move to the right side of the screen and up a bit
+        // so the second scrollable line of the clone is aligned with the first line of original
+        var positionReference = __instance.transform.Find("TxtStageDesigner")?.GetComponent<RectTransform>().anchoredPosition3D;
+        if (positionReference != null)
+        {
+            dataField.GetComponent<RectTransform>().anchoredPosition3D = positionReference.Value + new Vector3(1540, 45, 0);
+        }
+        // hide the static text -- we don't need it here
+        dataField.GetComponent<Text>().color = Color.clear;
 
-        var bpmField = UnityEngine.Object.Instantiate(__instance.designerLongNameController,
-            __instance.designerLongNameController.transform.parent);
-        bpmField.name = Constants.BpmStringComponentName;
-        bpmField.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(1540, 0, 0);
+        var animation = dataField.AddComponent<Animation>();
+        var clip = new AnimationClip()
+        {
+            legacy = true,
+            name = "BnSongInfoOneLinerClip"
+        };
+        // the curves are taken from the resources, the alpha matches perfectly, position -- kinda
+        // alpha
+        clip.SetCurve("", Il2CppType.Of<CanvasGroup>(), "m_Alpha", new(new(0, 0), new(1f / 15, 0), new (7f / 30, 1)));
+        // position
+        var originalPosition = dataField.GetComponent<RectTransform>().anchoredPosition.x;
+        clip.SetCurve("", Il2CppType.Of<RectTransform>(), "m_AnchoredPosition.x", new(new(0, originalPosition - 100), new(1f / 15, originalPosition - 100), new(7f / 30, originalPosition)));
 
-        var durationField = UnityEngine.Object.Instantiate(__instance.designerLongNameController,
-            __instance.designerLongNameController.transform.parent);
-        durationField.name = Constants.DurationStringComponentName;
-        durationField.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(1540, -45, 0);
-
-        // move and restyle the achievements display as its original place
-        // is taken by the new UI
-
-        var achievementsText = __instance.stageAchievementValue;
-        achievementsText.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
-        achievementsText.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-45, 355, 0);
-
-        var achievementsPanelHeader = GameObject.Find("TxtContent").GetComponent<Text>();
-        achievementsText.fontSize = achievementsPanelHeader.fontSize;
-        achievementsText.color = achievementsPanelHeader.color;
-        achievementsText.fontStyle = achievementsPanelHeader.fontStyle;
-
-        var awardIcon = __instance.transform.Find("ImgStageAchievement").gameObject;
-        awardIcon.transform.SetParent(__instance.pnlPreparationLayAchv.transform);
-
-        var rectTransform = awardIcon.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition3D = new Vector3(-109, 355, 0);
-        // for some reason X coordinate assignment refuses to work (see #11),
-        // so an "alternative" way to move it horizontally is used
-        // (no idea which anchor does the trick, maybe both?)
-        rectTransform.anchorMax = new Vector2(1.05f, 0.5f);
-        rectTransform.anchorMin = new Vector2(1.05f, 0.5f);
-        // in 1080 resolution, 1px of moving the image is 0.00125 of anchor
+        animation.AddClip(clip, clip.name);
+        animation.clip = clip;
     }
 }
