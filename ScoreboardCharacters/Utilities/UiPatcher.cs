@@ -104,6 +104,17 @@ public static class UiPatcher
             // make component narrower
             // probably includes shrinking/replacing the bg image, moving E button hint, and moving the entire random toggle
 
+            // bg?
+            // levelConfigUIGroup.Find("RootLevelConfigShow")
+            //     .GetComponent<Image>().???
+
+            // the "E" button
+            levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")
+                .GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-104 * LevelConfigInnerScale, 0, 0);
+            // random toggle
+            levelConfigUIGroup.Find("ImgRandomBg")
+                .GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
+
             // update the sprite on creation so it shows the current config on panel open
             UpdateLevelConfigUI();
         }
