@@ -27,18 +27,10 @@ public class CharacterSwitcher
 
     public void Switch(Character character, Elfin elfin)
     {
-        // TODO post 5.6.0 level config state??
-
-
-        // can be either custom or default
-        // depends on whether the level has a custom config at the moment
-        var levelConfigState = GlobalDataBase.s_DbLevelConfig.curLevelConfigState;
-
         var currentLevelCharacter = (Character)DataHelper.selectedRoleIndex;
         var currentLevelElfin = (Elfin)DataHelper.selectedElfinIndex;
 
-        // the rest of the method operates on the global config,
-        // previous value restored by the method after execution
+        // this method operates on the "global" default config
         GlobalDataBase.s_DbLevelConfig.curLevelConfigState = CurLevelConfigState.Default;
 
         var currentGlobalCharacter = (Character)DataHelper.selectedRoleIndex;
@@ -49,21 +41,16 @@ public class CharacterSwitcher
 
         if (!anyChanges)
         {
-            GlobalDataBase.s_DbLevelConfig.curLevelConfigState = levelConfigState;
             return;
         }
 
         DataHelper.selectedRoleIndex = (int)character;
         DataHelper.selectedElfinIndex = (int)elfin;
-        // resetting the current level config effectively saves the character/elfin
-        // we're setting now, for this level (even if the global config changes later)
-        // until they are changed via custom buttons and/or J/K shortcut keys for this specific level
+        // TODO actually find out what resetting does with the new UI
         GlobalDataBase.s_DbLevelConfig.ResetCurLevelConfig();
         UpdateLevelConfigUI();
 
         ScrollMenus(character, elfin);
-
-        GlobalDataBase.s_DbLevelConfig.curLevelConfigState = levelConfigState;
     }
 
     public void ResetCache()
@@ -106,7 +93,7 @@ public class CharacterSwitcher
         _pnlRank ??= GameObject.Find(pnlRankPath)?.GetComponent<PnlRank>();
         if (_pnlRank != null)
         {
-            // TODO probably update the new character select floating thingy here
+            Traverse.Create(_pnlRank).Method("RefreshLevelConfigUI").GetValue();
         }
     }
 }
