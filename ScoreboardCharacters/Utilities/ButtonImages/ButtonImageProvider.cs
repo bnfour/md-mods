@@ -15,8 +15,6 @@ public class ButtonImageProvider
 {
     private readonly Dictionary<(Character, Elfin), Sprite> _cache = new();
 
-    private Sprite _randomModeSprite;
-
     private readonly SpritesheetManager _manager = new();
 
     private SpritesheetSettings _settings;
@@ -41,21 +39,9 @@ public class ButtonImageProvider
         return newSprite;
     }
 
-    public Sprite GetRandomSprite()
-    {
-        if (_manager.ReloadRequired())
-        {
-            _settings = _manager.LoadSpritesheet();
-            ResetCache();
-        }
-
-        return _randomModeSprite ??= CreateRandomModeSprite();
-    }
-
     public void ResetCache()
     {
         _cache.Clear();
-        _randomModeSprite = null;
     }
 
     private Sprite CreateSprite(Character character, Elfin elfin)
@@ -72,9 +58,6 @@ public class ButtonImageProvider
             return CreateSpriteFromBitmap(bitmap);
         }
     }
-
-    private Sprite CreateRandomModeSprite()
-        => CreateSpriteFromBitmap(_settings.RandomButtonBitmap);
 
     /// <summary>
     /// Creates a <see cref="UnityEngine.Sprite"/> from a <see cref="SkiaSharp.SKBitmap"/>.
