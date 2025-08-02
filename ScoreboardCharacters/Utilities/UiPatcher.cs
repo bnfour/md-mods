@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-using Il2CppAssets.Scripts.UI.Panels;
-
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 /// <summary>
@@ -35,7 +33,6 @@ public static class UiPatcher
 
             var rect = buttonObj.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(80, 40);
-            // TODO verify offset after UI change
             rect.anchoredPosition3D = new Vector3(200, 0, 0) + PixelPerfectishOffsetCorrection(rankCell);
         }
     }
@@ -66,17 +63,11 @@ public static class UiPatcher
     }
 
     // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
-    private static Vector3 PixelPerfectishOffsetCorrection(GameObject rankCell)
+    private static Vector3 PixelPerfectishOffsetCorrection(GameObject _)
     {
-        return rankCell.name switch
-        {
-            // scoreboard cell
-            "RankCell_4-3" => new(0.5f, 0.11f, 0),
-            // self-rank cell
-            "PlayerRankCell_4-3" => new(0.5f, -0.44f, 0),
-            // should never happen
-            // TODO check somewhere?
-            _ => new(0, 0, 0)
-        };
+        // currently the same value for scoreboard entries and self rank;
+        // GameObject argument is kept as a discard in case it'll be different again in the future
+        // (see history to learn how to discern by name)
+        return new(0.5f, -0.08f, 0);
     }
 }
