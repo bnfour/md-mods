@@ -1,31 +1,19 @@
 using HarmonyLib;
-using MelonLoader;
-using UnityEngine;
-using UnityEngine.UI;
 
-using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
 
-using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
+/// <summary>
+/// Patch that updates the level config UI custom image whenever the component itself is updated.
+/// </summary>
 [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.RefreshLevelConfigUI))]
 public class PnlRankRefreshLevelConfigUIPatch
 {
-    // TODO actual name
-    private const string customComponentPath = "UI/Standerd/PnlPreparation/RightRoot/Top/RootLevelConfigShow/SomeNameOne";
-
     internal static void Postfix()
     {
-        var image = GameObject.Find(customComponentPath)?.GetComponent<Image>();
-        if (image != null)
-        {
-            image.sprite = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider.GetSprite
-            (
-                (Character)DataHelper.selectedRoleIndex,
-                (Elfin)DataHelper.selectedElfinIndex
-            );
-        }
+        UiPatcher.UpdateLevelConfigUI();
     }
 }
