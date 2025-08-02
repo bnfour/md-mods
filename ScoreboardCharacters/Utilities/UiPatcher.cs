@@ -22,6 +22,8 @@ public static class UiPatcher
 
     private const string CustomLevelConfigPath = "UI/Standerd/PnlPreparation/RightRoot/Top/RootLevelConfigShow/" + CustomLevelConfigComponentName;
 
+    private const float LevelConfigInnerScale = 1.25f;
+
     public static void CreateModUiForScoreboardEntry(GameObject rankCell)
     {
         var addedComponent = rankCell.transform.FindChild(ScoreboardEntryComponentName);
@@ -87,15 +89,17 @@ public static class UiPatcher
 
             var currentConfigImage = holderObject.GetComponent<Image>();
             // 1x scale results in the image being 64x32 on 1080
-            currentConfigImage.rectTransform.localScale = new(1.25f, 1.25f, 1);
+            currentConfigImage.rectTransform.localScale = new(LevelConfigInnerScale, LevelConfigInnerScale, 1);
             currentConfigImage.rectTransform.sizeDelta = new(80, 40);
             // just to the right of config lock button, taking scale and pixel perfectish offsets into account:
             // 43 is amount of _screen_ pixels (in 1080) to move,
             // offsets are to clamp position to whole pixels
-            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * 1.25f + 0.215f, 0.3f, 0);
+            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.215f, 0.3f, 0);
             currentConfigImage.color = Color.white;
 
-            // hide default text
+            var scrollText = levelConfigUIGroup.Find("RootLevelConfigShow/ImgArtistMask");
+            // this object is hereby banished to the shadow realm until further notice
+            scrollText.GetComponent<RectTransform>().anchoredPosition3D = new(99_999, 99_999, 0);
 
             // make component narrower
             // probably includes shrinking/replacing the bg image, moving E button hint, and moving the entire random toggle
