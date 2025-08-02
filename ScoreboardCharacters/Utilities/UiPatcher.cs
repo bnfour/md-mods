@@ -104,9 +104,25 @@ public static class UiPatcher
             // make component narrower
             // probably includes shrinking/replacing the bg image, moving E button hint, and moving the entire random toggle
 
-            // bg?
-            // levelConfigUIGroup.Find("RootLevelConfigShow")
-            //     .GetComponent<Image>().???
+            // background image is a bit tricky because its size and position affects child components
+            // so we just hide the original one to not disturb the positioning,
+            // and instead show a resized clone that does not affect anything
+            var originalImage = levelConfigUIGroup.Find("RootLevelConfigShow").GetComponent<Image>();
+            // make the clone a child of the original
+            var clonedImage = GameObject.Instantiate(originalImage, originalImage.transform);
+            clonedImage.name = "BnNarrowBackground";
+            // remove all the cloned child components, we only want the image itself
+            while (clonedImage.transform.childCount > 0)
+            {
+                GameObject.DestroyImmediate(clonedImage.transform.GetChild(0).gameObject);
+            }
+            // set as the first sibling so it's rendered first as a background for everything else
+            clonedImage.rectTransform.SetAsFirstSibling();
+            // sizing/positioning provisional
+            clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y);
+            clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
+            // hide the original image
+            originalImage.color = Color.clear;
 
             // the "E" button
             levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")
