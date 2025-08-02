@@ -36,13 +36,16 @@ public class PnlPreparationAwakePatch
             // 43 is amount of _screen_ pixels (in 1080) to move,
             // offsets are to clamp position to whole pixels
             currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * 1.25f + 0.215f, 0.3f, 0);
-            // TODO white to not interfere with sprite
-            currentConfigImage.color = Color.cyan;
+            currentConfigImage.color = Color.white;
 
             // hide default text
 
             // make component narrower
             // probably includes shrinking/replacing the bg image, moving E button hint, and moving the entire random toggle
+
+            // TODO this is really stupid, find a better way to do this
+            // update the sprite on creation
+            PnlRankRefreshLevelConfigUIPatch.Postfix();
         }
 
     }
