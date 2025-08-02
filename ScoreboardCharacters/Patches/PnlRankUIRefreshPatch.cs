@@ -40,7 +40,7 @@ public class PnlRankUIRefreshPatch
                 
                 // couldn't find a better place to update it beforehand :(
                 // TODO search for a way to permanently apply the mod UI like for the scoreboard pool
-                UiPatcher.CreateModUi(__instance.server);
+                UiPatcher.CreateModUiForScoreboardEntry(__instance.server);
             }
         }
 
@@ -72,7 +72,7 @@ public class PnlRankUIRefreshPatch
         // self-rank is handled separately
         if (__state.Self != null)
         {
-            UiPatcher.FillData(__instance.server, __state.Self);
+            UiPatcher.FillScoreboardEntry(__instance.server, __state.Self);
         }
         // the scoreboard itself is pooled, there are 100 objects in the pool,
         // and the rank objects are in reverse order:
@@ -113,7 +113,7 @@ public class PnlRankUIRefreshPatch
             }
             var correspondingExtraData = __state.Scoreboard[extraDataIndex];
 
-            UiPatcher.FillData(actualEntry, correspondingExtraData);
+            UiPatcher.FillScoreboardEntry(actualEntry, correspondingExtraData);
         }
     }
 }

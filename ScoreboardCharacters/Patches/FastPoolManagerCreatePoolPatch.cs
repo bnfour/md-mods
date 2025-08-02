@@ -17,7 +17,7 @@ public class FastPoolManagerCreatePoolPatch
     {
         if (prefab.name == "RankCell_4-3")
         {
-            UiPatcher.CreateModUi(prefab);
+            UiPatcher.CreateModUiForScoreboardEntry(prefab);
         }
     }
 }

@@ -1,11 +1,13 @@
-using System;
-
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-using Il2CppAssets.Scripts.UI.Panels;
+using Il2Cpp;
+using Il2CppAssets.Scripts.Database;
+using Il2CppInterop.Runtime;
+
+using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -15,19 +17,20 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 // static to be called in patches
 public static class UiPatcher
 {
-    private const string NewScoreboardComponentName = "BnScoreboardCharactersExtra";
-    // this is also used in a patch for searching
-    public const string NewConfigUiComponentName = "BnTopLevelConfigState";
+    private const string ScoreboardEntryComponentName = "BnScoreboardCharactersExtra";
+    private const string CustomLevelConfigComponentName = "BnScoreboardCharactersLevelConfig";
 
-    #region scoreboard ui modification
+    private const string CustomLevelConfigPath = "UI/Standerd/PnlPreparation/RightRoot/Top/RootLevelConfigShow/" + CustomLevelConfigComponentName;
 
-    public static void CreateModUi(GameObject rankCell)
+    private const float LevelConfigInnerScale = 1.25f;
+
+    public static void CreateModUiForScoreboardEntry(GameObject rankCell)
     {
-        var addedComponent = rankCell.transform.FindChild(NewScoreboardComponentName);
+        var addedComponent = rankCell.transform.FindChild(ScoreboardEntryComponentName);
         if (addedComponent == null)
         {
             var buttonObj = DefaultControls.CreateButton(new DefaultControls.Resources());
-            buttonObj.name = NewScoreboardComponentName;
+            buttonObj.name = ScoreboardEntryComponentName;
 
             // default button also contains a text component, we're not using it
             var text = buttonObj.GetComponentInChildren<Text>();
@@ -43,16 +46,16 @@ public static class UiPatcher
         }
     }
 
-    public static void FillData(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry)
+    public static void FillScoreboardEntry(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry)
     {
-        var extraField = rankCell.transform.FindChild(NewScoreboardComponentName);
+        var extraField = rankCell.transform.FindChild(ScoreboardEntryComponentName);
         if (extraField != null)
         {
             var buttonComponent = extraField.GetComponent<Button>();
             if (buttonComponent != null)
             {
                 buttonComponent.onClick.RemoveAllListeners();
-                buttonComponent.onClick.AddListener((UnityAction)new Action(() =>
+                buttonComponent.onClick.AddListener((UnityAction)new System.Action(() =>
                 {
                     var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
                     switcher.Switch(dataEntry.Character, dataEntry.Elfin);
@@ -68,189 +71,90 @@ public static class UiPatcher
         }
     }
 
-    // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
-    private static Vector3 PixelPerfectishOffsetCorrection(GameObject rankCell)
+    public static void ModifyLevelConfigUI(PnlPreparation panel)
     {
-        return rankCell.name switch
+        // TODO null checks everywhere
+        var levelConfigUIGroup = panel.transform.Find("RightRoot/Top");
+        if (levelConfigUIGroup != null)
         {
-            // scoreboard cell
-            "RankCell_4-3" => new(0.5f, 0.11f, 0),
-            // self-rank cell
-            "PlayerRankCell_4-3" => new(0.5f, -0.44f, 0),
-            // should never happen
-            // TODO check somewhere?
-            _ => new(0, 0, 0)
-        };
-    }
+            // move entire group
+            levelConfigUIGroup.GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-1180, -214, 0);
 
-    #endregion
-    // don't "quality" open inside
-    #region config ui modification (smaller collapsed character switch panel)
+            // add custom image as a component in a custom object,
+            // set to neutral positioning/scaling -- everything is done in the image component
+            var holderObject = new GameObject(CustomLevelConfigComponentName, Il2CppType.Of<Image>());
+            holderObject.transform.parent = levelConfigUIGroup.Find("RootLevelConfigShow").transform;
+            holderObject.transform.position = new(0, 0, 0);
+            holderObject.transform.localScale = new(1, 1, 1);
 
-    // the following modifies the vanilla UI to make the 5.3.0 character
-    // switcher panel on song info screen more compact when minimized
-    // all sizes/offsets found empirically
+            var currentConfigImage = holderObject.GetComponent<Image>();
+            // 1x scale results in the image being 64x32 on 1080
+            currentConfigImage.rectTransform.localScale = new(LevelConfigInnerScale, LevelConfigInnerScale, 1);
+            currentConfigImage.rectTransform.sizeDelta = new(80, 40);
+            // just to the right of config lock button, taking scale and pixel perfectish offsets into account:
+            // 43 is amount of _screen_ pixels (in 1080) to move,
+            // offsets are to clamp position to whole pixels
+            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.215f, 0.3f, 0);
+            currentConfigImage.color = Color.white;
 
-    // basically, such code should not be written by hand:
-    // you might remember *.Designer.cs files from winforms era
-    // -- this is pretty much the same UI code that should be done via Unity editor,
-    // so in order to fight boredom and walls of similar assignments/calls,
-    // i freestyle with lambdas and/or reflection here 
-    // (performance overhead _should_ be negligible)
-    // you have been warned
+            var scrollText = levelConfigUIGroup.Find("RootLevelConfigShow/ImgArtistMask");
+            // this object is hereby banished to the shadow realm until further notice
+            scrollText.GetComponent<RectTransform>().anchoredPosition3D = new(99_999, 99_999, 0);
 
-    public static void MinifyTopLevelConfigUi(PnlRank panel)
-    {
-        var topLevelConfigTransform = panel.transform.Find("Mask/rootBtnLevelConfigTop");
+            // make component narrower
+            // probably includes shrinking/replacing the bg image, moving E button hint, and moving the entire random toggle
 
-        // set the character switch panel to roll up completely 
-        panel.targetShinkHeight = 0f;
+            // background image is a bit tricky because its size and position affects child components
+            // so we just hide the original one to not disturb the positioning,
+            // and instead show a resized clone that does not affect anything
+            var originalImage = levelConfigUIGroup.Find("RootLevelConfigShow").GetComponent<Image>();
+            // make the clone a child of the original
+            var clonedImage = GameObject.Instantiate(originalImage, originalImage.transform);
+            clonedImage.name = "BnNarrowBackground";
+            // remove all the cloned child components, we only want the image itself
+            while (clonedImage.transform.childCount > 0)
+            {
+                GameObject.DestroyImmediate(clonedImage.transform.GetChild(0).gameObject);
+            }
+            // set as the first sibling so it's rendered first as a background for everything else
+            clonedImage.rectTransform.SetAsFirstSibling();
+            // sizing/positioning provisional
+            clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y);
+            clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
+            // hide the original image
+            originalImage.color = Color.clear;
 
-        // hide some components from the view, but not remove them to avoid other code breaking
-        // everybody stand back, i know regular^W lambda expressions
-        Array.ForEach(new (string componentPath, bool hideImage)[]
-        {
-            ("ButtonReset/TxtReset", false),
-            ("ButtonCha", true),
-            ("ButtonElfin", true),
-            ("txtRandomTipTop", false)
-        },
-        // fun fact: as of now, it's impossible to deconstruct the tuple in lambda's definition
-        tuple => BanishComponent(topLevelConfigTransform, tuple.componentPath, tuple.hideImage));
+            // the "E" button
+            levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")
+                .GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-104 * LevelConfigInnerScale, 0, 0);
+            // random toggle
+            levelConfigUIGroup.Find("ImgRandomBg")
+                .GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
 
-        // resize and recolor moved buttons to match the top bar's original icons and text
-        var originalColor = panel.transform
-            .Find("Mask/ImgBaseDarkP/ImgTittleBaseP/TxtContent")
-            .GetComponent<Text>().color;
-        Array.ForEach(new[]
-        {
-            "ButtonReset/Image",
-            "ButtonReset",
-            "ButtonCha/Image",
-            "ButtonElfin/Image"
-        }, s =>
-        {
-            var transform = topLevelConfigTransform.Find(s);
-            transform.GetComponent<RectTransform>().sizeDelta = new(40, 40);
-            transform.GetComponent<Image>().color = originalColor;
-        });
-
-        // clone an image to be the new character/elfin indicator
-        var someImage = topLevelConfigTransform.Find("ButtonReset/Image").gameObject;
-        var newImage = GameObject.Instantiate(someImage, topLevelConfigTransform);
-        newImage.name = NewConfigUiComponentName;
-        newImage.GetComponent<Image>().color = Color.white;
-        var newImageRectTransform = newImage.GetComponent<RectTransform>();
-        // copy all the anchor-related stuff from another rect transform that always had
-        // our new parent as parent so that this transform is moved similarly
-        var btnCharacterRectTransform = topLevelConfigTransform.Find("ButtonCha").GetComponent<RectTransform>();
-        var rectTransformType = typeof(RectTransform);
-        Array.ForEach(new[]
-        {
-            // i have no idea what is required, so just copy everything to be sure >_<
-            "anchorMin",
-            "anchorMax",
-            "pivot",
-            "offsetMin",
-            "offsetMax"
-        }, s =>
-        {
-            var propertyInfo = rectTransformType.GetProperty(s);
-            var originalValue = propertyInfo.GetValue(btnCharacterRectTransform);
-            propertyInfo.SetValue(newImageRectTransform, originalValue);
-        });
-
-        // resize goes after anchor shenanigans
-        newImageRectTransform.sizeDelta = new Vector2(80, 40);
-
-        // move the collapsed level config items within the rootBtnLevelConfigTop to form a line
-        Array.ForEach(new (string name, Vector3 position)[]
-        {
-            // the original position of character button is about (100, -50)
-            // move other components near it
-            ("ButtonCha", new Vector3(100, -50, 0)),
-            ("BnTopLevelConfigState", new Vector3(124, -50, 0)),
-            ("ButtonElfin", new Vector3(240, -50, 0)),
-            ("ButtonReset", new Vector3(300, -50, 0))
-        }, tuple => topLevelConfigTransform.Find(tuple.name).GetComponent<RectTransform>().anchoredPosition3D = tuple.position);
-
-        // move the "fixed" rootBtnLevelConfigTop to the top bar,
-        // at least no hierarchy move is required, yay
-        Move(topLevelConfigTransform, new(315, 74));
-
-        // edit the expanded scoreboard to fill the empty space created from
-        // minimizing the switcher completely (still less space than OG though,
-        // fits ~7 scoreboard entries as compared to original 8)
-
-        // the scoreboard itself
-        var viewportRect = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ScvRank/Viewport");
-        Resize(viewportRect, new(0, 80));
-        Move(viewportRect, new(0, 4));
-
-        // its background, which technically belongs to the tips panel
-        // (the "lost contact with headquarters *kaomoji facepalm*" one)
-        // took me way too long to find
-        var bgRect = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ImgRankTips");
-        Resize(bgRect, new(0, 74));
-        // also move by half added size due to positioning quirks
-        Move(bgRect, new(0, -37));
-
-        // the self rank line is moved in PnlRankRefreshLevelConfigUiPatch
-        // because its position changes outside of this code and can't be set once and for all
-
-        // fix the position for the message shown when there is no user rank for the level
-        var noRankMessage = panel.transform.Find("Mask/ImgBaseDarkP/ImgTittleBaseP/ImgBaseShrinkAndNotInShankShowText");
-        Move(noRankMessage, new(0, 3));
-
-        // fix the random button being slightly off
-        var randomButton = panel.transform.Find("Mask/BtnRandomReset");
-        Move(randomButton, new(0, -2));
-
-        // fix the 1px gap the vanilla self-rank bg has on the left
-        var selfRankBg = panel.server.transform.Find("ImgBase").GetComponent<Image>();
-        Resize(selfRankBg.rectTransform, new(2, 0));
-        Move(selfRankBg.transform, new(-1, 0));
-    }
-
-    private static void BanishComponent(Transform root, string searchPath, bool hideImage)
-    {
-        var transform = root.Find(searchPath);
-        // hide this instead of original transform if present;
-        // present for both elfin and character texts,
-        // not present for the random button -- called differently
-        // and we're also not removing the non-key legend from it
-        var subComponentTransform = transform.Find("ImgSongTitleMask");
-        // to the shadow realm with you
-        (subComponentTransform ?? transform).position = new(99_999f, 99_999f, 0);
-        if (hideImage)
-        {
-            transform.GetComponent<Image>().color = Color.clear;
+            // update the sprite on creation so it shows the current config on panel open
+            UpdateLevelConfigUI();
         }
     }
 
-    // these are relative
-
-    public static void Resize(Transform parent, Vector2 delta)
+    public static void UpdateLevelConfigUI()
     {
-        var rectTransform = parent.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2
-        (
-            rectTransform.sizeDelta.x + delta.x,
-            rectTransform.sizeDelta.y + delta.y
-        );
+        var image = GameObject.Find(CustomLevelConfigPath)?.GetComponent<Image>();
+        if (image != null)
+        {
+            image.sprite = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider.GetSprite
+            (
+                (Character)DataHelper.selectedRoleIndex,
+                (Elfin)DataHelper.selectedElfinIndex
+            );
+        }
     }
 
-    public static void Move(Transform parent, Vector2 delta)
+    // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
+    private static Vector3 PixelPerfectishOffsetCorrection(GameObject _)
     {
-        var rectTransform = parent.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition3D = new Vector3
-        (
-            rectTransform.anchoredPosition3D.x + delta.x,
-            rectTransform.anchoredPosition3D.y + delta.y,
-            rectTransform.anchoredPosition3D.z
-        );
+        // currently the same value for scoreboard entries and self rank;
+        // GameObject argument is kept as a discard in case it'll be different again in the future
+        // (see history to learn how to discern by name)
+        return new(0.5f, -0.08f, 0);
     }
-
-    #endregion
-
 }

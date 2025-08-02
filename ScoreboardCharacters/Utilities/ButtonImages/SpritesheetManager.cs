@@ -30,15 +30,11 @@ public class SpritesheetManager
 
         var spriteSize = (int)Math.Round(BaseSpriteSize * (decimal)_currentResolution / BaseResolution, MidpointRounding.ToEven);
 
-        return new(LoadOverrideSpritesheet() ?? LoadDefaultSpritesheet(spriteSize),
-            LoadRandomModeImage(spriteSize), spriteSize);
+        return new(LoadOverrideSpritesheet() ?? LoadDefaultSpritesheet(spriteSize), spriteSize);
     }
 
     public bool ReloadRequired()
     {
-        // TODO with this, the random mode image will never reload to another resolution if main spritesheet is overridden
-        // the original intent was to avoid reloading the only spritesheet at all if we know it will not change,
-        // so we need to do something about it because we now have two images to load
         return !_initialized && !_overrideActive && Screen.height != _currentResolution;
     }
 
@@ -84,14 +80,6 @@ public class SpritesheetManager
         => LoadDefaultImage("sprites", targetSpriteSize, RescaleSpritesheet);
 
     /// <summary>
-    /// Loads the default random mode image for current resolution.
-    /// If no pre-scaled version is available in the resources, on the fly rescale to target sprite size is performed.
-    /// This image does not support overriding -- the built-in sprite is always used.
-    /// </summary>
-    private SKBitmap LoadRandomModeImage(int targetSpriteSize)
-        => LoadDefaultImage("random_mode", targetSpriteSize, RescaleRandomModeImage);
-
-    /// <summary>
     /// Loads image file from embedded resources to match the current resolution. Rescales if needed.
     /// </summary>
     /// <param name="name">Name of the file to load, "sprites" or "random_mode". Not checked for validity because it's private code.</param>
@@ -127,11 +115,5 @@ public class SpritesheetManager
         var scaledSize = new SKImageInfo(Constants.SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
 
         return source.Resize(scaledSize, SKFilterQuality.High);
-    }
-
-    private SKBitmap RescaleRandomModeImage(SKBitmap source, int targetSpriteSize)
-    {
-        // the aspect ratio is constant
-        return source.Resize(new SKImageInfo(2 * targetSpriteSize, targetSpriteSize), SKFilterQuality.High);
     }
 }
