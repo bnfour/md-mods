@@ -6,19 +6,25 @@ using UnityEngine;
 namespace Bnfour.MuseDashMods.UITweaks.Patches;
 
 /// <summary>
-/// Patch that fires the custom component appearance animation when the panel appears on the screen.
+/// Patch that fires the custom component appearance animations when the panel appears on the screen.
+/// (Animations are enabled separately.)
 /// </summary>
 [HarmonyPatch(typeof(PnlPreparation), nameof(PnlPreparation.OnEnable))]
 public class PnlPreparationOnEnablePatch
 {
     internal static void Postfix(PnlPreparation __instance)
     {
-        if (!Melon<UITweaksMod>.Instance.AchievementsHeaderClassicStyling)
+        var modInstance = Melon<UITweaksMod>.Instance;
+        // TODO consider moving component names to constants throughout the mod
+        if (modInstance.AchievementsHeaderClassicStyling)
         {
-            return;
+            var headerAnimation = __instance?.transform.Find("RightRoot/ImgStageAchievement")?.GetComponent<Animation>();
+            headerAnimation?.Play(headerAnimation.clip?.name);
         }
-
-        var animation = GameObject.FindObjectOfType<PnlPreparation>()?.transform.Find("RightRoot/ImgStageAchievement")?.GetComponent<Animation>();
-        animation?.Play(animation.clip?.name);
+        if (modInstance.AnimateCharacterSelector)
+        {
+            var selectAnimation = __instance?.transform.Find("RightRoot/Top")?.GetComponent<Animation>();
+            selectAnimation?.Play(selectAnimation.clip?.name);
+        }
     }
 }
