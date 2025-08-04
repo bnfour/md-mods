@@ -88,13 +88,28 @@ Mod file: `SongInfo.dll`
 
 This mod adds song's BPM and duration display to the song info screen (the data is supposed to be symmetrical with the level designer label):
 
-| State | Illustration |
-| --- | --- |
-| Before | ![君に沼った!](readme-images/song-info/song-info-before.png) |
-| After | ![推しに決まった!!](readme-images/song-info/song-info-after.png) |
+| Out of the box, no Scoreboard characters | Alternative layout, Scoreboard characters required |
+| :---: | :---: |
+| ![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png) | ![推しに決まった!!](readme-images/song-info/song-info-classic.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
+
+### Configuration
+This mod includes two layouts for BPM and duration display:
+- Default one line layout that does not clip with the vanilla character select UI.  
+Okay to use whether Scoreboard characters mod is installed or not.
+- Classic two line layout, used to be the only option for earlier versions.  
+**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
+
+The layout preference is stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
+```toml
+[Bnfour_SongInfo]
+# Sets the layout to use. "OneLine" or "TwoLines". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.
+Layout = "OneLine"
+```
+
+Set the value of `Layout` to `"TwoLines"` (note the quotes) for the classic layout. `"OneLine"` is the default.
 
 ### Cache (ab)use (advanced; also useless)
 <details>
