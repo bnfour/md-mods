@@ -237,14 +237,30 @@ This feature fixes the style of `🏆 N/6` header to match the neighboring "Stag
 | --- | --- | --- |
 | ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.png) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.png) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.png) |
 
-It also adds appearance animations — slide in, fade in — for the counter to match the rest of achievements panel (⅛× playback speed):
+<details>
+<summary>It also adds appearance animations — slide in, fade in — for the counter to match the rest of achievements panel (⅛× playback speed animation, very choppy)</summary>
+
 ![not a gif wow](readme-images/ui-tweaks/achievements-header-animated.avif)
 
-> [!NOTE]  
+</details>
+
+> [!NOTE]
 > It's currently impossible to apply only style fix or animation, they are treated as one feature.
 
 ### Character and elfin select appearance animation
-TODO
+This small feature adds a quick fade in animation for the character and elfin select UI, which otherwise is just displayed while the rest of the panel animates.
+
+<details>
+<summary>Comparison (⅛× playback speed animations, very choppy)</summary>
+
+| Before (vanilla version) | After (Scoreboard characters version)
+| :---: | :---: |
+| ![sticks out more than you think](readme-images/ui-tweaks/char-select-no-animation.avif) | ![it's subtle, but it's there](readme-images/ui-tweaks/char-select-animation.avif) |
+
+</details>
+
+> [!NOTE]  
+> The animation is a work in progress, and may (not) be updated later.
 
 ### Configuration
 This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
