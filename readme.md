@@ -156,6 +156,8 @@ The following UI tweaks are currently available:
 - [HP and Fever bars animation sync](#hp-and-fever-bars-animation-sync) for in-game UI
 - [Notice for automatic fever](#notice-for-automatic-fever) for in-game UI
 - [Options menu text case](#options-menu-text-case)
+- [Achievements header styling](#achievements-header-styling) for song info screen
+- [Character and elfin select appearance animation](#character-and-elfin-select-appearance-animation) for song info screen
 
 Each feature can be toggled on and off independently of others.
 
@@ -229,6 +231,21 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 > [!NOTE]  
 > This feature is intended to be used with English locale.
 
+### Achievements header styling
+This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements header", as older versions of Song info used to do:
+| _(Context)_ | Before | After |
+| --- | --- | --- |
+| ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.png) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.png) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.png) |
+
+It also adds appearance animations — slide in, fade in — for the counter to match the rest of achievements panel (⅛× playback speed):
+![not a gif wow](readme-images/ui-tweaks/achievements-header-animated.avif)
+
+> [!NOTE]  
+> It's currently impossible to apply only style fix or animation, they are treated as one feature.
+
+### Character and elfin select appearance animation
+TODO
+
 ### Configuration
 This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
@@ -247,6 +264,10 @@ SyncHpFeverAnimAlt = false
 AutoFeverText = true
 # Fixes some texts in options being not uppercase like the rest.
 OptionsFullCaps = true
+# Restores pre-5.6.0 Song info's achievements header styling
+AchievementsHeaderStyling = true
+# Adds an appearance animation for the character selector when song details screen is opened
+CharacterSelectAnimation = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
