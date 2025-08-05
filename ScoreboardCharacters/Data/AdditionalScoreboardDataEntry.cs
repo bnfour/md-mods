@@ -3,10 +3,10 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 /// <summary>
 /// Represents data for a single custom button.
 /// </summary>
-public class AdditionalScoreboardDataEntry
+public record AdditionalScoreboardDataEntry
 {
-    public Character Character { get; private set; }
-    public Elfin Elfin { get; private set; }
+    public Character Character { get; init; }
+    public Elfin Elfin { get; init; }
 
     public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
     {

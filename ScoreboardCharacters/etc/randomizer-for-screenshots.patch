@@ -1,18 +1,18 @@
 diff --git a/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs b/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs
-index fd9cde0..e334fbd 100644
+index b04f7f6..1d7f73a 100644
 --- a/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs
 +++ b/ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs
-@@ -8,9 +8,11 @@ public class AdditionalScoreboardDataEntry
-     public Character Character { get; private set; }
-     public Elfin Elfin { get; private set; }
+@@ -8,9 +8,11 @@ public record AdditionalScoreboardDataEntry
+     public Character Character { get; init; }
+     public Elfin Elfin { get; init; }
  
-+    private static readonly System.Random DemoScreenshotRandomizer = new System.Random();
++    private static readonly System.Random DemoScreenshotRandomizer = new();
 +
      public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
      {
 -        Character = (Character)int.Parse(detail.CharacterId);
 -        Elfin = string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
-+        Character = (Character)DemoScreenshotRandomizer.Next(31);//(Character)int.Parse(detail.CharacterId);
++        Character = (Character)DemoScreenshotRandomizer.Next(32);//(Character)int.Parse(detail.CharacterId);
 +        Elfin = (Elfin)DemoScreenshotRandomizer.Next(12);//string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
      }
  }

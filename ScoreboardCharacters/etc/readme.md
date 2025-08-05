@@ -15,6 +15,9 @@ Note that the hardcoded random maximums are up to date as of game version 3.11.0
 - discard the changes to `AdditionalScoreboardDataEntry.cs`
 - put updated image to repo's readme
 
+To regenerate the patch with the new diff (because it keeps getting outdated, but the general idea stays the same):
+- `git diff ScoreboardCharacters/Data/AdditionalScoreboardDataEntry.cs > ScoreboardCharacters/etc/randomizer-for-screenshots.patch`
+
 ## Spritesheet source
 [`sprites.png`](./sprites.png) is the reference spritesheet:
 

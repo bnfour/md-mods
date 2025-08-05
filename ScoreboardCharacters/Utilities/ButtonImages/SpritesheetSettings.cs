@@ -1,4 +1,3 @@
-using MelonLoader;
 using SkiaSharp;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
@@ -13,10 +12,6 @@ public class SpritesheetSettings
     /// The image that contains the main spritesheet.
     /// </summary>
     public readonly SKBitmap Bitmap;
-    /// <summary>
-    /// The images that contains the custom sprite for the "random mode on" case.
-    /// </summary>
-    public readonly SKBitmap RandomButtonBitmap;
     /// <summary>
     /// Size of an individual sprite in the spritesheet, in pixels.
     /// </summary>
@@ -35,10 +30,9 @@ public class SpritesheetSettings
     // no rectangles required for random button bitmap, as it's a complete image,
     // taken as is, no assembly needed
 
-    public SpritesheetSettings(SKBitmap mainBitmap, SKBitmap randomButtonBitmap, int spriteSize)
+    public SpritesheetSettings(SKBitmap mainBitmap, int spriteSize)
     {
         Bitmap = mainBitmap;
-        RandomButtonBitmap = randomButtonBitmap;
 
         SpriteSize = spriteSize;
 

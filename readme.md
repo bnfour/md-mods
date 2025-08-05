@@ -17,18 +17,12 @@ This repo currently contains the following mods. They can be used in any combina
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
-<!-- TODO the image is already outdated, modded scoreboard now fits 7 lines exactly -->
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
-| Before | After |
-| --- | --- |
-| ![i was surprized by the vanilla look more than i thought](readme-images/scoreboard-characters/scoreboard-characters-before.png) | ![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png) |
+![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png)
 
 The buttons can be clicked, and will set your current character and elfin to these shown. It will even scroll the selection screens for you.
 
-In addition:
-- The character switch panel takes less space when minimized, leaving more space for the scoreboard.
-- Switch controls (when minimized) are moved to the panel header, and character and elfin icons are shown instead of (scrolling) text.
-- The character switch panel is minimized, and the scoreboard is expanded by default.
+In addition, the character and elfin switch UI and random toggle are moved to the top of the scoreboard panel; current character and elfin text is replaced with an icon.
 
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
@@ -78,9 +72,9 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 ## Album scroll
 Mod file: `AlbumScroll.dll`
 
-This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold Shift key while scrolling (A/D, ←/→, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
+This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold <kbd>Shift</kbd> key while scrolling (<kbd>A</kbd>/<kbd>D</kbd>, <kbd>←</kbd>/<kbd>→</kbd>, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
 
-Here's a little demo of switching entire albums by single Shift+Arrow key taps:
+Here's a little demo of switching entire albums by single <kbd>Shift</kbd>+<kbd>arrow</kbd> taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
@@ -94,13 +88,28 @@ Mod file: `SongInfo.dll`
 
 This mod adds song's BPM and duration display to the song info screen (the data is supposed to be symmetrical with the level designer label):
 
-| State | Illustration |
-| --- | --- |
-| Before | ![君に沼った!](readme-images/song-info/song-info-before.png) |
-| After | ![推しに決まった!!](readme-images/song-info/song-info-after.png) |
+| Out of the box, no Scoreboard characters | Alternative layout, Scoreboard characters required |
+| :---: | :---: |
+| ![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png) | ![推しに決まった!!](readme-images/song-info/song-info-classic.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
+
+### Configuration
+This mod includes two layouts for BPM and duration display:
+- Default one line layout that does not clip with the vanilla character select UI.  
+Okay to use whether Scoreboard characters mod is installed or not.
+- Classic two line layout, used to be the only option for earlier versions.  
+**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
+
+The layout preference is stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
+```toml
+[Bnfour_SongInfo]
+# Sets the layout to use. "OneLine" or "TwoLines". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.
+Layout = "OneLine"
+```
+
+Set the value of `Layout` to `"TwoLines"` (note the quotes) for the classic layout. `"OneLine"` is the default.
 
 ### Cache (ab)use (advanced; also useless)
 <details>
@@ -124,11 +133,11 @@ For instance, if the cache file contains:
   "8-1": "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
 }
 ```
-Then, data for Brain Power will look like this (clipped for file size reasons):
+Then, data for Brain Power will look similar to this (newer versions of the game use different font):
 
-![the full gif is larger than the entire repo, so here's a clipped downscaled 10fps version instead](readme-images/song-info/song-info-override-the-animation.gif)
+![let the bass kick](readme-images/song-info/song-info-override-the-animation.avif)
 
-Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
+Yes, the fields are set up for scrolling longer strings (technically, these are clones of the level designer string, so the heavy work was done by peropero — thanks I guess ¯\\\_(ツ)\_/¯).
 
 To revert to the default display, just remove the entry from the overrides file, ot the file itself.
 
@@ -147,24 +156,26 @@ The following UI tweaks are currently available:
 - [HP and Fever bars animation sync](#hp-and-fever-bars-animation-sync) for in-game UI
 - [Notice for automatic fever](#notice-for-automatic-fever) for in-game UI
 - [Options menu text case](#options-menu-text-case)
+- [Achievements header styling](#achievements-header-styling) for song info screen
+- [Character and elfin select appearance animation](#character-and-elfin-select-appearance-animation) for song info screen
 
 Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature widens the space for the album title on the song selection screen, so that even notorious "MD-level Tactical Training Blu-ray" fits (illustration update pending — the font used to be bigger):
+This feature slightly widens the space for the album title on the song selection screen, so that even notoriously long "MD-level Tactical Training Blu-ray" fits:
 
 | State | Illustration |
 | --- | :---: |
 | _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
-| Before | ![everything here is scaled down for file size reasons, imagine using a 1989 standard in 1989+36](readme-images/ui-tweaks/narrow-album-title.gif) |
+| Before | _(no idea why it's like this lol)_ <br/> ![why does it change the font when it does not fit?](readme-images/ui-tweaks/narrow-album-title.avif) |
 | After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > This feature is intended to be used with English locale.
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
-(achievements header modified by [Song info](#song-info))
+(achievements header modified by [one of UI tweaks](#achievements-header-styling))
 
 Before:
 
@@ -186,20 +197,20 @@ This mod feature corrects this by matching the state of new icons to the state o
 </details>
 
 ### HP and Fever bars animation sync
-This feature syncs the "bubble flow" animation between HP and Fever bars:
+This feature syncs the "bubble flow" animation between HP and Fever bars (please excuse the compression):
 
 | State | Illustration |
 | --- | --- |
-| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars-vanilla.gif) |
-| After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
-| After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
+| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars-vanilla.avif) |
+| After | ![these things are really bitrate hoggers](readme-images/ui-tweaks/bars-mod.avif) |
+| After[*](#alternative-mode) | ![this is pretty much the default quality settings of my entire record-trim&crop-reencode pipeline, sorry](readme-images/ui-tweaks/bars-mod-alt.avif) |
 
-> [!NOTE]  
+> [!NOTE]
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
 > In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
-By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
+By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to `true`, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
 
 ### Notice for automatic fever
 This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is currently active:
@@ -208,7 +219,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 | --- | --- |
 ![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.png) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
 
 ### Options menu text case
@@ -217,11 +228,42 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 | --- | --- |
 | ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > This feature is intended to be used with English locale.
 
+### Achievements header styling
+This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements" header, as older versions of Song info used to do:
+| _(Context)_ | Before | After |
+| --- | --- | --- |
+| ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.png) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.png) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.png) |
+
+<details>
+<summary>It also adds appearance animations — slide in, fade in — for the counter to match the rest of achievements panel (⅛× playback speed animation, very choppy)</summary>
+
+![not a gif wow](readme-images/ui-tweaks/achievements-header-animated.avif)
+
+</details>
+
+> [!NOTE]
+> It's currently impossible to apply only style fix or animation, they are treated as one feature.
+
+### Character and elfin select appearance animation
+This small feature adds a quick fade in animation for the character and elfin select UI, which otherwise is just displayed while the rest of the panel animates.
+
+<details>
+<summary>Comparison (⅛× playback speed animations, very choppy)</summary>
+
+| Before (vanilla version) | After (Scoreboard characters version)
+| :---: | :---: |
+| ![sticks out more than you think](readme-images/ui-tweaks/char-select-no-animation.avif) | ![it's subtle, but it's there](readme-images/ui-tweaks/char-select-animation.avif) |
+
+</details>
+
+> [!NOTE]
+> The animation is a work in progress, and may (not) be updated later.
+
 ### Configuration
-This mod's prefereneces are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
+This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
 The preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
@@ -238,10 +280,14 @@ SyncHpFeverAnimAlt = false
 AutoFeverText = true
 # Fixes some texts in options being not uppercase like the rest.
 OptionsFullCaps = true
+# Restores pre-5.6.0 Song info's achievements header styling
+AchievementsHeaderStyling = true
+# Adds an appearance animation for the character selector when song details screen is opened
+CharacterSelectAnimation = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
-> [!TIP]  
+> [!TIP]
 > The mod will notify you when all its features are disabled, and it does nothing.
 
 ## Experimental mod (not included in the download)
@@ -273,7 +319,7 @@ All mods provide no gameplay advantage whatsoever. You still have to git gud to 
 - The scoreboard mods show information the game already receives directly from its backend API, it's just not shown anywhere by default.  
 You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboards. In fact, this repo was born from my frustration of having to mirror my track selection in-game to the website on another display.
 - Album scroll only affects the song selection menu.
-- Song info is simply displaying exisitng data from the game.
+- Song info is simply displaying existing data from the game.
 - All UI tweaks are purely cosmetic.
 
 Unless you count _any_ changes to the game for _any_ purpose as cheating, this is not cheating.
@@ -281,7 +327,7 @@ Unless you count _any_ changes to the game for _any_ purpose as cheating, this i
 ### Will I get banned for using these?
 _tl;dr: probably not, but NO WARRANTIES; USE AT YOUR OWN RISK_
 
-As I stated in previous question, I don't believe this is cheating. I've been using these continiously for years now, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
+As I stated in previous question, I don't believe this is cheating. I've been using these continuously for years now, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
 
 Remember that you're using the mods **at your own risk**. I have warned you many times in this readme.
 

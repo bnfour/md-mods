@@ -19,6 +19,7 @@
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
+    <Reference Include="../references/UnityEngine.UIModule.dll" />
     <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
     
@@ -32,11 +33,6 @@
     <EmbeddedResource Include="Resources/sprites.1080.png" />
     <EmbeddedResource Include="Resources/sprites.1440.png" />
     <EmbeddedResource Include="Resources/sprites.2160.png" />
-
-    <EmbeddedResource Include="Resources/random_mode.720.png" />
-    <EmbeddedResource Include="Resources/random_mode.1080.png" />
-    <EmbeddedResource Include="Resources/random_mode.1440.png" />
-    <EmbeddedResource Include="Resources/random_mode.2160.png" />
   </ItemGroup>
 
 </Project>

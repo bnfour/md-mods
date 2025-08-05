@@ -8,6 +8,7 @@ using UnityEngine;
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
 
+using Bnfour.MuseDashMods.SongInfo.Data;
 using Bnfour.MuseDashMods.SongInfo.Utilities;
 
 namespace Bnfour.MuseDashMods.SongInfo;
@@ -16,10 +17,23 @@ public class SongInfoMod : MelonMod
 {
     public readonly SongDurationProvider DurationProvider = new();
 
+    internal SongInfoLayout Layout => _layoutToUse.Value;
+
+    private MelonPreferences_Category _preferencesCategory;
+
+    private MelonPreferences_Entry<SongInfoLayout> _layoutToUse;
+
+    public override void OnInitializeMelon()
+    {
+        _preferencesCategory = MelonPreferences.CreateCategory("Bnfour_SongInfo");
+        _layoutToUse = _preferencesCategory.CreateEntry("Layout", SongInfoLayout.OneLine,
+            "Display layout", "Sets the layout to use. \"OneLine\" or \"TwoLines\". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.");
+    }
+
     public override void OnLateInitializeMelon()
     {
         base.OnLateInitializeMelon();
-
+        // TODO read up on lifecycle, both mod and our code, and consider moving to OnInitializeMelon without the late part
         if (DurationProvider.ErrorLoadingOverride)
         {
             LoggerInstance.Warning("Unable to load the overrides file (bad JSON?). It will be overwritten if this mod encounters any song not present in its database. To avoid data loss, please quit now and fix the file.");
