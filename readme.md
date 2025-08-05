@@ -197,13 +197,13 @@ This mod feature corrects this by matching the state of new icons to the state o
 </details>
 
 ### HP and Fever bars animation sync
-This feature syncs the "bubble flow" animation between HP and Fever bars:
+This feature syncs the "bubble flow" animation between HP and Fever bars (please excuse the compression):
 
 | State | Illustration |
 | --- | --- |
-| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars-vanilla.gif) |
-| After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
-| After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
+| Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars-vanilla.avif) |
+| After | ![these things are really bitrate hoggers](readme-images/ui-tweaks/bars-mod.avif) |
+| After[*](#alternative-mode) | ![this is pretty much the default quality settings of my entire record-trim&crop-reencode pipeline, sorry](readme-images/ui-tweaks/bars-mod-alt.avif) |
 
 > [!NOTE]
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
