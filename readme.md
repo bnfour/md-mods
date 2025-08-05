@@ -162,15 +162,15 @@ The following UI tweaks are currently available:
 Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature widens the space for the album title on the song selection screen, so that even notoriously long "MD-level Tactical Training Blu-ray" fits (images scaled to 0.5× for GIF filesize reasons):
+This feature slightly widens the space for the album title on the song selection screen, so that even notoriously long "MD-level Tactical Training Blu-ray" fits:
 
 | State | Illustration |
 | --- | :---: |
 | _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
-| Before | _(no idea why it's like this lol)_ <br/> ![everything here is scaled down for file size reasons, imagine using a 1989 standard in 1989+36](readme-images/ui-tweaks/narrow-album-title.gif) |
+| Before | _(no idea why it's like this lol)_ <br/> ![why does it change the font when it does not fit?](readme-images/ui-tweaks/narrow-album-title.avif) |
 | After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > This feature is intended to be used with English locale.
 
 ### Achievement icons sync
