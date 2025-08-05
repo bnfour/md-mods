@@ -73,7 +73,6 @@ public static class UiPatcher
 
     public static void ModifyLevelConfigUI(PnlPreparation panel)
     {
-        // TODO null checks everywhere
         var levelConfigUIGroup = panel.transform.Find("RightRoot/Top");
         if (levelConfigUIGroup != null)
         {
@@ -97,39 +96,50 @@ public static class UiPatcher
             currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.215f, 0.3f, 0);
             currentConfigImage.color = Color.white;
 
-            var scrollText = levelConfigUIGroup.Find("RootLevelConfigShow/ImgArtistMask");
-            // this object is hereby banished to the shadow realm until further notice
-            scrollText.GetComponent<RectTransform>().anchoredPosition3D = new(99_999, 99_999, 0);
+            // the character/elfin text is hereby banished to the shadow realm until further notice
+            var scrollTextTransform = levelConfigUIGroup.Find("RootLevelConfigShow/ImgArtistMask")?.GetComponent<RectTransform>();
+            if (scrollTextTransform != null)
+            {
+                scrollTextTransform.anchoredPosition3D = new(99_999, 99_999, 0);
+            }
 
             // make component narrower
-            // probably includes shrinking/replacing the bg image, moving E button hint, and moving the entire random toggle
+            // includes replacing the bg image, moving E button hint, and moving the entire random toggle
 
             // background image is a bit tricky because its size and position affects child components
             // so we just hide the original one to not disturb the positioning,
             // and instead show a resized clone that does not affect anything
-            var originalImage = levelConfigUIGroup.Find("RootLevelConfigShow").GetComponent<Image>();
-            // make the clone a child of the original
-            var clonedImage = GameObject.Instantiate(originalImage, originalImage.transform);
-            clonedImage.name = "BnNarrowBackground";
-            // remove all the cloned child components, we only want the image itself
-            while (clonedImage.transform.childCount > 0)
+            var originalImage = levelConfigUIGroup.Find("RootLevelConfigShow")?.GetComponent<Image>();
+            if (originalImage != null)
             {
-                GameObject.DestroyImmediate(clonedImage.transform.GetChild(0).gameObject);
+                // make the clone a child of the original
+                var clonedImage = GameObject.Instantiate(originalImage, originalImage.transform);
+                clonedImage.name = "BnNarrowBackground";
+                // remove all the cloned child components, we only want the image itself
+                while (clonedImage.transform.childCount > 0)
+                {
+                    GameObject.DestroyImmediate(clonedImage.transform.GetChild(0).gameObject);
+                }
+                // set as the first sibling so it's rendered first as a background for everything else
+                clonedImage.rectTransform.SetAsFirstSibling();
+                // sizing/positioning provisional
+                clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y);
+                clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
+                // hide the original image
+                originalImage.color = Color.clear;
             }
-            // set as the first sibling so it's rendered first as a background for everything else
-            clonedImage.rectTransform.SetAsFirstSibling();
-            // sizing/positioning provisional
-            clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y);
-            clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
-            // hide the original image
-            originalImage.color = Color.clear;
+            // the small "E" button
+            var eTransform = levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")?.GetComponent<RectTransform>();
+            if (eTransform != null)
+            {
+                eTransform.anchoredPosition3D += new Vector3(-104 * LevelConfigInnerScale, 0, 0);
+            }
 
-            // the "E" button
-            levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")
-                .GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-104 * LevelConfigInnerScale, 0, 0);
-            // random toggle
-            levelConfigUIGroup.Find("ImgRandomBg")
-                .GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
+            var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
+            if (randomToggleTransform != null)
+            {
+                randomToggleTransform.anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
+            }
 
             // update the sprite on creation so it shows the current config on panel open
             UpdateLevelConfigUI();
