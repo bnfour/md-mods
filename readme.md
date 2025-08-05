@@ -133,11 +133,11 @@ For instance, if the cache file contains:
   "8-1": "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
 }
 ```
-Then, data for Brain Power will look like this (clipped for file size reasons):
+Then, data for Brain Power will look similar to this (newer versions of the game use different font):
 
-![the full gif is larger than the entire repo, so here's a clipped downscaled 10fps version instead](readme-images/song-info/song-info-override-the-animation.gif)
+![let the bass kick](readme-images/song-info/song-info-override-the-animation.avif)
 
-Yes, the field is set up for scrolling longer strings ¯\\\_(ツ)\_/¯.
+Yes, the fields are set up for scrolling longer strings (technically, these are clones of the level designer string, so the heavy work was done by peropero — thanks I guess ¯\\\_(ツ)\_/¯).
 
 To revert to the default display, just remove the entry from the overrides file, ot the file itself.
 
