@@ -72,9 +72,9 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 ## Album scroll
 Mod file: `AlbumScroll.dll`
 
-This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold Shift key while scrolling (A/D, ←/→, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
+This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold <kbd>Shift</kbd> key while scrolling (<kbd>A</kbd>/<kbd>D</kbd>, <kbd>←</kbd>/<kbd>→</kbd>, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
 
-Here's a little demo of switching entire albums by single Shift+Arrow key taps:
+Here's a little demo of switching entire albums by single <kbd>Shift</kbd>+<kbd>arrow</kbd> taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
@@ -175,7 +175,7 @@ This feature slightly widens the space for the album title on the song selection
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
-(achievements header modified by [Song info](#song-info))
+(achievements header modified by [one of UI tweaks](#achievements-header-styling))
 
 Before:
 
@@ -205,12 +205,12 @@ This feature syncs the "bubble flow" animation between HP and Fever bars:
 | After | ![but this is a compromise between image quality and size](readme-images/ui-tweaks/bars-mod.gif) |
 | After[*](#alternative-mode) | ![and i'm not really fond of big images that take up more space than actual code](readme-images/ui-tweaks/bars-mod-alt.gif) |
 
-> [!NOTE]  
+> [!NOTE]
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
 > In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
-By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to true, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
+By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to `true`, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
 
 ### Notice for automatic fever
 This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is currently active:
@@ -219,7 +219,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 | --- | --- |
 ![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.png) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
 
 ### Options menu text case
@@ -228,11 +228,11 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 | --- | --- |
 | ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
 
-> [!NOTE]  
+> [!NOTE]
 > This feature is intended to be used with English locale.
 
 ### Achievements header styling
-This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements header", as older versions of Song info used to do:
+This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements" header, as older versions of Song info used to do:
 | _(Context)_ | Before | After |
 | --- | --- | --- |
 | ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.png) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.png) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.png) |
@@ -259,7 +259,7 @@ This small feature adds a quick fade in animation for the character and elfin se
 
 </details>
 
-> [!NOTE]  
+> [!NOTE]
 > The animation is a work in progress, and may (not) be updated later.
 
 ### Configuration
@@ -287,7 +287,7 @@ CharacterSelectAnimation = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
-> [!TIP]  
+> [!TIP]
 > The mod will notify you when all its features are disabled, and it does nothing.
 
 ## Experimental mod (not included in the download)
