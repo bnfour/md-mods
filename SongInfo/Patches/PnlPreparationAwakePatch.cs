@@ -18,6 +18,7 @@ public class PnlPreparationAwakePatch
 {
     // TODO consider moving actual UI manipulation outside of a patch class
     private const float LineOffset = 45;
+    private const string ComponentToKeepAndClone = "ImgStageDesignerMask";
 
     private static void Postfix(PnlPreparation __instance)
     {
@@ -33,11 +34,22 @@ public class PnlPreparationAwakePatch
         {
             dataField.GetComponent<RectTransform>().anchoredPosition3D = positionReference.Value + new Vector3(1540, LineOffset, 0);
         }
-        // hide the static text -- we don't need it here
-        dataField.GetComponent<Text>().color = Color.clear;
-
+        // remove the "level design:" text -- we don't need it
+        var textToRemove = dataField.GetComponent<Text>();
+        GameObject.DestroyImmediate(textToRemove);
+        // remove any other child components other mods might have added to the original
+        // that ended up in our clone (#24)
+        var initialChildCount = dataField.transform.childCount;
+        for (int i = initialChildCount - 1; i >= 0; i--)
+        {
+            var child = dataField.transform.GetChild(i);
+            if (child.gameObject.name != ComponentToKeepAndClone)
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
+        }
         // rename the cloned scrolled text depending on the mode used
-        var originalScroller = dataField?.transform?.Find("ImgStageDesignerMask");
+        var originalScroller = dataField?.transform?.Find(ComponentToKeepAndClone);
         if (originalScroller != null)
         {
             var name = layout switch
