@@ -34,8 +34,9 @@ public class PnlPreparationAwakePatch
         {
             dataField.GetComponent<RectTransform>().anchoredPosition3D = positionReference.Value + new Vector3(1540, LineOffset, 0);
         }
-        // hide the static text -- we don't need it here
-        dataField.GetComponent<Text>().color = Color.clear;
+        // remove the "level design:" text -- we don't need it
+        var textToRemove = dataField.GetComponent<Text>();
+        GameObject.DestroyImmediate(textToRemove);
         // remove any other child components other mods might have added to the original
         // that ended up in our clone (#24)
         var initialChildCount = dataField.transform.childCount;
