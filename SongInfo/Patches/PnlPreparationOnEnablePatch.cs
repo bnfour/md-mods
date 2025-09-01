@@ -28,46 +28,43 @@ public class PnlPreparationOnEnablePatch
             // intentional fallthrough: same component, different components inside
             case SongInfoLayout.OneLine:
             case SongInfoLayout.TwoLines:
+                var customObject = __instance.transform.Find(Constants.TopRight.Component);
+                if (layout == SongInfoLayout.OneLine)
                 {
-                    var customObject = __instance.transform.Find(Constants.TopRight.Component);
-                    if (layout == SongInfoLayout.OneLine)
-                    {
-                        customObject?.transform.Find(Constants.TopRight.OneLine)
-                            ?.GetComponent<LongSongNameController>()
-                            ?.Refresh($"{duration}, {bpm} BPM", delay: 0);
-                    }
-                    else
-                    {
-                        customObject?.transform.Find(Constants.TopRight.TwoLinesBpm)
-                            ?.GetComponent<LongSongNameController>()
-                            ?.Refresh($"BPM: {bpm}", delay: 0);
-                        customObject?.transform.Find(Constants.TopRight.TwoLinesDuration)
-                            ?.GetComponent<LongSongNameController>()
-                            ?.Refresh($"Length: {duration}", delay: 0);
-                    }
-                    var animation = customObject.GetComponent<Animation>();
-                    animation?.Play(animation.clip?.name);
+                    customObject?.transform.Find(Constants.TopRight.OneLine)
+                        ?.GetComponent<LongSongNameController>()
+                        ?.Refresh($"{duration}, {bpm} BPM", delay: 0);
                 }
+                else
+                {
+                    customObject?.transform.Find(Constants.TopRight.TwoLinesBpm)
+                        ?.GetComponent<LongSongNameController>()
+                        ?.Refresh($"BPM: {bpm}", delay: 0);
+                    customObject?.transform.Find(Constants.TopRight.TwoLinesDuration)
+                        ?.GetComponent<LongSongNameController>()
+                        ?.Refresh($"Length: {duration}", delay: 0);
+                }
+                var animation = customObject.GetComponent<Animation>();
+                animation?.Play(animation.clip?.name);
                 break;
-            case SongInfoLayout.BestRecord:
-                {
-                    var bpmText = __instance.pnlRecord.transform
-                        ?.Find(Constants.BestRecordPanel.BpmFullPath)
-                        ?.GetComponent<Text>();
-                    if (bpmText != null)
-                    {
-                        bpmText.text = bpm;
-                    }
-                    var durationText = __instance.pnlRecord.transform
-                        ?.Find(Constants.BestRecordPanel.DurationFullPath)
-                        ?.GetComponent<Text>();
-                    if (durationText != null)
-                    {
-                        durationText.text = duration;
-                    }
 
-                    // TODO play animations
+            case SongInfoLayout.BestRecord:
+                var bpmText = __instance.pnlRecord.transform
+                    ?.Find(Constants.BestRecordPanel.BpmFullPath)
+                    ?.GetComponent<Text>();
+                if (bpmText != null)
+                {
+                    bpmText.text = bpm;
                 }
+                var durationText = __instance.pnlRecord.transform
+                    ?.Find(Constants.BestRecordPanel.DurationFullPath)
+                    ?.GetComponent<Text>();
+                if (durationText != null)
+                {
+                    durationText.text = duration;
+                }
+
+                // TODO play animations
                 break;
         }
 
