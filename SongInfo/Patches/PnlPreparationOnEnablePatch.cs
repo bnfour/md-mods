@@ -6,6 +6,7 @@ using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
 
 using Bnfour.MuseDashMods.SongInfo.Data;
+using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.SongInfo.Patches;
 
@@ -50,7 +51,22 @@ public class PnlPreparationOnEnablePatch
                 break;
             case SongInfoLayout.BestRecord:
                 {
-                    // TODO fill the data inside __instance.pnlRecord's custom UI set earlier
+                    var bpmText = __instance.pnlRecord.transform
+                        ?.Find(Constants.BestRecordPanel.BpmFullPath)
+                        ?.GetComponent<Text>();
+                    if (bpmText != null)
+                    {
+                        bpmText.text = bpm;
+                    }
+                    var durationText = __instance.pnlRecord.transform
+                        ?.Find(Constants.BestRecordPanel.DurationFullPath)
+                        ?.GetComponent<Text>();
+                    if (durationText != null)
+                    {
+                        durationText.text = duration;
+                    }
+
+                    // TODO play animations
                 }
                 break;
         }

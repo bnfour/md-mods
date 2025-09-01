@@ -26,7 +26,12 @@ internal class Constants
 
     internal class BestRecordPanel
     {
-        internal const string Bpm = "BnSongInfoBestRecordBpm";
-        internal const string Duration = "BnSongInfoBestRecordDuration";
+        internal const string BpmComponent = "BnSongInfoBestRecordBpm";
+        internal const string BpmTxt = "TxtBpm";
+        internal const string BpmFullPath = $"Record/{BpmComponent}/{BpmTxt}/TxtValue";
+
+        internal const string DurationComponent = "BnSongInfoBestRecordDuration";
+        internal const string DurationTxt = "TxtDuration";
+        internal const string DurationFullPath = $"Record/{DurationComponent}/{DurationTxt}/TxtValue";
     }
 }
