@@ -26,7 +26,7 @@ public class PnlPreparationAwakePatch
 
         var dataField = GameObject.Instantiate(__instance?.transform.Find("TxtStageDesigner")?.gameObject,
             __instance.transform);
-        dataField.name = Constants.TopRightComponentName;
+        dataField.name = Constants.TopRight.Component;
         // move to the right side of the screen and up a bit
         // so the second scrollable line of the clone is aligned with the first line of original
         var positionReference = __instance.transform.Find("TxtStageDesigner")?.GetComponent<RectTransform>().anchoredPosition3D;
@@ -54,8 +54,8 @@ public class PnlPreparationAwakePatch
         {
             var name = layout switch
             {
-                SongInfoLayout.OneLine => Constants.OneLineComponentName,
-                SongInfoLayout.TwoLines => Constants.TwoLinesBpmComponentName,
+                SongInfoLayout.OneLine => Constants.TopRight.OneLine,
+                SongInfoLayout.TwoLines => Constants.TopRight.TwoLinesBpm,
                 _ => throw new System.ApplicationException("Unsupported layout type, _should_ never happen.")
             };
             originalScroller.name = name;
@@ -66,8 +66,8 @@ public class PnlPreparationAwakePatch
         {
             var secondLine = GameObject.Instantiate(originalScroller.gameObject, originalScroller.transform.parent);
 
-            secondLine.name = Constants.TwoLinesDurationComponentName;
-            secondLine.transform.name = Constants.TwoLinesDurationComponentName;
+            secondLine.name = Constants.TopRight.TwoLinesDuration;
+            secondLine.transform.name = Constants.TopRight.TwoLinesDuration;
 
             var transform = secondLine.GetComponent<RectTransform>();
             if (transform != null)

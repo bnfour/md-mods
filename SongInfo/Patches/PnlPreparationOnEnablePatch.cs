@@ -22,20 +22,20 @@ public class PnlPreparationOnEnablePatch
         var duration = Melon<SongInfoMod>.Instance.DurationProvider.GetDuration(info);
         var layout = Melon<SongInfoMod>.Instance.Layout;
 
-        var customObject = __instance.transform.Find(Constants.TopRightComponentName);
+        var customObject = __instance.transform.Find(Constants.TopRight.Component);
         // update the text field(s) with the data based on layout
         if (layout == SongInfoLayout.OneLine)
         {
-            customObject?.transform.Find(Constants.OneLineComponentName)
+            customObject?.transform.Find(Constants.TopRight.OneLine)
                 ?.GetComponent<LongSongNameController>()
                 ?.Refresh($"{duration}, {bpm} BPM", delay: 0);
         }
         else if (layout == SongInfoLayout.TwoLines)
         {
-            customObject?.transform.Find(Constants.TwoLinesBpmComponentName)
+            customObject?.transform.Find(Constants.TopRight.TwoLinesBpm)
                 ?.GetComponent<LongSongNameController>()
                 ?.Refresh($"BPM: {bpm}", delay: 0);
-            customObject?.transform.Find(Constants.TwoLinesDurationComponentName)
+            customObject?.transform.Find(Constants.TopRight.TwoLinesDuration)
                 ?.GetComponent<LongSongNameController>()
                 ?.Refresh($"Length: {duration}", delay: 0);
         }

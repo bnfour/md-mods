@@ -5,19 +5,22 @@ namespace Bnfour.MuseDashMods.SongInfo.Patches;
 /// </summary>
 internal class Constants
 {
-    // entire top right component
-    internal const string TopRightComponentName = "BnSongInfoClassicTopRight";
+    internal class TopRight
+    {
+        // entire top right component
+        internal const string Component = "BnSongInfoClassicTopRight";
 
-    // one line:
+        // one line:
 
-    // original scrolling text
-    internal const string OneLineComponentName = "BnSongInfoOneLineMask";
+        // original scrolling text
+        internal const string OneLine = "BnSongInfoOneLineMask";
 
 
-    // two lines:
+        // two lines:
 
-    // original scrolling text
-    internal const string TwoLinesBpmComponentName = "BnSongInfoTwoLinesBpmMask";
-    // clone of the original scrolling text placed below
-    internal const string TwoLinesDurationComponentName = "BnSongInfoTwoLinesDurationMask";
+        // original scrolling text
+        internal const string TwoLinesBpm = "BnSongInfoTwoLinesBpmMask";
+        // clone of the original scrolling text placed below
+        internal const string TwoLinesDuration = "BnSongInfoTwoLinesDurationMask";
+    }
 }
