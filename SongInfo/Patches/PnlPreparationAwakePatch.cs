@@ -21,6 +21,7 @@ public class PnlPreparationAwakePatch
         {
             SongInfoLayout.OneLine => new TopRightGeneratorOneLine(),
             SongInfoLayout.TwoLines => new TopRightGeneratorTwoLines(),
+            // TODO the third layout with separate generator
             _ => throw new ApplicationException("Unknown layout type")
         };
 

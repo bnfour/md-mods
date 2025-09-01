@@ -22,26 +22,37 @@ public class PnlPreparationOnEnablePatch
         var duration = Melon<SongInfoMod>.Instance.DurationProvider.GetDuration(info);
         var layout = Melon<SongInfoMod>.Instance.Layout;
 
-        var customObject = __instance.transform.Find(Constants.TopRight.Component);
-        // update the text field(s) with the data based on layout
-        if (layout == SongInfoLayout.OneLine)
+        switch (layout)
         {
-            customObject?.transform.Find(Constants.TopRight.OneLine)
-                ?.GetComponent<LongSongNameController>()
-                ?.Refresh($"{duration}, {bpm} BPM", delay: 0);
-        }
-        else if (layout == SongInfoLayout.TwoLines)
-        {
-            customObject?.transform.Find(Constants.TopRight.TwoLinesBpm)
-                ?.GetComponent<LongSongNameController>()
-                ?.Refresh($"BPM: {bpm}", delay: 0);
-            customObject?.transform.Find(Constants.TopRight.TwoLinesDuration)
-                ?.GetComponent<LongSongNameController>()
-                ?.Refresh($"Length: {duration}", delay: 0);
+            // intentional fallthrough: same component, different components inside
+            case SongInfoLayout.OneLine:
+            case SongInfoLayout.TwoLines:
+                {
+                    var customObject = __instance.transform.Find(Constants.TopRight.Component);
+                    if (layout == SongInfoLayout.OneLine)
+                    {
+                        customObject?.transform.Find(Constants.TopRight.OneLine)
+                            ?.GetComponent<LongSongNameController>()
+                            ?.Refresh($"{duration}, {bpm} BPM", delay: 0);
+                    }
+                    else
+                    {
+                        customObject?.transform.Find(Constants.TopRight.TwoLinesBpm)
+                            ?.GetComponent<LongSongNameController>()
+                            ?.Refresh($"BPM: {bpm}", delay: 0);
+                        customObject?.transform.Find(Constants.TopRight.TwoLinesDuration)
+                            ?.GetComponent<LongSongNameController>()
+                            ?.Refresh($"Length: {duration}", delay: 0);
+                    }
+                    var animation = customObject.GetComponent<Animation>();
+                    animation?.Play(animation.clip?.name);
+                }
+                break;
+            // TODO handle third layout
         }
 
-        var animation = customObject.GetComponent<Animation>();
-        animation?.Play(animation.clip?.name);
+
+
 
         // for Custom Albums mod compatibility:
         // hide achievements in custom charts (uid start with 999), show in vanilla charts
