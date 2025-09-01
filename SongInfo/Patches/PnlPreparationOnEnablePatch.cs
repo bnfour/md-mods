@@ -48,11 +48,12 @@ public class PnlPreparationOnEnablePatch
                     animation?.Play(animation.clip?.name);
                 }
                 break;
-            // TODO handle third layout
+            case SongInfoLayout.BestRecord:
+                {
+                    // TODO fill the data inside __instance.pnlRecord's custom UI set earlier
+                }
+                break;
         }
-
-
-
 
         // for Custom Albums mod compatibility:
         // hide achievements in custom charts (uid start with 999), show in vanilla charts

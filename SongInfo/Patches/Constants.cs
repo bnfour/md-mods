@@ -23,4 +23,10 @@ internal class Constants
         // clone of the original scrolling text placed below
         internal const string TwoLinesDuration = "BnSongInfoTwoLinesDurationMask";
     }
+
+    internal class BestRecordPanel
+    {
+        internal const string Bpm = "BnSongInfoBestRecordBpm";
+        internal const string Duration = "BnSongInfoBestRecordDuration";
+    }
 }
