@@ -56,5 +56,5 @@ internal class BestRecordPanelGenerator : IComponentGenerator
         }
 
         // TODO set up animations
-        }
+    }
 }
