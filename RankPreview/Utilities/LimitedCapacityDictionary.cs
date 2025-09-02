@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Bnfour.MuseDashMods.RankPreview.Utilities;
@@ -28,6 +29,11 @@ public class LimitedCapacityDictionary<TKey, TValue> where TKey : notnull
 
     public LimitedCapacityDictionary(int capacity)
     {
+        if (capacity <= 0)
+        {
+            throw new ArgumentException("Capacity must be at least 1.", nameof(capacity));
+        }
+
         _capacity = capacity;
 
         _backend = new(_capacity);
