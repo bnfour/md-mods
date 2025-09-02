@@ -1,13 +1,14 @@
-using System.Collections.Generic;
 using MelonLoader;
+
+using Bnfour.MuseDashMods.RankPreview.Utilities;
 
 namespace Bnfour.MuseDashMods.RankPreview;
 
 public class RankPreviewMod : MelonMod
 
 {
-    // TODO something more typed and with limited capacity
-
-    // uid+diff -> scores array
-    internal readonly Dictionary<string, int[]> Cache = new();
+    /// <summary>
+    /// Holds recently loaded scoreboards to estimate ranks against.
+    /// </summary>
+    internal readonly ScoreboardCache Cache = new();
 }
