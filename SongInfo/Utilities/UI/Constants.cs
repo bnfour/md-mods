@@ -1,4 +1,4 @@
-namespace Bnfour.MuseDashMods.SongInfo.Patches;
+namespace Bnfour.MuseDashMods.SongInfo.UI;
 
 /// <summary>
 /// Holds constants shared between other classes in the namespace.

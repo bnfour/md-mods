@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using Il2Cpp;
 using Il2CppInterop.Runtime;
 
-using Bnfour.MuseDashMods.SongInfo.Patches;
+using Bnfour.MuseDashMods.SongInfo.UI;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 

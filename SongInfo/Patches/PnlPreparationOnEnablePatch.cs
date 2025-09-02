@@ -1,14 +1,12 @@
+using System;
 using HarmonyLib;
 using MelonLoader;
-using UnityEngine;
-using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
 
 using Bnfour.MuseDashMods.SongInfo.Data;
 using Bnfour.MuseDashMods.SongInfo.Utilities.UI.Setting;
-using System;
 
 namespace Bnfour.MuseDashMods.SongInfo.Patches;
 
