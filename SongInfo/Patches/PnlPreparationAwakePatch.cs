@@ -5,7 +5,7 @@ using MelonLoader;
 using Il2Cpp;
 
 using Bnfour.MuseDashMods.SongInfo.Data;
-using Bnfour.MuseDashMods.SongInfo.Utilities.UI;
+using Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
 namespace Bnfour.MuseDashMods.SongInfo.Patches;
 

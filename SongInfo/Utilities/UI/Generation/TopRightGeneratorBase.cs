@@ -6,7 +6,7 @@ using Il2CppInterop.Runtime;
 
 using Bnfour.MuseDashMods.SongInfo.Patches;
 
-namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI;
+namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
 /// <summary>
 /// Base class for top right components: one line and two lines.

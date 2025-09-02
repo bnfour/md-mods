@@ -1,6 +1,6 @@
 using Il2Cpp;
 
-namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI;
+namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
 internal interface IComponentGenerator
 {

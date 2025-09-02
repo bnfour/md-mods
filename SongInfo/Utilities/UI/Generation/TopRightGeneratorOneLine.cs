@@ -1,6 +1,6 @@
 using Bnfour.MuseDashMods.SongInfo.Patches;
 
-namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI;
+namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
 /// <summary>
 /// Generator for the default one line layout. Only sets up the component name --

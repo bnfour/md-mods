@@ -5,7 +5,7 @@ using Il2Cpp;
 
 using Bnfour.MuseDashMods.SongInfo.Patches;
 
-namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI;
+namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
 internal class BestRecordPanelGenerator : IComponentGenerator
 {

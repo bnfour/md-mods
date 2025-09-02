@@ -2,7 +2,7 @@ using UnityEngine;
 
 using Bnfour.MuseDashMods.SongInfo.Patches;
 
-namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI;
+namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
 /// <summary>
 /// Generator for the classic two lines layout. Most of the work is handled by the base class,
