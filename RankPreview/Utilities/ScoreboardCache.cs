@@ -28,9 +28,24 @@ internal class ScoreboardCache
                 return "#100+";
             }
 
-            // TODO extra formatting?
+            // a top 8 score that is immediately visible is a "!!!" for me
+            var impressiveness = estimatedRank switch
+            {
+                <= 8 => "!!!",
+                <= 20 => "!!",
+                <= 50 => "!",
+                _ => string.Empty
+            };
+            // how sure we are about the result, depending on total number of scoreboard entries
+            var certainty = _backend[key].Length switch
+            {
+                0 => "???",
+                <= 50 => "??",
+                <= 90 => "?",
+                _ => string.Empty
+            };
 
-            return $"#{estimatedRank}";
+            return $"#{estimatedRank}{impressiveness}{certainty}";
         }
         else
         {
