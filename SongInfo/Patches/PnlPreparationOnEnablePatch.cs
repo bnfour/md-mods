@@ -26,7 +26,10 @@ public class PnlPreparationOnEnablePatch
 
         IDataSetter dataSetter = Melon<SongInfoMod>.Instance.Layout switch
         {
-            _ => throw new NotImplementedException("soon™")
+            SongInfoLayout.OneLine => new TopRightSetterOneLine(),
+            SongInfoLayout.TwoLines => new TopRightSetterTwoLines(),
+            SongInfoLayout.BestRecord => new BestRecordPanelSetter(),
+            _ => throw new ApplicationException("Unknown layout type")
         };
 
         dataSetter.Set(__instance, bpm, duration);
