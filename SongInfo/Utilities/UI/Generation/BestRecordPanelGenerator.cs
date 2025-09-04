@@ -31,7 +31,7 @@ internal class BestRecordPanelGenerator : IComponentGenerator
             bpmTitle.transform.name = Constants.BestRecordPanel.BpmTxt;
             bpmTitle.GetComponent<Text>().text = "BPM";
 
-            SetupAnimation(bpmTitle, 7);
+            SetupAnimation(bpmTitle, 5);
         }
 
         // clone the times clear field for a duration field
@@ -48,7 +48,7 @@ internal class BestRecordPanelGenerator : IComponentGenerator
             durationTitle.transform.name = Constants.BestRecordPanel.DurationTxt;
             durationTitle.GetComponent<Text>().text = "DURATION";
 
-            SetupAnimation(durationTitle, 8);
+            SetupAnimation(durationTitle, 6);
         }
 
         // move and shrink the background for the free space of the panel
