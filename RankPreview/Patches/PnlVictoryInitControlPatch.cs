@@ -42,11 +42,8 @@ public class PnlVictoryInitControlPatch
                 // TODO adjust the position
                 transform.position += new Vector3(0, 10, 0);
             }
-
             // TODO set up appearance animation: alpha and moving up,
             // similar to "new best"
-
-            clone.SetActive(false);
         }
     }
 }
