@@ -9,6 +9,7 @@ The folders go into the game install folder
 
 Mods folder:
   AlbumScroll.dll : enables to scroll through current album using Shift keys
+  RankPreview.dll : shows approximate rank (if in top 100) on song completion
   ScoreboardCharacters.dll : mod to show character/elfin info on the scoreboard
   SongInfo.dll : shows song's BPM and duration
   TrueAbove1kRank.dll : changes "999+" in the scoreboard to an actual rank
