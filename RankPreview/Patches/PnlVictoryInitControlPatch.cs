@@ -1,10 +1,10 @@
 using HarmonyLib;
-using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppAssets.Scripts.PeroTools.GeneralLocalization;
+using Il2CppInterop.Runtime;
 
 using Bnfour.MuseDashMods.RankPreview.Data;
 
@@ -37,13 +37,34 @@ public class PnlVictoryInitControlPatch
                 text.text = string.Empty;
             }
             var transform = clone.GetComponent<RectTransform>();
+            // used in animation as the end value, start value calculated from it
+            float? anchoredY = null;
             if (transform != null)
             {
                 // TODO adjust the position
                 transform.position += new Vector3(0, 10, 0);
+                anchoredY = transform.anchoredPosition.y;
             }
-            // TODO set up appearance animation: alpha and moving up,
-            // similar to "new best"
+            clone.AddComponent<CanvasGroup>();
+            var animation = clone.AddComponent<Animation>();
+            AnimationClip clip = new()
+            {
+                legacy = true,
+                name = "BnRankPreviewCustomAnimation"
+            };
+            // TODO define as constants?
+            var startDelay = 3f / 2;
+            var endTime = startDelay + 1f / 3;
+
+            clip.SetCurve("", Il2CppType.Of<CanvasGroup>(), "m_Alpha",
+                new(new(0, 0), new(startDelay, 0), new(endTime, 1)));
+
+            var startingAnchoredY = (anchoredY ?? 0) - 30;
+            clip.SetCurve("", Il2CppType.Of<RectTransform>(), "m_AnchoredPosition.y",
+                new(new(0, startingAnchoredY), new(startDelay, startingAnchoredY), new(endTime, anchoredY ?? 0)));
+
+            animation.AddClip(clip, clip.name);
+            animation.clip = clip;
         }
     }
 }

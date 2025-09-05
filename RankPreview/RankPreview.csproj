@@ -21,6 +21,8 @@
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll" />
+    <Reference Include="../references/UnityEngine.UIModule.dll" />
+    <Reference Include="../references/UnityEngine.AnimationModule.dll" />
     <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
   </ItemGroup>
   

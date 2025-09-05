@@ -1,5 +1,6 @@
 using HarmonyLib;
 using MelonLoader;
+using UnityEngine;
 using UnityEngine.UI;
 
 using Il2Cpp;
@@ -23,7 +24,11 @@ public class PnlVictorySetScorePatch
         var key = $"{trackUid}_{mapDifficulty}";
 
         // TODO looks scuffed, a better way to find the component
-        // currently we go from an actual score text (a number) -> its parent, score text (which we cloned) -> its parent, PnlVictory_3D -> _the_ component by its name
+        // currently we traverse the hierarchy like this:
+        // an actual score text (a number)
+        // -> its parent, score text (which we cloned)
+        //   -> its parent, PnlVictory_3D
+        //     -> its child, _the_ component, by its name
         var textfield = __instance?.m_CurControls?.scoreTxt?.transform.parent.parent.Find(Constants.ExtraComponentName);
         if (textfield != null)
         {
@@ -32,7 +37,8 @@ public class PnlVictorySetScorePatch
             {
                 text.text = Melon<RankPreviewMod>.Instance.Cache.EstimateRank(key, ourScore);
             }
-            // TODO play animation
+            var animation = textfield.GetComponent<Animation>();
+            animation?.Play(animation.clip?.name);
         }
     }
 }
