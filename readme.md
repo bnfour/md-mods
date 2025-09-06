@@ -12,6 +12,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [True rank](#true-rank) — changes "999+" in the scoreboard to an actual rank
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
 - [Song info](#song-info) — shows song's BPM and duration
+- [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -144,6 +145,37 @@ To revert to the default display, just remove the entry from the overrides file,
 If `song_info_override.json` does not contain valid JSON in expected format, a warning will be displayed at startup. The file will get overwritten by mod if it encounters a song it doesn't have data for — it will be stored in the file.
 
 </details>
+
+## Rank preview
+Mod file: `RankPreview.dll`
+
+This mod adds a small textfield with a predicted* scoreboard rank to the song clear screen next to the achieved score, so you don't have to exit back to the song select to check it; and can just restart straight away if wanted:
+
+![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.png)
+
+_*may not be totally accurate in certain circumstances_
+
+> [!TIP]
+> This mod is not very useful unless you consistently score top 100 worthy results seen on the in-game scoreboard.  
+> All other ranks are reported simply as `#100+`, be it #101, #1999, or even a score of 0.
+
+Please note the following caveats:
+- The score is compared to a snapshot of the scoreboard visible on preparation panel _as it were before starting the song._  
+In order for the mod to work, allow the scoreboard to load before starting the song. The mod will report `¯\_(ツ)_/¯` as a rank if the scoreboard state was not stored.
+- The mod simply compares achieved score with the scoreboard state as is.  
+The predicted rank is the position the score would be placed, _if eligible_ (as in "there is no better score already"). If there is a better score, it is **not** excluded, so the predicted rank in that case is more of "what rank would someone else get if this score were his best record?".
+
+In addition, the mod may add a few `!` and/or `?` characters to the rank, depending on its "impressiveness" and "uncertainty" (all numbers inclusive):
+| level ╲ stat | Impressive? | Uncertain? |
+| ---: | :---: | :---: |
+| Default | ` `<br/>ranks 51–∞ | ` `<br/>91–100 scoreboard entries |
+| Somewhat | `!`<br/>ranks 21–50 | `?`<br/>51–90 scoreboard entries |
+| Yes | `!!`<br/>ranks 9–20 | `??`<br/>1–50 scoreboard entries |
+| Very | `!!!`<br/>ranks 1–8<br/>(visible without scrolling) | `???`<br/>no scoreboard entries at all<br/>(or the scoreboards are broken again) |
+
+Impressiveness is just an arbitrary categorization for the ranks for discern at glance.
+
+Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved greater scores at the same time, but there's no way for this mod to know until the scoreboard is reloaded.
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
