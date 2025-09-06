@@ -88,23 +88,22 @@ Mod file: `SongInfo.dll`
 
 This mod adds song's BPM and duration display to the song info screen. Multiple layouts available:
 
-| Out of the box, no Scoreboard characters | "Classic" layout, Scoreboard characters required |
+| Top right (symmetrical with level designer label) | Best record panel |
 | :---: | :---: |
-| ![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png) | ![推しに決まった!!](readme-images/song-info/song-info-classic.png) |
+| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.png) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.png) |
 
-TODO image for the new layout, table layout?
+- ↖️ "Default" one line layout in the top-right corner that does not clip with the vanilla character select UI.  
+Okay to use whether Scoreboard characters mod is installed or not.
+- ↙️ "Classic" two lines layout in the top-right corner, used to be the only option for earlier versions.  
+**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
+- ➡️ "Alternative" two lines layout that moves the data to Best record panel, below the level statistics.  
+Also okay to use whenever.
 
 > [!NOTE]
-> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
+> The song duration shown is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.  
+> BPM is taken straight from the game data as is.
 
 ### Configuration
-The layouts for BPM and duration display include:
-- "Default" one line layout in the top-right corner that does not clip with the vanilla character select UI.  
-Okay to use whether Scoreboard characters mod is installed or not.
-- "Classic" two lines layout in the top-right corner, used to be the only option for earlier versions.  
-**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
-- "Alternative" two lines layout that moves the data to Best Record panel, below the statistics.  
-Also okay to use whenever.
 
 The layout preference is stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
