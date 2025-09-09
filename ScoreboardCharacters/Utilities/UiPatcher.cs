@@ -95,7 +95,7 @@ public static class UiPatcher
             // just to the right of config lock button, taking scale and pixel perfectish offsets into account:
             // 43 is amount of _screen_ pixels (in 1080) to move,
             // offsets are to clamp position to whole pixels
-            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.215f, 0.3f, 0);
+            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.27f, 0.37f, 0);
             currentConfigImage.color = Color.white;
 
             // the character/elfin text is hereby banished to the shadow realm until further notice
@@ -153,7 +153,6 @@ public static class UiPatcher
             {
                 buttonTransform.anchoredPosition3D += new Vector3(0, 2, 0);
             }
-
 
             // update the sprite on creation so it shows the current config on panel open
             UpdateLevelConfigUI();
