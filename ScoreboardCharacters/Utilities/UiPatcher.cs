@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
+using Il2CppAssets.Scripts.UI.Panels;
 using Il2CppInterop.Runtime;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
@@ -46,7 +47,7 @@ public static class UiPatcher
         }
     }
 
-    public static void FillScoreboardEntry(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry)
+    public static void FillScoreboardEntry(GameObject rankCell, AdditionalScoreboardDataEntry dataEntry)
     {
         var extraField = rankCell.transform.FindChild(ScoreboardEntryComponentName);
         if (extraField != null)
@@ -143,6 +144,17 @@ public static class UiPatcher
 
             // update the sprite on creation so it shows the current config on panel open
             UpdateLevelConfigUI();
+        }
+    }
+
+    public static void FixRankPanelHeight(PnlRank instance)
+    {
+        var bg = instance.transform.Find("Mask/ImgTittleBaseP/ImgRankTips");
+        var rt = bg?.GetComponent<RectTransform>();
+        if (rt != null)
+        {
+            rt.sizeDelta += new Vector2(0, 1f);
+            rt.anchoredPosition3D += new Vector3(0, -0.5f, 0);
         }
     }
 
