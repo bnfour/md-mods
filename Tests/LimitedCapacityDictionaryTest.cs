@@ -1,6 +1,6 @@
 using Bnfour.MuseDashMods.RankPreview.Utilities;
 
-namespace Tests;
+namespace Bnfour.MuseDashMods.Tests;
 
 public class LimitedCapacityDictionaryTest
 {

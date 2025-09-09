@@ -1,6 +1,6 @@
 using Bnfour.MuseDashMods.SongInfo.Utilities;
 
-namespace Tests;
+namespace Bnfour.MuseDashMods.Tests;
 
 public class MusicInfoUidComparerTest
 {
