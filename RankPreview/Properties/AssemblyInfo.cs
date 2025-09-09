@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using MelonLoader;
 
 using Bnfour.MuseDashMods.RankPreview;
@@ -10,3 +11,5 @@ using Bnfour.MuseDashMods.RankPreview;
 
 [assembly: AssemblyDescription("Shows estimated scoreboard rank (if in top 100) on stats screen")]
 [assembly: AssemblyCopyright("bnfour 2025; open-source")]
+
+[assembly: InternalsVisibleTo("Tests")]
