@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongInfo", "SongInfo\SongIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITweaks", "UITweaks\UITweaks.csproj", "{5CEFBCD5-2126-4FBA-B411-9F51AF0676B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RankPreview", "RankPreview\RankPreview.csproj", "{EE83507B-3FFA-485F-8292-E0487DF57572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{5CEFBCD5-2126-4FBA-B411-9F51AF0676B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CEFBCD5-2126-4FBA-B411-9F51AF0676B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CEFBCD5-2126-4FBA-B411-9F51AF0676B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE83507B-3FFA-485F-8292-E0487DF57572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE83507B-3FFA-485F-8292-E0487DF57572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE83507B-3FFA-485F-8292-E0487DF57572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE83507B-3FFA-485F-8292-E0487DF57572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
