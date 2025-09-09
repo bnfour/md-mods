@@ -53,15 +53,13 @@ public class SpritesheetManager
             var overrideBitmap = SKImage.FromEncodedData(overrideFullPath);
             if (overrideBitmap.Width % Constants.SpritesPerRow != 0)
             {
-                var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
-                logger.Warning($"The width of the override image ({overrideBitmap.Width}) is not divisible by {Constants.SpritesPerRow}. The override will not be applied.");
+                MelonLoader.Melon<ScoreboardCharactersMod>.Logger.Warning($"The width of the override image ({overrideBitmap.Width}) is not divisible by {Constants.SpritesPerRow}. The override will not be applied.");
                 return null;
             }
             int potentialOverrideSpriteSize = overrideBitmap.Width / Constants.SpritesPerRow;
             if (overrideBitmap.Height % potentialOverrideSpriteSize != 0)
             {
-                var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
-                logger.Warning($"The height of the override image ({overrideBitmap.Height}) is not divisible by sprite size ({potentialOverrideSpriteSize}). The override will not be applied.");
+                MelonLoader.Melon<ScoreboardCharactersMod>.Logger.Warning($"The height of the override image ({overrideBitmap.Height}) is not divisible by sprite size ({potentialOverrideSpriteSize}). The override will not be applied.");
                 return null;
             }
 

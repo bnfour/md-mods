@@ -13,10 +13,12 @@ public class PnlRankInitPatch
     internal static void Postfix(PnlRank __instance)
     {
         var mod = Melon<ScoreboardCharactersMod>.Instance;
-        if (!mod.WasRankHeightUpdatedThisScene)
+        if (!mod.OncePerSceneUpdatesApplied)
         {
             UiPatcher.FixRankPanelHeight(__instance);
-            mod.WasRankHeightUpdatedThisScene = true;
+            UiPatcher.CreateModUiForScoreboardEntry(__instance.server);
+
+            mod.OncePerSceneUpdatesApplied = true;
         }
     }
 }
