@@ -24,6 +24,7 @@ public static class UiPatcher
     private const string CustomLevelConfigPath = "UI/Standerd/PnlPreparation/RightRoot/Top/RootLevelConfigShow/" + CustomLevelConfigComponentName;
 
     private const float LevelConfigInnerScale = 1.25f;
+    private const int ToggleLineExtraHeight = 6;
 
     public static void CreateModUiForScoreboardEntry(GameObject rankCell)
     {
@@ -123,7 +124,7 @@ public static class UiPatcher
                 }
                 // set as the first sibling so it's rendered first as a background for everything else
                 clonedImage.rectTransform.SetAsFirstSibling();
-                clonedImage.rectTransform.sizeDelta = new(150 * LevelConfigInnerScale, clonedImage.rectTransform.sizeDelta.y + 6 * LevelConfigInnerScale);
+                clonedImage.rectTransform.sizeDelta = new(150 * LevelConfigInnerScale, clonedImage.rectTransform.sizeDelta.y + ToggleLineExtraHeight * LevelConfigInnerScale);
                 clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
                 // hide the original image
                 originalImage.color = Color.clear;
@@ -135,14 +136,20 @@ public static class UiPatcher
                 eTransform.anchoredPosition3D += new Vector3(-106 * LevelConfigInnerScale, 0, 0);
             }
 
+            // random mode toggle: move and change thickness to match the other one
             var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
             if (randomToggleTransform != null)
             {
                 randomToggleTransform.anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
             }
+            var randomToggleBg = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<Image>();
+            if (randomToggleBg != null)
+            {
+                randomToggleBg.rectTransform.sizeDelta += new Vector2(0, ToggleLineExtraHeight * LevelConfigInnerScale);
+            }
 
             // update the sprite on creation so it shows the current config on panel open
-            UpdateLevelConfigUI();
+                UpdateLevelConfigUI();
         }
     }
 
