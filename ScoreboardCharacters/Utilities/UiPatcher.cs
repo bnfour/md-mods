@@ -123,17 +123,16 @@ public static class UiPatcher
                 }
                 // set as the first sibling so it's rendered first as a background for everything else
                 clonedImage.rectTransform.SetAsFirstSibling();
-                // sizing/positioning provisional
-                clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y + 6 * LevelConfigInnerScale);
+                clonedImage.rectTransform.sizeDelta = new(150 * LevelConfigInnerScale, clonedImage.rectTransform.sizeDelta.y + 6 * LevelConfigInnerScale);
                 clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
                 // hide the original image
                 originalImage.color = Color.clear;
             }
-            // the small "E" button
+            // the small "E" button hint
             var eTransform = levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")?.GetComponent<RectTransform>();
             if (eTransform != null)
             {
-                eTransform.anchoredPosition3D += new Vector3(-104 * LevelConfigInnerScale, 0, 0);
+                eTransform.anchoredPosition3D += new Vector3(-106 * LevelConfigInnerScale, 0, 0);
             }
 
             var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
