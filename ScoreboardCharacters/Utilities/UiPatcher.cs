@@ -124,7 +124,7 @@ public static class UiPatcher
                 // set as the first sibling so it's rendered first as a background for everything else
                 clonedImage.rectTransform.SetAsFirstSibling();
                 // sizing/positioning provisional
-                clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y);
+                clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y + 6 * LevelConfigInnerScale);
                 clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
                 // hide the original image
                 originalImage.color = Color.clear;
