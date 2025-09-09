@@ -86,30 +86,33 @@ https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 ## Song info
 Mod file: `SongInfo.dll`
 
-This mod adds song's BPM and duration display to the song info screen (the data is supposed to be symmetrical with the level designer label):
+This mod adds song's BPM and duration display to the song info screen. Multiple layouts available:
 
-| Out of the box, no Scoreboard characters | Alternative layout, Scoreboard characters required |
+| Top right (symmetrical with level designer label) | Best record panel |
 | :---: | :---: |
-| ![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png) | ![推しに決まった!!](readme-images/song-info/song-info-classic.png) |
+| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.png) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.png) |
+
+- ↖️ "Default" one line layout in the top-right corner that does not clip with the vanilla character select UI.  
+Okay to use whether Scoreboard characters mod is installed or not.
+- ↙️ "Classic" two lines layout in the top-right corner, used to be the only option for earlier versions.  
+**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
+- ➡️ "Alternative" two lines layout that moves the data to Best record panel, below the level statistics.  
+Also okay to use whenever.
 
 > [!NOTE]
-> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
+> The song duration shown is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.  
+> BPM is taken straight from the game data as is.
 
 ### Configuration
-This mod includes two layouts for BPM and duration display:
-- Default one line layout that does not clip with the vanilla character select UI.  
-Okay to use whether Scoreboard characters mod is installed or not.
-- Classic two line layout, used to be the only option for earlier versions.  
-**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
 
 The layout preference is stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
 [Bnfour_SongInfo]
-# Sets the layout to use. "OneLine" or "TwoLines". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.
+# Sets the layout to use. "OneLine", "TwoLines", or "BestRecord". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.
 Layout = "OneLine"
 ```
 
-Set the value of `Layout` to `"TwoLines"` (note the quotes) for the classic layout. `"OneLine"` is the default.
+Set the value of `Layout` to `"TwoLines"` (note the quotes) for the classic layout, or to `"BestRecord"` to move the data to the middle of the screen below the statistics. `"OneLine"` is the default.
 
 ### Cache (ab)use (advanced; also useless)
 <details>
@@ -121,7 +124,7 @@ The file, `song_info_override.json`, is stored in `MuseDash_Data` directory of t
 
 After a mod update, local overrides are automatically removed from the file if they match with the updated built-in data. The file itself is removed if no overrides remain.
 
-However, the mod _currently_ does not remove overrides that do not match its own data. Therefore, it's possible to store arbitrary strings in there, and the mod will display these as song duration.
+However, the mod _currently_ does not remove overrides that do not match its own data. Therefore, it's possible to store arbitrary strings in there, and the mod will display these as "song duration".
 
 The file itself is a simple string to string JSON dictionary:
 - the key is a song's so called `uid`; a string in `{album id}-{song id}` format

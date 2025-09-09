@@ -27,7 +27,7 @@ public class SongInfoMod : MelonMod
     {
         _preferencesCategory = MelonPreferences.CreateCategory("Bnfour_SongInfo");
         _layoutToUse = _preferencesCategory.CreateEntry("Layout", SongInfoLayout.OneLine,
-            "Display layout", "Sets the layout to use. \"OneLine\" or \"TwoLines\". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.");
+            "Display layout", "Sets the layout to use. \"OneLine\", \"TwoLines\", or \"BestRecord\". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.");
 
 #if DEBUG
         LoggerInstance.Warning($"Debug builds of Song info tank FPS. Please be sure you know what you are doing.");
