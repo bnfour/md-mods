@@ -48,10 +48,14 @@ public class LimitedCapacityDictionary<TKey, TValue> where TKey : notnull
             if (_backend.Count == _capacity && !_backend.ContainsKey(key))
             {
                 // remove the oldest element, that's why we keep around the key queue
-                _backend.Remove(_keys.Dequeue());
+                var toRemove = _keys.Dequeue();
+                _backend.Remove(toRemove);
             }
 
-            _keys.Enqueue(key);
+            if (!_backend.ContainsKey(key))
+            {
+                _keys.Enqueue(key);
+            }
             _backend[key] = value;
         }
     }
