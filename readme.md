@@ -18,11 +18,11 @@ This repo currently contains the following mods. They can be used in any combina
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
-![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png)
+![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.avif)
 
-The buttons can be clicked, and will set your current character and elfin to these shown. It will even scroll the selection screens for you.
+It will even scroll the selection screens for you.
 
-In addition, the character and elfin switch UI and random toggle are moved to the top of the scoreboard panel; current character and elfin text is replaced with an icon.
+As you can see, the character and elfin switch UI and random mode toggle are moved to the top of the scoreboard panel; current character and elfin text is replaced with an icon.
 
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
