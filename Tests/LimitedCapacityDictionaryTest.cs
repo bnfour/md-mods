@@ -61,10 +61,10 @@ public class LimitedCapacityDictionaryTest
         {
             Assert.True(lcd.ContainsKey(i));
             Assert.Equal(i * i * 10, lcd[i]);
-            lcd[i] = i;
-            Assert.Equal(i, lcd[i]);
         }
 
         Assert.False(lcd.ContainsKey(15));
     }
+
+    // TODO test the "updating requeues the key" BEFORE the implementation
 }

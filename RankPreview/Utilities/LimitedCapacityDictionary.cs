@@ -52,6 +52,8 @@ public class LimitedCapacityDictionary<TKey, TValue> where TKey : notnull
                 _backend.Remove(toRemove);
             }
 
+            // TODO updating should move the key back in the queue
+            // is it even a queue at this point?
             if (!_backend.ContainsKey(key))
             {
                 _keys.Enqueue(key);
