@@ -136,7 +136,8 @@ public static class UiPatcher
                 eTransform.anchoredPosition3D += new Vector3(-106 * LevelConfigInnerScale, 0, 0);
             }
 
-            // random mode toggle: move and change thickness to match the other one
+            // random mode toggle: move and change thickness to match the other one,
+            // move the key hint up to not hang below the panel and to math the other one
             var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
             if (randomToggleTransform != null)
             {
@@ -147,9 +148,15 @@ public static class UiPatcher
             {
                 randomToggleBg.rectTransform.sizeDelta += new Vector2(0, ToggleLineExtraHeight * LevelConfigInnerScale);
             }
+            var buttonTransform = levelConfigUIGroup.Find("ImgRandomBg/ImgRandomFlagBg/KeyTip")?.GetComponent<RectTransform>();
+            if (buttonTransform != null)
+            {
+                buttonTransform.anchoredPosition3D += new Vector3(0, 2, 0);
+            }
+
 
             // update the sprite on creation so it shows the current config on panel open
-                UpdateLevelConfigUI();
+            UpdateLevelConfigUI();
         }
     }
 
