@@ -7,34 +7,6 @@ public class MusicInfoUidComparerTest
     private readonly MusicInfoUidComparer _comparer;
     private readonly Random _random;
 
-    // helper aliases for positive test
-    private static readonly Func<int, bool> Greater = (result) => result > 0;
-    private static readonly Func<int, bool> Equal = (result) => result == 0;
-    private static readonly Func<int, bool> Lesser = (result) => result < 0;
-
-    public static readonly TheoryData<Func<int, bool>, string, string> DataForPositiveTests =
-    [
-        new(Equal, "3-2", "3-2"),
-
-        new(Greater, "0-1", "0-0"),
-        new(Greater, "0-10", "0-0"),
-        new(Greater, "1-0", "0-0"),
-        new(Greater, "1-0", "0-99"),
-        new(Greater, "10-1", "2-1"),
-
-        new(Greater, "12-10", "12-2"),
-        new(Greater, "12-20", "12-2"),
-
-        new(Lesser, "0-0", "0-1"),
-        new(Lesser, "0-0", "0-10"),
-        new(Lesser, "0-0", "1-0"),
-        new(Lesser, "0-99", "1-0"),
-        new(Lesser, "2-1", "10-1"),
-
-        new(Lesser, "12-2", "12-10"),
-        new(Lesser, "12-2", "12-20")
-    ];
-
     public MusicInfoUidComparerTest()
     {
         _comparer = new();
@@ -51,10 +23,24 @@ public class MusicInfoUidComparerTest
     }
 
     [Theory]
-    [MemberData(nameof(DataForPositiveTests))]
-    public void DoesCareAboutUids(Func<int, bool> helper, string first, string second)
+    [InlineData(0, "3-2", "3-2")]
+    [InlineData(1, "0-1", "0-0")]
+    [InlineData(1, "0-10", "0-0")]
+    [InlineData(1, "1-0", "0-0")]
+    [InlineData(1, "1-0", "0-99")]
+    [InlineData(1, "10-1", "2-1")]
+    [InlineData(1, "12-10", "12-2")]
+    [InlineData(1, "12-20", "12-2")]
+    [InlineData(-1, "0-0", "0-1")]
+    [InlineData(-1, "0-0", "0-10")]
+    [InlineData(-1, "0-0", "1-0")]
+    [InlineData(-1, "0-99", "1-0")]
+    [InlineData(-1, "2-1", "10-1")]
+    [InlineData(-1, "12-2", "12-10")]
+    [InlineData(-1, "12-2", "12-20")]
+    public void DoesCareAboutUids(int expectedSign, string first, string second)
     {
-        Assert.True(helper(_comparer.Compare(first, second)));
+        Assert.Equal(expectedSign, Math.Sign(_comparer.Compare(first, second)));
     }
 
     [Fact]
