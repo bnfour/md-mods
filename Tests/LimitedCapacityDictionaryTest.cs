@@ -9,7 +9,8 @@ public class LimitedCapacityDictionaryTest
     [InlineData(-3)]
     public void ThrowsOnZeroAndBelowCapacity(int badCapacity)
     {
-        Assert.Throws<ArgumentException>(() => new LimitedCapacityDictionary<int, string>(badCapacity));
+        Assert.Throws<ArgumentException>(() => new LimitedCapacityDictionary<int, string>(badCapacity),
+            (ex) => ex.Message == "Capacity must be at least 1. (Parameter 'capacity')" && ex.ParamName == "capacity" ? null : "bad exception message");
     }
 
     [Fact]

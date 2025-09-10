@@ -6,6 +6,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Bnfour.MuseDashMods.Tests</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
+    <!-- this seems to speed up tests, so why not -->
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <!--
     To enable the Microsoft Testing Platform 'dotnet test' experience, add property:
       <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>

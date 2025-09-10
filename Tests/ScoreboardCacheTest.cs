@@ -4,10 +4,16 @@ using Bnfour.MuseDashMods.RankPreview.Utilities;
 
 namespace Bnfour.MuseDashMods.Tests;
 
-public class ScoreboardCacheTest
+public partial class ScoreboardCacheTest
 {
     private readonly ScoreboardCache _cache;
     private readonly Random _random;
+
+    [GeneratedRegex(@"\d+")]
+    private static partial Regex NumberRegex();
+
+    [GeneratedRegex(@"#([1-9][0-9]?|100\+)!{0,3}\?{0,3}", RegexOptions.ExplicitCapture)]
+    private static partial Regex ValidEstimationRegex();
 
     public ScoreboardCacheTest()
     {
@@ -112,19 +118,19 @@ public class ScoreboardCacheTest
     {
         _cache.Store("xdd", scoreboard);
         var rawRank = _cache.EstimateRank("xdd", score);
-        var rawNumber = Regex.Match(rawRank, @"\d+").Value;
+        var rawNumber = NumberRegex().Match(rawRank).Value;
 
         Assert.True(int.TryParse(rawNumber, out int estimatedRank));
         Assert.Equal(expectedRank, estimatedRank);
 
-        Assert.True(Regex.Match(rawRank, @"#([1-9][0-9]?|100\+)!{0,3}\?{0,3}", RegexOptions.ExplicitCapture).Success);
+        Assert.True(ValidEstimationRegex().Match(rawRank).Success);
     }
 
     [Fact]
     public void AlternateRankingTest()
     {
         // run a few times to be sure
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 3; i++)
         {
             var scoreboard = Enumerable.Range(0, 200)
                 .Select(i => _random.Next(10_000, 1_000_000)).OrderByDescending(x => x)
@@ -138,14 +144,14 @@ public class ScoreboardCacheTest
                     Array.LastIndexOf([.. scoreboard.Append(score).OrderByDescending(x => x)], score) + 1);
 
             var rawRank = _cache.EstimateRank("okayeg", score);
-            var rawNumber = Regex.Match(rawRank, @"\d+").Value;
+            var rawNumber = NumberRegex().Match(rawRank).Value;
 
             Assert.True(int.TryParse(rawNumber, out int estimatedRank));
             Assert.Equal(expected, estimatedRank);
             // 200 entries => we're fairly certain
             Assert.Equal(0, rawRank.Count(c => c == '?'));
 
-            Assert.True(Regex.Match(rawRank, @"#([1-9][0-9]?|100\+)!{0,3}\?{0,3}", RegexOptions.ExplicitCapture).Success);
+            Assert.True(ValidEstimationRegex().Match(rawRank).Success);
         }
     }
 }

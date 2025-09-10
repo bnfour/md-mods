@@ -11,8 +11,11 @@ namespace Bnfour.MuseDashMods.RankPreview.Utilities;
 /// </summary>
 /// <typeparam name="TKey">Type for the dictionary keys.</typeparam>
 /// <typeparam name="TValue">Type for the dictionary values.</typeparam>
-/// <remarks>This is a toy class with a very simple intended usage, so the monstrous IDictionary<TKey, TValue>
-/// to make it useful outside of this mod is not implemented. See https://stackoverflow.com/a/25369554</remarks>
+/// <remarks>
+/// This is a toy class with a very simple intended usage, so the monstrous IDictionary
+/// to make it useful outside of this mod is not implemented. See https://stackoverflow.com/a/25369554
+/// for the inspiration for this.
+/// </remarks>
 public class LimitedCapacityDictionary<TKey, TValue> where TKey : notnull
 {
     /// <summary>
@@ -24,8 +27,8 @@ public class LimitedCapacityDictionary<TKey, TValue> where TKey : notnull
     /// </summary>
     private readonly Dictionary<TKey, TValue> _backend;
     /// <summary>
-    /// Stores the dictionary keys in order they were added, so we know which one is the oldest
-    /// (to remove it) when we have to make room for a new entry.
+    /// Stores the dictionary keys by the order they were added -- newest first,
+    /// so we know which one is the oldest (to remove it) when we have to make room for a new entry.
     /// </summary>
     private readonly LinkedList<TKey> _keys;
 
@@ -56,17 +59,17 @@ public class LimitedCapacityDictionary<TKey, TValue> where TKey : notnull
 
             // updating also affects the key order
             var wasRemoved = _keys.Remove(key);
-            Debug.Assert(wasRemoved == _backend.ContainsKey(key));
+            Debug.Assert(wasRemoved == _backend.ContainsKey(key), "Possible desync: removed a key that was not in backend");
             _keys.AddFirst(key);
             _backend[key] = value;
 
             // just to be sure
-            Debug.Assert(_keys.Count <= _capacity);
-            Debug.Assert(_backend.Count <= _capacity);
+            Debug.Assert(_keys.Count <= _capacity, "Keys list overcapacity");
+            Debug.Assert(_backend.Count <= _capacity, "Backend overcapacity");
 
-            Debug.Assert(_keys.Count == _backend.Count);
-            Debug.Assert(_keys.All(k => _backend.ContainsKey(k)));
-            Debug.Assert(_backend.Keys.All(k => _keys.Contains(k)));
+            Debug.Assert(_keys.Count == _backend.Count, "Key counts differ");
+            Debug.Assert(_keys.All(k => _backend.ContainsKey(k)), "Key not in backend found in keys list");
+            Debug.Assert(_backend.Keys.All(k => _keys.Contains(k)), "Key not in key list found in backend");
         }
     }
 

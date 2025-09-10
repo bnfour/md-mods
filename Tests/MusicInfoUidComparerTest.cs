@@ -17,6 +17,10 @@ public class MusicInfoUidComparerTest
     [InlineData("forsen", "nesrof")]
     [InlineData("10-0", "nesrof")]
     [InlineData("forsen", "10-0")]
+    [InlineData("10-0", "10-0-0")]
+    [InlineData("10.5-0", "10-0")]
+    [InlineData("10-0", "10-")]
+    [InlineData("-0", "10-0")]
     public void DoesNotCareAboutNonUids(string first, string second)
     {
         Assert.Equal(0, _comparer.Compare(first, second));
@@ -31,16 +35,10 @@ public class MusicInfoUidComparerTest
     [InlineData(1, "10-1", "2-1")]
     [InlineData(1, "12-10", "12-2")]
     [InlineData(1, "12-20", "12-2")]
-    [InlineData(-1, "0-0", "0-1")]
-    [InlineData(-1, "0-0", "0-10")]
-    [InlineData(-1, "0-0", "1-0")]
-    [InlineData(-1, "0-99", "1-0")]
-    [InlineData(-1, "2-1", "10-1")]
-    [InlineData(-1, "12-2", "12-10")]
-    [InlineData(-1, "12-2", "12-20")]
     public void DoesCareAboutUids(int expectedSign, string first, string second)
     {
         Assert.Equal(expectedSign, Math.Sign(_comparer.Compare(first, second)));
+        Assert.Equal(-expectedSign, Math.Sign(_comparer.Compare(second, first)));
     }
 
     [Fact]
