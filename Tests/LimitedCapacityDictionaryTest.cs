@@ -66,5 +66,24 @@ public class LimitedCapacityDictionaryTest
         Assert.False(lcd.ContainsKey(15));
     }
 
-    // TODO test the "updating requeues the key" BEFORE the implementation
+    [Fact]
+    public void UpdatingDelaysRemoval()
+    {
+        var lcd = new LimitedCapacityDictionary<int, string>(3);
+
+        lcd[0] = "nil";
+        lcd[1] = "one";
+        lcd[2] = "two";
+        // updating 0 makes 1 the oldest key
+        lcd[0] = "zero";
+
+        lcd[3] = "two episode one";
+
+        Assert.True(lcd.ContainsKey(0));
+
+        Assert.False(lcd.ContainsKey(1));
+
+        Assert.True(lcd.ContainsKey(2));
+        Assert.True(lcd.ContainsKey(3));
+    }
 }
