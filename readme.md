@@ -394,6 +394,13 @@ This should cover the local references for all projects. (Actually, **most** of 
 
 After that, just run `dotnet build`.
 
+## Unit tests
+**Very** limited coverage.
+
+Most of the code in this repo is very tightly coupled with the game code and can't be run outside the game. However, there are a few utility classes that are standalone enough to be tested. Better than nothing.
+
+Tests are based on [xUnit 3](https://xunit.net/index.html?tabs=cs). `dotnet test` should work.
+
 ## Enabling SkiaSharp for Scoreboard characters
 Scoreboard characters mod uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and I include these in downloads for convenience.
 
