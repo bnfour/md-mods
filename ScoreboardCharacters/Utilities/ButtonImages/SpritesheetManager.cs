@@ -1,3 +1,4 @@
+using MelonLoader;
 using SkiaSharp;
 using System;
 using System.IO;
@@ -112,6 +113,6 @@ public class SpritesheetManager
         var spriteRows = source.Height / (source.Width / Constants.SpritesPerRow);
         var scaledSize = new SKImageInfo(Constants.SpritesPerRow * targetSpriteSize, spriteRows * targetSpriteSize);
 
-        return source.Resize(scaledSize, SKFilterQuality.High);
+        return source.Resize(scaledSize, new SKSamplingOptions(SKCubicResampler.Mitchell));
     }
 }
