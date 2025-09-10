@@ -21,7 +21,7 @@ public class LimitedCapacityDictionaryTest
 
         Assert.True(lcd.ContainsKey(0));
         Assert.Equal(0, lcd[0]);
-        // add to max capacity
+        // add elements up to the max capacity
         for (int i = 1; i < 8; i++)
         {
             lcd[i] = i * i;
@@ -76,13 +76,10 @@ public class LimitedCapacityDictionaryTest
         lcd[2] = "two";
         // updating 0 makes 1 the oldest key
         lcd[0] = "zero";
-
         lcd[3] = "two episode one";
 
         Assert.True(lcd.ContainsKey(0));
-
         Assert.False(lcd.ContainsKey(1));
-
         Assert.True(lcd.ContainsKey(2));
         Assert.True(lcd.ContainsKey(3));
     }
