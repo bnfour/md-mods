@@ -152,7 +152,7 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 ## Rank preview
 Mod file: `RankPreview.dll`
 
-This mod adds a small textfield with a predicted* scoreboard rank to the song clear screen next to the achieved score, so you don't have to exit back to the song select to check it; and can just restart straight away if wanted:
+This mod adds a small textfield with a predicted* scoreboard rank to the song clear screen — next to the achieved score, so you don't have to go all the way back to the song info screen to check it:
 
 ![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.png)
 
@@ -162,13 +162,15 @@ _*may not be totally accurate in certain circumstances_
 > This mod is not very useful unless you consistently score top 100 worthy results seen on the in-game scoreboard.  
 > All other ranks are reported simply as `#100+`, be it #101, #1999, or even a score of 0.
 
-Please note the following caveats:
-- The score is compared to a snapshot of the scoreboard visible on preparation panel _as it were before starting the song._  
-In order for the mod to work, allow the scoreboard to load before starting the song. The mod will report `¯\_(ツ)_/¯` as a rank if the scoreboard state was not stored.
-- The mod simply compares achieved score with the scoreboard state as is.  
-The predicted rank is the position the score would be placed, _if eligible_ (as in "there is no better score already"). If there is a better score, it is **not** excluded, so the predicted rank in that case is more of "what rank would someone else get if this score were his best record?".
+Please note the following:
+- The score is compared to a _snapshot_ of the scoreboard visible on preparation panel _as it were before starting the song._  
+- - In order for the mod to work, allow the scoreboard to load before starting the song. The mod will report `¯\_(ツ)_/¯` as a rank if the scoreboard state was not stored.
+- - Any changes to the scoreboard in between storing its state and using it to predict a rank (in other words, while you're playing the song) will **not** be reflected and may lead to the predicted rank to be off.
+- The mod simply compares achieved score with the scoreboard state.  
+- - The predicted rank is the position the score would be placed, _if eligible_ (as in "you have not achieved a higher score before").
+- - A higher personal best is **not** excluded, so the predicted rank in that case is more of "what rank would someone else get if this score were his best record?".
 
-In addition, the mod may add a few `!` and/or `?` characters to the rank, depending on its "impressiveness" and "uncertainty" (all numbers inclusive):
+In addition, the mod may add a few `!` and/or `?` characters to the rank, depending on its "impressiveness" and "uncertainty" (numbers inclusive):
 | level ╲ stat | Impressive? | Uncertain? |
 | ---: | :---: | :---: |
 | Default | ` `<br/>ranks 51–∞ | ` `<br/>91–100 scoreboard entries |
@@ -178,7 +180,10 @@ In addition, the mod may add a few `!` and/or `?` characters to the rank, depend
 
 Impressiveness is just an arbitrary categorization for the ranks for discern at glance.
 
-Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved greater scores at the same time, but there's no way for this mod to know until the scoreboard is reloaded.
+Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved higher scores at the same time, but there's no way for this mod to know until the scoreboard is reloaded.
+
+> [!TIP]
+> The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
