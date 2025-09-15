@@ -35,19 +35,12 @@ public class PnlVictoryInitControlPatch
             if (text != null)
             {
                 text.text = string.Empty;
-                var textSizeSource = __instance?.m_CurControls?.highScoreTitle;
-                if (textSizeSource != null)
-                {
-                    text.fontSize = textSizeSource.fontSize;
-                }
+                text.fontSize = 60;
             }
             var transform = clone.GetComponent<RectTransform>();
-            // used in animation as the end value, start value calculated from it
-            float? anchoredY = null;
             if (transform != null)
             {
                 transform.position += new Vector3(-4, 8, 0);
-                anchoredY = transform.anchoredPosition.y;
             }
             clone.AddComponent<CanvasGroup>();
             var animation = clone.AddComponent<Animation>();
@@ -57,15 +50,14 @@ public class PnlVictoryInitControlPatch
                 name = "BnRankPreviewCustomAnimation"
             };
 
-            var startDelay = 1.25f;
-            var endTime = startDelay + 1f / 3;
+            const float startDelay = 1.25f;
+            const float endTime = startDelay + 1f / 3;
 
             clip.SetCurve("", Il2CppType.Of<CanvasGroup>(), "m_Alpha",
                 new(new(0, 0), new(startDelay, 0), new(endTime, 1)));
 
-            var startingAnchoredY = (anchoredY ?? 0) - 30;
             clip.SetCurve("", Il2CppType.Of<RectTransform>(), "m_AnchoredPosition.y",
-                new(new(0, startingAnchoredY), new(startDelay, startingAnchoredY), new(endTime, anchoredY ?? 0)));
+                new(new(0, 200), new(startDelay, 200), new(endTime, 230)));
 
             animation.AddClip(clip, clip.name);
             animation.clip = clip;
