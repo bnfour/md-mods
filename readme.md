@@ -215,7 +215,7 @@ This feature slightly widens the space for the album title on the song selection
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
-(achievements header modified by [one of UI tweaks](#achievements-header-styling))
+(achievements header modified by [another tweak](#achievements-header-styling))
 
 Before:
 
