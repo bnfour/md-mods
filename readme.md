@@ -207,7 +207,7 @@ This feature slightly widens the space for the album title on the song selection
 | State | Illustration |
 | --- | :---: |
 | _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
-| Before | _(no idea why it's like this lol)_ <br/> ![why does it change the font when it does not fit?](readme-images/ui-tweaks/narrow-album-title.avif) |
+| Before | _(fixed as of 5.8.0, will update image later)_ <br/> ![why does it change the font when it does not fit?](readme-images/ui-tweaks/narrow-album-title.avif) |
 | After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
 
 > [!NOTE]
