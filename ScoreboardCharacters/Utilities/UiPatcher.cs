@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
+using Il2CppAssets.Scripts.UI.Panels;
 using Il2CppInterop.Runtime;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
@@ -23,6 +24,7 @@ public static class UiPatcher
     private const string CustomLevelConfigPath = "UI/Standerd/PnlPreparation/RightRoot/Top/RootLevelConfigShow/" + CustomLevelConfigComponentName;
 
     private const float LevelConfigInnerScale = 1.25f;
+    private const int ToggleLineExtraHeight = 6;
 
     public static void CreateModUiForScoreboardEntry(GameObject rankCell)
     {
@@ -46,7 +48,7 @@ public static class UiPatcher
         }
     }
 
-    public static void FillScoreboardEntry(GameObject rankCell, Data.AdditionalScoreboardDataEntry dataEntry)
+    public static void FillScoreboardEntry(GameObject rankCell, AdditionalScoreboardDataEntry dataEntry)
     {
         var extraField = rankCell.transform.FindChild(ScoreboardEntryComponentName);
         if (extraField != null)
@@ -93,7 +95,7 @@ public static class UiPatcher
             // just to the right of config lock button, taking scale and pixel perfectish offsets into account:
             // 43 is amount of _screen_ pixels (in 1080) to move,
             // offsets are to clamp position to whole pixels
-            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.215f, 0.3f, 0);
+            currentConfigImage.rectTransform.anchoredPosition3D = new(-43 * LevelConfigInnerScale + 0.27f, 0.37f, 0);
             currentConfigImage.color = Color.white;
 
             // the character/elfin text is hereby banished to the shadow realm until further notice
@@ -122,27 +124,49 @@ public static class UiPatcher
                 }
                 // set as the first sibling so it's rendered first as a background for everything else
                 clonedImage.rectTransform.SetAsFirstSibling();
-                // sizing/positioning provisional
-                clonedImage.rectTransform.sizeDelta = new(clonedImage.rectTransform.sizeDelta.x / 1.75f, clonedImage.rectTransform.sizeDelta.y);
+                clonedImage.rectTransform.sizeDelta = new(150 * LevelConfigInnerScale, clonedImage.rectTransform.sizeDelta.y + ToggleLineExtraHeight * LevelConfigInnerScale);
                 clonedImage.rectTransform.anchoredPosition3D = new(-42 * LevelConfigInnerScale, 0, 0);
                 // hide the original image
                 originalImage.color = Color.clear;
             }
-            // the small "E" button
+            // the small "E" button hint
             var eTransform = levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")?.GetComponent<RectTransform>();
             if (eTransform != null)
             {
-                eTransform.anchoredPosition3D += new Vector3(-104 * LevelConfigInnerScale, 0, 0);
+                eTransform.anchoredPosition3D += new Vector3(-106 * LevelConfigInnerScale, 0, 0);
             }
 
+            // random mode toggle: move and change thickness to match the other one,
+            // move the key hint up to not hang below the panel and to math the other one
             var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
             if (randomToggleTransform != null)
             {
                 randomToggleTransform.anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
             }
+            var randomToggleBg = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<Image>();
+            if (randomToggleBg != null)
+            {
+                randomToggleBg.rectTransform.sizeDelta += new Vector2(0, ToggleLineExtraHeight * LevelConfigInnerScale);
+            }
+            var buttonTransform = levelConfigUIGroup.Find("ImgRandomBg/ImgRandomFlagBg/KeyTip")?.GetComponent<RectTransform>();
+            if (buttonTransform != null)
+            {
+                buttonTransform.anchoredPosition3D += new Vector3(0, 2, 0);
+            }
 
             // update the sprite on creation so it shows the current config on panel open
             UpdateLevelConfigUI();
+        }
+    }
+
+    public static void FixRankPanelHeight(PnlRank instance)
+    {
+        var bg = instance.transform.Find("Mask/ImgTittleBaseP/ImgRankTips");
+        var rt = bg?.GetComponent<RectTransform>();
+        if (rt != null)
+        {
+            rt.sizeDelta += new Vector2(0, 1f);
+            rt.anchoredPosition3D += new Vector3(0, -0.5f, 0);
         }
     }
 

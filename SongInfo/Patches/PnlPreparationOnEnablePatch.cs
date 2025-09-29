@@ -1,11 +1,12 @@
+using System;
 using HarmonyLib;
 using MelonLoader;
-using UnityEngine;
 
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
 
 using Bnfour.MuseDashMods.SongInfo.Data;
+using Bnfour.MuseDashMods.SongInfo.Utilities.UI.Setting;
 
 namespace Bnfour.MuseDashMods.SongInfo.Patches;
 
@@ -20,28 +21,16 @@ public class PnlPreparationOnEnablePatch
         var info = GlobalDataBase.s_DbMusicTag.CurMusicInfo();
         var bpm = info.bpm;
         var duration = Melon<SongInfoMod>.Instance.DurationProvider.GetDuration(info);
-        var layout = Melon<SongInfoMod>.Instance.Layout;
 
-        var customObject = __instance.transform.Find(Constants.TopRightComponentName);
-        // update the text field(s) with the data based on layout
-        if (layout == SongInfoLayout.OneLine)
+        IDataSetter dataSetter = Melon<SongInfoMod>.Instance.Layout switch
         {
-            customObject?.transform.Find(Constants.OneLineComponentName)
-                ?.GetComponent<LongSongNameController>()
-                ?.Refresh($"{duration}, {bpm} BPM", delay: 0);
-        }
-        else if (layout == SongInfoLayout.TwoLines)
-        {
-            customObject?.transform.Find(Constants.TwoLinesBpmComponentName)
-                ?.GetComponent<LongSongNameController>()
-                ?.Refresh($"BPM: {bpm}", delay: 0);
-            customObject?.transform.Find(Constants.TwoLinesDurationComponentName)
-                ?.GetComponent<LongSongNameController>()
-                ?.Refresh($"Length: {duration}", delay: 0);
-        }
+            SongInfoLayout.OneLine => new TopRightSetterOneLine(),
+            SongInfoLayout.TwoLines => new TopRightSetterTwoLines(),
+            SongInfoLayout.BestRecord => new BestRecordPanelSetter(),
+            _ => throw new ApplicationException("Unknown layout type")
+        };
 
-        var animation = customObject.GetComponent<Animation>();
-        animation?.Play(animation.clip?.name);
+        dataSetter.Set(__instance, bpm, duration);
 
         // for Custom Albums mod compatibility:
         // hide achievements in custom charts (uid start with 999), show in vanilla charts

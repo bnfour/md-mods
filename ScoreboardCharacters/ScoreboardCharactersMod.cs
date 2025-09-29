@@ -10,6 +10,8 @@ public class ScoreboardCharactersMod : MelonMod
     public readonly ButtonImageProvider ButtonImageProvider = new();
     public readonly CharacterSwitcher CharacterSwitcher = new();
 
+    internal bool OncePerSceneUpdatesApplied = false;
+
     public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
     {
         base.OnSceneWasUnloaded(buildIndex, sceneName);
@@ -18,6 +20,7 @@ public class ScoreboardCharactersMod : MelonMod
         {
             ButtonImageProvider.ResetCache();
             CharacterSwitcher.ResetCache();
+            OncePerSceneUpdatesApplied = false;
         }
     }
 }

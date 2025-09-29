@@ -12,17 +12,18 @@ This repo currently contains the following mods. They can be used in any combina
 - [True rank](#true-rank) — changes "999+" in the scoreboard to an actual rank
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
 - [Song info](#song-info) — shows song's BPM and duration
+- [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
 Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
 
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
-![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.png)
+![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.avif)
 
-The buttons can be clicked, and will set your current character and elfin to these shown. It will even scroll the selection screens for you.
+It will even scroll the selection screens for you.
 
-In addition, the character and elfin switch UI and random toggle are moved to the top of the scoreboard panel; current character and elfin text is replaced with an icon.
+As you can see, the character and elfin switch UI and random mode toggle are moved to the top of the scoreboard panel; current character and elfin text is replaced with an icon.
 
 ### Image override (advanced)
 If you don't like the provided default images on the buttons or the way they are scaled on your screen resolution, an override spritesheet can be provided to the mod to display.
@@ -86,30 +87,33 @@ https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 ## Song info
 Mod file: `SongInfo.dll`
 
-This mod adds song's BPM and duration display to the song info screen (the data is supposed to be symmetrical with the level designer label):
+This mod adds song's BPM and duration display to the song info screen. Multiple layouts available:
 
-| Out of the box, no Scoreboard characters | Alternative layout, Scoreboard characters required |
+| Top right (symmetrical with level designer label) | Best record panel |
 | :---: | :---: |
-| ![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png) | ![推しに決まった!!](readme-images/song-info/song-info-classic.png) |
+| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.png) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.png) |
+
+- ↖️ "Default" one line layout in the top-right corner that does not clip with the vanilla character select UI.  
+Okay to use whether Scoreboard characters mod is installed or not.
+- ↙️ "Classic" two lines layout in the top-right corner, used to be the only option for earlier versions.  
+**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
+- ➡️ "Alternative" two lines layout that moves the data to Best record panel, below the level statistics.  
+Also okay to use whenever.
 
 > [!NOTE]
-> The duration is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
+> The song duration shown is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.  
+> BPM is taken straight from the game data as is.
 
 ### Configuration
-This mod includes two layouts for BPM and duration display:
-- Default one line layout that does not clip with the vanilla character select UI.  
-Okay to use whether Scoreboard characters mod is installed or not.
-- Classic two line layout, used to be the only option for earlier versions.  
-**Overlaps** with the vanilla character select UI — requires installation of Scoreboard characters to move the UI out of the way.
 
 The layout preference is stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
 [Bnfour_SongInfo]
-# Sets the layout to use. "OneLine" or "TwoLines". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.
+# Sets the layout to use. "OneLine", "TwoLines", or "BestRecord". Classic two line layout requires Scoreboard characters to move the overlapping vanilla UI.
 Layout = "OneLine"
 ```
 
-Set the value of `Layout` to `"TwoLines"` (note the quotes) for the classic layout. `"OneLine"` is the default.
+Set the value of `Layout` to `"TwoLines"` (note the quotes) for the classic layout, or to `"BestRecord"` to move the data to the middle of the screen below the statistics. `"OneLine"` is the default.
 
 ### Cache (ab)use (advanced; also useless)
 <details>
@@ -121,7 +125,7 @@ The file, `song_info_override.json`, is stored in `MuseDash_Data` directory of t
 
 After a mod update, local overrides are automatically removed from the file if they match with the updated built-in data. The file itself is removed if no overrides remain.
 
-However, the mod _currently_ does not remove overrides that do not match its own data. Therefore, it's possible to store arbitrary strings in there, and the mod will display these as song duration.
+However, the mod _currently_ does not remove overrides that do not match its own data. Therefore, it's possible to store arbitrary strings in there, and the mod will display these as "song duration".
 
 The file itself is a simple string to string JSON dictionary:
 - the key is a song's so called `uid`; a string in `{album id}-{song id}` format
@@ -145,6 +149,42 @@ If `song_info_override.json` does not contain valid JSON in expected format, a w
 
 </details>
 
+## Rank preview
+Mod file: `RankPreview.dll`
+
+This mod adds a small textfield with a predicted* scoreboard rank to the song clear screen — next to the achieved score, so you don't have to go all the way back to the song info screen to check it:
+
+![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.png)
+
+_*may not be totally accurate in certain circumstances_
+
+> [!TIP]
+> This mod is not very useful unless you consistently score top 100 worthy results seen on the in-game scoreboard.  
+> All other ranks are reported simply as `#100+`, be it #101, #1999, or even a score of 0.
+
+Please note the following:
+- The score is compared to a _snapshot_ of the scoreboard visible on preparation panel _as it were before starting the song._  
+- - In order for the mod to work, allow the scoreboard to load before starting the song. The mod will report `¯\_(ツ)_/¯` as a rank if the scoreboard state was not stored.
+- - Any changes to the scoreboard in between storing its state and using it to predict a rank (in other words, while you're playing the song) will **not** be reflected and may lead to the predicted rank to be off.
+- The mod simply compares achieved score with the scoreboard state.  
+- - The predicted rank is the position the score would be placed, _if eligible_ (as in "you have not achieved a higher score before").
+- - A higher personal best is **not** excluded, so the predicted rank in that case is more of "what rank would someone else get if this score were his best record?".
+
+In addition, the mod may add a few `!` and/or `?` characters to the rank, depending on its "impressiveness" and "uncertainty" (numbers inclusive):
+| level ╲ stat | Impressive? | Uncertain? |
+| ---: | :---: | :---: |
+| Default | ` `<br/>ranks 51–∞ | ` `<br/>91–100 scoreboard entries |
+| Somewhat | `!`<br/>ranks 21–50 | `?`<br/>51–90 scoreboard entries |
+| Yes | `!!`<br/>ranks 9–20 | `??`<br/>1–50 scoreboard entries |
+| Very | `!!!`<br/>ranks 1–8<br/>(visible without scrolling) | `???`<br/>no scoreboard entries at all<br/>(or the scoreboards are broken again) |
+
+Impressiveness is just an arbitrary categorization for the ranks for discern at glance.
+
+Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved higher scores at the same time, but there's no way for this mod to know until the scoreboard is reloaded.
+
+> [!TIP]
+> The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
+
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
@@ -167,7 +207,7 @@ This feature slightly widens the space for the album title on the song selection
 | State | Illustration |
 | --- | :---: |
 | _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
-| Before | _(no idea why it's like this lol)_ <br/> ![why does it change the font when it does not fit?](readme-images/ui-tweaks/narrow-album-title.avif) |
+| Before | _(fixed as of 5.8.0, will update image later)_ <br/> ![why does it change the font when it does not fit?](readme-images/ui-tweaks/narrow-album-title.avif) |
 | After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
 
 > [!NOTE]
@@ -175,7 +215,7 @@ This feature slightly widens the space for the album title on the song selection
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
-(achievements header modified by [one of UI tweaks](#achievements-header-styling))
+(achievements header modified by [another tweak](#achievements-header-styling))
 
 Before:
 
@@ -358,6 +398,13 @@ Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folde
 This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries.)
 
 After that, just run `dotnet build`.
+
+## Unit tests
+**Very** limited coverage.
+
+Most of the code in this repo is very tightly coupled with the game code and can't be run outside the game. However, there are a few utility classes that are standalone enough to be tested. Better than nothing.
+
+Tests are based on [xUnit 3](https://xunit.net/index.html?tabs=cs). `dotnet test` should work.
 
 ## Enabling SkiaSharp for Scoreboard characters
 Scoreboard characters mod uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and I include these in downloads for convenience.

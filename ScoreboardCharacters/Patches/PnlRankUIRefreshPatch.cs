@@ -37,10 +37,6 @@ public class PnlRankUIRefreshPatch
             if (selfRank != null && selfRank.Info != null)
             {
                 __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
-                
-                // couldn't find a better place to update it beforehand :(
-                // TODO search for a way to permanently apply the mod UI like for the scoreboard pool
-                UiPatcher.CreateModUiForScoreboardEntry(__instance.server);
             }
         }
 
@@ -107,8 +103,7 @@ public class PnlRankUIRefreshPatch
                 // so far, it very rarely happens randomly (incomplete server response?)
                 // or sometimes when *quickly* switching difficulties (data reset before this loop is completed?)
                 // it's not that common (didn't have this in months) or breaking (a refresh fixes it), so just a warning for now
-                var logger = MelonLoader.Melon<ScoreboardCharactersMod>.Logger;
-                logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
+                MelonLoader.Melon<ScoreboardCharactersMod>.Logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
                 break;
             }
             var correspondingExtraData = __state.Scoreboard[extraDataIndex];
