@@ -399,6 +399,9 @@ This should cover the local references for all projects. (Actually, **most** of 
 
 After that, just run `dotnet build`.
 
+## Creating a release
+As of v30, there's also a script that (hopefully) creates an archive in the format the releases are published, also providing the checksums for the DLLs. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
+
 ## Unit tests
 **Very** limited coverage.
 
