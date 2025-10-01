@@ -202,13 +202,13 @@ The following UI tweaks are currently available:
 Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature slightly widens the space for the album title on the song selection screen, so that even notoriously long "MD-level Tactical Training Blu-ray" and "Legendary Voyage, Mystic Treasure" fit:
+This feature slightly widens the space for the album title on the song selection screen, so that even notoriously long "MD-level Tactical Training Blu-ray" and even longer "Legendary Voyage, Mystic Treasure" fit:
 
 | State | Illustration |
 | --- | :---: |
 | _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
-| Before | _TODO new video_ <br/> ![todo as well](readme-images/ui-tweaks/narrow-album-title.avif) |
-| After | ![ w i d e ](readme-images/ui-tweaks/wide-album-title.png) |
+| Before | ![ｾﾏｲ](readme-images/ui-tweaks/narrow-album-title.avif) |
+| After | ![ ヒ ロ イ ](readme-images/ui-tweaks/wide-album-title.png) |
 
 > [!NOTE]
 > This feature is intended to be used with English locale.
