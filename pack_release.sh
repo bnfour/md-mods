@@ -5,23 +5,34 @@
 
 # puts the archive to upload into /tmp, also provides the list of checksums to paste
 
+echo "bnfour's md-mods OMEGA release script, reporting for duty (• - •)ゝ"
+
 CONFIG="Release"
 FRAMEWORK="net6.0"
 # bash btw; thankfully, proton exists
 RUNTIME="win-x64"
 
 BUILDROOT=$(mktemp --directory)
-MODS="$BUILDROOT/Mods"
-USERLIBS="$BUILDROOT/UserLibs"
+echo "Working directory: $BUILDROOT"
+
+LOGS="$BUILDROOT/logs"
+ARCHIVE_ROOT="$BUILDROOT/pub"
+
+mkdir "$LOGS" "$ARCHIVE_ROOT"
+
+MODS="$ARCHIVE_ROOT/Mods"
+USERLIBS="$ARCHIVE_ROOT/UserLibs"
 
 mkdir "$MODS" "$USERLIBS"
 
 # copy text files
-cp LICENSE "$BUILDROOT/"
-cp release-bundle/* "$BUILDROOT/"
+cp LICENSE "$ARCHIVE_ROOT/"
+cp release-bundle/*.txt "$ARCHIVE_ROOT/"
 
 # build and copy mod DLLs
-dotnet build --configuration "$CONFIG" Bnfour.MuseDashMods.sln
+echo "Building..."
+dotnet build --configuration "$CONFIG" Bnfour.MuseDashMods.sln \
+    &>"$LOGS"/01-dotnet-build.log || { echo "Build error, check the log in $LOGS"; exit 1; }
 
 # figure out the project names,
 # the sed magical invocation is basically "print stuff before the slash from lines matching something/something.csproj"
@@ -34,6 +45,7 @@ do
     then
         echo "Not packing $project (manually configured skip)"
     else
+        echo "Packing $project"
         cp "$project/bin/$CONFIG/$FRAMEWORK/$project.dll" "$MODS/"
     fi
 done
@@ -41,7 +53,9 @@ done
 # we also need to pack SkiaSharp binaries for Scoreboard characters
 # this builds it again, --no-build did not work
 # hopefully msbuild is still smart enough to reuse the DLL we just built
-dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj
+echo "Publishing for extra DLLs..."
+dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj \
+    &>"$LOGS"/02-dotnet-publish.log || { echo "Publish error, check the other log in $LOGS"; exit 1; }
 
 cp ScoreboardCharacters/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/*SkiaSharp.dll "$USERLIBS/"
 
@@ -54,10 +68,12 @@ archive_path="/tmp/md-mods-${new_version}.zip"
 # remove archive if present from previous builds
 rm "$archive_path"
 
-# cd into the buildroot for proper output of the last commands (clean relative paths)
-cd "$BUILDROOT" || exit 1
+# cd into the archive root for proper output for last commands (clean relative paths)
+# exit is there to keep shellcheck happy
+cd "$ARCHIVE_ROOT" || exit 2
 
-zip -r $archive_path ./*
+echo "Zipping..."
+zip -r $archive_path ./* &>"$LOGS"/03-zip.log
 
 # checksums for dlls
 mods_sums=$(sha256sum Mods/*)
@@ -65,16 +81,15 @@ libs_sums=$(sha256sum UserLibs/*)
 
 # end results banner
 cat <<EOF
-================================================================================
-Packing for v$new_version done (hopefully)! (°_°)_b
-================================================================================
+
+Packing for v$new_version done! d_(>ᵕ<)_b
 Archive available at $archive_path
-================================================================================
-Checksums:
+
+Checksums to copypaste:
 \`\`\`
 $mods_sums
 
 $libs_sums
 \`\`\`
-================================================================================
+
 EOF
