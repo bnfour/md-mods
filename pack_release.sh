@@ -85,7 +85,10 @@ cat <<EOF
 Packing for v$new_version done! d_(>ᵕ<)_b
 Archive available at $archive_path
 
-Checksums to copypaste:
+Copypaste:
+
+## Checksums
+Don't forget to verify your downloads! SHA256 checksums for DLLs:
 \`\`\`
 $mods_sums
 
