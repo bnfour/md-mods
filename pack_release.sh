@@ -12,7 +12,7 @@ FRAMEWORK="net6.0"
 # bash btw; thankfully, proton exists
 RUNTIME="win-x64"
 
-BUILDROOT=$(mktemp --directory)
+BUILDROOT=$(mktemp --tmpdir --directory md-mods-release.XXXXXXXXXX)
 echo "Working directory: $BUILDROOT"
 
 LOGS="$BUILDROOT/logs"
@@ -64,16 +64,14 @@ cp ScoreboardCharacters/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/*SkiaSharp.dll "
 # (note to self: please don't forget to pull tags afterwards)
 last_version=$(git tag --list 'v*' | colrm 1 1 | sort --numeric-sort --reverse | head --lines=1)
 new_version=$(( "$last_version" + 1 ))
-archive_path="/tmp/md-mods-${new_version}.zip"
-# remove archive if present from previous builds
-rm "$archive_path"
+archive_path="$BUILDROOT/md-mods-$new_version.zip"
 
 # cd into the archive root for proper output for last commands (clean relative paths)
 # exit is there to keep shellcheck happy
 cd "$ARCHIVE_ROOT" || exit 2
 
 echo "Zipping..."
-zip -r $archive_path ./* &>"$LOGS"/03-zip.log
+zip -r "$archive_path" ./* &>"$LOGS"/03-zip.log
 
 # checksums for dlls
 mods_sums=$(sha256sum Mods/*)
