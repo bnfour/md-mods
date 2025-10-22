@@ -19,8 +19,8 @@ internal static class Locale
     // 5: Korean
     private static readonly string[] _lengthLocalizations = new[]
     {
-        "[none]",
-        "[English]",
+        "[duration]",
+        "Length",
         "[Chinese S]",
         "[Chinese T]",
         "[Japanese]",
