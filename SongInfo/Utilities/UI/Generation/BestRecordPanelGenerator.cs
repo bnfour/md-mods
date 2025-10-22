@@ -5,6 +5,7 @@ using Il2Cpp;
 using Il2CppInterop.Runtime;
 
 using Bnfour.MuseDashMods.SongInfo.UI;
+using Locale = Bnfour.MuseDashMods.SongInfo.Data.Locale;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Generation;
 
@@ -46,7 +47,7 @@ internal class BestRecordPanelGenerator : IComponentGenerator
             var durationTitle = durationField.transform.Find("TxtClear");
             durationTitle.name = Constants.BestRecordPanel.DurationTxt;
             durationTitle.transform.name = Constants.BestRecordPanel.DurationTxt;
-            durationTitle.GetComponent<Text>().text = "DURATION";
+            durationTitle.GetComponent<Text>().text = Locale.Length;
 
             SetupAnimation(durationTitle, 6);
         }
