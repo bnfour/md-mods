@@ -12,7 +12,7 @@ internal class BestRecordPanelSetter : IDataSetter
     public void Set(PnlPreparation panel, string bpm, string duration)
     {
         var animatableBpm = panel.pnlRecord.transform
-            ?.Find(Constants.BestRecordPanel.BpmAnimationPath);
+            ?.Find(Constants.BestRecordPanel.BpmPath);
 
         var bpmText = animatableBpm
             ?.Find(Constants.BestRecordPanel.ValuePath)
@@ -23,7 +23,7 @@ internal class BestRecordPanelSetter : IDataSetter
         }
 
         var animatableDuration = panel.pnlRecord.transform
-            ?.Find(Constants.BestRecordPanel.DurationAnimationPath);
+            ?.Find(Constants.BestRecordPanel.DurationPath);
 
         var durationText = animatableDuration
             ?.Find(Constants.BestRecordPanel.ValuePath)

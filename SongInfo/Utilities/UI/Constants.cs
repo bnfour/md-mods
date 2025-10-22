@@ -31,10 +31,10 @@ internal class Constants
 
         internal const string BpmComponent = "BnSongInfoBestRecordBpm";
         internal const string BpmTxt = "TxtBpm";
-        internal const string BpmAnimationPath = $"Record/{BpmComponent}/{BpmTxt}";
+        internal const string BpmPath = $"Record/{BpmComponent}/{BpmTxt}";
 
         internal const string DurationComponent = "BnSongInfoBestRecordDuration";
         internal const string DurationTxt = "TxtDuration";
-        internal const string DurationAnimationPath = $"Record/{DurationComponent}/{DurationTxt}";
+        internal const string DurationPath = $"Record/{DurationComponent}/{DurationTxt}";
     }
 }
