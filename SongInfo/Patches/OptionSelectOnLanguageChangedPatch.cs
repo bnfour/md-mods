@@ -24,7 +24,7 @@ public class OptionSelectOnLanguageChangedPatch
             var durationHeader = GameObject.Find($"UI/Standerd/PnlPreparation/Panels/PnlRecord/{Constants.BestRecordPanel.DurationPath}");
             if (durationHeader != null)
             {
-                durationHeader.GetComponent<Text>().text = Locale.Length;
+                durationHeader.GetComponent<Text>().text = Locale.Length.ToUpper();
             }
         }
     }

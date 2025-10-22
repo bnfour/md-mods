@@ -51,7 +51,7 @@ internal class BestRecordPanelGenerator : IComponentGenerator
             GameObject.DestroyImmediate(durationTitle.GetComponent<Localization>());
             durationTitle.name = Constants.BestRecordPanel.DurationTxt;
             durationTitle.transform.name = Constants.BestRecordPanel.DurationTxt;
-            durationTitle.GetComponent<Text>().text = Locale.Length;
+            durationTitle.GetComponent<Text>().text = Locale.Length.ToUpper();
 
             SetupAnimation(durationTitle, 6);
         }
