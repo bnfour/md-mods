@@ -8,23 +8,18 @@ namespace Bnfour.MuseDashMods.SongInfo.Data;
 /// <summary>
 /// Used to provide localized string to use in mod UI.
 /// </summary>
+/// <remarks>See <see cref="Language">GlobalDefines.Language</see> for details
+/// on how the game handles languages internally.</remarks>
 internal static class Locale
 {
-    // see GlobalDefines.Language, order is
-    // 0: dummy "none" entry
-    // 1: English
-    // 2: Chinese Simplified
-    // 3: Chinese Traditional
-    // 4: Japanese
-    // 5: Korean
     private static readonly string[] _lengthLocalizations = new[]
     {
-        "[duration]",
-        "Length",
-        "[Chinese S]",
-        "[Chinese T]",
-        "[Japanese]",
-        "[Korean]"
+        "[duration]", // dummy "none" entry
+        "Length", // English
+        "时长", // Chinese Simplified
+        "長度", // Chinese Traditional
+        "時間", // Japanese
+        "길이" // Korean
     };
 
     /// <summary>
