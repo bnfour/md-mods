@@ -1,5 +1,7 @@
 using MelonLoader;
 
+using Bnfour.MuseDashMods.UITweaks.Utilities;
+
 namespace Bnfour.MuseDashMods.UITweaks;
 
 /// <summary>
@@ -25,6 +27,9 @@ public class UITweaksMod : MelonMod
     internal bool FullCapsForOptionButtons => _optionButtonsFullCaps.Value;
     internal bool AchievementsHeaderClassicStyling => _achievementsHeaderStyling.Value;
     internal bool AnimateCharacterSelector => _charSelectAnimation.Value;
+
+    // TODO load condition after options are done
+    internal FontChanger FontChanger => true ? new() : null;
 
     public override void OnInitializeMelon()
     {
