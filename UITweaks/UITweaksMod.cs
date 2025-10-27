@@ -18,6 +18,7 @@ public class UITweaksMod : MelonMod
     private MelonPreferences_Entry<bool> _optionButtonsFullCaps;
     private MelonPreferences_Entry<bool> _achievementsHeaderStyling;
     private MelonPreferences_Entry<bool> _charSelectAnimation;
+    private MelonPreferences_Entry<bool> _tabularFonts;
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
     internal bool AchievementIconsSyncEnabled => _cupImageSyncEnabled.Value;
@@ -27,9 +28,9 @@ public class UITweaksMod : MelonMod
     internal bool FullCapsForOptionButtons => _optionButtonsFullCaps.Value;
     internal bool AchievementsHeaderClassicStyling => _achievementsHeaderStyling.Value;
     internal bool AnimateCharacterSelector => _charSelectAnimation.Value;
+    internal bool ScoreboardTabularFonts => _tabularFonts.Value;
 
-    // TODO load condition after options are done
-    internal FontChanger FontChanger => true ? new() : null;
+    internal FontChanger FontChanger => ScoreboardTabularFonts ? new() : null;
 
     public override void OnInitializeMelon()
     {
@@ -52,11 +53,13 @@ public class UITweaksMod : MelonMod
             "Classic achievements header styling", "Restores pre-5.6.0 Song info's achievements header styling");
         _charSelectAnimation = _prefsCategory.CreateEntry("CharacterSelectAnimation", true,
             "Animate character selector appearance", "Adds an appearance animation for the character selector when song details screen is opened");
+        _tabularFonts = _prefsCategory.CreateEntry("TabularNumbersScoreboard", true,
+            "Tabular numbers for scoreboard", "Makes score and accuracy numbers in the scoreboard monospace for easy comparing.");
 
         if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled
             && !HpFeverFlowSyncEnabled && !AutoFeverNoticeEnabled
             && !FullCapsForOptionButtons && !AchievementsHeaderClassicStyling
-            && !AnimateCharacterSelector)
+            && !AnimateCharacterSelector && !ScoreboardTabularFonts)
         {
             LoggerInstance.Warning("No features of the mod enabled, might as well uninstall it.");
         }
