@@ -50,9 +50,9 @@ public class UITweaksMod : MelonMod
         _optionButtonsFullCaps = _prefsCategory.CreateEntry("OptionsFullCaps", true,
             "Uppercase for options", "Fixes some texts in options being not uppercase like the rest.");
         _achievementsHeaderStyling = _prefsCategory.CreateEntry("AchievementsHeaderStyling", true,
-            "Classic achievements header styling", "Restores pre-5.6.0 Song info's achievements header styling");
+            "Classic achievements header styling", "Restores pre-5.6.0 Song info's achievements header styling.");
         _charSelectAnimation = _prefsCategory.CreateEntry("CharacterSelectAnimation", true,
-            "Animate character selector appearance", "Adds an appearance animation for the character selector when song details screen is opened");
+            "Animate character selector appearance", "Adds an appearance animation for the character selector when song details screen is opened.");
         _tabularFonts = _prefsCategory.CreateEntry("TabularNumbersScoreboard", true,
             "Tabular numbers for scoreboard", "Makes score and accuracy numbers in the scoreboard monospace for easy comparing.");
 
