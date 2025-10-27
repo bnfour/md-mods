@@ -14,7 +14,12 @@ internal class FontChanger
 {
     private const string AssetBundleResourceName = "Bnfour.MuseDashMods.UITweaks.Resources.tekomononumbers";
     private const string FontPath = "Assets/fonts/Teko-Bold-mono-numbers-take-4.ttf";
-    private static readonly string[] ComponentsToModify = new[] { "TxtScoreValueS", "TxtAccuracyValueS" };
+    private static readonly string[] ComponentsToModify = new[]
+    {
+        "TxtRankValueS",
+        "TxtScoreValueS",
+        "TxtAccuracyValueS"
+    };
 
     private Font _customFont;
 
