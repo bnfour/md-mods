@@ -307,9 +307,9 @@ This small feature adds a quick fade in animation for the character and elfin se
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
 | Before | After |
 | :---: | :---: |
-| TODO image | TODO image 2 |
+| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.png) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.png) |
 
-The "custom" font is pretty much the same, except the symbol for "1" (one), just adjusted for monospace numbers.
+The custom font is pretty much the same font, except the symbol for "1" (one); just adjusted for monospace numbers.
 
 I tried.
 
