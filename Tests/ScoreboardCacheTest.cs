@@ -7,7 +7,7 @@ namespace Bnfour.MuseDashMods.Tests;
 public partial class ScoreboardCacheTest
 {
     private readonly ScoreboardCache _cache;
-    private readonly Random _random;
+    private static readonly Random _random = new();
 
     [GeneratedRegex(@"\d+")]
     private static partial Regex NumberRegex();
@@ -18,7 +18,6 @@ public partial class ScoreboardCacheTest
     public ScoreboardCacheTest()
     {
         _cache = new();
-        _random = new();
     }
 
     [Fact]

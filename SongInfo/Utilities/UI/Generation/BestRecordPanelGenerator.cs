@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppInterop.Runtime;
+using Il2CppAssets.Scripts.PeroTools.GeneralLocalization;
 
 using Bnfour.MuseDashMods.SongInfo.UI;
 
@@ -27,6 +28,8 @@ internal class BestRecordPanelGenerator : IComponentGenerator
             bpmField.transform.position += new Vector3(0, -1, 0);
 
             var bpmTitle = bpmField.transform.Find("TxtAccuracy");
+            // TODO consider plugging the custom localization into the existing one
+            GameObject.DestroyImmediate(bpmTitle.GetComponent<Localization>());
             bpmTitle.name = Constants.BestRecordPanel.BpmTxt;
             bpmTitle.transform.name = Constants.BestRecordPanel.BpmTxt;
             bpmTitle.GetComponent<Text>().text = "BPM";
@@ -44,6 +47,7 @@ internal class BestRecordPanelGenerator : IComponentGenerator
             durationField.transform.position += new Vector3(0, -1, 0);
 
             var durationTitle = durationField.transform.Find("TxtClear");
+            GameObject.DestroyImmediate(durationTitle.GetComponent<Localization>());
             durationTitle.name = Constants.BestRecordPanel.DurationTxt;
             durationTitle.transform.name = Constants.BestRecordPanel.DurationTxt;
             durationTitle.GetComponent<Text>().text = "DURATION";

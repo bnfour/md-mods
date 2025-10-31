@@ -198,6 +198,7 @@ The following UI tweaks are currently available:
 - [Options menu text case](#options-menu-text-case)
 - [Achievements header styling](#achievements-header-styling) for song info screen
 - [Character and elfin select appearance animation](#character-and-elfin-select-appearance-animation) for song info screen
+- [Tabular numbers](#tabular-numbers-in-scoreboard) for the scoreboard
 
 Each feature can be toggled on and off independently of others.
 
@@ -302,6 +303,16 @@ This small feature adds a quick fade in animation for the character and elfin se
 > [!NOTE]
 > The animation is a work in progress, and may (not) be updated later.
 
+### Tabular numbers in scoreboard
+This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
+| Before | After |
+| :---: | :---: |
+| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.png) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.png) |
+
+The custom font is pretty much the same font, except the symbol for "1" (one); just adjusted for monospace numbers.
+
+I tried.
+
 ### Configuration
 This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
 
@@ -320,10 +331,12 @@ SyncHpFeverAnimAlt = false
 AutoFeverText = true
 # Fixes some texts in options being not uppercase like the rest.
 OptionsFullCaps = true
-# Restores pre-5.6.0 Song info's achievements header styling
+# Restores pre-5.6.0 Song info's achievements header styling.
 AchievementsHeaderStyling = true
-# Adds an appearance animation for the character selector when song details screen is opened
+# Adds an appearance animation for the character selector when song details screen is opened.
 CharacterSelectAnimation = true
+# Makes score and accuracy numbers in the scoreboard monospace for easy comparing.
+TabularNumbersScoreboard = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
@@ -398,6 +411,9 @@ Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folde
 This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries.)
 
 After that, just run `dotnet build`.
+
+## Creating a release
+As of v30, there's also a script that (hopefully) creates an archive in the format the releases are published, also providing the checksums for the DLLs. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
 
 ## Unit tests
 **Very** limited coverage.
