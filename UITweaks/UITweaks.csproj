@@ -23,6 +23,7 @@
     <Reference Include="../references/UnityEngine.UI.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
     <Reference Include="../references/UnityEngine.TextRenderingModule.dll" />
+    <Reference Include="../references/UnityEngine.AssetBundleModule.dll" />
   </ItemGroup>
   <ItemGroup Label="NuGet references">
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" Version="2.2.2" />
@@ -32,6 +33,7 @@
     <EmbeddedResource Include="Resources/bubbles.+118.png" />
     <EmbeddedResource Include="Resources/auto.default.png" />
     <EmbeddedResource Include="Resources/auto.badapple.png" />
+    <EmbeddedResource Include="Resources/tekomononumbers" />
   </ItemGroup>
 
 </Project>
