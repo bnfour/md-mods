@@ -23,6 +23,7 @@
     <Reference Include="../references/Il2CppInterop.Runtime.dll" />
     <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
+    <Reference Include="../references/UnityEngine.UI.dll" />
     <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
   </ItemGroup>
