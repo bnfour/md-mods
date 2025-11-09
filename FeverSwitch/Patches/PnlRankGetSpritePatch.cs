@@ -16,6 +16,14 @@ public class PnlRankGetSpritePatch
     {
         var mod = Melon<FeverSwitchMod>.Instance;
 
+        // should in theory never happen, but who knows
+        // also keeps null checks happy
+        if (mod.SpriteProvider == null)
+        {
+            mod.LoggerInstance.Warning("SpriteProvider not initialized, toggle images will not be replaced");
+            return;
+        }
+
         if (key == mod.NameProvider.RandomOffSpriteName)
         {
             __result = mod.SpriteProvider.Off;
