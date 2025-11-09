@@ -26,4 +26,11 @@
     <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
   </ItemGroup>
 
+  <ItemGroup Label="Resources">
+    <EmbeddedResource Include="Resources/auto.accented.png" />
+    <EmbeddedResource Include="Resources/auto.default.png" />
+    <EmbeddedResource Include="Resources/manual.accented.png" />
+    <EmbeddedResource Include="Resources/manual.default.png" />
+  </ItemGroup>
+
 </Project>
