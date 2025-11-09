@@ -14,15 +14,15 @@ public class PnlRankGetSpritePatch
 {
     internal static void Postfix(string key, ref Sprite __result)
     {
-        var nameProvider = Melon<FeverSwitchMod>.Instance.NamesProvider;
-        // TODO actually replace the sprites
-        if (key == nameProvider.RandomOffSpriteName)
+        var mod = Melon<FeverSwitchMod>.Instance;
+
+        if (key == mod.NameProvider.RandomOffSpriteName)
         {
-            Melon<FeverSwitchMod>.Logger.Msg($"wanna switch sprite for off sprite {key}");
+            __result = mod.SpriteProvider.Off;
         }
-        if (key == nameProvider.RandomOnSpriteName)
+        if (key == mod.NameProvider.RandomOnSpriteName)
         {
-            Melon<FeverSwitchMod>.Logger.Msg($"wanna switch sprite for on sprite {key}");
+            __result = mod.SpriteProvider.On;
         }
     }
 }
