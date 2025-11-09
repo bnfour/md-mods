@@ -20,6 +20,9 @@
     <Reference Include="../references/MelonLoader.dll" />
     <Reference Include="../references/Assembly-CSharp.dll" />
     <Reference Include="../references/Il2Cppmscorlib.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll" />
+    <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
+    <Reference Include="../references/UnityEngine.CoreModule.dll" />
   </ItemGroup>
 
 </Project>
