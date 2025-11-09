@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Bnfour.MuseDashMods.FeverSwitch</RootNamespace>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latestMajor</LangVersion>
+  </PropertyGroup>
+
+  <!-- The following disables copying referenced dlls to the output folder -->
+  <ItemDefinitionGroup>
+    <PackageReference ExcludeAssets="runtime" />
+    <Reference Private="false" />
+  </ItemDefinitionGroup>
+
+  <ItemGroup Label="Local references">
+    <Reference Include="../references/0Harmony.dll" />
+    <Reference Include="../references/MelonLoader.dll" />
+    <Reference Include="../references/Assembly-CSharp.dll" />
+    <Reference Include="../references/Il2Cppmscorlib.dll" />
+  </ItemGroup>
+
+</Project>
