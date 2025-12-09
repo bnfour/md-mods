@@ -5,12 +5,11 @@ namespace Bnfour.MuseDashMods.Tests;
 public class MusicInfoUidComparerTest
 {
     private readonly MusicInfoUidComparer _comparer;
-    private readonly Random _random;
+    private static readonly Random _random = new();
 
     public MusicInfoUidComparerTest()
     {
         _comparer = new();
-        _random = new();
     }
 
     [Theory]

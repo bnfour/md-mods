@@ -87,6 +87,8 @@ public static class UiPatcher
             holderObject.transform.parent = levelConfigUIGroup.Find("RootLevelConfigShow").transform;
             holderObject.transform.position = new(0, 0, 0);
             holderObject.transform.localScale = new(1, 1, 1);
+            // move below the vanilla BtnXXXLevelConfig components so it does not block mouse clicks
+            holderObject.transform.SetSiblingIndex(holderObject.transform.GetSiblingIndex() - 2);
 
             var currentConfigImage = holderObject.GetComponent<Image>();
             // 1x scale results in the image being 64x32 on 1080
@@ -106,7 +108,8 @@ public static class UiPatcher
             }
 
             // make component narrower
-            // includes replacing the bg image, moving E button hint, and moving the entire random toggle
+            // includes replacing the bg image, moving E button hint,
+            // moving the entire random toggle, and adjusting the hitbox
 
             // background image is a bit tricky because its size and position affects child components
             // so we just hide the original one to not disturb the positioning,
@@ -129,15 +132,37 @@ public static class UiPatcher
                 // hide the original image
                 originalImage.color = Color.clear;
             }
+            // hitbox that opens the character/elfin select popup:
+            // adjust to match the visible UI
+            if (levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig")
+                ?.GetComponent<Image>()?.rectTransform is RectTransform popupHitbox)
+            {
+                // 8 is pure move to the right; -125/2 is accounting to the width change
+                // TODO see if anchoring could help with this
+                popupHitbox.anchoredPosition3D += LevelConfigInnerScale * new Vector3(8 - 125f / 2, 0, 0);
+                popupHitbox.sizeDelta += LevelConfigInnerScale * new Vector2(-125, 0);
+            }
             // the small "E" button hint
             var eTransform = levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")?.GetComponent<RectTransform>();
             if (eTransform != null)
             {
-                eTransform.anchoredPosition3D += new Vector3(-106 * LevelConfigInnerScale, 0, 0);
+                eTransform.anchoredPosition3D += new Vector3(-50 * LevelConfigInnerScale, 0, 0);
+            }
+            // move the hitbox for the "Lock level config" button as well
+            // still no idea what it does exactly ¯\_(ツ)_/¯
+            if (levelConfigUIGroup.Find("RootLevelConfigShow/BtnLockLevelConfig")
+                ?.GetComponent<Image>()?.rectTransform is RectTransform lockHitbox)
+            {
+                lockHitbox.anchoredPosition3D += LevelConfigInnerScale * new Vector3(8, 0, 0);
+            }
+            // move the "Q" button hint as well (its original position is mangled somewhere)
+            if (levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgLevelConfigPCTipBack")
+                ?.GetComponent<Image>()?.rectTransform is RectTransform qTransform)
+            {
+                qTransform.anchoredPosition3D += LevelConfigInnerScale * new Vector3(55, 0, 0);
             }
 
             // random mode toggle: move and change thickness to match the other one,
-            // move the key hint up to not hang below the panel and to math the other one
             var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
             if (randomToggleTransform != null)
             {
@@ -148,10 +173,19 @@ public static class UiPatcher
             {
                 randomToggleBg.rectTransform.sizeDelta += new Vector2(0, ToggleLineExtraHeight * LevelConfigInnerScale);
             }
+            // random mode toggle: move the key hint up to not hang below the panel and to math the other one
             var buttonTransform = levelConfigUIGroup.Find("ImgRandomBg/ImgRandomFlagBg/KeyTip")?.GetComponent<RectTransform>();
             if (buttonTransform != null)
             {
                 buttonTransform.anchoredPosition3D += new Vector3(0, 2, 0);
+            }
+            // random mode toggle: resize and move the image inside the button component 
+            // used to react to mouse clicks; to match the updated positioning&sizing
+            if (levelConfigUIGroup.Find("ImgRandomBg/BtnRandomReset")
+                ?.GetComponent<Image>()?.rectTransform is RectTransform randomToggleHitbox)
+            {
+                randomToggleHitbox.anchoredPosition3D += LevelConfigInnerScale * new Vector3(10, 3, 0);
+                randomToggleHitbox.sizeDelta += LevelConfigInnerScale * new Vector2(4, 2 * ToggleLineExtraHeight);
             }
 
             // update the sprite on creation so it shows the current config on panel open
