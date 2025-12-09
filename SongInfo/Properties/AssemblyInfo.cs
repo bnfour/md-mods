@@ -3,7 +3,7 @@ using MelonLoader;
 
 using Bnfour.MuseDashMods.SongInfo;
 
-[assembly: MelonInfo(typeof(SongInfoMod), "Song info", "1.7.0", "bnfour", "https://github.com/bnfour/md-mods")]
+[assembly: MelonInfo(typeof(SongInfoMod), "Song info", "1.8.0", "bnfour", "https://github.com/bnfour/md-mods")]
 [assembly: MelonGame("PeroPeroGames", "MuseDash")]
 [assembly: MelonColor(255, 202, 80, 16)]
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
