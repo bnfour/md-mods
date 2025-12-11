@@ -11,7 +11,7 @@ internal class SpriteProvider
     internal Sprite On => GetSprite(true);
 
     // holds raw image data that is loaded once
-    // it's like 4KiB total for both
+    // it's like 10 KiB total for both
     private readonly Dictionary<bool, byte[]> _toggleIcons;
 
     private readonly Dictionary<bool, Sprite> _cache;
@@ -56,6 +56,7 @@ internal class SpriteProvider
 
     private static Sprite CreateSpriteFromPNGData(byte[] data)
     {
+        // TODO unironically consider mipmap for the medal sprites, they're 128×128
         var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
         ImageConversion.LoadImage(texture, data);
 
