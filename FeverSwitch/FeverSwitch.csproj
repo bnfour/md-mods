@@ -26,6 +26,7 @@
     <Reference Include="../references/UnityEngine.UI.dll" />
     <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
     <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+    <Reference Include="../references/UnityEngine.ParticleSystemModule.dll" />
   </ItemGroup>
 
   <ItemGroup Label="Resources">

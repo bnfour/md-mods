@@ -28,10 +28,12 @@ public class PnlRankOnClickRandomPatch
             inputPanel.SetIsManualFever(!DataHelper.isAutoFever);
         }
 
-        // update the UI as in the method we're skipping
+        // update the UI mostly as in the method we're skipping
+        // ...we're not calling RefreshLevelConfigUI though, as there's not need to show/hide it anymore
         __instance.RefreshRandomLevelConfigUI(false);
+        __instance.m_VfxBtnRandomPress.Play();
 
-        // skip vanilla's code to actually switch the random mode completely
+        // completely skip vanilla code that switches the random mode
         return false;
     }
 }
