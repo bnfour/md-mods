@@ -35,6 +35,8 @@
     <EmbeddedResource Include="Resources/auto.default.png" />
     <EmbeddedResource Include="Resources/manual.accented.png" />
     <EmbeddedResource Include="Resources/manual.default.png" />
+
+    <EmbeddedResource Include="Resources/PcButtonF.png" />
   </ItemGroup>
 
 </Project>

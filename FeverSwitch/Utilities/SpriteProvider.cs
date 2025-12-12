@@ -1,20 +1,23 @@
 using System.Reflection;
 using UnityEngine;
 
+using Bnfour.MuseDashMods.FeverSwitch.Data;
+
 namespace Bnfour.MuseDashMods.FeverSwitch.Utilities;
 
 internal class SpriteProvider
 {
-    // "key" is toggle state, true = on
+    private const string CommonPathPrefix = "Bnfour.MuseDashMods.FeverSwitch.Resources";
 
-    internal Sprite Off => GetSprite(false);
-    internal Sprite On => GetSprite(true);
+    internal Sprite Off => GetSprite(SpriteKind.ToggleOff);
+    internal Sprite On => GetSprite(SpriteKind.ToggleOn);
+    internal Sprite Hint => GetSprite(SpriteKind.Hint);
 
     // holds raw image data that is loaded once
-    // it's like 10 KiB total for both
-    private readonly Dictionary<bool, byte[]> _toggleIcons;
+    // it's like 10 KiB total
+    private readonly Dictionary<SpriteKind, byte[]> _toggleIcons;
 
-    private readonly Dictionary<bool, Sprite> _cache;
+    private readonly Dictionary<SpriteKind, Sprite> _cache;
 
     internal SpriteProvider(bool isAutoDefault)
     {
@@ -22,11 +25,19 @@ internal class SpriteProvider
         _cache = [];
 
         var assembly = GetType().Assembly;
-        // TODO looks scuffed, maybe switch to an enum?
-        foreach (var k in new[] { false, true })
+        // TODO still looks scuffed
+        foreach ((SpriteKind kind, bool isAccented) in new[] { (SpriteKind.ToggleOff, false), (SpriteKind.ToggleOn, true) })
         {
-            _toggleIcons[k] = LoadRawImage(k, isAutoDefault, assembly);
+            var imageKind = isAccented ? "accented" : "default";
+            // TODO why's that, find a way to format the table?
+            var imageName = isAccented ^ isAutoDefault ? "auto" : "manual";
+
+            var resName = $"{CommonPathPrefix}.{imageName}.{imageKind}.png";
+
+            _toggleIcons[kind] = LoadRawImage(resName, assembly);
         }
+
+        _toggleIcons[SpriteKind.Hint] = LoadRawImage($"{CommonPathPrefix}.PcButtonF.png", assembly);
     }
 
     internal void ResetCache()
@@ -34,14 +45,8 @@ internal class SpriteProvider
         _cache.Clear();
     }
 
-    private static byte[] LoadRawImage(bool key, bool isAutoDefault, Assembly assembly)
+    private static byte[] LoadRawImage(string resName, Assembly assembly)
     {
-        var kind = key ? "accented" : "default";
-        // TODO why's that, find a way to format the table?
-        var name = key ^ isAutoDefault ? "auto" : "manual";
-
-        var resName = $"Bnfour.MuseDashMods.FeverSwitch.Resources.{name}.{kind}.png";
-
         using (var resStream = assembly.GetManifestResourceStream(resName))
         using (MemoryStream memoryStream = new())
         {
@@ -56,14 +61,16 @@ internal class SpriteProvider
 
     private static Sprite CreateSpriteFromPNGData(byte[] data)
     {
-        // TODO unironically consider mipmap for the medal sprites, they're 128×128
+        // TODO unironically consider mipmap for:
+        // - the medal sprites, they're 128×128
+        // - F hint, it's 64×64
         var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
         ImageConversion.LoadImage(texture, data);
 
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
     
-    private Sprite GetSprite(bool key)
+    private Sprite GetSprite(SpriteKind key)
     {
         if (_cache.ContainsKey(key))
         {
