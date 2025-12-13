@@ -201,12 +201,12 @@ An <kbd>F</kbd> keybinding is added to the switch. The original <kbd>U</kbd> als
 ### Display
 Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely visual:
 
-| Default mode ╲ Toggle state | Off | On |
-| --- | :---: | :---: |
-| Automatic | image | image |
-| Manual | image | image |
+| Default mode ╲ Toggle | Off | On |
+| --- | :--- | ---: |
+| Automatic | ![](readme-images/fever-switch/auto-off.png) | ![](readme-images/fever-switch/manual-on.png) |
+| Manual | ![](readme-images/fever-switch/manual-off.png) | ![](readme-images/fever-switch/auto-on.png) |
 
-Out of the box, automatic fever mode is set as default. This can be changed is mod's preferences.
+Out of the box, automatic fever mode is set as default, as illustrated by the table's first row. This can be changed is mod's preferences.
 
 ### Configuration
 The display setting is located in mod's preferences, which are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
