@@ -13,6 +13,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
 - [Song info](#song-info) — shows song's BPM and duration
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
+- [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -184,6 +185,39 @@ Uncertainty is mostly relevant for newly released songs just after a game update
 
 > [!TIP]
 > The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
+
+## Fever switch
+This mod turns the switch for the random character and elfin mode into a fever mode switch, allowing to quickly toggle between automatic and manual modes before starting the song:
+
+toggling video?
+
+Really convenient compared to going to the abyss of the settings menu every time.
+
+An <kbd>F</kbd> keybinding is added to the switch. The original <kbd>U</kbd> also works.
+
+>[!NOTE]
+>For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed.
+
+### Display
+Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely visual:
+
+| Default mode ╲ Toggle state | Off | On |
+| --- | :---: | :---: |
+| Automatic | image | image |
+| Manual | image | image |
+
+Out of the box, automatic fever mode is set as default. This can be changed is mod's preferences.
+
+### Configuration
+The display setting is located in mod's preferences, which are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
+
+```toml
+[Bnfour_FeverSwitch]
+# Treat automatic fever mode as default, shown as toggle turned off.
+AutoIsDefault = true
+```
+
+Set the value to `false` to treat manual fever mode as default instead.
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
