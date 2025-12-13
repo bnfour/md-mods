@@ -27,6 +27,7 @@ public class PnlRankGetSpritePatch
         if (key == mod.NameProvider.RandomOffSpriteName)
         {
             __result = mod.SpriteProvider.Off;
+            return;
         }
         if (key == mod.NameProvider.RandomOnSpriteName)
         {

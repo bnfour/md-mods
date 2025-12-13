@@ -7,8 +7,7 @@ using Il2CppAssets.Scripts.UI.Panels;
 namespace Bnfour.MuseDashMods.FeverSwitch.Patches;
 
 /// <summary>
-/// Handles the random mode switch activation,
-/// switching the fever mode instead.
+/// Handles the random mode switch activation, switching the fever mode instead.
 /// </summary>
 [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.OnClickRandom))]
 public class PnlRankOnClickRandomPatch

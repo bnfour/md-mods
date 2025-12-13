@@ -1,14 +1,12 @@
+using MelonLoader;
 using HarmonyLib;
-
 using UnityEngine;
 using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppUI.Controls.BtnTipStateControl;
-using Il2CppPeroTools2.Resources;
 
 using Bnfour.MuseDashMods.FeverSwitch.Components;
-using MelonLoader;
 
 namespace Bnfour.MuseDashMods.FeverSwitch.Patches;
 

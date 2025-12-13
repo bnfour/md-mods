@@ -5,6 +5,10 @@ using Bnfour.MuseDashMods.FeverSwitch.Data;
 
 namespace Bnfour.MuseDashMods.FeverSwitch.Utilities;
 
+/// <summary>
+/// Stores the raw PNG data for custom images, creates Sprites from them on demand,
+/// caching the results.
+/// </summary>
 internal class SpriteProvider
 {
     private const string CommonPathPrefix = "Bnfour.MuseDashMods.FeverSwitch.Resources";
@@ -13,7 +17,7 @@ internal class SpriteProvider
     internal Sprite On => GetSprite(SpriteKind.ToggleOn);
     internal Sprite Hint => GetSprite(SpriteKind.Hint);
 
-    // holds raw image data that is loaded once
+    // raw image data that is loaded once
     // it's like 10 KiB total
     private readonly Dictionary<SpriteKind, byte[]> _toggleIcons;
 
@@ -29,7 +33,7 @@ internal class SpriteProvider
         foreach ((SpriteKind kind, bool isAccented) in new[] { (SpriteKind.ToggleOff, false), (SpriteKind.ToggleOn, true) })
         {
             var imageKind = isAccented ? "accented" : "default";
-            // TODO why's that, find a way to format the table?
+            // accented image is the one that is not default, so we can use xor here
             var imageName = isAccented ^ isAutoDefault ? "auto" : "manual";
 
             var resName = $"{CommonPathPrefix}.{imageName}.{imageKind}.png";
@@ -69,7 +73,7 @@ internal class SpriteProvider
 
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
-    
+
     private Sprite GetSprite(SpriteKind key)
     {
         if (_cache.ContainsKey(key))

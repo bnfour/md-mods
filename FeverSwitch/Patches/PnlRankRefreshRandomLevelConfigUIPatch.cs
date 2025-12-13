@@ -8,6 +8,7 @@ namespace Bnfour.MuseDashMods.FeverSwitch.Patches;
 
 /// <summary>
 /// Sets the repurposed toggle to match the fever state on UI refresh.
+/// Uses the random mode flag to achieve that.
 /// </summary>
 [HarmonyPatch(typeof(PnlRank), nameof(PnlRank.RefreshRandomLevelConfigUI))]
 public class PnlRankRefreshRandomLevelConfigUIPatch
