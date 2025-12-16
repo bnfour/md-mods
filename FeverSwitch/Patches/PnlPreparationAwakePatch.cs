@@ -17,12 +17,6 @@ public class PnlPreparationAwakePatch
 {
     internal static void Postfix(PnlPreparation __instance)
     {
-        // adjust the size for the toggle off image to fit the car image, which is a square
-        if (__instance.transform.Find("RightRoot/Top/ImgRandomBg/ImgRandomFlagBg/ImgRandomFlag")
-            ?.GetComponent<Image>()?.rectTransform is RectTransform rt)
-        {
-            rt.sizeDelta = new Vector2(42, 42);
-        }
         // replace the U hint with F hint
         if (__instance.transform.Find("RightRoot/Top/ImgRandomBg/ImgRandomFlagBg/KeyTip/ImgRandomPCTip")
             ?.GetComponent<PnlLevelConfigRandomRoleKeyTipViewControl>() is PnlLevelConfigRandomRoleKeyTipViewControl control)
