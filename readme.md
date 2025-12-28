@@ -338,6 +338,10 @@ This small feature adds a quick fade in animation for the character and elfin se
 > The animation is a work in progress, and may (not) be updated later.
 
 ### Tabular numbers in scoreboard
+
+>[!WARNING]
+>This feature reportedly breaks the scoreboard when used with MelonLoader 0.6.*. If you can't upgrade to later versions, disable the feature via preferences.
+
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
 | Before | After |
 | :---: | :---: |
@@ -429,7 +433,8 @@ In case there is a breaking incompatibility with other mods, and it can be trace
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-- Please make sure you're using supported (**0.7.0**) version of MelonLoader.
+- Please make sure you're using supported (**0.7.0**) version of MelonLoader.  
+[UI tweaks' tabular numbers](#tabular-numbers-in-scoreboard) are reported to have issues with older MelonLoader versions.
 - Try to remove mods not from this repo.
 - Try to remove mods and/or modloader and check whether the vanilla game is broken too.
 
