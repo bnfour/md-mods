@@ -189,24 +189,31 @@ Uncertainty is mostly relevant for newly released songs just after a game update
 ## Fever switch
 This mod turns the switch for the random character and elfin mode into a fever mode switch, allowing to quickly toggle between automatic and manual modes before starting the song:
 
-toggling video?
+| Before | After |
+| :---: | :---: |
+| ![yeah, one and two is single F1 key press, but that's not the point; also no, i don't use these "binds"; bajs are not weebs Copesen](readme-images/fever-switch/xdd.png) | ![EZ](readme-images/fever-switch/it-s-that-simple.png) |
 
-Really convenient compared to going to the abyss of the settings menu every time.
+_(in these images, all other mods from the repo are also installed)_
 
-An <kbd>F</kbd> keybinding is added to the switch. The original <kbd>U</kbd> also works.
+Really convenient. Beats the quick access to the random mode all day every day (at least for me).
+
+An <kbd>F</kbd> keybinding is added to the switch, and its hint is changed to reflect that. The original <kbd>U</kbd> also still works.
+
+100% compatible with [Scoreboard characters](#scoreboard-characters); works by itself.
 
 >[!NOTE]
->For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed.
+>For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed.  
+>(The random mode toggle value is used to manipulate the switch state as it's hardcoded to use that and I can't transpile this game.)
 
 ### Display
-Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely visual:
+Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely cosmetic:
 
 | Default mode ╲ Toggle | Off | On |
 | --- | :--- | ---: |
-| Automatic | ![](readme-images/fever-switch/auto-off.png) | ![](readme-images/fever-switch/manual-on.png) |
-| Manual | ![](readme-images/fever-switch/manual-off.png) | ![](readme-images/fever-switch/auto-on.png) |
+| Automatic<br/>_(default setting)_ | ![auto as default](readme-images/fever-switch/auto-off.png) | ![manual as not default](readme-images/fever-switch/manual-on.png) |
+| Manual | ![manual as default](readme-images/fever-switch/manual-off.png) | ![auto as not default](readme-images/fever-switch/auto-on.png) |
 
-Out of the box, automatic fever mode is set as default, as illustrated by the table's first row. This can be changed is mod's preferences.
+The mode to be considered default can be set in mod's preferences.
 
 ### Configuration
 The display setting is located in mod's preferences, which are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
