@@ -10,6 +10,6 @@ using Bnfour.MuseDashMods.RankPreview;
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Shows estimated scoreboard rank (if in top 100) on stats screen")]
-[assembly: AssemblyCopyright("bnfour 2025; open-source")]
+[assembly: AssemblyCopyright("bnfour 2025-2026; open-source")]
 
 [assembly: InternalsVisibleTo("Tests")]

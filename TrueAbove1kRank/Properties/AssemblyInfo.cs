@@ -9,4 +9,4 @@ using Bnfour.MuseDashMods.TrueAbove1kRank;
 [assembly: MelonAuthorColor(255, 128, 128, 128)]
 
 [assembly: AssemblyDescription("Displays actual ranking instead of \"999+\" for ranks 999--2000")]
-[assembly: AssemblyCopyright("bnfour 2023-2025; open-source")]
+[assembly: AssemblyCopyright("bnfour 2023-2026; open-source")]
