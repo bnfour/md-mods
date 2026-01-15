@@ -1,3 +1,4 @@
+<!-- these settings are applied to all proper mods projects, even experimental; but tests are excluded -->
 <Project>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -5,13 +6,13 @@
     <RootNamespace>Bnfour.MuseDashMods.$(MSBuildProjectName)</RootNamespace>
   </PropertyGroup>
 
-  <!-- The following disables copying referenced dlls to the output folder -->
+  <!-- the following disables copying referenced dlls to the output folder -->
   <ItemDefinitionGroup>
     <PackageReference ExcludeAssets="runtime" />
     <Reference Private="false" />
   </ItemDefinitionGroup>
 
-  <!-- these are used by all mods, unless the single one that does not is explicitly excluded -->
+  <!-- these dlls are used by all mods, unless the single one that does not is explicitly excluded -->
   <!-- TODO what's the strategy to deal with that? what if 5 out of 7 mods require a dll? -->
   <ItemGroup Label="Common local references">
     <Reference Include="../references/MelonLoader.dll" />
