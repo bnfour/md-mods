@@ -19,3 +19,10 @@ End of SkiaSharp license
 SkiaSharp itself uses other third-party software,
 see https://github.com/mono/SkiaSharp/blob/main/External-Dependency-Info.txt
 for the full list.
+
+
+UI tweaks includes a modified copy of Teko font.
+SIL Open Font License, Version 1.1, see https://fonts.google.com/specimen/Teko for details.
+
+Fever switch uses modified Twemoji for some of the images.
+CC-BY-4.0, see https://github.com/twitter/twemoji for details.

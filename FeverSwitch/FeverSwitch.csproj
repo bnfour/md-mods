@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Bnfour.MuseDashMods.FeverSwitch</RootNamespace>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latestMajor</LangVersion>
+  </PropertyGroup>
+
+  <!-- The following disables copying referenced dlls to the output folder -->
+  <ItemDefinitionGroup>
+    <PackageReference ExcludeAssets="runtime" />
+    <Reference Private="false" />
+  </ItemDefinitionGroup>
+
+  <ItemGroup Label="Local references">
+    <Reference Include="../references/0Harmony.dll" />
+    <Reference Include="../references/MelonLoader.dll" />
+    <Reference Include="../references/Assembly-CSharp.dll" />
+    <Reference Include="../references/Il2Cppmscorlib.dll" />
+    <Reference Include="../references/Il2CppInterop.Runtime.dll" />
+    <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
+    <Reference Include="../references/UnityEngine.CoreModule.dll" />
+    <Reference Include="../references/UnityEngine.UI.dll" />
+    <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
+    <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+    <Reference Include="../references/UnityEngine.ParticleSystemModule.dll" />
+    <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
+  </ItemGroup>
+
+  <ItemGroup Label="Resources">
+    <EmbeddedResource Include="Resources/auto.accented.png" />
+    <EmbeddedResource Include="Resources/auto.default.png" />
+    <EmbeddedResource Include="Resources/manual.accented.png" />
+    <EmbeddedResource Include="Resources/manual.default.png" />
+
+    <EmbeddedResource Include="Resources/PcButtonF.png" />
+  </ItemGroup>
+
+</Project>

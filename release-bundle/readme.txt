@@ -9,6 +9,7 @@ The folders go into the game install folder
 
 Mods folder:
   AlbumScroll.dll : enables to scroll through current album using Shift keys
+  FeverSwitch.dll : turns random character/elfin switch into auto/manual fever switch
   RankPreview.dll : shows approximate rank (if in top 100) on song completion
   ScoreboardCharacters.dll : mod to show character/elfin info on the scoreboard
   SongInfo.dll : shows song's BPM and duration
