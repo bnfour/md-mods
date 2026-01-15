@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="AlbumScroll/AlbumScroll.csproj" />
+  <Project Path="Experimental/Experimental.csproj" />
+  <Project Path="FeverSwitch/FeverSwitch.csproj" />
+  <Project Path="RankPreview/RankPreview.csproj" />
+  <Project Path="ScoreboardCharacters/ScoreboardCharacters.csproj" />
+  <Project Path="SongInfo/SongInfo.csproj" />
+  <Project Path="Tests/Tests.csproj" />
+  <Project Path="TrueAbove1kRank/TrueAbove1kRank.csproj" />
+  <Project Path="UITweaks/UITweaks.csproj" />
+</Solution>

@@ -1,30 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Bnfour.MuseDashMods.AlbumScroll</RootNamespace>
-  </PropertyGroup>
-
-  <!-- The following disables copying referenced dlls to the output folder -->
-  <ItemDefinitionGroup>
-    <PackageReference ExcludeAssets="runtime" />
-    <Reference Private="false" />
-  </ItemDefinitionGroup>
-
   <ItemGroup Label="Local references">
-    <!-- TODO some of these might not be used after net6.0 migration -->
-    <Reference Include="../references/MelonLoader.dll" />
-    <Reference Include="../references/Assembly-CSharp.dll" />
-    <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
-    <Reference Include="../references/Il2Cppmscorlib.dll" />
-    <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
-    <Reference Include="../references/Il2CppSirenix.Serialization.dll" />
   </ItemGroup>
-  <ItemGroup Label="NuGet references">
-    <!-- TODO some version of Harmony is also included in updated references,
-      check if it can be used -->
-    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
-  </ItemGroup>
-
 </Project>
