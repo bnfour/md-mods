@@ -1,39 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Bnfour.MuseDashMods.SongInfo</RootNamespace>
-  </PropertyGroup>
-
-  <!-- The following disables copying referenced dlls to the output folder -->
-  <ItemDefinitionGroup>
-    <PackageReference ExcludeAssets="runtime" />
-    <Reference Private="false" />
-  </ItemDefinitionGroup>
-
   <ItemGroup Label="Local references">
-    <Reference Include="../references/MelonLoader.dll" />
-    <Reference Include="../references/Assembly-CSharp.dll" />
-    <Reference Include="../references/Il2Cppmscorlib.dll" />
-    <Reference Include="../references/Il2CppInterop.Runtime.dll"/>
-    <Reference Include="../references/Il2CppPeroTools2.Resources.dll"/>
-    <Reference Include="../references/Il2CppSirenix.Serialization.dll"/>
-    <Reference Include="../references/UnityEngine.CoreModule.dll" />
-    <Reference Include="../references/UnityEngine.AudioModule.dll" />
-    <Reference Include="../references/UnityEngine.UI.dll" />
-    <Reference Include="../references/UnityEngine.UIModule.dll" />
-    <Reference Include="../references/UnityEngine.TextRenderingModule.dll" />
-    <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
-    <Reference Include="../references/UnityEngine.AnimationModule.dll" />
     <Reference Include="../references/Newtonsoft.Json.dll" />
-  </ItemGroup>
+    <Reference Include="../references/Il2CppPeroTools2.Resources.dll"/>
 
-  <ItemGroup Label="NuGet references">
-    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+    <Reference Include="../references/UnityEngine.AnimationModule.dll" />
+    <Reference Include="../references/UnityEngine.AudioModule.dll" />
+    <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
+    <Reference Include="../references/UnityEngine.TextRenderingModule.dll" />
+    <Reference Include="../references/UnityEngine.UIModule.dll" />
   </ItemGroup>
 
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="Resources/duration_data.json" />
   </ItemGroup>
-
 </Project>

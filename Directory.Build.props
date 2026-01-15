@@ -26,7 +26,5 @@
     <Reference Include="../references/UnityEngine.CoreModule.dll" />
     <Reference Include="../references/UnityEngine.UI.dll"
       Condition="'$(MSBuildProjectName)'!='AlbumScroll'" />
-
   </ItemGroup>
-
 </Project>
