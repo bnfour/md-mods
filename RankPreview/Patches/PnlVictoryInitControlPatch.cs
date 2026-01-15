@@ -32,16 +32,11 @@ public class PnlVictoryInitControlPatch
             GameObject.DestroyImmediate(clone.GetComponent<Localization>());
 
             var text = clone.GetComponent<Text>();
-            if (text != null)
-            {
-                text.text = string.Empty;
-                text.fontSize = 60;
-            }
+            text?.text = string.Empty;
+            text?.fontSize = 60;
+
             var transform = clone.GetComponent<RectTransform>();
-            if (transform != null)
-            {
-                transform.position += new Vector3(-4, 8, 0);
-            }
+            transform?.position += new Vector3(-4, 8, 0);
             clone.AddComponent<CanvasGroup>();
             var animation = clone.AddComponent<Animation>();
             AnimationClip clip = new()

@@ -71,20 +71,14 @@ public class CharacterSwitcher
         if (elfinOrder != null)
         {
             _elfinScrollView ??= GameObject.Find(scrollviewsPanelSharedPath + "PnlElfin")?.GetComponentInChildren<FancyScrollView>();
-            if (_elfinScrollView != null)
-            {
-                _elfinScrollView.currentScrollPosition = elfinOrder.Value - 1;
-            }
+            _elfinScrollView?.currentScrollPosition = elfinOrder.Value - 1;
         }
 
         var characterOrder = Singleton<ConfigManager>.instance.GetConfigObject<DBConfigCharacter>(-1).GetCharacterInfoByIndex((int)character)?.order;
         if (characterOrder != null)
         {
             _characterScrollView ??= GameObject.Find(scrollviewsPanelSharedPath + "PnlRole")?.GetComponentInChildren<FancyScrollView>();
-            if (_characterScrollView != null)
-            {
-                _characterScrollView.currentScrollPosition = characterOrder.Value - 1;
-            }
+            _characterScrollView?.currentScrollPosition = characterOrder.Value - 1;
         }
     }
 

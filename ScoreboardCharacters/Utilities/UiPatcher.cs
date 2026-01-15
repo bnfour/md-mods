@@ -102,10 +102,7 @@ public static class UiPatcher
 
             // the character/elfin text is hereby banished to the shadow realm until further notice
             var scrollTextTransform = levelConfigUIGroup.Find("RootLevelConfigShow/ImgArtistMask")?.GetComponent<RectTransform>();
-            if (scrollTextTransform != null)
-            {
-                scrollTextTransform.anchoredPosition3D = new(99_999, 99_999, 0);
-            }
+            scrollTextTransform?.anchoredPosition3D = new(99_999, 99_999, 0);
 
             // make component narrower
             // includes replacing the bg image, moving E button hint,
@@ -144,10 +141,7 @@ public static class UiPatcher
             }
             // the small "E" button hint
             var eTransform = levelConfigUIGroup.Find("RootLevelConfigShow/BtnOpenPnllevelConfig/ImgRandomPCtipBg (2)")?.GetComponent<RectTransform>();
-            if (eTransform != null)
-            {
-                eTransform.anchoredPosition3D += new Vector3(-50 * LevelConfigInnerScale, 0, 0);
-            }
+            eTransform?.anchoredPosition3D += new Vector3(-50 * LevelConfigInnerScale, 0, 0);
             // move the hitbox for the "Lock level config" button as well
             // still no idea what it does exactly ¯\_(ツ)_/¯
             if (levelConfigUIGroup.Find("RootLevelConfigShow/BtnLockLevelConfig")
@@ -164,21 +158,12 @@ public static class UiPatcher
 
             // random mode toggle: move and change thickness to match the other one,
             var randomToggleTransform = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<RectTransform>();
-            if (randomToggleTransform != null)
-            {
-                randomToggleTransform.anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
-            }
+            randomToggleTransform?.anchoredPosition3D += new Vector3(-116 * LevelConfigInnerScale, 0, 0);
             var randomToggleBg = levelConfigUIGroup.Find("ImgRandomBg")?.GetComponent<Image>();
-            if (randomToggleBg != null)
-            {
-                randomToggleBg.rectTransform.sizeDelta += new Vector2(0, ToggleLineExtraHeight * LevelConfigInnerScale);
-            }
+            randomToggleBg?.rectTransform.sizeDelta += new Vector2(0, ToggleLineExtraHeight * LevelConfigInnerScale);
             // random mode toggle: move the key hint up to not hang below the panel and to math the other one
             var buttonTransform = levelConfigUIGroup.Find("ImgRandomBg/ImgRandomFlagBg/KeyTip")?.GetComponent<RectTransform>();
-            if (buttonTransform != null)
-            {
-                buttonTransform.anchoredPosition3D += new Vector3(0, 2, 0);
-            }
+            buttonTransform?.anchoredPosition3D += new Vector3(0, 2, 0);
             // random mode toggle: resize and move the image inside the button component 
             // used to react to mouse clicks; to match the updated positioning&sizing
             if (levelConfigUIGroup.Find("ImgRandomBg/BtnRandomReset")
@@ -197,24 +182,18 @@ public static class UiPatcher
     {
         var bg = instance.transform.Find("Mask/ImgTittleBaseP/ImgRankTips");
         var rt = bg?.GetComponent<RectTransform>();
-        if (rt != null)
-        {
-            rt.sizeDelta += new Vector2(0, 1f);
-            rt.anchoredPosition3D += new Vector3(0, -0.5f, 0);
-        }
+        rt?.sizeDelta += new Vector2(0, 1f);
+        rt?.anchoredPosition3D += new Vector3(0, -0.5f, 0);
     }
 
     public static void UpdateLevelConfigUI()
     {
         var image = GameObject.Find(CustomLevelConfigPath)?.GetComponent<Image>();
-        if (image != null)
-        {
-            image.sprite = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider.GetSprite
+        image?.sprite = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider.GetSprite
             (
                 (Character)DataHelper.selectedRoleIndex,
                 (Elfin)DataHelper.selectedElfinIndex
             );
-        }
     }
 
     // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging

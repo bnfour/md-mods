@@ -16,9 +16,6 @@ public class PnlRankInitPatch
     {
         var fontChanger = Melon<UITweaksMod>.Instance.FontChanger;
         // fontChanger being null implies than the feature is disabled
-        if (fontChanger != null)
-        {
-            fontChanger.ChangeNumericFonts(__instance.server);
-        }
+        fontChanger?.ChangeNumericFonts(__instance.server);
     }
 }

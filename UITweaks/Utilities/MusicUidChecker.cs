@@ -12,13 +12,13 @@ namespace Bnfour.MuseDashMods.UITweaks.Utilities;
 /// </summary>
 internal static class MusicUidChecker
 {
-    private static readonly IReadOnlyList<string> _memeLevels = new List<string>
-    {
+    private static readonly IReadOnlyList<string> _memeLevels =
+    [
         // april fools 2024
         MusicUidDefine.peropero_aniki_ranbu,
         // april fools 2025
         MusicUidDefine.museyao
-    };
+    ];
 
     public static bool IsMemeLevel()
         => _memeLevels.Contains(GlobalDataBase.dbBattleStage.musicUid);

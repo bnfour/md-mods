@@ -34,7 +34,7 @@ public class PnlRankUIRefreshPatch
             // TODO consider better conversion
             var selfRank = JsonConvert.DeserializeObject<Data.Api.SelfRank>(__instance.m_SelfRank[uid].ToString());
             
-            if (selfRank != null && selfRank.Info != null)
+            if (selfRank?.Info != null)
             {
                 __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
             }

@@ -44,16 +44,10 @@ public class PnlPreparationAwakePatch
 
             // move the text closer to the icon
             var textRectTransform = textTransform?.GetComponent<RectTransform>();
-            if (textRectTransform != null)
-            {
-                textRectTransform.anchoredPosition3D += new Vector3(-22, -1, 0);
-            }
+            textRectTransform?.anchoredPosition3D += new Vector3(-22, -1, 0);
             // move the entire icon and text group to the right a bit
             var iconRectTransform = iconTransform?.GetComponent<RectTransform>();
-            if (iconRectTransform != null)
-            {
-                iconRectTransform.anchoredPosition3D += new Vector3(53, 0, 0);
-            }
+            iconRectTransform?.anchoredPosition3D += new Vector3(53, 0, 0);
 
             if (iconTransform != null)
             {
