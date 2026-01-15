@@ -191,7 +191,7 @@ This mod turns the switch for the random character and elfin mode into a fever m
 
 | Before | After |
 | :---: | :---: |
-| ![yeah, one and two is single F1 key press, but that's not the point; also no, i don't use these "binds"; bajs are not weebs Copesen](readme-images/fever-switch/xdd.png) | ![EZ](readme-images/fever-switch/it-s-that-simple.png) |
+| ![no, i don't use these "binds"; bajs are not weebs Copesen](readme-images/fever-switch/xdd.png) | ![EZ](readme-images/fever-switch/it-s-that-simple.png) |
 
 _(in these images, all other mods from the repo are also installed)_
 
