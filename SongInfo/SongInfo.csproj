@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup Label="Local references">
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/Il2CppPeroTools2.Resources.dll"/>
