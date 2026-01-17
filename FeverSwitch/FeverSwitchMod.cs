@@ -9,9 +9,9 @@ public class FeverSwitchMod : MelonMod
     private MelonPreferences_Category? _prefsCategory;
     private MelonPreferences_Entry<bool>? _isAutoDefault;
 
-    internal bool IsAutoDefault => _isAutoDefault?.Value ?? throw new ApplicationException("Preferences not loaded (yet), unable to load value for IsAutoDefault");
+    internal bool IsAutoDefault => _isAutoDefault?.Value ?? throw new System.ApplicationException("Preferences not loaded (yet), unable to load value for IsAutoDefault");
 
-    internal SpriteNameProvider NameProvider = new();
+    internal readonly SpriteNameProvider NameProvider = new();
     internal SpriteProvider? SpriteProvider;
 
     public override void OnInitializeMelon()

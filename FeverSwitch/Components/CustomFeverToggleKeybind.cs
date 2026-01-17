@@ -11,7 +11,7 @@ namespace Bnfour.MuseDashMods.FeverSwitch.Components;
 /// from a sibling <see cref="PnlRank"/> on F key press.
 /// </summary>
 [RegisterTypeInIl2Cpp]
-internal class CustomFeverToggleKeybind(IntPtr pointer) : MonoBehaviour(pointer)
+internal class CustomFeverToggleKeybind(System.IntPtr pointer) : MonoBehaviour(pointer)
 {
     internal void Update()
     {

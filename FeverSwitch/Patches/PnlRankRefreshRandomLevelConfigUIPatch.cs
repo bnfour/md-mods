@@ -21,10 +21,7 @@ public class PnlRankRefreshRandomLevelConfigUIPatch
     // and since this is an Il2Cpp game we can't transpile,
     // we manipulate this state value to set the toggle to the position we want
     // and disabling the random mode for good as soon as the UI is updated,
-    // so it is not available at all if this mod is installed
-
-    // TODO check for and disable random mode on startup?
-    // it'll probably get disabled by this anyway as soon as the preparation panel is opened
+    // so it is not available at all while this mod is installed
 
     internal static void Prefix()
     {

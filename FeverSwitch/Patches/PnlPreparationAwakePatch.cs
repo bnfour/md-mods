@@ -1,7 +1,6 @@
 using MelonLoader;
 using HarmonyLib;
 using UnityEngine;
-using UnityEngine.UI;
 
 using Il2Cpp;
 using Il2CppUI.Controls.BtnTipStateControl;
@@ -31,7 +30,7 @@ public class PnlPreparationAwakePatch
                 Melon<FeverSwitchMod>.Logger.Warning("SpriteProvider not initialized, hint image will not be replaced");
             }
         }
-        // add custom component to change the keybind, once or things will break
+        // add custom component to change the keybind, only once or things will break
         if (__instance.transform.Find("Panels/PnlRankLocalization/Pc/PnlRank")?.gameObject is GameObject go
             && go.GetComponent<CustomFeverToggleKeybind>() == null)
         {
