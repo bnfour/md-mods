@@ -26,8 +26,8 @@ public static class UiPatcher
 
     private const float LevelConfigInnerScale = 1.25f;
     private const int ToggleLineExtraHeight = 6;
-    // TODO provisional positioning for visibility, move to the right, not down
-    private static readonly Vector3 JapaneseLocalePositionCorrection = new(0, -40f, 0);
+    // see #34
+    private static readonly Vector3 JapaneseLocalePositionCorrection = new(54f, 0, 0);
 
     public static void CreateModUiForScoreboardEntry(GameObject rankCell)
     {
@@ -208,7 +208,7 @@ public static class UiPatcher
     {
         // positive multiplier is "to japanese",
         // negative is reverse
-        // TODO restirct to ±1 specifically?
+        // TODO restrict to ±1 specifically?
         GameObject.Find("UI/Standerd/PnlPreparation/RightRoot/Top")
             ?.GetComponent<RectTransform>()
             ?.anchoredPosition3D += multiplier * JapaneseLocalePositionCorrection;
