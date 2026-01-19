@@ -204,6 +204,16 @@ public static class UiPatcher
             );
     }
 
+    public static void ApplyLocaleSpecificOffset(int multiplier)
+    {
+        // positive multiplier is "to japanese",
+        // negative is reverse
+        // TODO restirct to ±1 specifically?
+        GameObject.Find("UI/Standerd/PnlPreparation/RightRoot/Top")
+            ?.GetComponent<RectTransform>()
+            ?.anchoredPosition3D += multiplier * JapaneseLocalePositionCorrection;
+    }
+
     // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
     private static Vector3 PixelPerfectishOffsetCorrection(GameObject _)
     {

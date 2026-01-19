@@ -1,9 +1,10 @@
 using HarmonyLib;
-using MelonLoader;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppPeroPeroGames.GlobalDefines;
 using Il2CppAssets.Scripts.UI.Specials;
+
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
@@ -16,21 +17,20 @@ public class SwitchLanguagesOnClickPatch
 {
     internal static void Prefix(out bool __state)
     {
-        // state is basically "are we switching from japanese?"
+        // state is basically "are we switching _from_ japanese?"
         __state = GlobalDataBase.s_DbUi.curLanguageIndex == Language.japanese;
     }
 
     internal static void Postfix(bool __state)
     {
-        var logger = Melon<ScoreboardCharactersMod>.Logger;
         if (__state)
         {
-            logger.Msg("switching FROM Japanese, move left");
+            UiPatcher.ApplyLocaleSpecificOffset(-1);
         }
-        // are we switching to japanese then?
+        // have we switched _to_ japanese then?
         else if (GlobalDataBase.s_DbUi.curLanguageIndex == Language.japanese)
         {
-            logger.Msg("switching TO Japanese, move right");
+            UiPatcher.ApplyLocaleSpecificOffset(1);
         }
     }
 }
