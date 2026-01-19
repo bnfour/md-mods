@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Il2Cpp;
 using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
+using Il2CppPeroPeroGames.GlobalDefines;
 using Il2CppInterop.Runtime;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
@@ -25,6 +26,8 @@ public static class UiPatcher
 
     private const float LevelConfigInnerScale = 1.25f;
     private const int ToggleLineExtraHeight = 6;
+    // see #34
+    private static readonly Vector3 JapaneseLocalePositionCorrection = new(54f, 0, 0);
 
     public static void CreateModUiForScoreboardEntry(GameObject rankCell)
     {
@@ -80,6 +83,11 @@ public static class UiPatcher
         {
             // move entire group
             levelConfigUIGroup.GetComponent<RectTransform>().anchoredPosition3D += new Vector3(-1180, -214, 0);
+            // move a bit more if the game is running in Japanese, see #34
+            if (GlobalDataBase.s_DbUi.curLanguageIndex == Language.japanese)
+            {
+                levelConfigUIGroup.GetComponent<RectTransform>().anchoredPosition3D += JapaneseLocalePositionCorrection;
+            }
 
             // add custom image as a component in a custom object,
             // set to neutral positioning/scaling -- everything is done in the image component
@@ -194,6 +202,16 @@ public static class UiPatcher
                 (Character)DataHelper.selectedRoleIndex,
                 (Elfin)DataHelper.selectedElfinIndex
             );
+    }
+
+    public static void ApplyLocaleSpecificOffset(int multiplier)
+    {
+        // positive multiplier is "to japanese",
+        // negative is reverse
+        // TODO restrict to ±1 specifically?
+        GameObject.Find("UI/Standerd/PnlPreparation/RightRoot/Top")
+            ?.GetComponent<RectTransform>()
+            ?.anchoredPosition3D += multiplier * JapaneseLocalePositionCorrection;
     }
 
     // empirically found offsets to snap the sprites to whole-pixel grid close enough to prevent noticeable smudging
