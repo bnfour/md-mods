@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup Label="Local references">
+    <Reference Include="../references/Assembly-CSharp-firstpass.dll" />
     <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
   </ItemGroup>
 </Project>
