@@ -4,8 +4,8 @@ using Newtonsoft.Json;
 
 using Il2CppAssets.Scripts.UI.Panels;
 
-using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 

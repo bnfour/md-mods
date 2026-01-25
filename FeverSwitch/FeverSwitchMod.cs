@@ -20,7 +20,7 @@ public class FeverSwitchMod : MelonMod
         _isAutoDefault = _prefsCategory.CreateEntry("AutoIsDefault", true,
             "Auto fever is default", "Treat automatic fever mode as default, shown as toggle turned off.");
 
-        SpriteProvider = new(_isAutoDefault.Value);
+        SpriteProvider = new(IsAutoDefault);
     }
 
     public override void OnSceneWasUnloaded(int buildIndex, string sceneName)

@@ -1,8 +1,8 @@
 using HarmonyLib;
 
 using Il2CppAssets.Scripts.Database;
-using Il2CppPeroPeroGames.GlobalDefines;
 using Il2CppAssets.Scripts.UI.Specials;
+using Il2CppPeroPeroGames.GlobalDefines;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
