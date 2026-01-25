@@ -66,7 +66,7 @@ Mod file: `TrueAbove1kRank.dll`
 This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000–2000 range:
 | Before | After |
 | --- | --- |
-| ![simulated image](readme-images/true-rank/true-rank-before.png) | ![no (you)s were harmed during production](readme-images/true-rank/true-rank-after.png) |
+| ![simulated image](readme-images/true-rank/true-rank-before.webp) | ![no (you)s were harmed during production](readme-images/true-rank/true-rank-after.webp) |
 
 > [!NOTE]
 > The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
@@ -92,7 +92,7 @@ This mod adds song's BPM and duration display to the song info screen. Multiple 
 
 | Top right (symmetrical with level designer label) | Best record panel |
 | :---: | :---: |
-| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.png) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.png) |
+| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.webp)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.webp) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.webp) |
 
 - ↖️ "Default" one line layout in the top-right corner that does not clip with the vanilla character select UI.  
 Okay to use whether Scoreboard characters mod is installed or not.
@@ -155,7 +155,7 @@ Mod file: `RankPreview.dll`
 
 This mod adds a small textfield with a predicted* scoreboard rank to the song clear screen — next to the achieved score, so you don't have to go all the way back to the song info screen to check it:
 
-![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.png)
+![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.webp)
 
 _*may not be totally accurate in certain circumstances_
 
@@ -191,7 +191,7 @@ This mod turns the switch for the random character and elfin mode into a fever m
 
 | Before | After |
 | :---: | :---: |
-| ![no, i don't use these "binds"; bajs are not weebs Copesen](readme-images/fever-switch/xdd.png) | ![EZ](readme-images/fever-switch/it-s-that-simple.png) |
+| ![no, i don't use these "binds"; bajs are not weebs Copesen](readme-images/fever-switch/xdd.webp) | ![EZ](readme-images/fever-switch/it-s-that-simple.webp) |
 
 _(in these images, all other mods from the repo are also installed)_
 
@@ -210,8 +210,8 @@ Either of the fever modes — automatic and manual — can be treated as default
 
 | Default mode ╲ Toggle | Off | On |
 | --- | :--- | ---: |
-| Automatic<br/>_(default setting)_ | ![auto as default](readme-images/fever-switch/auto-off.png) | ![manual as not default](readme-images/fever-switch/manual-on.png) |
-| Manual | ![manual as default](readme-images/fever-switch/manual-off.png) | ![auto as not default](readme-images/fever-switch/auto-on.png) |
+| Automatic<br/>_(default setting)_ | ![auto as default](readme-images/fever-switch/auto-off.webp) | ![manual as not default](readme-images/fever-switch/manual-on.webp) |
+| Manual | ![manual as default](readme-images/fever-switch/manual-off.webp) | ![auto as not default](readme-images/fever-switch/auto-on.webp) |
 
 The mode to be considered default can be set in mod's preferences.
 
@@ -248,9 +248,9 @@ This feature slightly widens the space for the album title on the song selection
 
 | State | Illustration |
 | --- | :---: |
-| _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
+| _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.webp)
 | Before | ![ｾﾏｲ](readme-images/ui-tweaks/narrow-album-title.avif) |
-| After | ![ ヒ ロ イ ](readme-images/ui-tweaks/wide-album-title.png) |
+| After | ![ ヒ ロ イ ](readme-images/ui-tweaks/wide-album-title.webp) |
 
 > [!NOTE]
 > This feature is intended to be used with English locale.
@@ -299,7 +299,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 
 | Manual fever | Automatic fever |
 | --- | --- |
-![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.png) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.png) |
+![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.webp) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.webp) |
 
 > [!NOTE]
 > Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
@@ -308,7 +308,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
 | Before | After |
 | --- | --- |
-| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
+| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.webp) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.webp) |
 
 > [!NOTE]
 > This feature is intended to be used with English locale.
@@ -317,7 +317,7 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements" header, as older versions of Song info used to do:
 | _(Context)_ | Before | After |
 | --- | --- | --- |
-| ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.png) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.png) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.png) |
+| ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.webp) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.webp) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.webp) |
 
 <details>
 <summary>It also adds appearance animations — slide in, fade in — for the counter to match the rest of achievements panel (⅛× playback speed animation, very choppy)</summary>
@@ -352,7 +352,7 @@ This small feature adds a quick fade in animation for the character and elfin se
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
 | Before | After |
 | :---: | :---: |
-| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.png) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.png) |
+| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.webp) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.webp) |
 
 The custom font is pretty much the same font, except the symbol for "1" (one); just adjusted for monospace numbers.
 
