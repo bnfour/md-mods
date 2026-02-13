@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   sodipodi:docname="PcButtonF.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   inkscape:export-filename="PcButtonF.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="powermask"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       uri="#mask-powermask-path-effect3"
+       invert="false"
+       hide_mask="false"
+       background="true"
+       background_color="#ffffffff" />
+    <mask
+       maskUnits="userSpaceOnUse"
+       id="mask-powermask-path-effect3">
+      <path
+         id="mask-powermask-path-effect3_box"
+         style="fill:#ffffff;fill-opacity:1"
+         d="M -1,-1 H 65 V 65 H -1 Z" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:57px;font-family:Teko;-inkscape-font-specification:'Teko Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke-width:2;stroke-linecap:round;paint-order:stroke fill markers"
+         x="31.572517"
+         y="45.619522"
+         id="text3"><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           x="31.572517"
+           y="45.619522">F</tspan></text>
+    </mask>
+    <filter
+       id="mask-powermask-path-effect3_inverse"
+       inkscape:label="filtermask-powermask-path-effect3"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect3_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect3_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="8"
+     inkscape:cx="0.625"
+     inkscape:cy="38.4375"
+     inkscape:window-width="2556"
+     inkscape:window-height="1022"
+     inkscape:window-x="1080"
+     inkscape:window-y="864"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="bg for visibility"
+     sodipodi:insensitive="true"
+     style="display:inline">
+    <rect
+       style="fill:#000171;fill-opacity:1;stroke-width:3.93581;stroke-linecap:round;paint-order:stroke fill markers"
+       id="rect1"
+       width="64"
+       height="64"
+       x="-4.4408921e-15"
+       y="0" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="ref"
+     id="g1"
+     style="display:none">
+    <image
+       width="64"
+       height="64"
+       preserveAspectRatio="none"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACf0lEQVR4XmP8//8/IwN2EAwUjgBi&#10;YyCWAmI2hqEFPgOd+xSIrwLxCiBei8352AIA5PF2oGIVhuEF7gC9U4keEOgBAPJ4OcPwBp3QgAD7&#10;kgnJryPB8yDvgiK4HeZvUApgBnJAyX4lw8gCYUDvrocFwE0gR3mEBQCogFRggsb+SPM8KK6lgUQg&#10;KADCGEYuiARlgftA/yuM0DB4BAqAH0DPs4/QAPgFCoD/IzgLMDAxjHBAaQDsAYYfI4l4D44w3wsU&#10;Z6KSWURH62gKGM0Co2XAyA6B0TJgtAwYLQNGywCG0abwCA6B0VpgtBYYrQVGa4HRWmC0GhytBkdu&#10;CIy2A0bbAaPtgNF2wGg7YLQdMNoOGG0HjNgQYBkAn4PmEv8h2TugjbHRluAApICPOOz8MBD5cCCy&#10;QDbQo2uA2Ajq4b9A+gEQD8gyPUpXiLwHOlwYLeZoveIEeW3zbqDdzpSkHGoskREEOgA5WdMzAP5R&#10;mm2oUQgmMQwMSKeGtdRIAZ+ADpFHSgX0SAECQPtOAbHKYEgBfEBHgPKiANQx6GuGKHUjNvOotpyf&#10;Wu0AE6AvdwGxM41zgzM05tOpZQ8t1gmeAToOtOILtBoMVDiepsCxoCQOWsXqAg1cE2oH8OhCSYYR&#10;Dkb7AsAE8GUEJ4JfoBTwbAQHwAtQAFwdwQFwBhQAy0dwAKwCVYOgLjGoOyo9wgLiLtC/mrBaoHAE&#10;poJqkJ9BAQAakAANUHQABf6NgIAA+RHk11VAv/5B3zo7DSiYMcwDYQbQf1kwP6I3hEAS4UDJu8Mw&#10;EEB+Ckf2PMiP2HaPwwIFtJ0WtKcQtH0eVECyDrFA+Q10L2h36FkgDUrusO3zKNkcAFWHhJ5sLVt6&#10;AAAAAElFTkSuQmCC&#10;"
+       id="image1" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="f to pay respects">
+    <path
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:2;stroke-linecap:round;paint-order:stroke fill markers"
+       id="rect2"
+       width="64"
+       height="64"
+       x="0"
+       y="0"
+       ry="9.4464951"
+       inkscape:label="PcButtonF"
+       mask="url(#mask-powermask-path-effect3)"
+       inkscape:path-effect="#path-effect3"
+       sodipodi:type="rect"
+       d="M 9.4464951,0 H 54.553505 C 59.786863,0 64,4.2131368 64,9.4464951 V 54.553505 C 64,59.786863 59.786863,64 54.553505,64 H 9.4464951 C 4.2131368,64 0,59.786863 0,54.553505 V 9.4464951 C 0,4.2131368 4.2131368,0 9.4464951,0 Z" />
+  </g>
+</svg>

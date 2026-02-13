@@ -18,7 +18,7 @@ public class PnlRankUIRefreshPatch
         if (__instance.m_Ranks.ContainsKey(uid) && __instance.m_Ranks[uid].ToString() is string raw)
         {
             var scores = JsonConvert.DeserializeObject<List<Data.Api.ScoreboardEntry>>(raw)
-                ?.Select(se => se.Info.Score) ?? Array.Empty<int>();
+                ?.Select(se => se.Info.Score) ?? [];
 
             Melon<RankPreviewMod>.Instance.Cache.Store(uid, scores);
         }

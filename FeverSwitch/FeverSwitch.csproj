@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup Label="Local references">
+    <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
+
+    <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+    <Reference Include="../references/UnityEngine.InputLegacyModule.dll" />
+    <Reference Include="../references/UnityEngine.ParticleSystemModule.dll" />
+  </ItemGroup>
+
+  <ItemGroup Label="Resources">
+    <EmbeddedResource Include="Resources/auto.accented.png" />
+    <EmbeddedResource Include="Resources/auto.default.png" />
+    <EmbeddedResource Include="Resources/manual.accented.png" />
+    <EmbeddedResource Include="Resources/manual.default.png" />
+
+    <EmbeddedResource Include="Resources/PcButtonF.png" />
+  </ItemGroup>
+</Project>

@@ -26,16 +26,18 @@ public class PnlVictorySetScorePatch
         // TODO looks scuffed, a better way to find the component
         // currently we traverse the hierarchy like this:
         // an actual score text (a number)
-        // -> its parent, score text (which we cloned) -- also used for font comparisons
+        // -> its parent, score text (which we cloned)
         //   -> its parent, PnlVictory_3D
         //     -> its child, _the_ component, by its name
-        var sourceText = __instance?.m_CurControls?.scoreTxt?.transform.parent;
-        var textfield = sourceText?.parent.Find(Constants.ExtraComponentName);
+        var textfield = __instance?.m_CurControls?.scoreTxt?.transform.parent?.parent.Find(Constants.ExtraComponentName);
         if (textfield != null)
         {
             var text = textfield.GetComponent<Text>();
             if (text != null)
             {
+                // the font source -- actual score value text, because it uses teko regardless of the game language,
+                // unlike the score text we cloned earlier
+                var sourceText = __instance?.m_CurControls?.scoreTxt;
                 // collab screen fonts are changed between the InitControl clone and SetScore assignment,
                 // see #26
                 var sourceFont = sourceText?.GetComponent<Text>()?.font;

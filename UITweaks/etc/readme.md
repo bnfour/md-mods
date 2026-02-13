@@ -14,7 +14,7 @@ Using [FontForge](https://fontforge.org/), I removed most of the symbols from th
 
 | Original one | Custom one | Original-ish seven |
 | :---: | :---: | :---: |
-| ![imagine being this narrow](./original-one.png) | ![yes i know that the overlapping lines are off](./wide-one.png) | ![fontforge actually warns when stuff overlaps](./widened-seven.png) |
+| ![imagine being this narrow](./original-one.webp) | ![yes i know that the overlapping lines are off](./wide-one.webp) | ![fontforge actually warns when stuff overlaps](./widened-seven.webp) |
 
 The seven symbol (like most of the numbers) was slightly widened to match the widest number (four), and centered within the space.
 

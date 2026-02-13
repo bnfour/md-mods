@@ -31,7 +31,7 @@ cp release-bundle/*.txt "$ARCHIVE_ROOT/"
 
 # build and copy mod DLLs
 echo "Building..."
-dotnet build --configuration "$CONFIG" Bnfour.MuseDashMods.sln \
+dotnet build --configuration "$CONFIG" \
     &>"$LOGS"/01-dotnet-build.log || { echo "Build error, check the log in $LOGS"; exit 1; }
 
 # figure out the project names,

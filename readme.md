@@ -13,6 +13,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Album scroll](#album-scroll) — enables to scroll through current album using Shift keys
 - [Song info](#song-info) — shows song's BPM and duration
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
+- [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -65,7 +66,7 @@ Mod file: `TrueAbove1kRank.dll`
 This small mod changes mysterious "999+" text in your own scoreboard entry to your actual rank if it lies within 1000–2000 range:
 | Before | After |
 | --- | --- |
-| ![simulated image](readme-images/true-rank/true-rank-before.png) | ![no (you)s were harmed during production](readme-images/true-rank/true-rank-after.png) |
+| ![simulated image](readme-images/true-rank/true-rank-before.webp) | ![no (you)s were harmed during production](readme-images/true-rank/true-rank-after.webp) |
 
 > [!NOTE]
 > The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
@@ -91,7 +92,7 @@ This mod adds song's BPM and duration display to the song info screen. Multiple 
 
 | Top right (symmetrical with level designer label) | Best record panel |
 | :---: | :---: |
-| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.png)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.png) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.png) |
+| **Default, no Scoreboard characters**<br/>![君に沼った!](readme-images/song-info/song-info-out-of-the-box.webp)<hr/>**"Classic" layout, Scoreboard characters required**<br/>![推しに決まった!!](readme-images/song-info/song-info-classic.webp) | ![こんなにビジュアルは強すぎる](readme-images/song-info/song-info-alternative.webp) |
 
 - ↖️ "Default" one line layout in the top-right corner that does not clip with the vanilla character select UI.  
 Okay to use whether Scoreboard characters mod is installed or not.
@@ -154,7 +155,7 @@ Mod file: `RankPreview.dll`
 
 This mod adds a small textfield with a predicted* scoreboard rank to the song clear screen — next to the achieved score, so you don't have to go all the way back to the song info screen to check it:
 
-![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.png)
+![reasoning above is why i made this mod no cap](readme-images/rank-preview/highscore-preview.webp)
 
 _*may not be totally accurate in certain circumstances_
 
@@ -185,6 +186,46 @@ Uncertainty is mostly relevant for newly released songs just after a game update
 > [!TIP]
 > The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
 
+## Fever switch
+This mod turns the switch for the random character and elfin mode into a fever mode switch, allowing to quickly toggle between automatic and manual modes before starting the song:
+
+| Before | After |
+| :---: | :---: |
+| ![no, i don't use these "binds"; bajs are not weebs Copesen](readme-images/fever-switch/xdd.webp) | ![EZ](readme-images/fever-switch/it-s-that-simple.webp) |
+
+_(in these images, all other mods from the repo are also installed)_
+
+Really convenient. Beats the quick access to the random mode all day every day (at least for me).
+
+An <kbd>F</kbd> keybinding is added to the switch, and its hint is changed to reflect that. The original <kbd>U</kbd> also still works.
+
+100% compatible with [Scoreboard characters](#scoreboard-characters); works by itself.
+
+>[!NOTE]
+>For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed.  
+>(The random mode toggle value is used to manipulate the switch state as it's hardcoded to use that and I can't transpile this game.)
+
+### Display
+Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely cosmetic:
+
+| Default mode ╲ Toggle | Off | On |
+| --- | :--- | ---: |
+| Automatic<br/>_(default setting)_ | ![auto as default](readme-images/fever-switch/auto-off.webp) | ![manual as not default](readme-images/fever-switch/manual-on.webp) |
+| Manual | ![manual as default](readme-images/fever-switch/manual-off.webp) | ![auto as not default](readme-images/fever-switch/auto-on.webp) |
+
+The mode to be considered default can be set in mod's preferences.
+
+### Configuration
+The display setting is located in mod's preferences, which are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
+
+```toml
+[Bnfour_FeverSwitch]
+# Treat automatic fever mode as default, shown as toggle turned off.
+AutoIsDefault = true
+```
+
+Set the value to `false` to treat manual fever mode as default instead.
+
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
@@ -207,9 +248,9 @@ This feature slightly widens the space for the album title on the song selection
 
 | State | Illustration |
 | --- | :---: |
-| _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.png)
+| _(Context)_ | ![today i learned it's possible to set alignment in these tables](readme-images/ui-tweaks/album-title-context.webp)
 | Before | ![ｾﾏｲ](readme-images/ui-tweaks/narrow-album-title.avif) |
-| After | ![ ヒ ロ イ ](readme-images/ui-tweaks/wide-album-title.png) |
+| After | ![ ヒ ロ イ ](readme-images/ui-tweaks/wide-album-title.webp) |
 
 > [!NOTE]
 > This feature is intended to be used with English locale.
@@ -258,7 +299,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 
 | Manual fever | Automatic fever |
 | --- | --- |
-![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.png) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.png) |
+![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.webp) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.webp) |
 
 > [!NOTE]
 > Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
@@ -267,7 +308,7 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
 | Before | After |
 | --- | --- |
-| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.png) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.png) |
+| ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.webp) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.webp) |
 
 > [!NOTE]
 > This feature is intended to be used with English locale.
@@ -276,7 +317,7 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements" header, as older versions of Song info used to do:
 | _(Context)_ | Before | After |
 | --- | --- | --- |
-| ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.png) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.png) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.png) |
+| ![i still miss impact](readme-images/ui-tweaks/achievements-header-context.webp) | ![i did it first xdd](readme-images/ui-tweaks/achievements-header-before.webp) | ![fun fact: this is technically not a part of achievements panel at all, it kept its place in component hierarchy](readme-images/ui-tweaks/achievements-header-after.webp) |
 
 <details>
 <summary>It also adds appearance animations — slide in, fade in — for the counter to match the rest of achievements panel (⅛× playback speed animation, very choppy)</summary>
@@ -311,7 +352,7 @@ This small feature adds a quick fade in animation for the character and elfin se
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
 | Before | After |
 | :---: | :---: |
-| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.png) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.png) |
+| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.webp) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.webp) |
 
 The custom font is pretty much the same font, except the symbol for "1" (one); just adjusted for monospace numbers.
 
@@ -353,7 +394,7 @@ This is not a mod intended for using. Rather, it's a developmental test bed for 
 The project (as published) contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.7.0 Open-Beta of MelonLoader is supported.  
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.7.1 Open-Beta of MelonLoader is supported.  
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
 > [!IMPORTANT]
@@ -399,7 +440,7 @@ In case there is a breaking incompatibility with other mods, and it can be trace
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-- Please make sure you're using supported (**0.7.0**) version of MelonLoader.  
+- Please make sure you're using supported (**0.7.1**) version of MelonLoader.  
 [UI tweaks' tabular numbers](#tabular-numbers-in-scoreboard) are reported to have issues with older MelonLoader versions.
 - Try to remove mods not from this repo.
 - Try to remove mods and/or modloader and check whether the vanilla game is broken too.

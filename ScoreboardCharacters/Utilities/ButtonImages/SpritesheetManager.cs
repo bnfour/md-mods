@@ -13,7 +13,7 @@ namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities.ButtonImages;
 public class SpritesheetManager
 {
     private const string OverrideFilename = "scoreboard_characters_override.png";
-    private readonly int[] SupportedResolutions = { 720, 1080, 1440, 2160 };
+    private readonly int[] SupportedResolutions = [720, 1080, 1440, 2160];
     // 1920×1080 is the baseline resolution
     private const int BaseResolution = 1080;
     private const int BaseSpriteSize = 40;

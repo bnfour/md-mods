@@ -7,7 +7,7 @@ using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
-[HarmonyPatch(typeof(FastPoolManager), nameof(FastPoolManager.CreatePool), new[] {typeof(GameObject), typeof(bool), typeof(int), typeof(int), typeof(Transform)})]
+[HarmonyPatch(typeof(FastPoolManager), nameof(FastPoolManager.CreatePool), [typeof(GameObject), typeof(bool), typeof(int), typeof(int), typeof(Transform)])]
 public class FastPoolManagerCreatePoolPatch
 {
     // hook the creation of pool of reused objects for scoreboard entries

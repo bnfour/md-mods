@@ -4,8 +4,8 @@ using Newtonsoft.Json;
 
 using Il2CppAssets.Scripts.UI.Panels;
 
-using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
@@ -34,7 +34,7 @@ public class PnlRankUIRefreshPatch
             // TODO consider better conversion
             var selfRank = JsonConvert.DeserializeObject<Data.Api.SelfRank>(__instance.m_SelfRank[uid].ToString());
             
-            if (selfRank != null && selfRank.Info != null)
+            if (selfRank?.Info != null)
             {
                 __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
             }

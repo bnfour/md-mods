@@ -119,7 +119,7 @@ public class SongInfoMod : MelonMod
             var path = Path.Combine(Application.dataPath, OutputFilename);
             using (var writer = new StreamWriter(path, false))
             {
-                writer.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
+                writer.Write(JsonConvert.SerializeObject(result, Formatting.Indented).ReplaceLineEndings("\n"));
             }
 
             stopwatch.Stop();

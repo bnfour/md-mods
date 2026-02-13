@@ -35,8 +35,8 @@ public enum Character
     BuroDivineGear,
     BuroVampireNurse,
     RinPirate,
+    BuroTheDiver,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter33,
     MysteryCharacter34,
     MysteryCharacter35,
     MysteryCharacter36,

@@ -34,10 +34,7 @@ public class OptionSelectPatch_UpperCase
         foreach (var kvp in __instance.m_SelectedButtonList)
         {
             var textComponent = kvp.Value?.GetComponentInChildren<Text>();
-            if (textComponent != null)
-            {
-                textComponent.text = textComponent.text.ToUpper();
-            }
+            textComponent?.text = textComponent.text.ToUpper();
         }
     }
 }
