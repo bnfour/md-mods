@@ -74,9 +74,9 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 ## Album scroll
 Mod file: `AlbumScroll.dll`
 
-This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold <kbd>Shift</kbd> key while scrolling (<kbd>A</kbd>/<kbd>D</kbd>, <kbd>←</kbd>/<kbd>→</kbd>, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
+This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold <kbd>⇧ Shift</kbd> key while scrolling (<kbd>A</kbd>/<kbd>D</kbd>, <kbd>←</kbd>/<kbd>→</kbd>, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
 
-Here's a little demo of switching entire albums by single <kbd>Shift</kbd>+<kbd>arrow</kbd> taps:
+Here's a little demo of switching entire albums by single <kbd>⇧ Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd> taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
