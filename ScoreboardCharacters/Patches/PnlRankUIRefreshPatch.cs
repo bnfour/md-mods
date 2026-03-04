@@ -38,7 +38,6 @@ public class PnlRankUIRefreshPatch
                 // il2cpp's JToken to a managed object
                 // TODO consider better conversion
                 selfRank = JsonConvert.DeserializeObject<SelfRank>(__instance.m_SelfRank[uid].ToString());
-                // if (new System.Random().Next() % 2 == 0) { throw new System.Exception("why didn't forsen save me?"); }
             }
             // TODO catch jsonconvert's specific exceptions only?
             catch
@@ -60,7 +59,6 @@ public class PnlRankUIRefreshPatch
             {
                 // same scuffed "render to a string, then use a proper library to get only relevant data" approach
                 scoreboard = JsonConvert.DeserializeObject<List<ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
-                // if (new System.Random().Next() % 2 == 0) { throw new System.Exception("why didn't forsen save me?"); }
             }
             catch
             {
