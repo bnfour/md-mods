@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MelonLoader;
 using HarmonyLib;
 using Newtonsoft.Json;
 
@@ -7,7 +8,6 @@ using Il2CppAssets.Scripts.UI.Panels;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
-using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
@@ -38,7 +38,7 @@ public class PnlRankUIRefreshPatch
                 // il2cpp's JToken to a managed object
                 // TODO consider better conversion
                 selfRank = JsonConvert.DeserializeObject<SelfRank>(__instance.m_SelfRank[uid].ToString());
-                // throw new System.Exception("why didn't forsen save me?");
+                // if (new System.Random().Next() % 2 == 0) { throw new System.Exception("why didn't forsen save me?"); }
             }
             // TODO catch jsonconvert's specific exceptions only?
             catch
@@ -60,7 +60,7 @@ public class PnlRankUIRefreshPatch
             {
                 // same scuffed "render to a string, then use a proper library to get only relevant data" approach
                 scoreboard = JsonConvert.DeserializeObject<List<ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
-                // throw new System.Exception("why didn't forsen save me?");
+                // if (new System.Random().Next() % 2 == 0) { throw new System.Exception("why didn't forsen save me?"); }
             }
             catch
             {
@@ -89,7 +89,7 @@ public class PnlRankUIRefreshPatch
     private static void Postfix(PnlRank __instance, AdditionalScoreboardData __state)
     {
         // self-rank is handled separately
-        if (__state.Self != null)
+        if (__instance.server.active)
         {
             UiPatcher.FillScoreboardEntry(__instance.server, __state.Self);
         }
@@ -119,17 +119,10 @@ public class PnlRankUIRefreshPatch
             // index 0 is entry #1, index 1 is entry #2 and so on
             // this calculates the scoreboard data index from the pool index
             var extraDataIndex = poolCount - 1 - i;
-            // check for missing data and let the user know
-            if (extraDataIndex >= __state.Scoreboard.Count)
-            {
-                // a few words on the issue (tracked as #5):
-                // so far, it very rarely happens randomly (incomplete server response?)
-                // or sometimes when *quickly* switching difficulties (data reset before this loop is completed?)
-                // it's not that common (didn't have this in months) or breaking (a refresh fixes it), so just a warning for now
-                MelonLoader.Melon<ScoreboardCharactersMod>.Logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
-                break;
-            }
-            var correspondingExtraData = __state.Scoreboard[extraDataIndex];
+            // do not break on missing data -- show error button instead
+            var correspondingExtraData = extraDataIndex < __state.Scoreboard.Count
+                ? __state.Scoreboard[extraDataIndex]
+                : null;
 
             UiPatcher.FillScoreboardEntry(actualEntry, correspondingExtraData);
         }
