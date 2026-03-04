@@ -5,7 +5,9 @@ using Newtonsoft.Json;
 using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
+using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
 
@@ -24,16 +26,27 @@ public class PnlRankUIRefreshPatch
     /// <param name="__state">Additional scoreboard data to pass to <see cref="Postfix"/>.</param>
     private static void Prefix(string uid, PnlRank __instance, out AdditionalScoreboardData __state)
     {
-        __state = new AdditionalScoreboardData();
+        __state = new();
 
         if (__instance.m_SelfRank.ContainsKey(uid))
         {
-            // this is an extremely blunt way to do this,
-            // but I didn't find a way to nicely convert
-            // il2cpp's JToken to a managed object
-            // TODO consider better conversion
-            var selfRank = JsonConvert.DeserializeObject<Data.Api.SelfRank>(__instance.m_SelfRank[uid].ToString());
-            
+            SelfRank selfRank;
+            try
+            {
+                // this is an extremely blunt way to do this,
+                // but I didn't find a way to nicely convert
+                // il2cpp's JToken to a managed object
+                // TODO consider better conversion
+                selfRank = JsonConvert.DeserializeObject<SelfRank>(__instance.m_SelfRank[uid].ToString());
+                // throw new System.Exception("why didn't forsen save me?");
+            }
+            // TODO catch jsonconvert's specific exceptions only?
+            catch
+            {
+                Melon<ScoreboardCharactersMod>.Logger.Error("Unable to deserialize self-rank data!");
+                selfRank = null;
+            }
+
             if (selfRank?.Info != null)
             {
                 __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
@@ -42,8 +55,18 @@ public class PnlRankUIRefreshPatch
 
         if (__instance.m_Ranks.ContainsKey(uid))
         {
-            // same scuffed "render to a string, then use a proper library to get only relevant data" approach
-            var scoreboard = JsonConvert.DeserializeObject<List<Data.Api.ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
+            List<ScoreboardEntry> scoreboard;
+            try
+            {
+                // same scuffed "render to a string, then use a proper library to get only relevant data" approach
+                scoreboard = JsonConvert.DeserializeObject<List<ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
+                // throw new System.Exception("why didn't forsen save me?");
+            }
+            catch
+            {
+                Melon<ScoreboardCharactersMod>.Logger.Error("Unable to deserialize scoreboard data!");
+                scoreboard = null;
+            }
 
             if (scoreboard == null)
             {
