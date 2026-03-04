@@ -60,17 +60,29 @@ public static class UiPatcher
             if (buttonComponent != null)
             {
                 buttonComponent.onClick.RemoveAllListeners();
-                buttonComponent.onClick.AddListener((UnityAction)new System.Action(() =>
+                if (dataEntry != null)
                 {
-                    var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
-                    switcher.Switch(dataEntry.Character, dataEntry.Elfin);
-                }));
+                    buttonComponent.onClick.AddListener((UnityAction)new System.Action(() =>
+                    {
+                        var switcher = Melon<ScoreboardCharactersMod>.Instance.CharacterSwitcher;
+                        switcher.Switch(dataEntry.Character, dataEntry.Elfin);
+                    }));
+                }
 
                 var imageComponent = buttonComponent.image;
                 if (imageComponent != null)
                 {
                     var provider = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider;
-                    imageComponent.sprite = provider.GetSprite(dataEntry.Character, dataEntry.Elfin);
+                    if (dataEntry != null)
+                    {
+                        imageComponent.color = Color.white;
+                        imageComponent.sprite = provider.GetSprite(dataEntry.Character, dataEntry.Elfin);
+                    }
+                    else
+                    {
+                        imageComponent.color = new(1f, 0f, 0f, 0.3f);
+                        imageComponent.sprite = provider.GetSprite(Character.MarijaInBlack, Elfin.LittleNurse);
+                    }
                 }
             }
         }
