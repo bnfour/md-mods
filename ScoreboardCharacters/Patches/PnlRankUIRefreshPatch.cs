@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using MelonLoader;
 using HarmonyLib;
 using Newtonsoft.Json;
 
 using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using Bnfour.MuseDashMods.ScoreboardCharacters.Data.Api;
 using Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Patches;
@@ -24,16 +26,26 @@ public class PnlRankUIRefreshPatch
     /// <param name="__state">Additional scoreboard data to pass to <see cref="Postfix"/>.</param>
     private static void Prefix(string uid, PnlRank __instance, out AdditionalScoreboardData __state)
     {
-        __state = new AdditionalScoreboardData();
+        __state = new();
 
         if (__instance.m_SelfRank.ContainsKey(uid))
         {
-            // this is an extremely blunt way to do this,
-            // but I didn't find a way to nicely convert
-            // il2cpp's JToken to a managed object
-            // TODO consider better conversion
-            var selfRank = JsonConvert.DeserializeObject<Data.Api.SelfRank>(__instance.m_SelfRank[uid].ToString());
-            
+            SelfRank selfRank;
+            try
+            {
+                // this is an extremely blunt way to do this,
+                // but I didn't find a way to nicely convert
+                // il2cpp's JToken to a managed object
+                // TODO consider better conversion
+                selfRank = JsonConvert.DeserializeObject<SelfRank>(__instance.m_SelfRank[uid].ToString());
+            }
+            // TODO catch jsonconvert's specific exceptions only?
+            catch
+            {
+                Melon<ScoreboardCharactersMod>.Logger.Error("Unable to deserialize self-rank data!");
+                selfRank = null;
+            }
+
             if (selfRank?.Info != null)
             {
                 __state.Self = new AdditionalScoreboardDataEntry(selfRank.Info);
@@ -42,8 +54,17 @@ public class PnlRankUIRefreshPatch
 
         if (__instance.m_Ranks.ContainsKey(uid))
         {
-            // same scuffed "render to a string, then use a proper library to get only relevant data" approach
-            var scoreboard = JsonConvert.DeserializeObject<List<Data.Api.ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
+            List<ScoreboardEntry> scoreboard;
+            try
+            {
+                // same scuffed "render to a string, then use a proper library to get only relevant data" approach
+                scoreboard = JsonConvert.DeserializeObject<List<ScoreboardEntry>>(__instance.m_Ranks[uid].ToString());
+            }
+            catch
+            {
+                Melon<ScoreboardCharactersMod>.Logger.Error("Unable to deserialize scoreboard data!");
+                scoreboard = null;
+            }
 
             if (scoreboard == null)
             {
@@ -66,7 +87,7 @@ public class PnlRankUIRefreshPatch
     private static void Postfix(PnlRank __instance, AdditionalScoreboardData __state)
     {
         // self-rank is handled separately
-        if (__state.Self != null)
+        if (__instance.server.active)
         {
             UiPatcher.FillScoreboardEntry(__instance.server, __state.Self);
         }
@@ -96,17 +117,10 @@ public class PnlRankUIRefreshPatch
             // index 0 is entry #1, index 1 is entry #2 and so on
             // this calculates the scoreboard data index from the pool index
             var extraDataIndex = poolCount - 1 - i;
-            // check for missing data and let the user know
-            if (extraDataIndex >= __state.Scoreboard.Count)
-            {
-                // a few words on the issue (tracked as #5):
-                // so far, it very rarely happens randomly (incomplete server response?)
-                // or sometimes when *quickly* switching difficulties (data reset before this loop is completed?)
-                // it's not that common (didn't have this in months) or breaking (a refresh fixes it), so just a warning for now
-                MelonLoader.Melon<ScoreboardCharactersMod>.Logger.Warning($"Unable to fill the entire scoreboard. Try refreshing if you see an incomplete scoreboard.");
-                break;
-            }
-            var correspondingExtraData = __state.Scoreboard[extraDataIndex];
+            // do not break on missing data -- show error button instead
+            var correspondingExtraData = extraDataIndex < __state.Scoreboard.Count
+                ? __state.Scoreboard[extraDataIndex]
+                : null;
 
             UiPatcher.FillScoreboardEntry(actualEntry, correspondingExtraData);
         }

@@ -74,9 +74,9 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 ## Album scroll
 Mod file: `AlbumScroll.dll`
 
-This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold <kbd>Shift</kbd> key while scrolling (<kbd>A</kbd>/<kbd>D</kbd>, <kbd>←</kbd>/<kbd>→</kbd>, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
+This mod adds an option to quickly scroll to the next album in the song selection menu. Just hold <kbd>⇧ Shift</kbd> key while scrolling (<kbd>A</kbd>/<kbd>D</kbd>, <kbd>←</kbd>/<kbd>→</kbd>, mouse wheel, on-screen buttons — works with all of these). This will scroll to the closest song from a different album.
 
-Here's a little demo of switching entire albums by single <kbd>Shift</kbd>+<kbd>arrow</kbd> taps:
+Here's a little demo of switching entire albums by single <kbd>⇧ Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd> taps:
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
@@ -181,7 +181,7 @@ In addition, the mod may add a few `!` and/or `?` characters to the rank, depend
 
 Impressiveness is just an arbitrary categorization for the ranks for discern at glance.
 
-Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved higher scores at the same time, but there's no way for this mod to know until the scoreboard is reloaded.
+Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved higher scores at the same time, but there's no way for this mod to know until the scoreboard is refreshed.
 
 > [!TIP]
 > The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
@@ -201,9 +201,8 @@ An <kbd>F</kbd> keybinding is added to the switch, and its hint is changed to re
 
 100% compatible with [Scoreboard characters](#scoreboard-characters); works by itself.
 
->[!NOTE]
->For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed.  
->(The random mode toggle value is used to manipulate the switch state as it's hardcoded to use that and I can't transpile this game.)
+> [!NOTE]
+> For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed. (The random mode toggle value is used to manipulate the switch state as it's hardcoded to use that.)
 
 ### Display
 Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely cosmetic:
@@ -244,7 +243,7 @@ The following UI tweaks are currently available:
 Each feature can be toggled on and off independently of others.
 
 ### Wider album titles
-This feature slightly widens the space for the album title on the song selection screen, so that even notoriously long "MD-level Tactical Training Blu-ray" and even longer "Legendary Voyage, Mystic Treasure" fit:
+This feature slightly widens the space for the album title on the song selection screen, so that notoriously long "MD-level Tactical Training Blu-ray" and even longer "Legendary Voyage, Mystic Treasure" fit:
 
 | State | Illustration |
 | --- | :---: |
@@ -282,10 +281,10 @@ This mod feature corrects this by matching the state of new icons to the state o
 This feature syncs the "bubble flow" animation between HP and Fever bars (please excuse the compression):
 
 | State | Illustration |
-| --- | --- |
+| :---: | --- |
 | Before | ![i do apologize for the potato quality](readme-images/ui-tweaks/bars-vanilla.avif) |
 | After | ![these things are really bitrate hoggers](readme-images/ui-tweaks/bars-mod.avif) |
-| After[*](#alternative-mode) | ![this is pretty much the default quality settings of my entire record-trim&crop-reencode pipeline, sorry](readme-images/ui-tweaks/bars-mod-alt.avif) |
+| After<br/>(alt mode) | ![this is pretty much the default quality settings of my entire record-trim&crop-reencode pipeline, sorry](readme-images/ui-tweaks/bars-mod-alt.avif) |
 
 > [!NOTE]
 > This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
@@ -346,8 +345,8 @@ This small feature adds a quick fade in animation for the character and elfin se
 
 ### Tabular numbers in scoreboard
 
->[!WARNING]
->This feature reportedly breaks the scoreboard when used with MelonLoader 0.6.*. If you can't upgrade to later versions, disable the feature via preferences.
+> [!WARNING]
+> This feature reportedly breaks the scoreboard when used with MelonLoader 0.6.*. If you can't upgrade to later versions, disable the feature via preferences.
 
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
 | Before | After |
@@ -356,7 +355,7 @@ This feature makes the scoreboard use a font with numbers of the same width, so 
 
 The custom font is pretty much the same font, except the symbol for "1" (one); just adjusted for monospace numbers.
 
-I tried.
+I tried. Font editing is fun.
 
 ### Configuration
 This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
@@ -394,7 +393,8 @@ This is not a mod intended for using. Rather, it's a developmental test bed for 
 The project (as published) contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, 0.7.1 Open-Beta of MelonLoader is supported.  
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, **0.7.2 Open-Beta** of MelonLoader is supported. While older version may work _(or not ¯\\\_(ツ)\_/¯)_, I won't fix an issue if it's not reproducible on the supported version.
+
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
 > [!IMPORTANT]
@@ -407,7 +407,7 @@ Otherwise, please verify the downloads.
 Every published release is accompanied with SHA256 hashes of every DLL. MelonLoader does print these in console when loading mods, but I suggest to verify the hashes before installation.
 
 # Frequently Asked Questions
-(or, more accurately, "I thought you may want to know this")
+_(or, more accurately, "I thought you may want to know this")_
 
 ### Is this cheating?
 _tl;dr: no_
@@ -440,7 +440,7 @@ In case there is a breaking incompatibility with other mods, and it can be trace
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-- Please make sure you're using supported (**0.7.1**) version of MelonLoader.  
+- Please make sure you're using supported (**0.7.2**) version of MelonLoader.  
 [UI tweaks' tabular numbers](#tabular-numbers-in-scoreboard) are reported to have issues with older MelonLoader versions.
 - Try to remove mods not from this repo.
 - Try to remove mods and/or modloader and check whether the vanilla game is broken too.
@@ -454,12 +454,12 @@ The only gotcha is that some libraries required to build it are not included bec
 
 Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be dumped directly inside the folder, no subfolders needed.
 
-This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries.)
+This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries — check the csprojs and the directory-wide props to see which are referenced.)
 
 After that, just run `dotnet build`.
 
 ## Creating a release
-As of v30, there's also a script that (hopefully) creates an archive in the format the releases are published, also providing the checksums for the DLLs. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
+From v30 onwards, there's a script that creates an archive in the format the releases are published, also providing the checksums for the DLLs. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
 
 ## Unit tests
 **Very** limited coverage.
@@ -469,7 +469,7 @@ Most of the code in this repo is very tightly coupled with the game code and can
 Tests are based on [xUnit 3](https://xunit.net/index.html?tabs=cs). `dotnet test` should work.
 
 ## Enabling SkiaSharp for Scoreboard characters
-Scoreboard characters mod uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and I include these in downloads for convenience.
+Scoreboard characters mod uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and these DLLs are included in downloads for convenience.
 
 If you want to get these straight from NuGet instead, you can use `dotnet publish` command:
 ```bash

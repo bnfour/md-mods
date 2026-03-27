@@ -1,10 +1,11 @@
 using HarmonyLib;
-using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppAssets.Scripts.UI.Panels;
+
+using Bnfour.MuseDashMods.FeverSwitch.Utilities;
 
 namespace Bnfour.MuseDashMods.FeverSwitch.Patches;
 
@@ -25,13 +26,7 @@ public class PnlRankRefreshRandomLevelConfigUIPatch
 
     internal static void Prefix()
     {
-        // if auto is default, we negate the current isAutoFever value
-        //     auto fever => toggle off => isUseRandomLevelConfig = false
-        // if manual is default, we don't negate
-        //     auto fever => toggle on => isUseRandomLevelConfig = true
-        // extrapolation to manual fever for both defaults is left as an exercise to the reader
-        DataHelper.isUseRandomLevelConfig = Melon<FeverSwitchMod>.Instance.IsAutoDefault
-            ? !DataHelper.isAutoFever : DataHelper.isAutoFever;
+        DataHelper.isUseRandomLevelConfig = FlagOverrideValueProvider.Override;
     }
 
     internal static void Postfix(PnlRank __instance)
