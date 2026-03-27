@@ -37,7 +37,7 @@ public enum Character
     RinPirate,
     BuroTheDiver,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter34,
+    MarijaUma,
     MysteryCharacter35,
     MysteryCharacter36,
     MysteryCharacter37,
