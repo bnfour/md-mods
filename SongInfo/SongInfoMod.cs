@@ -101,8 +101,6 @@ public class SongInfoMod : MelonMod
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            SongDurationProvider provider = new();
-
             foreach (var kvp in GlobalDataBase.s_DbMusicTag.m_AllMusicInfo)
             {
                 counter++;
@@ -115,8 +113,7 @@ public class SongInfoMod : MelonMod
                 {
                     continue;
                 }
-                // TODO mixing of instance and static methods, bleh
-                result[kvp.Value.uid] = SongDurationProvider.FormatDuration(provider.GetDurationDirectly(kvp.Value));
+                result[kvp.Value.uid] = SongDurationProvider.FormatDuration(SongDurationProvider.GetDurationDirectly(kvp.Value));
             }
 
             var path = Path.Combine(Application.dataPath, OutputFilename);

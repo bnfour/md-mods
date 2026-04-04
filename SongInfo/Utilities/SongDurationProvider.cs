@@ -8,7 +8,6 @@ using UnityEngine;
 using Il2CppAssets.Scripts.Database;
 using Il2CppPeroTools2.Resources;
 using System;
-using System.Text.RegularExpressions;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
@@ -20,8 +19,6 @@ public class SongDurationProvider
 {
     private const string EmbeddedDataName = "Bnfour.MuseDashMods.SongInfo.Resources.duration_data.json";
     private const string OverrideFilename = "song_info_override.json";
-
-    private readonly Regex FileNameCleaningRegex = new(@"_music$");
 
     private readonly SortedList<string, string> _internalData;
     private readonly SortedList<string, string> _overrideCache;
@@ -145,9 +142,9 @@ public class SongDurationProvider
     }
 
 #if DEBUG
-    public float GetDurationDirectly(MusicInfo info)
+    public static float GetDurationDirectly(MusicInfo info)
 #else
-    private float GetDurationDirectly(MusicInfo info)
+    private static float GetDurationDirectly(MusicInfo info)
 #endif
     {
         try
@@ -159,12 +156,11 @@ public class SongDurationProvider
         {
             var message = ex switch
             {
-                FileNotFoundException => "Bundle file missing (unexpected name?)",
-                NotImplementedException => "soon™",
-                _ => "Something went wrong"
+                FileNotFoundException notFound => $"Bundle file {notFound.FileName} missing",
+                _ => $"Something went wrong ({ex.GetType()})"
             };
 
-            Melon<SongInfoMod>.Logger.Error($"{message}, falling back to old, slow, and reliable method");
+            Melon<SongInfoMod>.Logger.Error($"{message}, falling back to old, slow, but reliable method.");
 
             return GetDurationViaResources(info);
         }
@@ -189,16 +185,15 @@ public class SongDurationProvider
     }
 
     // TODO naming
-    private float GetDurationViaMagic(MusicInfo info)
+    private static float GetDurationViaMagic(MusicInfo info)
     {
         // MusicInfo has music as "{id}_music", e.g. "inferno_city_music"
         // its data is stored in a bundle named "music_{id}_assets_all.bundle", e.g. "music_inferno_city_assets_all.bundle"
-
-        var filename = $"music_{FileNameCleaningRegex.Replace(info.music, string.Empty)}_assets_all.bundle";
-        var path = Path.Combine(Application.streamingAssetsPath, "aa/StandaloneWindows64", filename);
+        var filename = BundleFilenameConstructor.IdToFilename(info);
+        var path = Path.Combine(Application.streamingAssetsPath, @"aa\StandaloneWindows64", filename);
         if (!File.Exists(path))
         {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException($"Unable to locate bundle file {filename}", path);
         }
 
         return new MusicBundleParser(path).GetDurationFast();
