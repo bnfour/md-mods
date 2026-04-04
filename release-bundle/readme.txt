@@ -16,8 +16,13 @@ Mods folder:
   TrueAbove1kRank.dll : changes "999+" in the scoreboard to an actual rank
   UITweaks.dll : various small UI fixes
 
-UserLibs folder, only required for ScoreboardCharacters:
+UserLibs folder, only required for Scoreboard characters and Song info:
   SkiaSharp.dll : https://www.nuget.org/packages/SkiaSharp
-    net6.0 version
+    required by Scoreboard characters, net6 version
+
   libSkiaSharp.dll : https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32
+    required by Scoreboard characters
     native win-x64 assets, also work on Proton as there's no native game version
+
+  K4os.Compression.LZ4.dll : https://www.nuget.org/packages/K4os.Compression.LZ4
+    technically optional for Song info, _highly_ recommended for best experience

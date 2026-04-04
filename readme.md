@@ -17,7 +17,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
-Mod file: `ScoreboardCharacters.dll`, also requires `UserLibs` DLLs
+Mod file: `ScoreboardCharacters.dll`, also requires `libSkiaSharp.dll` and `SkiaSharp.dll` in `UserLibs`
 
 This mod adds buttons to show character and elfin used to the in-game scoreboard:
 ![image simulated for variety, real scoreboards are pretty boring most of the time](readme-images/scoreboard-characters/scoreboard-characters-after.avif)
@@ -86,7 +86,7 @@ https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 > This mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode.
 
 ## Song info
-Mod file: `SongInfo.dll`
+Mod file: `SongInfo.dll`, also requires `K4os.Compression.LZ4.dll` in `UserLibs`
 
 This mod adds song's BPM and duration display to the song info screen. Multiple layouts available:
 
@@ -398,7 +398,11 @@ These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
 > [!IMPORTANT]
-> Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder. These libraries are included in the download.
+> Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder.
+>  
+> Song info also requires K4os.Compression.LZ4 library (`K4os.Compression.LZ4.dll`) to be placed in `UserLibs` folder.
+>  
+> These libraries are included in the download.
 
 Rather than downloading the mods, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
