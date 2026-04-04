@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using MelonLoader;
 
 using Bnfour.MuseDashMods.SongInfo;
@@ -10,3 +11,5 @@ using Bnfour.MuseDashMods.SongInfo;
 
 [assembly: AssemblyDescription("Shows song BPM and duration")]
 [assembly: AssemblyCopyright("bnfour 2024-2026; open-source")]
+
+[assembly: InternalsVisibleTo("Tests")]
