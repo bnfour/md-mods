@@ -66,7 +66,7 @@ public class SongInfoMod : MelonMod
         (protip: check the code below)
 
         Due to the quick-and-dirty nature of this feature, it runs extremely ugly:
-        the screen just freezes for a few minutes while the BGM continues to play.
+        the screen just freezes for a bit.
     */
 #if DEBUG
 
@@ -103,8 +103,7 @@ public class SongInfoMod : MelonMod
 
             foreach (var kvp in GlobalDataBase.s_DbMusicTag.m_AllMusicInfo)
             {
-                counter++;
-                if (counter % tenPercent == 0)
+                if (++counter % tenPercent == 0)
                 {
                     LoggerInstance.Msg($"Processing data {counter}/{total}...");
                 }
