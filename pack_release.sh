@@ -53,11 +53,20 @@ done
 # we also need to pack SkiaSharp binaries for Scoreboard characters
 # this builds it again, --no-build did not work
 # hopefully msbuild is still smart enough to reuse the DLL we just built
-echo "Publishing for extra DLLs..."
+echo "Publishing Scoreboard characters for extra DLLs..."
 dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj \
-    &>"$LOGS"/02-dotnet-publish.log || { echo "Publish error, check the other log in $LOGS"; exit 1; }
+    &>"$LOGS"/02-dotnet-publish-sc.log || { echo "SC publish error, check the other log in $LOGS"; exit 1; }
 
 cp ScoreboardCharacters/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/*SkiaSharp.dll "$USERLIBS/"
+
+# and K4os.Compression.LZ4 for Song info
+echo "Publishing Song info for extra DLLs..."
+dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained SongInfo/SongInfo.csproj \
+    &>"$LOGS"/03-dotnet-publish-si.log || { echo "SI publish error, check the other log in $LOGS"; exit 1; }
+
+cp SongInfo/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/K4os.Compression.LZ4.dll "$USERLIBS/"
+
+# TODO consider writing generic script for all the mods with extra requirements
 
 # figure out the version we publishing as latest tag + 1
 # i put tags when creating a release on github, so its not present when packing ¯\_(ツ)_/¯
@@ -71,7 +80,7 @@ archive_path="$BUILDROOT/md-mods-$new_version.zip"
 cd "$ARCHIVE_ROOT" || exit 2
 
 echo "Zipping..."
-zip -r "$archive_path" ./* &>"$LOGS"/03-zip.log
+zip -r "$archive_path" ./* &>"$LOGS"/04-zip.log
 
 # checksums for dlls
 mods_sums=$(sha256sum Mods/*)
