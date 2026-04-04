@@ -68,8 +68,8 @@ This small mod changes mysterious "999+" text in your own scoreboard entry to yo
 | --- | --- |
 | ![simulated image](readme-images/true-rank/true-rank-before.webp) | ![no (you)s were harmed during production](readme-images/true-rank/true-rank-after.webp) |
 
-> [!NOTE]
-> The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
+>[!NOTE]
+>The game servers only track top 2000 entries. If you score less, there's nothing this mod can do.
 
 ## Album scroll
 Mod file: `AlbumScroll.dll`
@@ -80,10 +80,10 @@ Here's a little demo of switching entire albums by single <kbd>⇧ Shift</kbd>+<
 
 https://github.com/user-attachments/assets/fed3c930-f7c5-402f-a342-b64a10bf0ac9
 
-> [!TIP]
-> It's best to use single taps to scroll albums.
+>[!TIP]
+>It's best to use single taps to scroll albums.
 >  
-> This mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode.
+>This mod does not play well with "hold to scroll" feature. It might skip an album if a direction key is held long enough to trigger continuous scrolling mode.
 
 ## Song info
 Mod file: `SongInfo.dll`, also requires `K4os.Compression.LZ4.dll` in `UserLibs`
@@ -101,9 +101,10 @@ Okay to use whether Scoreboard characters mod is installed or not.
 - ➡️ "Alternative" two lines layout that moves the data to Best record panel, below the level statistics.  
 Also okay to use whenever.
 
-> [!NOTE]
-> The song duration shown is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.  
-> BPM is taken straight from the game data as is.
+>[!NOTE]
+>The song duration shown is approximate (defined as "the duration of the actual music file used") and does not include the "Music-Ready-Go!!" intro. The "Full combo" outro _seems_ to be included though.
+>  
+>BPM is taken straight from the game data as is.
 
 ### Configuration
 
@@ -159,9 +160,9 @@ This mod adds a small textfield with a predicted* scoreboard rank to the song cl
 
 _*may not be totally accurate in certain circumstances_
 
-> [!TIP]
-> This mod is not very useful unless you consistently score top 100 worthy results seen on the in-game scoreboard.  
-> All other ranks are reported simply as `#100+`, be it #101, #1999, or even a score of 0.
+>[!TIP]
+>This mod is not very useful unless you consistently score top 100 worthy results seen on the in-game scoreboard.  
+>All other ranks are reported simply as `#100+`, be it #101, #1999, or even a score of 0.
 
 Please note the following:
 - The score is compared to a _snapshot_ of the scoreboard visible on preparation panel _as it were before starting the song._  
@@ -183,8 +184,8 @@ Impressiveness is just an arbitrary categorization for the ranks for discern at 
 
 Uncertainty is mostly relevant for newly released songs just after a game update. For instance, playing a just released song with no scoreboard entries yet will "predict" `#1!!!???` regardless of the score — others might have achieved higher scores at the same time, but there's no way for this mod to know until the scoreboard is refreshed.
 
-> [!TIP]
-> The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
+>[!TIP]
+>The estimated rank may be off regardless of reported certainty just after a game update release. As the scoreboard settles down, rank predictions will get more accurate.
 
 ## Fever switch
 This mod turns the switch for the random character and elfin mode into a fever mode switch, allowing to quickly toggle between automatic and manual modes before starting the song:
@@ -201,8 +202,8 @@ An <kbd>F</kbd> keybinding is added to the switch, and its hint is changed to re
 
 100% compatible with [Scoreboard characters](#scoreboard-characters); works by itself.
 
-> [!NOTE]
-> For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed. (The random mode toggle value is used to manipulate the switch state as it's hardcoded to use that.)
+>[!NOTE]
+>For technical reasons, the random character and elfin mode is completely unavailable while this mod is installed. (The random mode toggle value is used to manipulate the switch state as it's hardcoded to use that.)
 
 ### Display
 Either of the fever modes — automatic and manual — can be treated as default, shown as turned off toggle. The difference is purely cosmetic:
@@ -251,8 +252,8 @@ This feature slightly widens the space for the album title on the song selection
 | Before | ![ｾﾏｲ](readme-images/ui-tweaks/narrow-album-title.avif) |
 | After | ![ ヒ ロ イ ](readme-images/ui-tweaks/wide-album-title.webp) |
 
-> [!NOTE]
-> This feature is intended to be used with English locale.
+>[!NOTE]
+>This feature is intended to be used with English locale.
 
 ### Achievement icons sync
 This feature synchronizes the spinning award achievement icons on song info screen. By default, these easily go out of sync:  
@@ -286,9 +287,9 @@ This feature syncs the "bubble flow" animation between HP and Fever bars (please
 | After | ![these things are really bitrate hoggers](readme-images/ui-tweaks/bars-mod.avif) |
 | After<br/>(alt mode) | ![this is pretty much the default quality settings of my entire record-trim&crop-reencode pipeline, sorry](readme-images/ui-tweaks/bars-mod-alt.avif) |
 
-> [!NOTE]
-> This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
-> In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
+>[!NOTE]
+>This does not include the Touhou danmaku mode, as a different texture for ~~Fever~~ Spell bar is used.  
+>In Bad Apple!!'s black-and-white mode the bubbles are invisible on the Fever bar, so the mod's effect is not noticeable.
 
 #### Alternative mode
 By default, Fever bar's texture is modified to match the default HP bar's one. If `SyncHpFeverAnimAlt` is set to `true`, the reverse will be done: HP bar's texture will be modified instead. This is purely cosmetic.
@@ -300,8 +301,8 @@ This feature changes the "FEVER" UI text to "AUTO" if automatic fever mode is cu
 | --- | --- |
 ![i'm still wondering why this is an image instead of a text component](readme-images/ui-tweaks/fever-manual-default.webp) | ![i guess it makes sense for bad apple with the outlining, but it was added years later](readme-images/ui-tweaks/fever-auto-default.webp) |
 
-> [!NOTE]
-> Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
+>[!NOTE]
+>Bad Apple!!'s black-and-white mode, which uses its own sprite, is also supported.
 
 ### Options menu text case
 This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods Store") not being all caps like the rest of the buttons there:
@@ -309,8 +310,8 @@ This small feature fixes some of the buttons ("Audio", "Streaming Mode", "Goods 
 | --- | --- |
 | ![never liked the title case personally](readme-images/ui-tweaks/menu-text-not-all-caps.webp) | ![yay consistency](readme-images/ui-tweaks/menu-text-all-caps.webp) |
 
-> [!NOTE]
-> This feature is intended to be used with English locale.
+>[!NOTE]
+>This feature is intended to be used with English locale.
 
 ### Achievements header styling
 This feature fixes the style of `🏆 N/6` header to match the neighboring "Stage achievements" header, as older versions of Song info used to do:
@@ -325,8 +326,8 @@ This feature fixes the style of `🏆 N/6` header to match the neighboring "Stag
 
 </details>
 
-> [!NOTE]
-> It's currently impossible to apply only style fix or animation, they are treated as one feature.
+>[!NOTE]
+>It's currently impossible to apply only style fix or animation, they are treated as one feature.
 
 ### Character and elfin select appearance animation
 This small feature adds a quick fade in animation for the character and elfin select UI, which otherwise is just displayed while the rest of the panel animates.
@@ -340,13 +341,13 @@ This small feature adds a quick fade in animation for the character and elfin se
 
 </details>
 
-> [!NOTE]
-> The animation is a work in progress, and may (not) be updated later.
+>[!NOTE]
+>The animation is a work in progress, and may (not) be updated later.
 
 ### Tabular numbers in scoreboard
 
-> [!WARNING]
-> This feature reportedly breaks the scoreboard when used with MelonLoader 0.6.*. If you can't upgrade to later versions, disable the feature via preferences.
+>[!WARNING]
+>This feature reportedly breaks the scoreboard when used with MelonLoader 0.6.*. If you can't upgrade to later versions, disable the feature via preferences.
 
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
 | Before | After |
@@ -384,8 +385,8 @@ TabularNumbersScoreboard = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
-> [!TIP]
-> The mod will notify you when all its features are disabled, and it does nothing.
+>[!TIP]
+>The mod will notify you when all its features are disabled, and it does nothing.
 
 ## Experimental mod (not included in the download)
 This is not a mod intended for using. Rather, it's a developmental test bed for me to test random stuff without disruption to existing proper mods. For instance, Album scroll and UI tweaks mods were first implemented (in a very scuffed way; no, I won't show the code ⇀‸↼‶) here and then moved to their own permanent projects.
@@ -397,12 +398,12 @@ These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you
 
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
-> [!IMPORTANT]
-> Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder.
+>[!IMPORTANT]
+>Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder.
 >  
-> Song info also requires K4os.Compression.LZ4 library (`K4os.Compression.LZ4.dll`) to be placed in `UserLibs` folder.
+>Song info also requires K4os.Compression.LZ4 library (`K4os.Compression.LZ4.dll`) to be placed in `UserLibs` folder.
 >  
-> These libraries are included in the download.
+>These libraries are included in the download.
 
 Rather than downloading the mods, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
 Otherwise, please verify the downloads.
@@ -472,8 +473,16 @@ Most of the code in this repo is very tightly coupled with the game code and can
 
 Tests are based on [xUnit 3](https://xunit.net/index.html?tabs=cs). `dotnet test` should work.
 
-## Enabling SkiaSharp for Scoreboard characters
-Scoreboard characters mod uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [used native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and these DLLs are included in downloads for convenience.
+## Extra DLLs
+Some of the mods require extra libraries to be installed in order to work properly. Being free software, these are included in this repo's downloads.
+
+This section covers all cases of mods using libraries not already provided by MelonLoader installation.
+
+### Scoreboard characters
+Scoreboard characters uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and these DLLs are included in downloads for convenience.
+
+>[!WARNING]
+>Scoreboard characters will not work if SkiaSharp binaries are not installed. Please do not forget to do that.
 
 If you want to get these straight from NuGet instead, you can use `dotnet publish` command:
 ```bash
@@ -481,6 +490,19 @@ dotnet publish -c Release -r win-x64 --no-self-contained ScoreboardCharacters/Sc
 ```
 The SkiaSharp DLLs will be placed in `ScoreboardCharacters/bin/Release/net6.0/win-x64/publish` folder.
 
+### Song info
+Song info uses K4os.Compression.LZ4 ([GitHub](https://github.com/MiloszKrajewski/K4os.Compression.LZ4), [NuGet](https://www.nuget.org/packages/K4os.Compression.LZ4)) to parse asset bundles faster than game's resource manager can. `K4os.Compression.LZ4.dll` should be placed in `UserLibs` folder of the modded game install. The library is MIT-licensed, and is included in the downloads.
+
+>[!TIP]
+>While Song info can work without the library installed (as long as MelonLoader allows missing dependencies), installation is _highly_ recommended for best experience.
+
+To get it from NuGet instead, `publish` Song info's project:
+```bash
+dotnet publish -c Release -r win-x64 --no-self-contained SongInfo/SongInfo.csproj
+```
+A copy of `K4os.Compression.LZ4.dll` will be placed in `SongInfo/bin/Release/net6.0/win-x64/publish` folder.
+
+### Notes
 Why `win-x64` runtime? There is no native Muse Dash version for GNU/Linux, and I run the game via Proton, so the Windows binaries should work on both Windows and GNU/Linux for the time being. [Mac? No idea.](https://tenor.com/view/13786657)
 
 You can also extract the DLLs from nupkg files manually. Remember match the version with mod's csproj and look for `net6.0` and `win-x64` monikers.
