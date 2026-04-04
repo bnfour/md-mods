@@ -41,6 +41,8 @@ public class BundleStreamExtensionsTest
     [InlineData(new byte[] { 0xc0, 0xde }, -16_162)]
     [InlineData(new byte[] { 0xff, 0xff }, -1)]
     [InlineData(new byte[] { 0xff, 0xfe }, -2)]
+    [InlineData(new byte[] { 0x7f, 0xff }, short.MaxValue)]
+    [InlineData(new byte[] { 0x80, 0x00 }, short.MinValue)]
     public void ReadShortWorks(byte[] raw, short expected)
     {
         stream.Write(raw);
@@ -56,6 +58,8 @@ public class BundleStreamExtensionsTest
     [InlineData(new byte[] { 0xc0, 0xde, 0xff, 0xff }, -1_059_127_297)]
     [InlineData(new byte[] { 0xff, 0xff, 0xff, 0xff }, -1)]
     [InlineData(new byte[] { 0xff, 0xff, 0xff, 0x01 }, -255)]
+    [InlineData(new byte[] { 0x7f, 0xff, 0xff, 0xfe }, int.MaxValue - 1)]
+    [InlineData(new byte[] { 0x80, 0x00, 0x00, 0x00 }, int.MinValue)]
     public void ReadIntWorks(byte[] raw, int expected)
     {
         stream.Write(raw);
@@ -71,6 +75,8 @@ public class BundleStreamExtensionsTest
     [InlineData(new byte[] { 0xc0, 0xde, 0xff, 0xff, 0x67, 0x67, 0x67, 0x67 }, -4_548_917_101_181_048_985)]
     [InlineData(new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff }, -1)]
     [InlineData(new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf0, 0x0f }, -4_081)]
+    [InlineData(new byte[] { 0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff }, long.MaxValue)]
+    [InlineData(new byte[] { 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 }, long.MinValue + 1)]
     public void ReadLongWorks(byte[] raw, long expected)
     {
         stream.Write(raw);
