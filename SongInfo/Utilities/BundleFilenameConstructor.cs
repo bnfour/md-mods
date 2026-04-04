@@ -26,7 +26,8 @@ internal static class BundleFilenameConstructor
         {
             return Exceptions[info?.music];
         }
-
+        // MusicInfo has music as "{id}_music", e.g. "inferno_city_music"
+        // its data (not only music) is stored in a bundle named "music_{id}_assets_all.bundle", e.g. "music_inferno_city_assets_all.bundle"
         return $"music_{FileNameCleaningRegex.Replace(info.music, string.Empty, 1)}_assets_all.bundle";
     }
 }

@@ -42,11 +42,6 @@ internal static class BundleStreamExtensions
         return Encoding.ASCII.GetString([.. bytes]);
     }
 
-    internal static void SkipString(this Stream s)
-    {
-        while ((_ = s.ReadByte()) != 0) { }
-    }
-
     internal static short ReadShort(this Stream s)
         => Read(s, array => BinaryPrimitives.ReadInt16BigEndian(array.AsSpan()));
 

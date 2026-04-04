@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+
 using MelonLoader;
 using Newtonsoft.Json;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppPeroTools2.Resources;
-using System;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
@@ -149,18 +151,18 @@ public class SongDurationProvider
     {
         try
         {
-            return GetDurationViaMagic(info);
+            return GetDurationViaDirectParse(info);
         }
-        // TODO narrow to concrete exceptions
-        catch (Exception ex)
+        catch (FileNotFoundException bundleEx) when (bundleEx.Message.StartsWith("Unable to locate bundle for"))
         {
-            var message = ex switch
-            {
-                FileNotFoundException notFound => $"Bundle file {notFound.FileName} missing",
-                _ => $"Something went wrong ({ex.GetType()})"
-            };
+            Melon<SongInfoMod>.Logger.Error($"Bundle file not found! Falling back to old, slow, but reliable method." +
+                $"\n\tmusic: {bundleEx.Message.Split(":", StringSplitOptions.TrimEntries).Last()}\n\texpected path: {bundleEx.FileName}");
 
-            Melon<SongInfoMod>.Logger.Error($"{message}, falling back to old, slow, but reliable method.");
+            return GetDurationViaResources(info);
+        }
+        catch (FileNotFoundException dllEx) when (dllEx.Message.Contains("K4os.Compression.LZ4"))
+        {
+            Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to reduce lag for uncached songs.");
 
             return GetDurationViaResources(info);
         }
@@ -174,7 +176,6 @@ public class SongDurationProvider
 
         // AudioClips in the game are not set up for loading metadata only first (why would they?),
         // so the entire file is loaded, hence the delay
-        // Melon<SongInfoMod>.Logger.Warning($"Apologies for the lag, needed to get duration data not present in the cache the slow way.");
 
         var ac = ResourcesManager.instance.LoadFromName<AudioClip>(info.music);
         return ac.length;
@@ -184,18 +185,15 @@ public class SongDurationProvider
         // ...i hope the resources manager is smarter than i am >v<
     }
 
-    // TODO naming
-    private static float GetDurationViaMagic(MusicInfo info)
+    private static float GetDurationViaDirectParse(MusicInfo info)
     {
-        // MusicInfo has music as "{id}_music", e.g. "inferno_city_music"
-        // its data is stored in a bundle named "music_{id}_assets_all.bundle", e.g. "music_inferno_city_assets_all.bundle"
         var filename = BundleFilenameConstructor.IdToFilename(info);
         var path = Path.Combine(Application.streamingAssetsPath, @"aa\StandaloneWindows64", filename);
         if (!File.Exists(path))
         {
-            throw new FileNotFoundException($"Unable to locate bundle file {filename}", path);
+            throw new FileNotFoundException($"Unable to locate bundle for: {info.music}", path);
         }
 
-        return new MusicBundleParser(path).GetDurationFast();
+        return new MusicBundleParser(path).GetDuration();
     }
 }
