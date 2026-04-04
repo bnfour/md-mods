@@ -7,6 +7,8 @@ using UnityEngine;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppPeroTools2.Resources;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
@@ -18,6 +20,8 @@ public class SongDurationProvider
 {
     private const string EmbeddedDataName = "Bnfour.MuseDashMods.SongInfo.Resources.duration_data.json";
     private const string OverrideFilename = "song_info_override.json";
+
+    private readonly Regex FileNameCleaningRegex = new(@"_music$");
 
     private readonly SortedList<string, string> _internalData;
     private readonly SortedList<string, string> _overrideCache;
@@ -32,7 +36,9 @@ public class SongDurationProvider
             {
                 var raw = reader.ReadToEnd();
                 var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
-                _internalData = new(dataOnly, new MusicInfoUidComparer());
+                // TODO cache is disabled for fast processing tests
+                // _internalData = new(dataOnly, new MusicInfoUidComparer());
+                _internalData = new(new MusicInfoUidComparer());
             }
         }
 
@@ -93,8 +99,6 @@ public class SongDurationProvider
             var duration = FormatDuration(GetDurationDirectly(info));
             _overrideCache[info.uid] = duration;
 
-            Melon<SongInfoMod>.Logger.Warning($"Apologies for the lag, needed to get duration data not present in the cache.");
-
             return duration;
         }
     }
@@ -141,16 +145,40 @@ public class SongDurationProvider
     }
 
 #if DEBUG
-    public static float GetDurationDirectly(MusicInfo info)
+    public float GetDurationDirectly(MusicInfo info)
 #else
-    private static float GetDurationDirectly(MusicInfo info)
+    private float GetDurationDirectly(MusicInfo info)
 #endif
+    {
+        try
+        {
+            return GetDurationViaMagic(info);
+        }
+        // TODO narrow to concrete exceptions
+        catch (Exception ex)
+        {
+            var message = ex switch
+            {
+                FileNotFoundException => "Bundle file missing (unexpected name?)",
+                NotImplementedException => "soon™",
+                _ => "Something went wrong"
+            };
+
+            Melon<SongInfoMod>.Logger.Error($"{message}, falling back to old, slow, and reliable method");
+
+            return GetDurationViaResources(info);
+        }
+    }
+
+    private static float GetDurationViaResources(MusicInfo info)
     {
         // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
+        // ...and switching to a faster makeshift method
 
         // AudioClips in the game are not set up for loading metadata only first (why would they?),
         // so the entire file is loaded, hence the delay
+        // Melon<SongInfoMod>.Logger.Warning($"Apologies for the lag, needed to get duration data not present in the cache the slow way.");
 
         var ac = ResourcesManager.instance.LoadFromName<AudioClip>(info.music);
         return ac.length;
@@ -158,6 +186,21 @@ public class SongDurationProvider
         // it _should_ be okay to not dispose of the loaded clip,
         // as there is a big chance it's going to be played straight away
         // ...i hope the resources manager is smarter than i am >v<
+    }
 
+    // TODO naming
+    private float GetDurationViaMagic(MusicInfo info)
+    {
+        // MusicInfo has music as "{id}_music", e.g. "inferno_city_music"
+        // its data is stored in a bundle named "music_{id}_assets_all.bundle", e.g. "music_inferno_city_assets_all.bundle"
+
+        var filename = $"music_{FileNameCleaningRegex.Replace(info.music, string.Empty)}_assets_all.bundle";
+        var path = Path.Combine(Application.streamingAssetsPath, "aa/StandaloneWindows64", filename);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException();
+        }
+
+        return new MusicBundleParser(path).GetDurationFast();
     }
 }
