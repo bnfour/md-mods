@@ -35,9 +35,7 @@ public class SongDurationProvider
             {
                 var raw = reader.ReadToEnd();
                 var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
-                // TODO cache is disabled for fast processing tests
-                // _internalData = new(dataOnly, new MusicInfoUidComparer());
-                _internalData = new(new MusicInfoUidComparer());
+                _internalData = new(dataOnly, new MusicInfoUidComparer());
             }
         }
 

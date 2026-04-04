@@ -45,8 +45,6 @@ internal class MusicBundleParser(string Path)
 
             bundleFileStream.AlignTo0x10Forward();
 
-            // TODO check actually read lengths everywhere ReadExactly was replaced
-
             var compressedMetadataBuffer = new byte[compressedDataSize];
             var bytesRead = bundleFileStream.Read(compressedMetadataBuffer, 0, compressedMetadataBuffer.Length);
             Debug.Assert(bytesRead == compressedMetadataBuffer.Length);
