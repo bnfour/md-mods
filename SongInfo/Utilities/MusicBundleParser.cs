@@ -1,7 +1,6 @@
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -22,37 +21,37 @@ internal class MusicBundleParser(string bundlePath)
             var bundleFileStream = bundleFileStreamReader.BaseStream;
             // parse the header
             var fileMagic = bundleFileStream.ReadString();
-            Debug.Assert(fileMagic == "UnityFS");
+            ThrowIfNot(fileMagic == "UnityFS");
 
             var bundleVersion = bundleFileStream.ReadInt();
-            Debug.Assert(bundleVersion == 7);
+            ThrowIfNot(bundleVersion == 7);
 
             var webPlayerVersion = bundleFileStream.ReadString();
-            Debug.Assert(webPlayerVersion == "5.x.x");
+            ThrowIfNot(webPlayerVersion == "5.x.x");
 
             var unityVersion = bundleFileStream.ReadString();
-            Debug.Assert(unityVersion[0..7] == "2019.4.");
+            ThrowIfNot(unityVersion[0..7] == "2019.4.");
 
             var fileSize = bundleFileStream.ReadLong();
-            Debug.Assert(fileSize == new FileInfo(bundlePath).Length);
+            ThrowIfNot(fileSize == new FileInfo(bundlePath).Length);
 
             var compressedDataSize = bundleFileStream.ReadInt();
             var decompressedDataSize = bundleFileStream.ReadInt();
-            Debug.Assert(compressedDataSize <= decompressedDataSize);
+            ThrowIfNot(compressedDataSize <= decompressedDataSize);
 
             var flags = bundleFileStream.ReadInt();
             // 0x43 = block and directory info combined, LZ4HC compression
-            Debug.Assert(flags == 0x43);
+            ThrowIfNot(flags == 0x43);
 
             bundleFileStream.AlignTo0x10Forward();
 
             var compressedMetadataBuffer = new byte[compressedDataSize];
             var bytesRead = bundleFileStream.Read(compressedMetadataBuffer, 0, compressedMetadataBuffer.Length);
-            Debug.Assert(bytesRead == compressedMetadataBuffer.Length);
+            ThrowIfNot(bytesRead == compressedMetadataBuffer.Length);
             var decompressedMetadataBuffer = new byte[decompressedDataSize];
 
             var decompressedBytesWritten = LZ4Codec.Decode(compressedMetadataBuffer, 0, compressedDataSize, decompressedMetadataBuffer, 0, decompressedDataSize);
-            Debug.Assert(decompressedBytesWritten == decompressedDataSize);
+            ThrowIfNot(decompressedBytesWritten == decompressedDataSize);
             // read blocks metadata, skip dir info metadata
             var blocksMeta = new List<(int decompressedSize, int compressedSize, short flags)>();
             using (var metadataStream = new MemoryStream(decompressedMetadataBuffer))
@@ -67,7 +66,7 @@ internal class MusicBundleParser(string bundlePath)
                     var blockFlags = metadataStream.ReadShort();
 
                     // LZ4HC or nothing, others are not supported
-                    Debug.Assert(blockFlags == 3 || blockFlags == 0);
+                    ThrowIfNot(blockFlags == 3 || blockFlags == 0);
 
                     blocksMeta.Add((blockDecompressedSize, blockCompressedSize, blockFlags));
                 }
@@ -80,15 +79,15 @@ internal class MusicBundleParser(string bundlePath)
                 {
                     var compressedBuffer = new byte[tuple.compressedSize];
                     bytesRead = bundleFileStream.Read(compressedBuffer, 0, compressedBuffer.Length);
-                    Debug.Assert(bytesRead == compressedBuffer.Length);
+                    ThrowIfNot(bytesRead == compressedBuffer.Length);
                     decompressedBytesWritten = LZ4Codec.Decode(compressedBuffer, 0, compressedBuffer.Length, decompressedBuffer, 0, decompressedBuffer.Length);
-                    Debug.Assert(decompressedBytesWritten == decompressedBuffer.Length);
+                    ThrowIfNot(decompressedBytesWritten == decompressedBuffer.Length);
                 }
                 else
                 {
-                    Debug.Assert(tuple.flags == 0);
+                    ThrowIfNot(tuple.flags == 0);
                     bytesRead = bundleFileStream.Read(decompressedBuffer, 0, decompressedBuffer.Length);
-                    Debug.Assert(bytesRead == decompressedBuffer.Length);
+                    ThrowIfNot(bytesRead == decompressedBuffer.Length);
                 }
                 var wellKnownPattern = Encoding.ASCII.GetBytes("archive:/");
                 var idx = decompressedBuffer.AsSpan().IndexOf(wellKnownPattern);
@@ -105,6 +104,14 @@ internal class MusicBundleParser(string bundlePath)
                 }
             }
             throw new VeryUnluckyException("Unable to locate the anchor string -- split between blocks?", Path.GetFileName(bundlePath));
+        }
+    }
+
+    private void ThrowIfNot(bool condition)
+    {
+        if (!condition)
+        {
+            throw new BundleParseException(Path.GetFileName(bundlePath));
         }
     }
 }

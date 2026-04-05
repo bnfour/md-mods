@@ -5,6 +5,7 @@ namespace Bnfour.MuseDashMods.SongInfo.Exceptions;
 /// two 128k blocks Unity compresses separately.
 /// </summary>
 /// <param name="message">Specifies what improbable thing happened.</param>
+/// <param name="bundleName">Name of the bundle file that cannot be processed.</param>
 public class VeryUnluckyException(string message, string bundleName) : System.Exception(message)
 {
     /// <summary>

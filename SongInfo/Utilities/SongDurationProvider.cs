@@ -153,9 +153,10 @@ public class SongDurationProvider
         {
             return GetDurationViaDirectParse(info);
         }
+        // fall back to the slow method if something we could foresee happened
         catch (FileNotFoundException bundleEx) when (bundleEx.Message.StartsWith("Unable to locate bundle for"))
         {
-            Melon<SongInfoMod>.Logger.Error("Bundle file not found! Falling back to old, slow, but reliable method." +
+            Melon<SongInfoMod>.Logger.Error("Bundle file not found! Falling back to the old method." +
                 $"\n\tmusic: {bundleEx.Message.Split(":", StringSplitOptions.TrimEntries).Last()}\n\texpected path: {bundleEx.FileName}");
 
             return GetDurationViaResources(info);
@@ -169,6 +170,12 @@ public class SongDurationProvider
         catch (VeryUnluckyException forsenSWA)
         {
             Melon<SongInfoMod>.Logger.Error($"Improbable happened with {forsenSWA.BundleName}! {forsenSWA.Message}\nFalling back to the old method.");
+
+            return GetDurationViaResources(info);
+        }
+        catch (BundleParseException ex)
+        {
+            Melon<SongInfoMod>.Logger.Error($"Unable to parse {ex.BundleName}. Falling back to the old method.");
 
             return GetDurationViaResources(info);
         }
