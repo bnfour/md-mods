@@ -11,6 +11,8 @@ using UnityEngine;
 using Il2CppAssets.Scripts.Database;
 using Il2CppPeroTools2.Resources;
 
+using Bnfour.MuseDashMods.SongInfo.Exceptions;
+
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
 /// <summary>
@@ -153,7 +155,7 @@ public class SongDurationProvider
         }
         catch (FileNotFoundException bundleEx) when (bundleEx.Message.StartsWith("Unable to locate bundle for"))
         {
-            Melon<SongInfoMod>.Logger.Error($"Bundle file not found! Falling back to old, slow, but reliable method." +
+            Melon<SongInfoMod>.Logger.Error("Bundle file not found! Falling back to old, slow, but reliable method." +
                 $"\n\tmusic: {bundleEx.Message.Split(":", StringSplitOptions.TrimEntries).Last()}\n\texpected path: {bundleEx.FileName}");
 
             return GetDurationViaResources(info);
@@ -161,6 +163,12 @@ public class SongDurationProvider
         catch (FileNotFoundException dllEx) when (dllEx.Message.Contains("K4os.Compression.LZ4"))
         {
             Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to reduce lag for uncached songs.");
+
+            return GetDurationViaResources(info);
+        }
+        catch (VeryUnluckyException forsenSWA)
+        {
+            Melon<SongInfoMod>.Logger.Error($"Improbable happened with {forsenSWA.BundleName}! {forsenSWA.Message}\nFalling back to the old method.");
 
             return GetDurationViaResources(info);
         }
