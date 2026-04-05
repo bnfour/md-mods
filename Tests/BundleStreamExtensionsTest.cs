@@ -85,5 +85,20 @@ public class BundleStreamExtensionsTest
         Assert.Equal(expected, stream.ReadLong());
     }
 
-    // TODO some negative tests, like what happens if we try to read an int with 1 byte left in the stream?
+
+    [Fact]
+    public void ReadNumbersThrowOnInsufficientData()
+    {
+        stream.Write([0xdd]);
+
+        stream.Seek(0, SeekOrigin.Begin);
+        Assert.Throws<InvalidOperationException>(() => { var xdd = stream.ReadShort(); });
+
+        stream.Seek(0, SeekOrigin.Begin);
+        Assert.Throws<InvalidOperationException>(() => { var xdd = stream.ReadInt(); });
+
+        stream.Seek(0, SeekOrigin.Begin);
+        Assert.Throws<InvalidOperationException>(() => { var xdd = stream.ReadLong(); });
+    }
+
 }

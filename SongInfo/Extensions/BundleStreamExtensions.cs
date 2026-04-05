@@ -1,7 +1,6 @@
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -17,9 +16,14 @@ internal static class BundleStreamExtensions
     private static T Read<T>(Stream s, Func<byte[], T> converter)
     {
         var buffer = new byte[Marshal.SizeOf<T>()];
+        
         // too bad ReadExactly was introduced in .NET 7
         var bytesRead = s.Read(buffer, 0, buffer.Length);
-        Debug.Assert(bytesRead == buffer.Length);
+        if (bytesRead != buffer.Length)
+        {
+            throw new InvalidOperationException("Not enough data in the stream to produce meaningful result.");
+        }
+        
         return converter(buffer);
     }
 
