@@ -1,12 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+
 using MelonLoader;
 using Newtonsoft.Json;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.Database;
 using Il2CppPeroTools2.Resources;
+
+using Bnfour.MuseDashMods.SongInfo.Exceptions;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
@@ -93,8 +98,6 @@ public class SongDurationProvider
             var duration = FormatDuration(GetDurationDirectly(info));
             _overrideCache[info.uid] = duration;
 
-            Melon<SongInfoMod>.Logger.Warning($"Apologies for the lag, needed to get duration data not present in the cache.");
-
             return duration;
         }
     }
@@ -146,8 +149,43 @@ public class SongDurationProvider
     private static float GetDurationDirectly(MusicInfo info)
 #endif
     {
+        try
+        {
+            return GetDurationViaDirectParse(info);
+        }
+        // fall back to the slow method if something we could foresee happened
+        catch (FileNotFoundException bundleEx) when (bundleEx.Message.StartsWith("Unable to locate bundle for"))
+        {
+            Melon<SongInfoMod>.Logger.Error("Bundle file not found! Falling back to the old method." +
+                $"\n\tmusic: {bundleEx.Message.Split(":", StringSplitOptions.TrimEntries).Last()}\n\texpected path: {bundleEx.FileName}");
+
+            return GetDurationViaResources(info);
+        }
+        catch (FileNotFoundException dllEx) when (dllEx.Message.Contains("K4os.Compression.LZ4"))
+        {
+            Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to reduce lag for uncached songs.");
+
+            return GetDurationViaResources(info);
+        }
+        catch (VeryUnluckyException forsenSWA)
+        {
+            Melon<SongInfoMod>.Logger.Error($"Improbable happened with {forsenSWA.BundleName}! {forsenSWA.Message}\nFalling back to the old method.");
+
+            return GetDurationViaResources(info);
+        }
+        catch (BundleParseException ex)
+        {
+            Melon<SongInfoMod>.Logger.Error($"Unable to parse {ex.BundleName}. Falling back to the old method.");
+
+            return GetDurationViaResources(info);
+        }
+    }
+
+    private static float GetDurationViaResources(MusicInfo info)
+    {
         // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
+        // ...and switching to a faster makeshift method
 
         // AudioClips in the game are not set up for loading metadata only first (why would they?),
         // so the entire file is loaded, hence the delay
@@ -158,6 +196,17 @@ public class SongDurationProvider
         // it _should_ be okay to not dispose of the loaded clip,
         // as there is a big chance it's going to be played straight away
         // ...i hope the resources manager is smarter than i am >v<
+    }
 
+    private static float GetDurationViaDirectParse(MusicInfo info)
+    {
+        var filename = BundleFilenameConstructor.IdToFilename(info);
+        var path = Path.Combine(Application.streamingAssetsPath, @"aa\StandaloneWindows64", filename);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Unable to locate bundle for: {info.music}", path);
+        }
+
+        return new MusicBundleParser(path).GetDuration();
     }
 }
