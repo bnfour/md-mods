@@ -1,7 +1,7 @@
 using Bnfour.MuseDashMods.SongInfo.Exceptions;
 using Bnfour.MuseDashMods.SongInfo.Utilities;
 
-namespace Bnfour.MuseDashMods.Tests;
+namespace Bnfour.MuseDashMods.Tests.SongInfo;
 
 
 public class MusicBundleParserTest

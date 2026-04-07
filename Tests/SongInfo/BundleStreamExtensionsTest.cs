@@ -1,4 +1,4 @@
-namespace Bnfour.MuseDashMods.Tests;
+namespace Bnfour.MuseDashMods.Tests.SongInfo;
 
 using Bnfour.MuseDashMods.SongInfo.Extensions;
 

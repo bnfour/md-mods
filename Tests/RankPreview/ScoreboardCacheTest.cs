@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 using Bnfour.MuseDashMods.RankPreview.Utilities;
 
-namespace Bnfour.MuseDashMods.Tests;
+namespace Bnfour.MuseDashMods.Tests.RankPreview;
 
 public partial class ScoreboardCacheTest
 {
