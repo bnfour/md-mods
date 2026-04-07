@@ -13,6 +13,10 @@ namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
 internal class MusicBundleParser(string bundlePath)
 {
+    // the actual duration float starts 20 bytes earlier
+    // might break if more than one AudioClip (or non-code asset in general) is ever packed into a bundle
+    private static readonly byte[] Pattern = Encoding.ASCII.GetBytes("archive:/");
+
     internal float GetDuration()
     {
         // assume the file exists, check is done before calling
@@ -89,8 +93,7 @@ internal class MusicBundleParser(string bundlePath)
                     bytesRead = bundleFileStream.Read(decompressedBuffer, 0, decompressedBuffer.Length);
                     ThrowIfNot(bytesRead == decompressedBuffer.Length);
                 }
-                var wellKnownPattern = Encoding.ASCII.GetBytes("archive:/");
-                var idx = decompressedBuffer.AsSpan().IndexOf(wellKnownPattern);
+                var idx = decompressedBuffer.AsSpan().IndexOf(Pattern);
                 if (idx != -1)
                 {
                     // we might get giga unlucky -- the meta we're searching for
