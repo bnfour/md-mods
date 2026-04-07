@@ -39,4 +39,8 @@
     <ProjectReference Include="..\RankPreview\RankPreview.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Data/**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
