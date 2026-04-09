@@ -17,6 +17,9 @@ internal class MusicBundleParser(string bundlePath)
     // might break if more than one AudioClip (or non-code asset in general) is ever packed into a bundle
     private static readonly byte[] Pattern = Encoding.ASCII.GetBytes("archive:/");
 
+    // used to report parsing errors via exceptions
+    private readonly string _bundleFilename = Path.GetFileName(bundlePath);
+
     internal float GetDuration()
     {
         // assume the file exists, check is done before calling
@@ -99,14 +102,16 @@ internal class MusicBundleParser(string bundlePath)
                     // we might get giga unlucky -- the meta we're searching for
                     // has a very slim chance to be spread between two blocks
                     // (so far, none of the game's bundles had this)
+                    // while i do test for such cases, i have no plans to implement anything to mitigate this
+                    // until a vanilla game bundle is formed that way
                     if (idx < 20)
                     {
-                        throw new VeryUnluckyException("The duration float is in the previous block.", Path.GetFileName(bundlePath));
+                        throw new VeryUnluckyException("The duration float is in the previous block.", _bundleFilename);
                     }
                     return BinaryPrimitives.ReadSingleLittleEndian(decompressedBuffer.AsSpan()[(idx - 20)..(idx - 16)]);
                 }
             }
-            throw new VeryUnluckyException("Unable to locate the anchor string -- split between blocks?", Path.GetFileName(bundlePath));
+            throw new VeryUnluckyException("Unable to locate the anchor string -- split between blocks?", _bundleFilename);
         }
     }
 
@@ -114,7 +119,7 @@ internal class MusicBundleParser(string bundlePath)
     {
         if (!condition)
         {
-            throw new BundleParseException(Path.GetFileName(bundlePath));
+            throw new BundleParseException(_bundleFilename);
         }
     }
 }

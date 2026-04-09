@@ -26,7 +26,29 @@ public class BundleStreamExtensionsTest
     {
         string[] strings = ["fOrSeN", "FoRsEn", "i'm your number one fan", string.Empty];
         // the last \0 is intentionally omitted, the code takes any value < 1 (0 for actual string termination, -1 for stream end) as a string end
-        stream.Write([102, 79, 114, 83, 101, 78, 0, 70, 111, 82, 115, 69, 110, 0, 105, 39, 109, 32, 121, 111, 117, 114, 32, 110, 117, 109, 98, 101, 114, 32, 111, 110, 101, 32, 102, 97, 110]);
+        stream.Write([
+            102, 79, 114, 83, 101, 78, 0,
+            70, 111, 82, 115, 69, 110, 0,
+            105, 39, 109, 32, 121, 111, 117, 114, 32, 110, 117, 109, 98, 101, 114, 32, 111, 110, 101, 32, 102, 97, 110
+        ]);
+        stream.Seek(0, SeekOrigin.Begin);
+        foreach (var s in strings)
+        {
+            Assert.Equal(s, stream.ReadString());
+        }
+    }
+
+    [Fact]
+    public void ReadStringWorksNt()
+    {
+        string[] strings = ["<3", "robot", "nice", "tasty", "crunchy"];
+        stream.Write([
+            0x3c, 0x33, 0x0,
+            0x72, 0x6f, 0x62, 0x6f, 0x74, 0x0,
+            0x6e, 0x69, 0x63, 0x65, 0x0,
+            0x74, 0x61, 0x73, 0x74, 0x79, 0x0,
+            0x63, 0x72, 0x75, 0x6e, 0x63, 0x68, 0x79, 0x0
+        ]);
         stream.Seek(0, SeekOrigin.Begin);
         foreach (var s in strings)
         {
