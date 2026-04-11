@@ -30,6 +30,7 @@ public class PnlRankOnClickRandomPatch
         // update the UI mostly as in the method we're skipping
         // ...we're not calling RefreshLevelConfigUI though, as there's not need to show/hide it anymore
         __instance.RefreshRandomLevelConfigUI(false);
+        __instance.m_VfxBtnRandomPress.gameObject.SetActive(true);
         __instance.m_VfxBtnRandomPress.Play();
 
         // completely skip vanilla code that switches the random mode
