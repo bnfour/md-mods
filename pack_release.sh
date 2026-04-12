@@ -25,6 +25,26 @@ USERLIBS="$ARCHIVE_ROOT/UserLibs"
 
 mkdir "$MODS" "$USERLIBS"
 
+#region log files auto-numbering
+
+# file to store current counter value
+LOG_COUNTER="$BUILDROOT/log-counter"
+echo 0 > "$LOG_COUNTER"
+
+# increments the counter, writes the new value back to the file;
+# "returns" the new value formatted with leading zero, ready to be used
+log_number () {
+    local i
+
+    i=$(< "$LOG_COUNTER")
+    ((i++))
+    echo $i > "$LOG_COUNTER"
+
+    printf "%02d" $i
+}
+
+#endregion
+
 # copy text files
 cp LICENSE "$ARCHIVE_ROOT/"
 cp release-bundle/*.txt "$ARCHIVE_ROOT/"
@@ -32,7 +52,7 @@ cp release-bundle/*.txt "$ARCHIVE_ROOT/"
 # build and copy mod DLLs
 echo "Building..."
 dotnet build --configuration "$CONFIG" \
-    &>"$LOGS"/01-dotnet-build.log || { echo "Build error, check the log in $LOGS"; exit 1; }
+    &>"$LOGS/$(log_number)-dotnet-build.log" || { echo "Build error, check the log in $LOGS"; exit 1; }
 
 # figure out the project names,
 # the sed magical invocation is basically "print stuff before the slash from lines matching something/something.csproj"
@@ -55,14 +75,14 @@ done
 # hopefully msbuild is still smart enough to reuse the DLL we just built
 echo "Publishing Scoreboard characters for extra DLLs..."
 dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj \
-    &>"$LOGS"/02-dotnet-publish-sc.log || { echo "SC publish error, check the other log in $LOGS"; exit 1; }
+    &>"$LOGS/$(log_number)-dotnet-publish-sc.log" || { echo "SC publish error, check the log in $LOGS"; exit 1; }
 
 cp ScoreboardCharacters/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/*SkiaSharp.dll "$USERLIBS/"
 
 # and K4os.Compression.LZ4 for Song info
 echo "Publishing Song info for extra DLLs..."
 dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained SongInfo/SongInfo.csproj \
-    &>"$LOGS"/03-dotnet-publish-si.log || { echo "SI publish error, check the other log in $LOGS"; exit 1; }
+    &>"$LOGS/$(log_number)-dotnet-publish-si.log" || { echo "SI publish error, check the log in $LOGS"; exit 1; }
 
 cp SongInfo/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/K4os.Compression.LZ4.dll "$USERLIBS/"
 
@@ -80,7 +100,7 @@ archive_path="$BUILDROOT/md-mods-$new_version.zip"
 cd "$ARCHIVE_ROOT" || exit 2
 
 echo "Zipping..."
-zip -r "$archive_path" ./* &>"$LOGS"/04-zip.log
+zip -r "$archive_path" ./* &>"$LOGS/$(log_number)-zip.log"
 
 # checksums for dlls
 mods_sums=$(sha256sum Mods/*)
