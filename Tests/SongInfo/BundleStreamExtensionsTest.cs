@@ -1,6 +1,6 @@
-namespace Bnfour.MuseDashMods.Tests.SongInfo;
-
 using Bnfour.MuseDashMods.SongInfo.Extensions;
+
+namespace Bnfour.MuseDashMods.Tests.SongInfo;
 
 public class BundleStreamExtensionsTest
 {

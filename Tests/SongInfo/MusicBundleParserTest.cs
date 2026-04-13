@@ -3,7 +3,6 @@ using Bnfour.MuseDashMods.SongInfo.Utilities;
 
 namespace Bnfour.MuseDashMods.Tests.SongInfo;
 
-
 public class MusicBundleParserTest
 {
     [Fact]
