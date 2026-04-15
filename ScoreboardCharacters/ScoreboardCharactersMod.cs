@@ -17,7 +17,7 @@ public class ScoreboardCharactersMod : MelonMod
     /// when user actually clicks a custom button. All other cases (init, difficulty
     /// change) just replace the sprite outright.
     /// </summary>
-    internal bool ThisLevelConfigUpdateIsFromCustomButtonClick = false;
+    internal bool AnimateNextConfigUpdate = false;
 
     public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
     {

@@ -15,6 +15,6 @@ public class PnlRankRefreshLevelConfigUIPatch
 {
     internal static void Postfix()
     {
-        UiPatcher.UpdateLevelConfigUI(animateTransition: Melon<ScoreboardCharactersMod>.Instance.ThisLevelConfigUpdateIsFromCustomButtonClick);
+        UiPatcher.UpdateLevelConfigUI(animateTransition: Melon<ScoreboardCharactersMod>.Instance.AnimateNextConfigUpdate);
     }
 }
