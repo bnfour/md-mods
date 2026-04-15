@@ -12,6 +12,13 @@ public class ScoreboardCharactersMod : MelonMod
 
     internal bool OncePerSceneUpdatesApplied = false;
 
+    /// <summary>
+    /// Indicates that the custom UI should be updated with animated transition
+    /// when user actually clicks a custom button. All other cases (init, difficulty
+    /// change) just replace the sprite outright.
+    /// </summary>
+    internal bool AnimateNextConfigUpdate = false;
+
     public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
     {
         base.OnSceneWasUnloaded(buildIndex, sceneName);
