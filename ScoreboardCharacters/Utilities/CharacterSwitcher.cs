@@ -8,6 +8,7 @@ using Il2CppAssets.Scripts.PeroTools.Nice.Components;
 using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -87,7 +88,11 @@ public class CharacterSwitcher
         _pnlRank ??= GameObject.Find(pnlRankPath)?.GetComponent<PnlRank>();
         if (_pnlRank != null)
         {
+            // TODO scuffed crutch, do something please
+            var mod = Melon<ScoreboardCharactersMod>.Instance;
+            mod.ThisLevelConfigUpdateIsFromCustomButtonClick = true;
             Traverse.Create(_pnlRank).Method("RefreshLevelConfigUI").GetValue();
+            mod.ThisLevelConfigUpdateIsFromCustomButtonClick = false;
         }
     }
 }
