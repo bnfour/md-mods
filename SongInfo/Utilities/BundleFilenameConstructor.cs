@@ -17,7 +17,8 @@ internal static class BundleFilenameConstructor
     {
         ["39_music_music"] = "music_39_assets_all.bundle",
         ["computer_music_girl_music"] = "music_computer_girl_assets_all.bundle",
-        ["enka_dance_music_music"] = "music_enka_dance_assets_all.bundle"
+        ["enka_dance_music_music"] = "music_enka_dance_assets_all.bundle",
+        ["dont_fight_the_music_music"] = "music_dont_fight_the_assets_all.bundle"
     };
 
     internal static string IdToFilename(MusicInfo info)
