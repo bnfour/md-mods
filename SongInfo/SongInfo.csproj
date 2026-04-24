@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup Label="Local references">
     <Reference Include="../references/Newtonsoft.Json.dll" />
-    <Reference Include="../references/Il2CppPeroTools2.Resources.dll"/>
+    <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
 
     <Reference Include="../references/UnityEngine.AnimationModule.dll" />
     <Reference Include="../references/UnityEngine.AudioModule.dll" />
@@ -12,5 +12,9 @@
 
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="Resources/duration_data.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.3.8" ExcludeAssets="none" />
   </ItemGroup>
 </Project>

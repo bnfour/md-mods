@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Events;
@@ -112,7 +114,7 @@ public static class UiPatcher
 
             var currentConfigImage = holderObject.GetComponent<Image>();
             // 1x scale results in the image being 64x32 on 1080
-            currentConfigImage.rectTransform.localScale = new(LevelConfigInnerScale, LevelConfigInnerScale, 1);
+            currentConfigImage.rectTransform.localScale = new(LevelConfigInnerScale, LevelConfigInnerScale);
             currentConfigImage.rectTransform.sizeDelta = new(80, 40);
             // just to the right of config lock button, taking scale and pixel perfectish offsets into account:
             // 43 is amount of _screen_ pixels (in 1080) to move,
@@ -206,14 +208,23 @@ public static class UiPatcher
         rt?.anchoredPosition3D += new Vector3(0, -0.5f, 0);
     }
 
-    public static void UpdateLevelConfigUI()
+    public static void UpdateLevelConfigUI(bool animateTransition = false)
     {
         var image = GameObject.Find(CustomLevelConfigPath)?.GetComponent<Image>();
-        image?.sprite = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider.GetSprite
-            (
-                (Character)DataHelper.selectedRoleIndex,
-                (Elfin)DataHelper.selectedElfinIndex
-            );
+        var sprite = Melon<ScoreboardCharactersMod>.Instance.ButtonImageProvider.GetSprite
+        (
+            (Character)DataHelper.selectedRoleIndex,
+            (Elfin)DataHelper.selectedElfinIndex
+        );
+
+        if (!animateTransition)
+        {
+            image?.sprite = sprite;
+        }
+        else if (image != null)
+        {
+            MelonCoroutines.Start(CharacterSwitchAnimationCoroutine(image, sprite));
+        }
     }
 
     public static void ApplyLocaleSpecificOffset(int multiplier)
@@ -234,4 +245,52 @@ public static class UiPatcher
         // (see history to learn how to discern by name)
         return new(0.5f, -0.08f, 0);
     }
+
+    private static IEnumerator CharacterSwitchAnimationCoroutine(Image component, Sprite newSprite)
+    {
+        // TODO promote to class constants?
+        const float minAlpha = 0.1f;
+        const float minScale = 0.6f;
+        // all time in seconds to be consistent with deltaTime
+        const float fadeOutDuration = 0.075f;
+        const float fadeInDuration = 0.075f;
+
+        var elapsed = 0f;
+        // shrink and fade out the previous sprite
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            var t = elapsed / fadeOutDuration;
+
+            component.color = ReplaceAlpha(component.color, Mathf.Lerp(1, minAlpha, t));
+
+            var newScale = Mathf.Lerp(LevelConfigInnerScale, minScale, t);
+            component.rectTransform.localScale = new(newScale, newScale);
+
+            yield return null;
+        }
+        // swap the sprite
+        component.sprite = newSprite;
+        yield return null;
+        // set the scale and opacity back
+        while (elapsed < fadeOutDuration + fadeInDuration)
+        {
+            elapsed += Time.deltaTime;
+            var t = (elapsed - fadeOutDuration) / fadeInDuration;
+
+            component.color = ReplaceAlpha(component.color, Mathf.Lerp(minAlpha, 1, t));
+            var newScale = Mathf.Lerp(minScale, LevelConfigInnerScale, t);
+
+            component.rectTransform.localScale = new(newScale, newScale);
+
+            yield return null;
+        }
+        // cover up any potential rounding errors at the very end
+        component.color = Color.white;
+        component.rectTransform.localScale = new(LevelConfigInnerScale, LevelConfigInnerScale);
+        yield return null;
+    }
+
+    private static Color ReplaceAlpha(Color c, float newAlpha)
+        => new(c.r, c.g, c.b, newAlpha);
 }

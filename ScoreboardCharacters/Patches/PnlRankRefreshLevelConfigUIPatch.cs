@@ -1,4 +1,5 @@
 using HarmonyLib;
+using MelonLoader;
 
 using Il2CppAssets.Scripts.UI.Panels;
 
@@ -14,6 +15,6 @@ public class PnlRankRefreshLevelConfigUIPatch
 {
     internal static void Postfix()
     {
-        UiPatcher.UpdateLevelConfigUI();
+        UiPatcher.UpdateLevelConfigUI(animateTransition: Melon<ScoreboardCharactersMod>.Instance.AnimateNextConfigUpdate);
     }
 }

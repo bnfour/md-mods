@@ -8,6 +8,7 @@ using Il2CppAssets.Scripts.PeroTools.Nice.Components;
 using Il2CppAssets.Scripts.UI.Panels;
 
 using Bnfour.MuseDashMods.ScoreboardCharacters.Data;
+using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ScoreboardCharacters.Utilities;
 
@@ -48,7 +49,11 @@ public class CharacterSwitcher
         DataHelper.selectedElfinIndex = (int)elfin;
         // TODO actually find out what resetting does with the new UI
         GlobalDataBase.s_DbLevelConfig.ResetCurLevelConfig();
-        UpdateLevelConfigUI();
+        // only animate the transition if the _display_ changes
+        // we always set the global character/elfin config;
+        // the config we set it to may be already shown as the current level override,
+        // and we should do nothing in this case
+        UpdateLevelConfigUI(currentLevelCharacter != character || currentLevelElfin != elfin);
 
         ScrollMenus(character, elfin);
     }
@@ -82,12 +87,23 @@ public class CharacterSwitcher
         }
     }
 
-    private void UpdateLevelConfigUI()
+    private void UpdateLevelConfigUI(bool animateTransition)
     {
         _pnlRank ??= GameObject.Find(pnlRankPath)?.GetComponent<PnlRank>();
         if (_pnlRank != null)
         {
-            Traverse.Create(_pnlRank).Method("RefreshLevelConfigUI").GetValue();
+            // TODO scuffed crutch, do something please
+            if (animateTransition)
+            {
+                var mod = Melon<ScoreboardCharactersMod>.Instance;
+                mod.AnimateNextConfigUpdate = true;
+                Traverse.Create(_pnlRank).Method("RefreshLevelConfigUI").GetValue();
+                mod.AnimateNextConfigUpdate = false;
+            }
+            else
+            {
+                Traverse.Create(_pnlRank).Method("RefreshLevelConfigUI").GetValue();
+            }
         }
     }
 }

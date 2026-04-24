@@ -66,7 +66,7 @@ public class SongInfoMod : MelonMod
         (protip: check the code below)
 
         Due to the quick-and-dirty nature of this feature, it runs extremely ugly:
-        the screen just freezes for a few minutes while the BGM continues to play.
+        the screen just freezes for a bit.
     */
 #if DEBUG
 
@@ -91,10 +91,10 @@ public class SongInfoMod : MelonMod
         if (Input.GetKeyDown(KeyCode.B))
         {
             LoggerInstance.Msg("Super secret developer data generator mode engaged!");
-            LoggerInstance.Msg("Hang tight, this will take a while...");
 
             uint counter = 0;
             var total = GlobalDataBase.s_DbMusicTag.allMusicCount;
+            int tenPercent = total / 10;
             // the sorting is used to maintain order in the file
             var result = new SortedList<string, string>(new MusicInfoUidComparer());
 
@@ -103,8 +103,7 @@ public class SongInfoMod : MelonMod
 
             foreach (var kvp in GlobalDataBase.s_DbMusicTag.m_AllMusicInfo)
             {
-                counter++;
-                if (counter % 25 == 0)
+                if (++counter % tenPercent == 0)
                 {
                     LoggerInstance.Msg($"Processing data {counter}/{total}...");
                 }
@@ -123,7 +122,7 @@ public class SongInfoMod : MelonMod
             }
 
             stopwatch.Stop();
-            LoggerInstance.Msg($"Done in {stopwatch.Elapsed.TotalSeconds:0.00}s <3");
+            LoggerInstance.Msg($"Whoosh! Done in {stopwatch.Elapsed.TotalSeconds:0.00}s <3");
         }
     }
 

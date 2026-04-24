@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# a script to automate the creation of a new release (it was done manually all this time)
+# a script to automate the creation of a new release (it was done manually before v30)
 # if you're not me, there's probably no reason to run this -- it's in the repo for transparency
 
 # puts the archive to upload into /tmp, also provides the list of checksums to paste
+# requirements: dotnet (obviously), jq
 
 echo "bnfour's md-mods OMEGA release script, reporting for duty (• - •)ゝ"
 
@@ -11,6 +12,10 @@ CONFIG="Release"
 FRAMEWORK="net6.0"
 # bash btw; thankfully, proton exists
 RUNTIME="win-x64"
+
+# internal projects that have nothing to do with a release
+# (easier to keep a list to exclude)
+DO_NOT_SHIP=("Experimental" "Tests")
 
 BUILDROOT=$(mktemp --tmpdir --directory md-mods-release.XXXXXXXXXX)
 echo "Working directory: $BUILDROOT"
@@ -25,6 +30,26 @@ USERLIBS="$ARCHIVE_ROOT/UserLibs"
 
 mkdir "$MODS" "$USERLIBS"
 
+#region log files auto-numbering
+
+# file to store current counter value
+LOG_COUNTER="$BUILDROOT/log-counter"
+echo 0 > "$LOG_COUNTER"
+
+# increments the counter, writes the new value back to the file;
+# "returns" the new value formatted with leading zero, ready to be used
+log_number () {
+    local i
+
+    i=$(< "$LOG_COUNTER")
+    ((i++))
+    echo $i > "$LOG_COUNTER"
+
+    printf "%02d" $i
+}
+
+#endregion
+
 # copy text files
 cp LICENSE "$ARCHIVE_ROOT/"
 cp release-bundle/*.txt "$ARCHIVE_ROOT/"
@@ -32,32 +57,50 @@ cp release-bundle/*.txt "$ARCHIVE_ROOT/"
 # build and copy mod DLLs
 echo "Building..."
 dotnet build --configuration "$CONFIG" \
-    &>"$LOGS"/01-dotnet-build.log || { echo "Build error, check the log in $LOGS"; exit 1; }
+    &>"$LOGS/$(log_number)-dotnet-build.log" || { echo "Build error, check the log in $LOGS"; exit 1; }
 
 # figure out the project names,
 # the sed magical invocation is basically "print stuff before the slash from lines matching something/something.csproj"
 projects=$(dotnet sln list | sed -nE 's/^(.*)\/.*\.csproj/\1/p')
-# copy dlls for everything except Experimental and Tests
-# (easier to keep a list to exclude)
 for project in $projects
 do
-    if [[ "$project" == "Experimental" || "$project" == "Tests" ]]
+    if echo "${DO_NOT_SHIP[*]}" | grep -qw "$project";
     then
-        echo "Not packing $project (manually configured skip)"
+        echo "Not packing $project (configured skip)"
     else
         echo "Packing $project"
         cp "$project/bin/$CONFIG/$FRAMEWORK/$project.dll" "$MODS/"
     fi
 done
 
-# we also need to pack SkiaSharp binaries for Scoreboard characters
-# this builds it again, --no-build did not work
-# hopefully msbuild is still smart enough to reuse the DLL we just built
-echo "Publishing for extra DLLs..."
-dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained ScoreboardCharacters/ScoreboardCharacters.csproj \
-    &>"$LOGS"/02-dotnet-publish.log || { echo "Publish error, check the other log in $LOGS"; exit 1; }
+# used to copy non-mod DLLs only to userlibs, disabled immediately after
+shopt -s extglob
 
-cp ScoreboardCharacters/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/*SkiaSharp.dll "$USERLIBS/"
+# get (relative path to) projects with nuget references
+projects_to_publish=$(dotnet package list --framework "$FRAMEWORK" --no-restore --format json\
+    | jq -r '.projects.[] | select(.frameworks[0].topLevelPackages != null) | .path'\
+    | xargs realpath --relative-to=".")
+# --framework option should exclude Tests by itself (it uses newer version), and Experimental changes are never merged
+# still better safe than sorry
+for project in $projects_to_publish
+do
+    # same sed magic as above
+    short_name=$(echo "$project" | sed -nE 's/^(.*)\/.*\.csproj/\1/p')
+    if echo "${DO_NOT_SHIP[*]}" | grep -qw "$short_name";
+    then
+        echo "Not publishing $short_name (this message should not appear)"
+    else
+        echo "Publishing $short_name for extra DLLs..."
+        # this builds it again, --no-build did not work
+        # hopefully msbuild is still smart enough to reuse the DLLs we just built
+        dotnet publish --configuration "$CONFIG" --runtime "$RUNTIME" --no-self-contained "$project" \
+            &>"$LOGS/$(log_number)-dotnet-publish-$short_name.log" || { echo "$short_name publish error, check the log in $LOGS"; exit 1; }
+        # copy non-mod DLLs only
+        cp "$short_name"/bin/$CONFIG/$FRAMEWORK/$RUNTIME/publish/!("$short_name").dll "$USERLIBS/"
+    fi
+done
+
+shopt -u extglob
 
 # figure out the version we publishing as latest tag + 1
 # i put tags when creating a release on github, so its not present when packing ¯\_(ツ)_/¯
@@ -71,9 +114,9 @@ archive_path="$BUILDROOT/md-mods-$new_version.zip"
 cd "$ARCHIVE_ROOT" || exit 2
 
 echo "Zipping..."
-zip -r "$archive_path" ./* &>"$LOGS"/03-zip.log
+zip -r "$archive_path" ./* &>"$LOGS/$(log_number)-zip.log"
 
-# checksums for dlls
+# checksums for DLLs
 mods_sums=$(sha256sum Mods/*)
 libs_sums=$(sha256sum UserLibs/*)
 
