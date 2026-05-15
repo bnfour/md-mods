@@ -14,7 +14,7 @@ public class ColorScoreStatusMod : MelonMod
         set
         {
             // only status downgrades are allowed in-game,
-            // reset to default AP is done separately as a part of ResetState()
+            // reset to default AP between runs is done separately as a part of ResetState()
             if ((int)value < (int)_status)
             {
                 throw new InvalidOperationException("Unable to upgrade the combo status.");

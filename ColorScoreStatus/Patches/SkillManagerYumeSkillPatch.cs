@@ -8,7 +8,7 @@ namespace Bnfour.MuseDashMods.ColorScoreStatus.Patches;
 
 /// <summary>
 /// Downgrades the AP to FC on Yume's skill trigger, which is not reported as a
-/// miss in the general judgement event patch.
+/// miss in the general judgement event patch. (Vanilla also does this.)
 /// </summary>
 [HarmonyPatch(typeof(SkillManager), nameof(SkillManager.YumeSkill))]
 public class SkillManagerYumeSkillPatch

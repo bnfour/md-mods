@@ -29,7 +29,7 @@ public class ChangeScoreValueInitUiPatch
         }
 
         Melon<ColorScoreStatusMod>.Instance.scoreColorer = colorer;
-        // color to the default state
+        // color to the default state (AP) from vanilla's color
         colorer?.SetStateTo(Data.ComboStatus.AllPerfect);
     }
 }

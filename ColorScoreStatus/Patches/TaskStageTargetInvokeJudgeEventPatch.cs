@@ -8,6 +8,9 @@ using Bnfour.MuseDashMods.ColorScoreStatus.Data;
 
 namespace Bnfour.MuseDashMods.ColorScoreStatus.Patches;
 
+/// <summary>
+/// Tracks the game state for the mod based on reported judgement for notes.
+/// </summary>
 [HarmonyPatch(typeof(TaskStageTarget), nameof(TaskStageTarget.InvokeJudgeEvent))]
 public class TaskStageTargetInvokeJudgeEventPatch
 {

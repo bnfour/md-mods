@@ -18,6 +18,7 @@ internal class GCScoreColorer(GameObject gc) : ScoreColorerBase(gc), IScoreColor
         // TODO check if the score (as opposed to combo i've prototyped on) has:
         // - texture
         // - colors set as material properties (glow, outline)
+        // and actually implement the coloring
         var score = _reference.GetComponent<TextMeshProUGUI>();
         Melon<ColorScoreStatusMod>.Logger.Msg($"just pretend the status was visibly set to {status} LULE");
     }

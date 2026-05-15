@@ -9,6 +9,8 @@ internal record Palette
 
     // TODO GC props as needed
 
+    // TODO consider darkening the outlines
+
     // based on gold S
     internal static Palette AllPerfect => new()
     {
