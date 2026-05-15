@@ -2,6 +2,7 @@ using System;
 using MelonLoader;
 
 using Bnfour.MuseDashMods.ColorScoreStatus.Data;
+using Bnfour.MuseDashMods.ColorScoreStatus.Utilities.ColorSetting;
 
 namespace Bnfour.MuseDashMods.ColorScoreStatus;
 
@@ -23,10 +24,13 @@ public class ColorScoreStatusMod : MelonMod
         }
     }
 
+    internal IScoreColorer scoreColorer;
+
     private ComboStatus _status;
 
     internal void ResetState()
     {
         _status = ComboStatus.AllPerfect;
+        scoreColorer = null;
     }
 }
