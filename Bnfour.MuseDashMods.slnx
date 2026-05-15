@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AlbumScroll/AlbumScroll.csproj" />
+  <Project Path="ColorScoreStatus/ColorScoreStatus.csproj" />
   <Project Path="Experimental/Experimental.csproj" />
   <Project Path="FeverSwitch/FeverSwitch.csproj" />
   <Project Path="RankPreview/RankPreview.csproj" />
