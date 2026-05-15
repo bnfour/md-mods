@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Bnfour.MuseDashMods.ColorScoreStatus.Data;
+using System;
 
 namespace Bnfour.MuseDashMods.ColorScoreStatus.Utilities.ColorSetting;
 
@@ -15,9 +16,15 @@ internal class BasicScoreColorer(GameObject defaultOrDjmaxOrArknights)
 {
     public override void SetStateTo(ComboStatus status)
     {
-        // TODO palette resolution
-        _reference.GetComponent<Text>()?.color = Color.cyan;
+        var palette = status switch
+        {
+            ComboStatus.AllPerfect => Palette.AllPerfect,
+            ComboStatus.FullCombo => Palette.FullCombo,
+            ComboStatus.ThereWasAnAttempt => Palette.YouTried,
+            _ => throw new ApplicationException("Unknown combo status.")
+        };
+        _reference.GetComponent<Text>()?.color = palette.Main;
         // only the default UI has text outline
-        _reference.GetComponent<Outline>()?.effectColor = Color.magenta;
+        _reference.GetComponent<Outline>()?.effectColor = palette.Outline;
     }
 }
