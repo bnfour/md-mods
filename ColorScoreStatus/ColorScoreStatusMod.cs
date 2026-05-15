@@ -21,6 +21,9 @@ public class ColorScoreStatusMod : MelonMod
             }
 
             _status = value;
+            // change the color automagically when the value is set during the gameplay,
+            // only the initial vanilla -> AP recolor is called explicitly elsewhere
+            scoreColorer?.SetStateTo(_status);
         }
     }
 

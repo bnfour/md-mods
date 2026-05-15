@@ -2,6 +2,7 @@ using Il2CppTMPro;
 using UnityEngine;
 
 using Bnfour.MuseDashMods.ColorScoreStatus.Data;
+using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ColorScoreStatus.Utilities.ColorSetting;
 
@@ -18,5 +19,6 @@ internal class GCScoreColorer(GameObject gc) : ScoreColorerBase(gc), IScoreColor
         // - texture
         // - colors set as material properties (glow, outline)
         var score = _reference.GetComponent<TextMeshProUGUI>();
+        Melon<ColorScoreStatusMod>.Logger.Msg($"just pretend the status was visibly set to {status} LULE");
     }
 }
