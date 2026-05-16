@@ -1,8 +1,10 @@
 using Il2CppTMPro;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 using Bnfour.MuseDashMods.ColorScoreStatus.Data;
-using MelonLoader;
 
 namespace Bnfour.MuseDashMods.ColorScoreStatus.Utilities.ColorSetting;
 
@@ -13,39 +15,16 @@ namespace Bnfour.MuseDashMods.ColorScoreStatus.Utilities.ColorSetting;
 /// <param name="gc">GameObject containing the score component.</param>
 internal class GCScoreColorer(GameObject gc) : ScoreColorerBase(gc), IScoreColorer
 {
+    private readonly Dictionary<ComboStatus, Texture> _replacements
+        = Enum.GetValues<ComboStatus>()
+        .ToDictionary(e => e, GCTextureProvider.CreateTexture);
+
+
     public override void SetStateTo(ComboStatus status)
     {
-        // TODO check if the score (as opposed to combo i've prototyped on) has:
-        // - texture
-        // - colors set as material properties (glow, outline)
-        // and actually implement the coloring
-        var score = _reference.GetComponent<TextMeshProUGUI>();
-        var logger = Melon<ColorScoreStatusMod>.Logger;
-        logger.Msg($"just pretend the status was visibly set to {status} LULE");
+        var scoreFontMaterial = _reference.GetComponent<TextMeshProUGUI>()?.font?.material;
 
-        logger.Msg($"text color: {score.color.r}, {score.color.g}, {score.color.b}");
-        // 1 1 1 — just white for the texture i guess
-
-        logger.Msg($"text gradient: {score.colorGradient}");
-        // some struct probably ignored in favor of the texture
-
-        logger.Msg($"text outline: {score.outlineColor.r}, {score.outlineColor.g}, {score.outlineColor.b} (width {score.outlineWidth})");
-        // #ffffff, but width 0, not shown?
-
-        logger.Msg($"text face texture {score.font?.material.GetTexture("_FaceTex")?.name}");
-        // gradient as a 32×32 texture, ScoreTexGC
-
-        if (score.fontMaterial.HasProperty("_GlowColor"))
-        {
-            var glow = score.fontMaterial.GetColor("_GlowColor");
-            logger.Msg($"glow color: {glow.r}, {glow.g}, {glow.b}");
-            // some light blue about 75% on the gradient top to down
-        }
-        if (score.fontMaterial.HasProperty("_OutlineColor"))
-        {
-            var outline = score.fontMaterial.GetColor("_OutlineColor");
-            logger.Msg($"outline color: {outline.r}, {outline.g}, {outline.b}");
-            // 1 1 1, matches the screenshot
-        }
+        scoreFontMaterial?.SetTexture("_FaceTex", _replacements[status]);
+        scoreFontMaterial?.SetColor("_GlowColor", ForStatus(status).GCGlow);
     }
 }
