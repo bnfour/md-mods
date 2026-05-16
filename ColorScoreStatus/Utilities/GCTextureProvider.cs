@@ -21,7 +21,7 @@ internal static class GCTextureProvider
         }
     }
 
-    internal static Texture CreateTexture(ComboStatus status)
+    internal static Texture2D CreateTexture(ComboStatus status)
     {
         var texture = new Texture2D(1, 1, TextureFormat.RGB24, false);
         ImageConversion.LoadImage(texture, _rawPngData[status]);
