@@ -9,9 +9,9 @@ namespace Bnfour.MuseDashMods.ColorScoreStatus.Utilities;
 
 internal static class GCTextureProvider
 {
-    private const string ResourcePathTemplate = "Bnfour.MuseDashMods.ComboScoreStatus.Resources.GCScore.{0}.png";
+    private const string ResourcePathTemplate = "Bnfour.MuseDashMods.ColorScoreStatus.Resources.GCScore.{0}.png";
 
-    private static readonly Dictionary<ComboStatus, byte[]> _rawPngData;
+    private static readonly Dictionary<ComboStatus, byte[]> _rawPngData = new();
 
     static GCTextureProvider()
     {
