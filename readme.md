@@ -14,6 +14,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Song info](#song-info) — shows song's BPM and duration
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
+- [Color score status](#color-score-status) — changes the color of the score text depending on performance
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -225,6 +226,23 @@ AutoIsDefault = true
 ```
 
 Set the value to `false` to treat manual fever mode as default instead.
+
+## Color score status
+Mod file: `ColorScoreStatus.dll`
+
+This mod offers a slightly more informative and subtle (?) alternative for the vanilla AP indicator. It colors the score text depending on performance level:
+- while an All Perfect is maintained, the score is yellow, like a golden S grade;
+- while a Full Combo (not AP) is maintained, the score is light gray, like a silver S grade;
+- if there were misses, the score is red, like a red S grade.
+
+Visual demo:
+
+| UI skin | Vanilla for reference | All Perfect | Full Combo | Other |
+| --- | --- | --- | --- | --- |
+| Default | pic | pic | pic | pic |
+| Groove Coaster | pic | pic | pic | pic |
+| DJMAX | pic | pic | pic | pic |
+| Arknights | pic | pic | pic | pic |
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
