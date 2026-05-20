@@ -240,9 +240,9 @@ Visual demo:
 | UI skin | Vanilla for reference | All Perfect | Full Combo | Other |
 | --- | --- | --- | --- | --- |
 | Default | pic | pic | pic | pic |
-| Groove Coaster | pic | pic | pic | pic |
-| DJMAX | pic | pic | pic | pic |
-| Arknights | pic | pic | pic | pic |
+| Groove Coaster | ![](readme-images/color-score-status/gc-ref.webp) | ![](readme-images/color-score-status/gc-ap.webp) | ![](readme-images/color-score-status/gc-fc.webp) | ![](readme-images/color-score-status/gc-yt.webp) |
+| DJMAX | ![](readme-images/color-score-status/djmax-ref.webp) | ![](readme-images/color-score-status/djmax-ap.webp) | ![](readme-images/color-score-status/djmax-fc.webp) | ![](readme-images/color-score-status/djmax-yt.webp) |
+| Arknights | ![](readme-images/color-score-status/arknights-ref.webp) | ![](readme-images/color-score-status/arknights-ap.webp) | ![](readme-images/color-score-status/arknights-fc.webp) | ![](readme-images/color-score-status/arknights-yt.webp) |
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
