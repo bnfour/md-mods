@@ -244,6 +244,9 @@ Visual demo:
 | DJMAX | ![](readme-images/color-score-status/djmax-ref.webp) | ![](readme-images/color-score-status/djmax-ap.webp) | ![](readme-images/color-score-status/djmax-fc.webp) | ![](readme-images/color-score-status/djmax-yt.webp) |
 | Arknights | ![](readme-images/color-score-status/arknights-ref.webp) | ![](readme-images/color-score-status/arknights-ap.webp) | ![](readme-images/color-score-status/arknights-fc.webp) | ![](readme-images/color-score-status/arknights-yt.webp) |
 
+>[!NOTE]
+>The score color only represents AP/FC/neither-of-those status, not the letter grade.
+
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
