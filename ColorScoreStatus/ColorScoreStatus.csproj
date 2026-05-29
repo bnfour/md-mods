@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup Label="Local references">
+    <Reference Include="../references/Unity.TextMeshPro.dll" />
+    <Reference Include="../references/UnityEngine.ImageConversionModule.dll" />
+  </ItemGroup>
+
+  <ItemGroup Label="Resources">
+    <EmbeddedResource Include="Resources/GCScore.Gold.png" />
+    <EmbeddedResource Include="Resources/GCScore.Red.png" />
+    <EmbeddedResource Include="Resources/GCScore.Silver.png" />
+  </ItemGroup>
+</Project>

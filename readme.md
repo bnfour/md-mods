@@ -14,6 +14,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Song info](#song-info) — shows song's BPM and duration
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
+- [Color score status](#color-score-status) — changes the color of the score text depending on performance
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -225,6 +226,26 @@ AutoIsDefault = true
 ```
 
 Set the value to `false` to treat manual fever mode as default instead.
+
+## Color score status
+Mod file: `ColorScoreStatus.dll`
+
+This mod offers a slightly more informative and subtle (?) alternative for the vanilla AP indicator. It colors the score text depending on performance level:
+- while an All Perfect is maintained, the score is yellow, like a golden S grade;
+- while a Full Combo (not AP) is maintained, the score is light gray, like a silver S grade;
+- if there were misses, the score is red, like a red S grade.
+
+Visual demo:
+
+| UI skin | Vanilla for reference | All Perfect | Full Combo | Other |
+| --- | --- | --- | --- | --- |
+| Default | ![](readme-images/color-score-status/default-ref.webp) | ![](readme-images/color-score-status/default-ap.webp) | ![](readme-images/color-score-status/default-fc.webp) | ![](readme-images/color-score-status/default-yt.webp) |
+| Groove Coaster | ![](readme-images/color-score-status/gc-ref.webp) | ![](readme-images/color-score-status/gc-ap.webp) | ![](readme-images/color-score-status/gc-fc.webp) | ![](readme-images/color-score-status/gc-yt.webp) |
+| DJMAX | ![](readme-images/color-score-status/djmax-ref.webp) | ![](readme-images/color-score-status/djmax-ap.webp) | ![](readme-images/color-score-status/djmax-fc.webp) | ![](readme-images/color-score-status/djmax-yt.webp) |
+| Arknights | ![](readme-images/color-score-status/arknights-ref.webp) | ![](readme-images/color-score-status/arknights-ap.webp) | ![](readme-images/color-score-status/arknights-fc.webp) | ![](readme-images/color-score-status/arknights-yt.webp) |
+
+>[!NOTE]
+>The score color only represents AP/FC/neither-of-those status, not the letter grade.
 
 ## UI tweaks
 Mod file: `UITweaks.dll`

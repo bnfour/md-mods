@@ -18,8 +18,8 @@ internal static class MusicUidChecker
         MusicUidDefine.peropero_aniki_ranbu,
         // april fools 2025
         MusicUidDefine.museyao,
-        // april fools 2026 (no define yet?)
-        "95-0"
+        // april fools 2026
+        MusicUidDefine.saima
     ];
 
     public static bool IsMemeLevel()
