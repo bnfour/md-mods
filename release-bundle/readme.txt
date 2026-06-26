@@ -1,7 +1,7 @@
 Please see https://github.com/bnfour/md-mods for full information, most importantly, the checksums.
 ===================================================================================================
 
-Use these with MelonLoader 0.7.2
+Use these with MelonLoader 0.7.3
 --------------------------------
 
 The folders go into the game install folder

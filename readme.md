@@ -415,7 +415,7 @@ This is not a mod intended for using. Rather, it's a developmental test bed for 
 The project (as published) contains the bare minimum for a mod that is successfully loaded; it does nothing except posting a single message in the log.
 
 # Installation
-These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, **0.7.2 Open-Beta** of MelonLoader is supported. While older version may work _(or not ¯\\\_(ツ)\_/¯)_, I won't fix an issue if it's not reproducible on the supported version.
+These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, MelonLoader 0.7.3 is supported. While older version may work _(or not ¯\\\_(ツ)\_/¯)_, I won't fix an issue if it's not reproducible on the supported version.
 
 Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
 
@@ -466,7 +466,7 @@ In case there is a breaking incompatibility with other mods, and it can be trace
 _tl;dr: uninstall, and remember: NO WARRANTIES_
 
 If you just want to play the game, removing the mods (and maybe the modloader itself) is always an option.
-- Please make sure you're using supported (**0.7.2**) version of MelonLoader.  
+- Please make sure you're using supported (**0.7.3**) version of MelonLoader.  
 [UI tweaks' tabular numbers](#tabular-numbers-in-scoreboard) are reported to have issues with older MelonLoader versions.
 - Try to remove mods not from this repo.
 - Try to remove mods and/or modloader and check whether the vanilla game is broken too.
