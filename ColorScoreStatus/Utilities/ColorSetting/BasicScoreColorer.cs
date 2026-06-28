@@ -15,7 +15,7 @@ internal class BasicScoreColorer(GameObject defaultOrDjmaxOrArknights)
 {
     public override void SetStateTo(ComboStatus status)
     {
-        var palette = ForStatus(status);
+        var palette = Palette.ForStatus(status);
         _reference.GetComponent<Text>()?.color = palette.Main;
         // only the default UI has text outline
         _reference.GetComponent<Outline>()?.effectColor = palette.Outline;

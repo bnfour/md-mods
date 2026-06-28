@@ -17,6 +17,6 @@ internal class GCScoreColorer(GameObject gc) : ScoreColorerBase(gc), IScoreColor
         var scoreFontMaterial = _reference.GetComponent<TextMeshProUGUI>()?.font?.material;
 
         scoreFontMaterial?.SetTexture("_FaceTex", GCTextureProvider.CreateTexture(status));
-        scoreFontMaterial?.SetColor("_GlowColor", ForStatus(status).GCGlow);
+        scoreFontMaterial?.SetColor("_GlowColor", Palette.ForStatus(status).GCGlow);
     }
 }

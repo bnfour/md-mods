@@ -36,4 +36,19 @@ internal record Palette(Color Main, Color Outline, Color GCGlow)
         new(0.435f, 0.062f, 0.308f),
         new(1f, 0.514f, 0.863f)
     );
+
+    /// <summary>
+    /// Palette associated with a given combo status.
+    /// </summary>
+    /// <param name="status">Status to get colors for.</param>
+    /// <returns>Palette representing the status.</returns>
+    /// <exception cref="System.ApplicationException">Thrown on unknown/invalid enum value (to keep intellisense happy).</exception>
+    internal static Palette ForStatus(ComboStatus status)
+        => status switch
+        {
+            ComboStatus.AllPerfect => AllPerfect,
+            ComboStatus.FullCombo => FullCombo,
+            ComboStatus.ThereWasAnAttempt => YouTried,
+            _ => throw new System.ApplicationException("Unknown combo status.")
+        };
 }
