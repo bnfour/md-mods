@@ -10,12 +10,14 @@ internal static class GCTextureProvider
 
     internal static Texture2D CreateTexture(ComboStatus status)
     {
-        var texture = new Texture2D(1, TextureHeight, TextureFormat.RGB24, false);
+        var palette = Palette.ForStatus(status);
 
+        var texture = new Texture2D(1, TextureHeight, TextureFormat.RGB24, false);
         for (int i = 0; i < TextureHeight; i++)
         {
-            // TODO actual gradient
-            texture.SetPixel(0, i, i % 2 == 0 ? Color.black : Color.magenta);
+            // no idea which way is up, this creates a gradient that is shown correctly
+            var pixelColor = Color.Lerp(palette.Light, palette.Main, (float)i / (TextureHeight - 1));
+            texture.SetPixel(0, i, pixelColor);
         }
         texture.Apply();
 
