@@ -164,14 +164,15 @@ public class SongDurationProvider
         // fall back to the slow method if something we could foresee happened
         catch (FileNotFoundException bundleEx) when (bundleEx.Message.StartsWith("Unable to locate bundle for"))
         {
+#if DEBUG
             Melon<SongInfoMod>.Logger.Error("Bundle file not found! Falling back to the old method." +
                 $"\n\tmusic: {bundleEx.Message.Split(":", StringSplitOptions.TrimEntries).Last()}\n\texpected path: {bundleEx.FileName}");
-
+#endif
             return GetDurationViaResources(info);
         }
         catch (FileNotFoundException dllEx) when (dllEx.Message.Contains("K4os.Compression.LZ4"))
         {
-            Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to reduce lag for uncached songs.");
+            Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to load data for uncached songs faster.");
 
             return GetDurationViaResources(info);
         }
