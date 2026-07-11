@@ -85,21 +85,22 @@ public class SongDurationProvider
 
     public string GetDuration(MusicInfo info)
     {
-        if (_overrideCache.ContainsKey(info.uid))
-        {
-            return _overrideCache[info.uid];
-        }
-        else if (_internalData.ContainsKey(info.uid))
-        {
-            return _internalData[info.uid];
-        }
-        else
-        {
-            var duration = FormatDuration(GetDurationDirectly(info));
-            _overrideCache[info.uid] = duration;
+        return FormatDuration(GetDurationViaResources(info));
+        // if (_overrideCache.ContainsKey(info.uid))
+        // {
+        //     return _overrideCache[info.uid];
+        // }
+        // else if (_internalData.ContainsKey(info.uid))
+        // {
+        //     return _internalData[info.uid];
+        // }
+        // else
+        // {
+        //     var duration = FormatDuration(GetDurationDirectly(info));
+        //     _overrideCache[info.uid] = duration;
 
-            return duration;
-        }
+        //     return duration;
+        // }
     }
 
     public void Shutdown()
