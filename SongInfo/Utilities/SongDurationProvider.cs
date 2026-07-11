@@ -24,6 +24,8 @@ public class SongDurationProvider
     private const string EmbeddedDataName = "Bnfour.MuseDashMods.SongInfo.Resources.duration_data.json";
     private const string OverrideFilename = "song_info_override.json";
 
+    private const string AsyncLoadPlaceholder = "...";
+
     private readonly SortedList<string, string> _internalData;
     private readonly SortedList<string, string> _overrideCache;
 
@@ -31,76 +33,82 @@ public class SongDurationProvider
 
     public SongDurationProvider()
     {
-        using (var embeddedDataStream = GetType().GetTypeInfo().Assembly.GetManifestResourceStream(EmbeddedDataName))
-        {
-            using (var reader = new StreamReader(embeddedDataStream))
-            {
-                var raw = reader.ReadToEnd();
-                var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
-                _internalData = new(dataOnly, new MusicInfoUidComparer());
-            }
-        }
+        // using (var embeddedDataStream = GetType().GetTypeInfo().Assembly.GetManifestResourceStream(EmbeddedDataName))
+        // {
+        //     using (var reader = new StreamReader(embeddedDataStream))
+        //     {
+        //         var raw = reader.ReadToEnd();
+        //         var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
+        //         _internalData = new(dataOnly, new MusicInfoUidComparer());
+        //     }
+        // }
 
-        var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
-        if (File.Exists(overrideFullPath))
-        {
-            try
-            {
-                using (var reader = new StreamReader(overrideFullPath))
-                {
-                    var raw = reader.ReadToEnd();
-                    var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
-                    _overrideCache = new(dataOnly, new MusicInfoUidComparer());
-                }
-            }
-            catch (JsonException)
-            {
-                ErrorLoadingOverride = true;
-                _overrideCache = new(new MusicInfoUidComparer());
-            }
-        }
-        else
-        {
-            _overrideCache = new(new MusicInfoUidComparer());
-        }
+        // var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
+        // if (File.Exists(overrideFullPath))
+        // {
+        //     try
+        //     {
+        //         using (var reader = new StreamReader(overrideFullPath))
+        //         {
+        //             var raw = reader.ReadToEnd();
+        //             var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
+        //             _overrideCache = new(dataOnly, new MusicInfoUidComparer());
+        //         }
+        //     }
+        //     catch (JsonException)
+        //     {
+        //         ErrorLoadingOverride = true;
+        //         _overrideCache = new(new MusicInfoUidComparer());
+        //     }
+        // }
+        // else
+        // {
+        //     _overrideCache = new(new MusicInfoUidComparer());
+        // }
 
-        if (_overrideCache.Count > 0)
-        {
-            // removes all override entries that match the (updated) data,
-            // because those were probably generated with not up-to-date version of the mod
-            var toRemove = new List<string>();
-            foreach (var kvp in _overrideCache)
-            {
-                if (_internalData.ContainsKey(kvp.Key) && _internalData[kvp.Key] == kvp.Value)
-                {
-                    toRemove.Add(kvp.Key);
-                }
-            }
-            foreach (var key in toRemove)
-            {
-                _overrideCache.Remove(key);
-            }
-        }
+        // if (_overrideCache.Count > 0)
+        // {
+        //     // removes all override entries that match the (updated) data,
+        //     // because those were probably generated with not up-to-date version of the mod
+        //     var toRemove = new List<string>();
+        //     foreach (var kvp in _overrideCache)
+        //     {
+        //         if (_internalData.ContainsKey(kvp.Key) && _internalData[kvp.Key] == kvp.Value)
+        //         {
+        //             toRemove.Add(kvp.Key);
+        //         }
+        //     }
+        //     foreach (var key in toRemove)
+        //     {
+        //         _overrideCache.Remove(key);
+        //     }
+        // }
+        // TODO restore caches after testing
+        _internalData = new(new MusicInfoUidComparer());
+        _overrideCache = new(new MusicInfoUidComparer());
     }
 
     public string GetDuration(MusicInfo info)
     {
-        return FormatDuration(GetDurationViaResources(info));
-        // if (_overrideCache.ContainsKey(info.uid))
-        // {
-        //     return _overrideCache[info.uid];
-        // }
-        // else if (_internalData.ContainsKey(info.uid))
-        // {
-        //     return _internalData[info.uid];
-        // }
-        // else
-        // {
-        //     var duration = FormatDuration(GetDurationDirectly(info));
-        //     _overrideCache[info.uid] = duration;
+        if (_overrideCache.ContainsKey(info.uid))
+        {
+            return _overrideCache[info.uid];
+        }
+        else if (_internalData.ContainsKey(info.uid))
+        {
+            return _internalData[info.uid];
+        }
+        else
+        {
+            // TODO restore fast parse
+            var duration = FormatDuration(GetDurationViaResources(info));
+            if (duration != AsyncLoadPlaceholder)
+            {
+                _overrideCache[info.uid] = duration;
+            }
 
-        //     return duration;
-        // }
+            return duration;
+        }
     }
 
     public void Shutdown()
@@ -141,13 +149,16 @@ public class SongDurationProvider
     private static string FormatDuration(float rawDuration)
 #endif
     {
-        return $"{(int)(rawDuration / 60):00}:{(int)(rawDuration % 60):00}";
+        // negative duration is a hack to display a placeholder while actual duration is loaded in background
+        return rawDuration > 0
+            ? $"{(int)(rawDuration / 60):00}:{(int)(rawDuration % 60):00}"
+            : AsyncLoadPlaceholder;
     }
 
 #if DEBUG
-    public static float GetDurationDirectly(MusicInfo info)
+    public float GetDurationDirectly(MusicInfo info)
 #else
-    private static float GetDurationDirectly(MusicInfo info)
+    private float GetDurationDirectly(MusicInfo info)
 #endif
     {
         try
@@ -182,21 +193,36 @@ public class SongDurationProvider
         }
     }
 
-    private static float GetDurationViaResources(MusicInfo info)
+    private float GetDurationViaResources(MusicInfo info)
     {
-        // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
+        // this is a time-consuming operation (usually 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
         // ...and switching to a faster makeshift method
 
         // AudioClips in the game are not set up for loading metadata only first (why would they?),
-        // so the entire file is loaded, hence the delay
-
-        var ac = ResourcesManager.instance.LoadFromName<AudioClip>(info.music);
-        return ac.length;
+        // so the entire file is loaded, hence the delay before the callback firing
+        Melon<SongInfoMod>.Logger.Msg($"loading clip {info.music}");
+        ResourcesManager.instance.LoadFromNameAsync<AudioClip>(info.music,
+            (Action<AudioClip>)(ac => AudioClipLoadCallback(ac, info)));
+        // magic value of -1 is a signal to display a placeholder instead
+        return -1;
 
         // it _should_ be okay to not dispose of the loaded clip,
         // as there is a big chance it's going to be played straight away
         // ...i hope the resources manager is smarter than i am >v<
+    }
+
+    private void AudioClipLoadCallback(AudioClip clip, MusicInfo originalInfo)
+    {
+        Melon<SongInfoMod>.Logger.Msg($"callback for {originalInfo.music}, duration {clip.length}");
+        if (originalInfo.uid == GlobalDataBase.s_DbMusicTag.CurMusicInfo().uid)
+        {
+            Melon<SongInfoMod>.Logger.Msg("uids match");
+            var formatted = FormatDuration(clip.length);
+            _overrideCache[originalInfo.uid] = formatted;
+
+            TempName.SetSongInfoIfNeeded_Callback(originalInfo.bpm, formatted);
+        }
     }
 
     private static float GetDurationViaDirectParse(MusicInfo info)

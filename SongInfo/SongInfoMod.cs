@@ -117,7 +117,7 @@ public class SongInfoMod : MelonMod
                 {
                     continue;
                 }
-                result[kvp.Value.uid] = SongDurationProvider.FormatDuration(SongDurationProvider.GetDurationDirectly(kvp.Value));
+                result[kvp.Value.uid] = SongDurationProvider.FormatDuration(DurationProvider.GetDurationDirectly(kvp.Value));
             }
 
             var path = Path.Combine(Application.dataPath, OutputFilename);
