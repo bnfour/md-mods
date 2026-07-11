@@ -33,59 +33,56 @@ public class SongDurationProvider
 
     public SongDurationProvider()
     {
-        // using (var embeddedDataStream = GetType().GetTypeInfo().Assembly.GetManifestResourceStream(EmbeddedDataName))
-        // {
-        //     using (var reader = new StreamReader(embeddedDataStream))
-        //     {
-        //         var raw = reader.ReadToEnd();
-        //         var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
-        //         _internalData = new(dataOnly, new MusicInfoUidComparer());
-        //     }
-        // }
+        using (var embeddedDataStream = GetType().GetTypeInfo().Assembly.GetManifestResourceStream(EmbeddedDataName))
+        {
+            using (var reader = new StreamReader(embeddedDataStream))
+            {
+                var raw = reader.ReadToEnd();
+                var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
+                _internalData = new(dataOnly, new MusicInfoUidComparer());
+            }
+        }
 
-        // var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
-        // if (File.Exists(overrideFullPath))
-        // {
-        //     try
-        //     {
-        //         using (var reader = new StreamReader(overrideFullPath))
-        //         {
-        //             var raw = reader.ReadToEnd();
-        //             var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
-        //             _overrideCache = new(dataOnly, new MusicInfoUidComparer());
-        //         }
-        //     }
-        //     catch (JsonException)
-        //     {
-        //         ErrorLoadingOverride = true;
-        //         _overrideCache = new(new MusicInfoUidComparer());
-        //     }
-        // }
-        // else
-        // {
-        //     _overrideCache = new(new MusicInfoUidComparer());
-        // }
+        var overrideFullPath = Path.Combine(Application.dataPath, OverrideFilename);
+        if (File.Exists(overrideFullPath))
+        {
+            try
+            {
+                using (var reader = new StreamReader(overrideFullPath))
+                {
+                    var raw = reader.ReadToEnd();
+                    var dataOnly = JsonConvert.DeserializeObject<Dictionary<string, string>>(raw);
+                    _overrideCache = new(dataOnly, new MusicInfoUidComparer());
+                }
+            }
+            catch (JsonException)
+            {
+                ErrorLoadingOverride = true;
+                _overrideCache = new(new MusicInfoUidComparer());
+            }
+        }
+        else
+        {
+            _overrideCache = new(new MusicInfoUidComparer());
+        }
 
-        // if (_overrideCache.Count > 0)
-        // {
-        //     // removes all override entries that match the (updated) data,
-        //     // because those were probably generated with not up-to-date version of the mod
-        //     var toRemove = new List<string>();
-        //     foreach (var kvp in _overrideCache)
-        //     {
-        //         if (_internalData.ContainsKey(kvp.Key) && _internalData[kvp.Key] == kvp.Value)
-        //         {
-        //             toRemove.Add(kvp.Key);
-        //         }
-        //     }
-        //     foreach (var key in toRemove)
-        //     {
-        //         _overrideCache.Remove(key);
-        //     }
-        // }
-        // TODO restore caches after testing
-        _internalData = new(new MusicInfoUidComparer());
-        _overrideCache = new(new MusicInfoUidComparer());
+        if (_overrideCache.Count > 0)
+        {
+            // removes all override entries that match the (updated) data,
+            // because those were probably generated with not up-to-date version of the mod
+            var toRemove = new List<string>();
+            foreach (var kvp in _overrideCache)
+            {
+                if (_internalData.ContainsKey(kvp.Key) && _internalData[kvp.Key] == kvp.Value)
+                {
+                    toRemove.Add(kvp.Key);
+                }
+            }
+            foreach (var key in toRemove)
+            {
+                _overrideCache.Remove(key);
+            }
+        }
     }
 
     public string GetDuration(MusicInfo info)
@@ -100,8 +97,7 @@ public class SongDurationProvider
         }
         else
         {
-            // TODO restore fast parse
-            var duration = FormatDuration(GetDurationViaResources(info));
+            var duration = FormatDuration(GetDurationDirectly(info));
             if (duration != AsyncLoadPlaceholder)
             {
                 _overrideCache[info.uid] = duration;
