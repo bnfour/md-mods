@@ -24,6 +24,8 @@ public class SongDurationProvider
     private const string EmbeddedDataName = "Bnfour.MuseDashMods.SongInfo.Resources.duration_data.json";
     private const string OverrideFilename = "song_info_override.json";
 
+    private const string AsyncLoadPlaceholder = "...";
+
     private readonly SortedList<string, string> _internalData;
     private readonly SortedList<string, string> _overrideCache;
 
@@ -96,7 +98,10 @@ public class SongDurationProvider
         else
         {
             var duration = FormatDuration(GetDurationDirectly(info));
-            _overrideCache[info.uid] = duration;
+            if (duration != AsyncLoadPlaceholder)
+            {
+                _overrideCache[info.uid] = duration;
+            }
 
             return duration;
         }
@@ -140,13 +145,16 @@ public class SongDurationProvider
     private static string FormatDuration(float rawDuration)
 #endif
     {
-        return $"{(int)(rawDuration / 60):00}:{(int)(rawDuration % 60):00}";
+        // negative duration is a hack to display a placeholder while actual duration is loaded in background
+        return rawDuration > 0
+            ? $"{(int)(rawDuration / 60):00}:{(int)(rawDuration % 60):00}"
+            : AsyncLoadPlaceholder;
     }
 
 #if DEBUG
-    public static float GetDurationDirectly(MusicInfo info)
+    public float GetDurationDirectly(MusicInfo info)
 #else
-    private static float GetDurationDirectly(MusicInfo info)
+    private float GetDurationDirectly(MusicInfo info)
 #endif
     {
         try
@@ -156,14 +164,15 @@ public class SongDurationProvider
         // fall back to the slow method if something we could foresee happened
         catch (FileNotFoundException bundleEx) when (bundleEx.Message.StartsWith("Unable to locate bundle for"))
         {
+#if DEBUG
             Melon<SongInfoMod>.Logger.Error("Bundle file not found! Falling back to the old method." +
                 $"\n\tmusic: {bundleEx.Message.Split(":", StringSplitOptions.TrimEntries).Last()}\n\texpected path: {bundleEx.FileName}");
-
+#endif
             return GetDurationViaResources(info);
         }
         catch (FileNotFoundException dllEx) when (dllEx.Message.Contains("K4os.Compression.LZ4"))
         {
-            Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to reduce lag for uncached songs.");
+            Melon<SongInfoMod>.Logger.Warning("Please install K4os.Compression.LZ4.dll to UserLibs folder to load data for uncached songs faster.");
 
             return GetDurationViaResources(info);
         }
@@ -181,21 +190,39 @@ public class SongDurationProvider
         }
     }
 
-    private static float GetDurationViaResources(MusicInfo info)
+    private float GetDurationViaResources(MusicInfo info)
     {
-        // this is a time-consuming operation (usualy 200~300 ms for me, which is noticeable)
+        // this is a time-consuming operation (usually 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
-        // ...and switching to a faster makeshift method
+        // and switching to a faster makeshift method, if possible
+
+        // if all else fails, we can't help but load the file
+        // thankfully, it can be done in background, and Unity will run a callback
+        // when the data is ready
 
         // AudioClips in the game are not set up for loading metadata only first (why would they?),
         // so the entire file is loaded, hence the delay
-
-        var ac = ResourcesManager.instance.LoadFromName<AudioClip>(info.music);
-        return ac.length;
+        ResourcesManager.instance.LoadFromNameAsync<AudioClip>(info.music,
+            (Action<AudioClip>)(ac => AudioClipLoadCallback(ac, info)));
+        // magic value of -1 is a signal to display a placeholder instead
+        return -1;
 
         // it _should_ be okay to not dispose of the loaded clip,
-        // as there is a big chance it's going to be played straight away
+        // as there is a nonzero chance it's going to be played straight away
         // ...i hope the resources manager is smarter than i am >v<
+    }
+
+    private void AudioClipLoadCallback(AudioClip clip, MusicInfo originalInfo)
+    {
+        // supposed to prevent writing wrong data on _very_ quick switches,
+        // no idea if it even possible to switch that fast though
+        if (originalInfo.uid == GlobalDataBase.s_DbMusicTag.CurMusicInfo().uid)
+        {
+            var formatted = FormatDuration(clip.length);
+            _overrideCache[originalInfo.uid] = formatted;
+
+            SetInfoDispatcher.SetSongInfoIfNeeded_Callback(originalInfo.bpm, formatted);
+        }
     }
 
     private static float GetDurationViaDirectParse(MusicInfo info)

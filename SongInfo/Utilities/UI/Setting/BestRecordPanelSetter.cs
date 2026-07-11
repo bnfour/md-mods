@@ -9,7 +9,7 @@ namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Setting;
 
 internal class BestRecordPanelSetter : IDataSetter
 {
-    public void Set(PnlPreparation panel, string bpm, string duration)
+    public void Set(PnlPreparation panel, string bpm, string duration, bool animate = true)
     {
         var animatableBpm = panel.pnlRecord.transform
             ?.Find(Constants.BestRecordPanel.BpmAnimationPath);
@@ -33,9 +33,12 @@ internal class BestRecordPanelSetter : IDataSetter
             durationText.text = duration;
         }
 
-        var bpmAnimation = animatableBpm?.GetComponent<Animation>();
-        bpmAnimation?.Play(bpmAnimation?.clip?.name);
-        var durationAnimation = animatableBpm?.GetComponent<Animation>();
-        durationAnimation?.Play(durationAnimation?.clip?.name);
+        if (animate)
+        {
+            var bpmAnimation = animatableBpm?.GetComponent<Animation>();
+            bpmAnimation?.Play(bpmAnimation?.clip?.name);
+            var durationAnimation = animatableBpm?.GetComponent<Animation>();
+            durationAnimation?.Play(durationAnimation?.clip?.name);
+        }
     }
 }

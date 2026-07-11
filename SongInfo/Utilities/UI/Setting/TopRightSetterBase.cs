@@ -7,14 +7,17 @@ namespace Bnfour.MuseDashMods.SongInfo.Utilities.UI.Setting;
 
 internal abstract class TopRightSetterBase : IDataSetter
 {
-    public void Set(PnlPreparation panel, string bpm, string duration)
+    public void Set(PnlPreparation panel, string bpm, string duration, bool animate = true)
     {
         var customObject = panel.transform.Find(Constants.TopRight.Component);
 
         FillText(customObject, bpm, duration);
-
-        var animation = customObject.GetComponent<Animation>();
-        animation?.Play(animation.clip?.name);
+        
+        if (animate)
+        {
+            var animation = customObject.GetComponent<Animation>();
+            animation?.Play(animation.clip?.name);
+        }
     }
 
     protected abstract void FillText(Transform componentRoot, string bpm, string duration);

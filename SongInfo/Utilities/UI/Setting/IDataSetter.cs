@@ -10,5 +10,7 @@ internal interface IDataSetter
     /// <param name="panel">Panel instance to look for the custom UI in.</param>
     /// <param name="bpm">BPM to set -- taken from game's database, preformatted.</param>
     /// <param name="duration">Duration to set, preformatted.</param>
-    void Set(PnlPreparation panel, string bpm, string duration);
+    /// <param name="animate">Whether to play the appearance animation.
+    /// Disabled for "async" callbacks that update already shown UI.</param>
+    void Set(PnlPreparation panel, string bpm, string duration, bool animate = true);
 }
