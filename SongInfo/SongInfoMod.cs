@@ -77,6 +77,11 @@ public class SongInfoMod : MelonMod
     {
         base.OnLateUpdate();
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            TempName.SetSongInfoIfNeeded_Callback("forsen", "forsen");
+        }
+
         if (DataHelper.selectedRoleIndex != BestGirl)
         {
             return;
