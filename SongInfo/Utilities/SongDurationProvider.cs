@@ -197,31 +197,34 @@ public class SongDurationProvider
     {
         // this is a time-consuming operation (usually 200~300 ms for me, which is noticeable)
         // so it is avoided whenever possible by precollecting the data
-        // ...and switching to a faster makeshift method
+        // and switching to a faster makeshift method, if possible
+
+        // if all else fails, we can't help but load the file
+        // thankfully, it can be done in background, and Unity will run a callback
+        // when the data is ready
 
         // AudioClips in the game are not set up for loading metadata only first (why would they?),
-        // so the entire file is loaded, hence the delay before the callback firing
-        Melon<SongInfoMod>.Logger.Msg($"loading clip {info.music}");
+        // so the entire file is loaded, hence the delay
         ResourcesManager.instance.LoadFromNameAsync<AudioClip>(info.music,
             (Action<AudioClip>)(ac => AudioClipLoadCallback(ac, info)));
         // magic value of -1 is a signal to display a placeholder instead
         return -1;
 
         // it _should_ be okay to not dispose of the loaded clip,
-        // as there is a big chance it's going to be played straight away
+        // as there is a nonzero chance it's going to be played straight away
         // ...i hope the resources manager is smarter than i am >v<
     }
 
     private void AudioClipLoadCallback(AudioClip clip, MusicInfo originalInfo)
     {
-        Melon<SongInfoMod>.Logger.Msg($"callback for {originalInfo.music}, duration {clip.length}");
+        // supposed to prevent writing wrong data on _very_ quick switches,
+        // no idea if it even possible to switch that fast though
         if (originalInfo.uid == GlobalDataBase.s_DbMusicTag.CurMusicInfo().uid)
         {
-            Melon<SongInfoMod>.Logger.Msg("uids match");
             var formatted = FormatDuration(clip.length);
             _overrideCache[originalInfo.uid] = formatted;
 
-            TempName.SetSongInfoIfNeeded_Callback(originalInfo.bpm, formatted);
+            SetInfoDispatcher.SetSongInfoIfNeeded_Callback(originalInfo.bpm, formatted);
         }
     }
 

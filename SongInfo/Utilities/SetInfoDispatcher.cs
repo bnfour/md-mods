@@ -7,10 +7,12 @@ using Bnfour.MuseDashMods.SongInfo.Utilities.UI.Setting;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
-// TODO think of a name
-internal static class TempName
+/// <summary>
+/// Holds methods to actually display the data on UI.
+/// </summary>
+internal static class SetInfoDispatcher
 {
-    // used in OnEnablePatch, panel ref available
+    // used by itself in OnEnable patch, where panel ref is available
     internal static void SetSongInfo(PnlPreparation panel, string bpm, string duration, bool animate = true)
     {
         IDataSetter dataSetter = Melon<SongInfoMod>.Instance.Layout switch
@@ -24,18 +26,14 @@ internal static class TempName
         dataSetter.Set(panel, bpm, duration, animate);
     }
 
-    // used in load callback, panel unavailable
-    // caller should check if the selected song didn't change (unlikely, but)
+    // used in resource load callback, panel ref unavailable...
     internal static void SetSongInfoIfNeeded_Callback(string bpm, string duration)
     {
+        // ...so we search for it themselves
         var panel = GameObject.Find("UI/Standerd/PnlPreparation")?.GetComponent<PnlPreparation>();
         if (panel != null && panel.isActiveAndEnabled)
         {
             SetSongInfo(panel, bpm, duration, false);
-        }
-        else
-        {
-            Melon<SongInfoMod>.Logger.Msg("doing nothing");
         }
     }
 }

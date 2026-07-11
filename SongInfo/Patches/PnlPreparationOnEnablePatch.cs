@@ -19,7 +19,7 @@ public class PnlPreparationOnEnablePatch
         var info = GlobalDataBase.s_DbMusicTag.CurMusicInfo();
         var duration = Melon<SongInfoMod>.Instance.DurationProvider.GetDuration(info);
 
-        TempName.SetSongInfo(__instance, info.bpm, duration);
+        SetInfoDispatcher.SetSongInfo(__instance, info.bpm, duration);
 
         // for Custom Albums mod compatibility:
         // hide achievements in custom charts (uid start with 999), show in vanilla charts
