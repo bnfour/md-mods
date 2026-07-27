@@ -1,4 +1,5 @@
 using MelonLoader;
+using MelonLoader.Preferences;
 
 namespace Bnfour.MuseDashMods.SofterBackgroundDim;
 
@@ -39,6 +40,16 @@ public class SofterBackgroundDimMod : MelonMod
         }
     }
 
-    // TODO configuration, supposed to be in [0, 1] range
-    internal const float DimmingIntensity = 0.5f;
+    private MelonPreferences_Category _prefsCategory;
+    private MelonPreferences_Entry<float> _dimIntensity;
+
+    internal float DimmingIntensity => _dimIntensity.Value;
+
+    public override void OnInitializeMelon()
+    {
+        _prefsCategory = MelonPreferences.CreateCategory("Bnfour_SofterBackgroundDim");
+        _dimIntensity = _prefsCategory.CreateEntry("Intensity", 0.5f,
+            "Dim intensity", "Controls how much dimmer the effect background is. 0 is no dim at all, 1 is completely black.",
+            validator: new ValueRange<float>(0f, 1f));
+    }
 }
