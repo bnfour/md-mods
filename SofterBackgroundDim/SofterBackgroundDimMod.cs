@@ -24,7 +24,21 @@ public class SofterBackgroundDimMod : MelonMod
     /// While we store ready to use alphas, all calculations are carried in
     /// brightness space, hence all those "1 -".
     /// </remarks>
-    internal float DimmedAlpha => 0.8f;
+    internal float DimmedAlpha
+    {
+        get
+        {
+            if (DefaultAlpha.HasValue)
+            {
+                // convert alpha to brightness, dim it by multiplier,
+                // convert resulting brightness back to alpha
+                return 1f - (DimmingIntensity * (1f - DefaultAlpha.Value));
+            }
+            LoggerInstance.Error("Default alpha not present, defaulting to full dim.");
+            return 1f;
+        }
+    }
 
-    // TODO configuration
+    // TODO configuration, supposed to be in [0, 1] range
+    internal const float DimmingIntensity = 0.5f;
 }
