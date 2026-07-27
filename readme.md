@@ -256,7 +256,7 @@ Mod file: `SofterBackgroundDim.dll`
 >
 > — peropero explains why the background brightness can be set to 40% at the lowest
 
->\*makes "turn the background completely black" one of its favorite effects\*
+>\*uses "make the background completely black" effect a lot\*
 >
 > — also peropero
 
@@ -264,7 +264,25 @@ This small mod replaces the "make the background completely black" in-game effec
 
 TODO demo avif
 
-TODO rest of the description
+>[!NOTE]
+>Only the "make background black" effect is modified.  
+>Somewhat similar "vignette" and "complete screen blackout" effects are not affected.
+
+TODO maybe images of unaffected effects too?
+
+### Configuration
+The intensity of additional background dimming can be adjusted. Mod's preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
+```toml
+TODO
+```
+`Intensity` accepts float values in 0–1 range:
+- `0` is no dim at all — background stays as is, disabling the effect completely (not really recommended)
+- any value in the range dims the background while the effect is active, for example:
+- - the default value of `0.5` reduces background brightness in half
+- - a value of `0.9` will reduce the brightness by a factor of 10
+- `1` will make the background completely black, as without the mod (also not really recommended — the vanilla does it in a more performant way)
+
+TODO maybe a comparison table/image here?
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
