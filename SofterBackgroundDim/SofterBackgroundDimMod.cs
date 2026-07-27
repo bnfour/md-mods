@@ -33,7 +33,7 @@ public class SofterBackgroundDimMod : MelonMod
             {
                 // convert alpha to brightness, dim it by multiplier,
                 // convert resulting brightness back to alpha
-                return 1f - (DimmingIntensity * (1f - DefaultAlpha.Value));
+                return 1f - ((1 - DimmingIntensity) * (1f - DefaultAlpha.Value));
             }
             LoggerInstance.Error("Default alpha not present, defaulting to full dim.");
             return 1f;
