@@ -15,6 +15,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
 - [Color score status](#color-score-status) — changes the color of the score text depending on performance
+- [Softer background dim](#softer-background-dim) — replaces "turn the background completely black" in-game effect with more eye-friendly alternative
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -246,6 +247,24 @@ Visual demo:
 
 >[!NOTE]
 >The score color only represents AP/FC/neither-of-those status, not the letter grade.
+
+## Softer background dim
+Mod file: `SofterBackgroundDim.dll`
+
+>What? 0%? This is not an option, definitely not (shrug)  
+>0% is like turning the light off! It will do harm to your eyes
+>
+> — peropero explains why the background brightness can be set to 40% at the lowest
+
+>\*makes "turn the background completely black" one of its favorite effects\*
+>
+> — also peropero
+
+This small mod replaces the "make the background completely black" in-game effect with a "make the background dimmer" effect, apparently healthier to your eyes (shrug):
+
+TODO demo avif
+
+TODO rest of the description
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
