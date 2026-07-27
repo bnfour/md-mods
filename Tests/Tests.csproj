@@ -40,6 +40,11 @@
   <ItemGroup>
     <ProjectReference Include="..\SongInfo\SongInfo.csproj" />
     <ProjectReference Include="..\RankPreview\RankPreview.csproj" />
+    <ProjectReference Include="..\SofterBackgroundDim\SofterBackgroundDim.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="../references/MelonLoader.dll" />
   </ItemGroup>
 
   <ItemGroup>

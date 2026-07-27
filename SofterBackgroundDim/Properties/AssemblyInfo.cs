@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using MelonLoader;
 
 using Bnfour.MuseDashMods.SofterBackgroundDim;
@@ -10,3 +11,5 @@ using Bnfour.MuseDashMods.SofterBackgroundDim;
 
 [assembly: AssemblyDescription("Replaces completely black background effect with a darker background")]
 [assembly: AssemblyCopyright("bnfour 2026; open-source")]
+
+[assembly: InternalsVisibleTo("Tests")]
