@@ -17,7 +17,6 @@ public class SofterBackgroundDimMod : MelonMod
     /// </remarks>
     internal float? DefaultAlpha { get; set; }
 
-    // TODO actual calculations, hardcoded to 20% right now
     /// <summary>
     /// Alpha of the black rectangle when the background is additionally dimmed.
     /// </summary>
