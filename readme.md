@@ -273,7 +273,9 @@ TODO maybe images of unaffected effects too?
 ### Configuration
 The intensity of additional background dimming can be adjusted. Mod's preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
-TODO
+[Bnfour_SofterBackgroundDim]
+# Controls how much dimmer the effect background is. 0 is no dim at all, 1 is completely black.
+Intensity = 0.5
 ```
 `Intensity` accepts float values in 0–1 range:
 - `0` is no dim at all — background stays as is, disabling the effect completely (not really recommended)
