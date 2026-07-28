@@ -256,7 +256,7 @@ Mod file: `SofterBackgroundDim.dll`
 >
 > — peropero explains why the background brightness can be set to 40% at the lowest
 
->\*uses "make the background completely black" effect a lot\*
+>\*uses the "make the background completely black" effect a lot\*
 >
 > — also peropero
 
@@ -268,7 +268,9 @@ TODO demo avif
 >Only the "make background black" effect is modified.  
 >Somewhat similar "vignette" and "complete screen blackout" effects are not affected.
 
-TODO maybe images of unaffected effects too?
+| "Black background"<br>affected | "Vignette"<br>not affected | "Complete blackout"<br>not affected |
+| :---: | :---: | :---: |
+| ![いますぐ輪廻](readme-images/softer-background-dim/supported-background.webp) | ![ドキドキわくわく](readme-images/softer-background-dim/unsupported-vignette.webp) | ![and i want it painted black — no, this is not a real screenshot; i'm not _that_ dedicated, for better or for worse](readme-images/softer-background-dim/unsupported-blackout.webp) |
 
 ### Configuration
 The intensity of additional background dimming can be adjusted. Mod's preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
