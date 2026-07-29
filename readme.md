@@ -1,6 +1,10 @@
 Unofficial quality of life modifications for the PC version of the hit video game Muse Dash using MelonLoader.
 
 # Disclaimers
+
+>[!WARNING]
+>Just like the game itself, some images in this repo contain flashing lights and/or fast-moving objects. Viewer discretion is advised.
+
 - These mods are unofficial and are not associated with, related to, and/or endorsed by peropero, hasuhasu, and/or XD.
 - USE AT YOUR OWN RISK. NO WARRANTIES.
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
@@ -262,7 +266,7 @@ Mod file: `SofterBackgroundDim.dll`
 
 This small mod replaces the "make the background completely black" in-game effect with a "make the background dimmer" effect, apparently healthier to your eyes (shrug):
 
-TODO demo avif
+![it's really hard to perfectly sync two recordings; while i tried (source videos are 240 fps), only the background itself is frame prefect](readme-images/softer-background-dim/demo.avif)
 
 >[!NOTE]
 >Only the "make background black" effect is modified.  
