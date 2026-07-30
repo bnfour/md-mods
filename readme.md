@@ -19,7 +19,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
 - [Color score status](#color-score-status) — changes the color of the score text depending on performance
-- [Softer background dim](#softer-background-dim) — replaces "turn the background completely black" in-game effect with more eye-friendly alternative
+- [Softer background dim](#softer-background-dim) — replaces "turn the background black" effect with an eye-friendly alternative
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
