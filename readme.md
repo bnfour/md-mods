@@ -1,6 +1,10 @@
 Unofficial quality of life modifications for the PC version of the hit video game Muse Dash using MelonLoader.
 
 # Disclaimers
+
+>[!WARNING]
+>Just like the game itself, some images in this repo contain flashing lights and/or fast-moving objects. Viewer discretion is advised.
+
 - These mods are unofficial and are not associated with, related to, and/or endorsed by peropero, hasuhasu, and/or XD.
 - USE AT YOUR OWN RISK. NO WARRANTIES.
 - Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
@@ -15,6 +19,7 @@ This repo currently contains the following mods. They can be used in any combina
 - [Rank preview](#rank-preview) — shows achieved rank on the stats screen
 - [Fever switch](#fever-switch) — turns the random character and elfin mode switch to auto/manual fever switch
 - [Color score status](#color-score-status) — changes the color of the score text depending on performance
+- [Softer background dim](#softer-background-dim) — replaces "turn the background completely black" in-game effect with more eye-friendly alternative
 - [UI tweaks](#ui-tweaks) — tweaks the UI in various small ways
 
 ## Scoreboard characters
@@ -246,6 +251,44 @@ Visual demo:
 
 >[!NOTE]
 >The score color only represents AP/FC/neither-of-those status, not the letter grade.
+
+## Softer background dim
+Mod file: `SofterBackgroundDim.dll`
+
+>What? 0%? This is not an option, definitely not (shrug)  
+>0% is like turning the light off! It will do harm to your eyes
+>
+> — peropero explains why the background brightness can be set to 40% at the lowest
+
+>\*uses the "make the background completely black" effect a lot\*
+>
+> — also peropero
+
+This small mod replaces the "make the background completely black" in-game effect with a "make the background dimmer" effect, apparently healthier to your eyes (shrug):
+
+![it's really hard to perfectly sync two recordings; while i tried (source videos are 240 fps), only the background itself is frame prefect](readme-images/softer-background-dim/demo.avif)
+
+>[!NOTE]
+>Only the "make background black" effect is modified.  
+>Somewhat similar "vignette" and "complete screen blackout" effects are not affected.
+
+| "Black background"<br>affected | "Vignette"<br>not affected | "Complete blackout"<br>not affected |
+| :---: | :---: | :---: |
+| ![いますぐ輪廻](readme-images/softer-background-dim/supported-background.webp) | ![ドキドキわくわく](readme-images/softer-background-dim/unsupported-vignette.webp) | ![and i want it painted black — no, this is not a real screenshot; i'm not _that_ dedicated, for better or for worse](readme-images/softer-background-dim/unsupported-blackout.webp) |
+
+### Configuration
+The intensity of additional background dimming can be adjusted. Mod's preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
+```toml
+[Bnfour_SofterBackgroundDim]
+# Controls how much dimmer the effect background is. 0 is no dim at all, 1 is completely black.
+Intensity = 0.5
+```
+`Intensity` accepts float values in 0–1 range:
+- `0` is no dim at all — background stays as is, disabling the effect completely (not really recommended)
+- any value in the range dims the background while the effect is active, for example:
+- - the default value of `0.5` reduces background brightness in half
+- - a value of `0.9` will reduce the brightness by a factor of 10
+- `1` will make the background completely black, as without the mod (also not really recommended — the vanilla does it in a more performant way)
 
 ## UI tweaks
 Mod file: `UITweaks.dll`
