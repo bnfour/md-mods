@@ -290,8 +290,6 @@ Intensity = 0.5
 - - a value of `0.9` will reduce the brightness by a factor of 10
 - `1` will make the background completely black, as without the mod (also not really recommended — the vanilla does it in a more performant way)
 
-TODO maybe a comparison table/image here?
-
 ## UI tweaks
 Mod file: `UITweaks.dll`
 
