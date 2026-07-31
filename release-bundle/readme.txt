@@ -13,6 +13,7 @@ Mods folder:
   FeverSwitch.dll : turns random character/elfin switch into auto/manual fever switch
   RankPreview.dll : shows approximate rank (if in top 100) on song completion
   ScoreboardCharacters.dll : mod to show character/elfin info on the scoreboard
+  SofterBackgroundDim.dll : replaces "black background" effect with "dimmer background" effect
   SongInfo.dll : shows song's BPM and duration
   TrueAbove1kRank.dll : changes "999+" in the scoreboard to an actual rank
   UITweaks.dll : various small UI fixes

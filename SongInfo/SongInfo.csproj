@@ -2,6 +2,7 @@
   <ItemGroup Label="Local references">
     <Reference Include="../references/Newtonsoft.Json.dll" />
     <Reference Include="../references/Il2CppPeroTools2.Resources.dll" />
+    <Reference Include="../references/Il2CppMoreEffectiveCoroutines.dll" />
 
     <Reference Include="../references/UnityEngine.AnimationModule.dll" />
     <Reference Include="../references/UnityEngine.AudioModule.dll" />
