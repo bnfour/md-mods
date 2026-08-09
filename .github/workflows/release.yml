@@ -1,0 +1,15 @@
+# this workflow results in a draft release with a ready to publish binaries
+# the notable thing to be still done manually is writing witty release notes
+
+name: "Release"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v7
+    # TODO rest of the owl
