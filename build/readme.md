@@ -14,6 +14,11 @@ TODO brief description, including why
 - [`Tests`](../Tests/) are only build in `Debug` to run the tests, not in `Release`.
 - Rest of the projects are regular mods and are build in both configs: `Debug` first to ensure they do build, then `Release` to produce the actual binaries to publish.
 
+>[!TIP]
+>Don't forget to update the filters when adding a new mod to the solution.
+
+Waiting for [.NET 11 SDK](https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview3/sdk.md#solution-filters-can-now-be-edited-from-the-cli) to instead create these programmatically in a better way — by removing one or two projects instead of listing all others to be included.
+
 ## Scripts
 
 if it's more than one command, it's a script
