@@ -8,7 +8,7 @@
 # and makes an archive of those only, but stripped* of any actual code,
 # only keeping signatures to build against, so even if it somehow leaks, it's nothing
 
-# *MelonLoader assemblies are not stripped because some tests rely use them
+# *MelonLoader assemblies are not stripped because some tests (sbd) use them
 # it's free software anyway, shouldn't be a problem
 
 # requirements (pretty much tied to my setup):
@@ -29,10 +29,10 @@ separator () {
 
 echo "References zip builder script! Did you run it from repo's root?"
 
-ROOT=$(mktemp -d)
+ROOT=$(mktemp --directory)
 
 # captures "references/*.dll" part, relative to repo's root
-referenced=$(rg -o --no-filename --no-line-number --no-heading "\.\./(references/.*\.dll)" -r '$1' | sort -u)
+referenced=$(rg --only-matching --no-filename --no-line-number --no-heading "\.\./(references/.*\.dll)" --replace='$1' | sort --unique)
 
 separator "Copying..."
 # shellcheck disable=SC2086 # the splitting is intentional
@@ -42,7 +42,7 @@ cd "$ROOT" || exit 2;
 
 separator "Stripping..."
 # strip all non-MelonLoader assemblies; do not publicize anything though
-fd -t f --glob "*.dll" -E "*MelonLoader*" | xargs assembly-publicizer --strip-only --overwrite
+fd --type file --glob "*.dll" --exclude "*MelonLoader*" --exec-batch assembly-publicizer --strip-only --overwrite
 
 # zip it up, removing any previous artifacts on the hardcoded path
 # (it's a fire-and-forget script that is not supposed to be run often anyway)
@@ -56,4 +56,6 @@ fi
 separator "Zipping..."
 zip $ARCHIVE ./*.dll
 
-separator "Done, upload $ARCHIVE"
+size=$(du -bh $ARCHIVE | cut --fields=1)
+
+separator "Done, upload $ARCHIVE ($size)"
