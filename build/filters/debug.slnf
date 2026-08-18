@@ -1,0 +1,20 @@
+{
+  "solution": {
+    // this path is relative to this filter file
+    "path": "../../Bnfour.MuseDashMods.slnx",
+    // these are relative to the solution itself
+    "projects": [
+      "AlbumScroll/AlbumScroll.csproj",
+      "ColorScoreStatus/ColorScoreStatus.csproj",
+      "FeverSwitch/FeverSwitch.csproj",
+      "RankPreview/RankPreview.csproj",
+      "ScoreboardCharacters/ScoreboardCharacters.csproj",
+      "SofterBackgroundDim/SofterBackgroundDim.csproj",
+      "SongInfo/SongInfo.csproj",
+      "TrueAbove1kRank/TrueAbove1kRank.csproj",
+      "UITweaks/UITweaks.csproj",
+
+      "Tests/Tests.csproj"
+    ]
+  }
+}

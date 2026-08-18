@@ -460,7 +460,7 @@ The project (as published) contains the bare minimum for a mod that is successfu
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, MelonLoader 0.7.3 is supported. While older version may work _(or not ¯\\\_(ツ)\_/¯)_, I won't fix an issue if it's not reproducible on the supported version.
 
-Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall.  
+Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall. Some of the mods store configuration in MelonLoader's default configuration file, `UserData/MelonPreferences.cfg`. These are preserved regardless of mod install status. Remove the settings section from the file to reset mod's configuration to default.
 
 >[!IMPORTANT]
 >Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder.
@@ -469,11 +469,14 @@ Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mod
 >  
 >These libraries are included in the download.
 
-Rather than downloading the mods, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).  
+Rather than downloading the mods, I suggest (reviewing the source and) building them yourself — this way you'll be sure the mods behave as described. See ["Building from source"](#building-from-source).
+
 Otherwise, please verify the downloads.
 
 ## Verification
 Every published release is accompanied with SHA256 hashes of every DLL. MelonLoader does print these in console when loading mods, but I suggest to verify the hashes before installation.
+
+For v39 and later, as long as the Actions logs are retained (90 days after a build), you can check build logs to verify the release process.
 
 # Frequently Asked Questions
 _(or, more accurately, "I thought you may want to know this")_
@@ -483,25 +486,27 @@ _tl;dr: no_
 
 All mods provide no gameplay advantage whatsoever. You still have to git gud to earn high scores.
 
-- The scoreboard mods show information the game already receives directly from its backend API, it's just not shown anywhere by default.  
+- The scoreboard-related mods show information the game already receives directly from its backend API, it's just not shown there by default.  
 You can already get this info, for instance, from [musedash.moe](https://musedash.moe/) scoreboards. In fact, this repo was born from my frustration of having to mirror my track selection in-game to the website on another display.
 - Album scroll only affects the song selection menu.
 - Song info is simply displaying existing data from the game.
-- All UI tweaks are purely cosmetic.
+- All UI tweaks are purely cosmetic, and so are Color score status, and Softer background dim.
+- Fever switch does not add any new stuff to the game, just changes what one toggle switch does.
 
 Unless you count _any_ changes to the game for _any_ purpose as cheating, this is not cheating.
 
 ### Will I get banned for using these?
 _tl;dr: probably not, but NO WARRANTIES; USE AT YOUR OWN RISK_
 
-As I stated in previous question, I don't believe this is cheating. I've been using these continuously for years now, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
+As I stated in previous question, I don't believe this is cheating. I've been using these continuously for years, and my account is still there. But there's a reason for the all-caps section of the license about having no warranties: the devs might think otherwise or break the compatibility (un)intentionally.
 
 Remember that you're using the mods **at your own risk**. I have warned you many times in this readme.
 
 ### I have other mods. What about compatibility with them?
 _tl;dr: ¯\\\_(ツ)\_/¯_
 
-The mods are pretty much self-contained, so I think ("think" being the operative word here) they will work with other mods, unless those other mods change the vanilla code too much.
+>[!NOTE]
+>My mods are currently not compatible with Custom Albums due to conflicting MelonLoader version dependencies. Setups with mods from both repos installed are reported to be broken.
 
 In case there is a breaking incompatibility with other mods, and it can be traced back to mods from this repo (e.g. errors in the log include mod's name), feel free to open an issue, or, better yet, submit a pull request. We'll see what can be done.
 
@@ -517,18 +522,26 @@ If you just want to play the game, removing the mods (and maybe the modloader it
 If none of these helps, feel free to open an issue, unless the problem was already reported.
 
 # Building from source
-This repo is a run-of-the-mill .NET solution targeting .NET 6.
+This repo is a run-of-the-mill .NET solution targeting .NET 6. (The tests are .NET 8 — just use the latest stable runtime/SDK as I tend to find and use fancy new stuff with new releases.)
 
-The only gotcha is that some libraries required to build it are not included because of file size (and licensing) issues. Your installation of MelonLoader will generate them for you.
+The only roadbump is that some libraries required to build it are not included because of file size (and licensing, mostly) issues. Your installation of MelonLoader will generate them for you.
 
 Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be dumped directly inside the folder, no subfolders needed.
 
-This should cover the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries — check the csprojs and the directory-wide props to see which are referenced.)
+This covers the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries — check the csprojs and the directory-wide props to see which are referenced: just `ripgrep` for the `references` folder mentions.)
 
-After that, just run `dotnet build`.
+After installing the dependencies, `dotnet build`.
 
 ## Creating a release
-From v30 onwards, there's a script that creates an archive in the format the releases are published, also providing the checksums for the DLLs. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
+<details><summary>History</summary>
+The first 29 releases were formed by hand on my local machine. ¯\_(ツ)_/¯
+
+From v30–v38, a script that creates an archive in the format the releases are published, also providing the checksums for the DLLs, was used locally. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
+</details>
+
+Starting with v39, GitHub Actions are used to build and publish the release. The old `pack_release.sh` script will still work locally for _a while_, since the build process did not change much, but it **will** be removed in the future as soon as it significantly diverges with the actual build process, it **will not** be updated.
+
+Check [the dedicated doc](build/readme.md) for the Actions setup.
 
 ## Unit tests
 **Very** limited coverage.
@@ -538,15 +551,18 @@ Most of the code in this repo is very tightly coupled with the game code and can
 Tests are based on [xUnit 3](https://xunit.net/index.html?tabs=cs). `dotnet test` should work.
 
 ## Extra DLLs
+>[!TIP]
+>The release pipeline does the stuff described in the following section automatically and in a more efficient manner.
+
 Some of the mods require extra libraries to be installed in order to work properly. Being free software, these are included in this repo's downloads.
 
-This section covers all cases of mods using libraries not already provided by MelonLoader installation.
+This section covers all cases of mods using those NuGet libraries — not already provided by MelonLoader installation.
 
 ### Scoreboard characters
 Scoreboard characters uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and these DLLs are included in downloads for convenience.
 
 >[!WARNING]
->Scoreboard characters will not work if SkiaSharp binaries are not installed. Please do not forget to do that.
+>Scoreboard characters will not work at all if SkiaSharp binaries are not installed. Please do not forget to do that.
 
 If you want to get these straight from NuGet instead, you can use `dotnet publish` command:
 ```bash

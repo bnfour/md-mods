@@ -1,0 +1,60 @@
+# this workflow results in a draft release with a ready to publish binaries
+# the notable thing to be still done manually is writing witty release notes
+
+# obligatory https://noyaml.com
+
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v7
+    # during "testing" this was more reliable than fetch-tags option of the action
+    - name: Fetch tags
+      run: git fetch --tags
+    - name: Download external dependencies
+      env:
+        PASS: ${{ secrets.DOWNLOAD_PASSWORD }}
+        URL: ${{ secrets.DOWNLOAD_URL }}
+      run: curl -u "runner:$PASS" "$URL" --output references.zip
+    - name: Unpack external dependencies
+      run: unzip references.zip -d references/
+    - name: Restore NuGet dependencies
+      run: dotnet restore
+    - name: Debug build for testing
+      run: dotnet build -c Debug --no-restore build/filters/debug.slnf
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Release build for packing
+      run: dotnet build -c Release --no-restore build/filters/release.slnf
+    # supposed to be run on a worker, so just dump it into a subfolder "release" in repo's root LULE
+    - name: Create folder structure
+      run: mkdir --verbose release release/Mods release/UserLibs
+    - name: Add text assets
+      run: bash build/scripts/text-assets.sh
+    - name: Add mod DLLs
+      run: bash build/scripts/mod-dlls.sh
+    - name: Publish projects with NuGet dependencies, add those to assets
+      run: bash build/scripts/dotnet-publish.sh
+    - name: Show the resulting asset structure
+      run: tree -sh --dirsfirst build/
+    - name: Show and store DLL checksums
+      run: bash build/scripts/checksums.sh
+    - name: Figure out the release version and archive name
+      run: build/scripts/get-version.sh
+    - name: Zip the archive
+      run: bash build/scripts/zip.sh
+    - name: Draft the release notes
+      run: bash build/scripts/notes.sh
+    - name: Draft the actual release in the repo
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh release create "v$new_version" "$filename" --draft --title "v$new_version — tl;dr" --notes-file notes --fail-on-no-commits
