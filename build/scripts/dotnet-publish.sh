@@ -24,7 +24,7 @@ do
     native_root="$pub_root/runtimes/win-x64/native"
     if [ -d "$native_root" ]
     then
-        cp --verbose "$native_root/*.dll" build/UserLibs/
+        cp --verbose "$native_root"/*.dll build/UserLibs/
     fi
 done
 

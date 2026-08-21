@@ -11,10 +11,11 @@
 # *MelonLoader assemblies are not stripped because some tests (sbd) use them
 # it's free software anyway, shouldn't be a problem
 
-# requirements (pretty much tied to my setup):
-# - ripgrep
-# - fd-find
+# requirements (pretty much tied to my setup, sorry ¯\_(ツ)_/¯):
+# - ripgrep: https://github.com/BurntSushi/ripgrep
+# - fd-find: https://github.com/sharkdp/fd
 # - BepInEx.AssemblyPublicizer.Cli as a global dotnet tool
+#     see https://github.com/BepInEx/BepInEx.AssemblyPublicizer#from-console
 
 # please please run the script from the repo's root
 # alternatively, just build with the dlls provided by MelonLoader installation,
@@ -48,7 +49,7 @@ fd --type file --glob "*.dll" --exclude "*MelonLoader*" --exec-batch assembly-pu
 # (it's a fire-and-forget script that is not supposed to be run often anyway)
 
 ARCHIVE="/tmp/md.zip"
-if [ -f "$ARCHIVE" ]
+if [ -f $ARCHIVE ]
 then
     rm $ARCHIVE
 fi
