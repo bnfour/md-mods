@@ -10,7 +10,7 @@ public class MusicInfoUidComparer : IComparer<string>
 {
     // the UIDs are formatted "{album id}-{song id}", where both ids are integers starting from 0,
     // like "0-8", "27-0", or "37-5"
-    
+
     // the default string comparer puts "10-0" before "2-0" (and "0-10" before "0-2")
     // because it sorts entire strings alphabetically and does not know nor care
     // about inner structure we'd like to sort by
