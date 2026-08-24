@@ -12,6 +12,7 @@ using Il2CppAssets.Scripts.Database;
 using Il2CppPeroTools2.Resources;
 
 using Bnfour.MuseDashMods.SongInfo.Exceptions;
+using Bnfour.MuseDashMods.SongInfo.Extensions;
 
 namespace Bnfour.MuseDashMods.SongInfo.Utilities;
 
@@ -227,8 +228,7 @@ public class SongDurationProvider
 
     private static float GetDurationViaDirectParse(MusicInfo info)
     {
-        var filename = BundleFilenameConstructor.IdToFilename(info);
-        var path = Path.Combine(Application.streamingAssetsPath, @"aa\StandaloneWindows64", filename);
+        var path = Path.Combine(Application.streamingAssetsPath, @"aa\StandaloneWindows64", info.GetBundleFilename());
         if (!File.Exists(path))
         {
             throw new FileNotFoundException($"Unable to locate bundle for: {info.music}", path);
