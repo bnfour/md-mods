@@ -5,9 +5,14 @@ Unofficial quality of life modifications for the PC version of the hit video gam
 >[!WARNING]
 >Just like the game itself, some images in this repo contain flashing lights and/or fast-moving objects. Viewer discretion is advised.
 
-- These mods are unofficial and are not associated with, related to, and/or endorsed by peropero, hasuhasu, and/or XD.
-- USE AT YOUR OWN RISK. NO WARRANTIES.
-- Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
+>[!IMPORTANT]
+>These mods are unofficial and are not associated with, related to, and/or endorsed by peropero, hasuhasu, and/or XD.
+
+>[!CAUTION]
+>USE AT YOUR OWN RISK. NO WARRANTIES.
+
+>[!TIP]
+>Please read [FAQ](#frequently-asked-questions) and have a look at [known issues](https://github.com/bnfour/md-mods/issues).
 
 # Mod list
 This repo currently contains the following mods. They can be used in any combination.
