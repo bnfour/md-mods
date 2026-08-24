@@ -5,13 +5,10 @@
     <Nullable>enable</Nullable>
     <OutputType>Exe</OutputType>
     <RootNamespace>Bnfour.MuseDashMods.Tests</RootNamespace>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <!-- this seems to speed up tests, so why not -->
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <!--
-    To enable the Microsoft Testing Platform 'dotnet test' experience, add property:
-      <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-
     To enable the Microsoft Testing Platform native command line experience, add property:
       <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
 
@@ -38,9 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SongInfo\SongInfo.csproj" />
-    <ProjectReference Include="..\RankPreview\RankPreview.csproj" />
-    <ProjectReference Include="..\SofterBackgroundDim\SofterBackgroundDim.csproj" />
+    <ProjectReference Include="../SongInfo/SongInfo.csproj" />
+    <ProjectReference Include="../RankPreview/RankPreview.csproj" />
+    <ProjectReference Include="../SofterBackgroundDim/SofterBackgroundDim.csproj" />
   </ItemGroup>
 
   <ItemGroup>
