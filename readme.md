@@ -414,16 +414,18 @@ This small feature adds a quick fade in animation for the character and elfin se
 >This feature reportedly breaks the scoreboard when used with MelonLoader 0.6.*. If you can't upgrade to later versions, disable the feature via preferences.
 
 This feature makes the scoreboard use a font with numbers of the same width, so the values can be compared more easily:
-| Before | After |
-| :---: | :---: |
-| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.webp) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.webp) |
+| Before | After<br>(default) | After<br>(no thousands separator) |
+| :---: | :---: | :---: |
+| ![not the best image to showcase the accuracy, but take a look at the scores](./readme-images/ui-tweaks/scoreboard-dekoboko.webp) | ![inspired by my downloads dashboard formatting update i did on the same day](./readme-images/ui-tweaks/scoreboard-even-w-separator.webp) | ![a bit of an acquired taste, i guess](./readme-images/ui-tweaks/scoreboard-even.webp) |
 
 The custom font is pretty much the same font, except the symbol for "1" (one); just adjusted for monospace numbers.
+
+By default, thousands are also separated with a space. Set `TabularScoreSeparateThousands` to `false` to disable this.
 
 I tried. Font editing is fun.
 
 ### Configuration
-This mod's preferences are used to toggle the mods. In addition, the alternative mode for HP/Fever sync has its own toggle.
+This mod's preferences are used to toggle the individual tweaks. In addition, some of them have additional toggles.
 
 The preferences are stored in MelonLoader's default preferences file, `UserData/MelonPreferences.cfg` (relative to game's root directory). Launching the game with the mod installed should create the following section in the file:
 ```toml
@@ -446,6 +448,8 @@ AchievementsHeaderStyling = true
 CharacterSelectAnimation = true
 # Makes score and accuracy numbers in the scoreboard monospace for easy comparing.
 TabularNumbersScoreboard = true
+# Adds a space separator for thousands in scoreboard, if tabular numbers are on. E.g. 123456 -> 123 456.
+TabularScoreSeparateThousands = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
