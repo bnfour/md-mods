@@ -19,6 +19,7 @@ public class UITweaksMod : MelonMod
     private MelonPreferences_Entry<bool> _achievementsHeaderStyling;
     private MelonPreferences_Entry<bool> _charSelectAnimation;
     private MelonPreferences_Entry<bool> _tabularFonts;
+    private MelonPreferences_Entry<bool> _tabularScoreSeparateThousands;
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
     internal bool AchievementIconsSyncEnabled => _cupImageSyncEnabled.Value;
@@ -29,6 +30,7 @@ public class UITweaksMod : MelonMod
     internal bool AchievementsHeaderClassicStyling => _achievementsHeaderStyling.Value;
     internal bool AnimateCharacterSelector => _charSelectAnimation.Value;
     internal bool ScoreboardTabularFonts => _tabularFonts.Value;
+    internal bool TabularScoreThousandsSeparator => _tabularScoreSeparateThousands.Value;
 
     internal FontChanger FontChanger => ScoreboardTabularFonts ? new() : null;
 
@@ -55,6 +57,8 @@ public class UITweaksMod : MelonMod
             "Animate character selector appearance", "Adds an appearance animation for the character selector when song details screen is opened.");
         _tabularFonts = _prefsCategory.CreateEntry("TabularNumbersScoreboard", true,
             "Tabular numbers for scoreboard", "Makes score and accuracy numbers in the scoreboard monospace for easy comparing.");
+        _tabularScoreSeparateThousands = _prefsCategory.CreateEntry("TabularScoreSeparateThousands", true,
+            "Thousands separator for score", "Adds a space separator for thousands in scoreboard, if tabular numbers are on. E.g. 123456 -> 123 456.");
 
         if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled
             && !HpFeverFlowSyncEnabled && !AutoFeverNoticeEnabled

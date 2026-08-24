@@ -1,7 +1,10 @@
+using System.Globalization;
+
 using HarmonyLib;
+using MelonLoader;
+using UnityEngine.UI;
 
 using Il2CppAssets.Scripts.UI.Panels;
-using UnityEngine.UI;
 
 namespace Bnfour.MuseDashMods.UITweaks.Patches;
 
@@ -14,10 +17,14 @@ public class ScoreThousandsSeparator
 {
     internal static void Postfix(PnlRank __instance)
     {
-        // TODO make it optional
+        if (!(Melon<UITweaksMod>.Instance.ScoreboardTabularFonts
+            && Melon<UITweaksMod>.Instance.TabularScoreThousandsSeparator))
+        {
+            return;
+        }
 
         // TODO is it worth moving from here to an utility class?
-        var formatter = (int score) => score.ToString("N0").Replace(',', ' ');
+        var formatter = (int score) => score.ToString("N0", CultureInfo.InvariantCulture).Replace(',', ' ');
 
         if (__instance.txtServerScore.IsActive()
             && int.TryParse(__instance.txtServerScore.text, out int ourScore))
