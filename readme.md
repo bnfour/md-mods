@@ -531,7 +531,7 @@ If you just want to play the game, removing the mods (and maybe the modloader it
 If none of these helps, feel free to open an issue, unless the problem was already reported.
 
 # Building from source
-This repo is a run-of-the-mill .NET solution targeting .NET 6. (The tests are .NET 8 — just use the latest stable runtime/SDK as I tend to find and use fancy new stuff with new releases.)
+This repo is a run-of-the-mill .NET solution targeting .NET 6. (The tests use latest available SDK — I tend to find and use fancy new stuff with new releases and not to hoard obsolete runtimes.)
 
 The only roadbump is that some libraries required to build it are not included because of file size (and licensing, mostly) issues. Your installation of MelonLoader will generate them for you.
 
