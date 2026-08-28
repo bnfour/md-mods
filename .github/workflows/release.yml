@@ -45,7 +45,7 @@ jobs:
     - name: Publish projects with NuGet dependencies, add those to assets
       run: bash build/scripts/dotnet-publish.sh
     - name: Show the resulting asset structure
-      run: tree -sh --dirsfirst build/
+      run: tree -sh --dirsfirst release/
     - name: Show and store DLL checksums
       run: bash build/scripts/checksums.sh
     - name: Figure out the release version and archive name
