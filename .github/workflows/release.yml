@@ -49,7 +49,7 @@ jobs:
     - name: Show and store DLL checksums
       run: bash build/scripts/checksums.sh
     - name: Figure out the release version and archive name
-      run: build/scripts/get-version.sh
+      run: bash build/scripts/get-version.sh
     - name: Zip the archive
       run: bash build/scripts/zip.sh
     - name: Draft the release notes
