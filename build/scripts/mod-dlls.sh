@@ -13,6 +13,6 @@ do
         echo "Not packing $project (configured skip)"
     else
         echo "Packing $project"
-        cp --verbose "$project/bin/Release/net6.0/$project.dll" build/Mods/
+        cp --verbose "$project/bin/Release/net6.0/$project.dll" release/Mods/
     fi
 done

@@ -19,12 +19,12 @@ do
     # copy non-mod DLLs only
     pub_root="$short_name/bin/Release/net6.0/publish"
     # aaaaa these quotes
-    cp --verbose "$pub_root"/!("$short_name").dll build/UserLibs/
+    cp --verbose "$pub_root"/!("$short_name").dll release/UserLibs/
     # also check for native libraries for win-x64 (also used with proton) (skia)
     native_root="$pub_root/runtimes/win-x64/native"
     if [ -d "$native_root" ]
     then
-        cp --verbose "$native_root"/*.dll build/UserLibs/
+        cp --verbose "$native_root"/*.dll release/UserLibs/
     fi
 done
 
