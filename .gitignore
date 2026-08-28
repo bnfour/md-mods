@@ -2,3 +2,8 @@
 */bin
 references/*
 !references/.gitkeep
+# release assets dumped into root folder in CI
+release
+md-mods-*.zip
+checksums
+notes

@@ -1,0 +1,63 @@
+# (Mostly) automated release via GitHub Actions
+_since v39, 2026-08_
+
+It's way overdue for this repo to get some kind of CI for even more transparency: anybody can check (for the first 90 days GitHub retains the logs) that the binaries the runner built from the published sources are attached to a release, instead of me building it locally and uploading the archive.
+
+It also allows me to automate even more work than the old `pack_release.sh` script did for v30–38. The only manual parts in this workflow are stating the pipeline and completing the release notes.
+
+# The workflow
+See [the YAML](../.github/workflows/release.yml) for the defined steps. Some context on why I did something may be present in the [my test repo](https://github.com/bnfour/workflow-testing) I used to get myself familiar with GitHub's flavor of CI/CD.
+
+I tried to make steps atomic, so there are quite a bit of them. They run commands verbosely wherever possible so that the logs could be easily inspected.
+
+## External references
+I feel that the assemblies from repo's `references` folder, especially game and Unity DLLs, are not really okay to distribute, hence they were never checked in, and there are only instructions to obtain them from your own install. This is the main reason it took me so long to set up CI as well. I did some research, and it appears that using stripped, "skeleton" assemblies is the standard in the modding scene.
+
+I'm probably taking this to an unnecessary extreme, but with the workflow setup, I'm trying to not distribute any (potentially) problematic binaries _anywhere_ outside a pipeline under my control, as long as it still builds there; so even stripped assemblies are not available outside the runner VMs.
+
+The assemblies required to build and test my code are hosted at an undisclosed URL with authentication, and both the URL and password are set as repo secrets, and are not really accessible outside the runners that are provided with values for those secrets. The uploaded assemblies are even stripped of any code — only the signatures to build against are retained. These stripped assemblies, as before, are not included in any published assets. I just need a way to provide these DLLs I always used to build locally to a runner, and this is the cleanest reasonable solution I could come up with. It's still kinda in the gray zone (just like the repo itself), and my "strategy" is just hoping really hard peropero wouldn't decide to choose violence against this project one day 🥺🙏 <!-- i mean, why would they? -->
+
+>[!NOTE]
+> MelonLoader assemblies are not stripped, because some testing code relies on it to run. It's not a big deal since it's still free software.
+
+
+# This folder contents
+This file, .NET solution filters, and helper bash scripts (mostly for the build process).
+
+## Filters
+This subfolder contains [solution filters](https://learn.microsoft.com/en-us/visualstudio/msbuild/solution-filters?view=visualstudio) used to filter out some projects from the builds to not waste resources; filters are named after the config they're used with.
+
+- [`Experimental`](../Experimental/) is never build via CI — its sole purpose is to be there when I need to drop a test patch (probably named `XddPatch`) somewhere to test something without messing up any other existing mods.
+- [`Tests`](../Tests/) are only build in `Debug` to run the tests, not in `Release`.
+- Rest of the projects are regular mods and are build in both configs: `Debug` first to ensure they do build, then `Release` to produce the actual binaries to publish.
+
+>[!TIP]
+>Don't forget to update the filters when adding a new mod to the solution.
+
+TODO: waiting for [.NET 11 SDK](https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview3/sdk.md#solution-filters-can-now-be-edited-from-the-cli) to instead create these programmatically in a better way — by removing one or two projects instead of listing all others to be included.
+
+Solution filters are, by Microsoft customs, JSON with comments. The only purpose of `.vscode` folder and `.gitattributes` file is to make the environment aware of that and enable syntax checks.
+<!-- inb4 i'll forget to update this section when i'll add more stuff there -->
+
+## Scripts
+
+While the steps are supposed to be atomic, I don't really like writing bash inside YAML without my beloved [Shellcheck](https://www.shellcheck.net/) or even syntax highlighting, so basically:
+
+if it's more than one command, it's in a script file.
+
+Only scripts from the [`scripts`](./scripts/) folder are used in the pipeline.
+
+### Non-build script
+[`create-references-bundle.sh`](./create-references-bundle.sh) is not used in the build process. It is used to create an archive of _stripped_ assemblies the code references for building and testing. The archive is then put for runners' exclusive access.
+
+Unless you're going to replicate this CI workflow in its entirety, you don't need this script and the assemblies it produces. Local builds can still be run with the DLLs generated by MelonLoader installation, see ["Building from source" section of the main readme](../readme.md#building-from-source).
+
+# The `release` folder
+The scripts assume the build happens directly in the repo's root folder, as the runner environment is considered disposable. The artifacts created in the process are gitignored for local troubleshooting.
+
+`release` folder in repo's root is the place where the assets go. It is then zip-compressed and attached to the release. Its structure matches the earlier archives and the modded game's root folder:
+- `Mods` folder contains mod DLLs
+- `UserLibs` folder contains supporting libraries some of the mods use
+- root of the archive contains brief documentation and licensing information
+
+Other files created in the process are left as is after their use. This includes DLL checksums and release notes template.

@@ -24,7 +24,7 @@ public static class AlbumScroller
         // random song entry is always included last with "?" instead of id
         var list = GlobalDataBase.dbMusicTag.m_StageShowMusicUids;
         var currentIndex = GlobalDataBase.dbMusicTag.curSelectedMusicIdx;
-        
+
         var currentAlbum = GetAlbumId(list[currentIndex]);
 
         var delta = direction == Direction.Forward ? 1 : -1;

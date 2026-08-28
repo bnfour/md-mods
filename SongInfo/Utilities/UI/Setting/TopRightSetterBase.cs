@@ -12,7 +12,7 @@ internal abstract class TopRightSetterBase : IDataSetter
         var customObject = panel.transform.Find(Constants.TopRight.Component);
 
         FillText(customObject, bpm, duration);
-        
+
         if (animate)
         {
             var animation = customObject.GetComponent<Animation>();
