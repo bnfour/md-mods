@@ -8,6 +8,9 @@ cd release || exit 2;
 mods=$(sha256sum Mods/*)
 libs=$(sha256sum UserLibs/*)
 
+# don't forget to go back to the root
+cd ..
+
 # just into the root folder
 cat > checksums <<EOF
 $mods
