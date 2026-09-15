@@ -8,8 +8,16 @@ namespace Bnfour.MuseDashMods.UITweaks.Patches;
 [HarmonyPatch(typeof(MusicInfo), nameof(MusicInfo.GetLevelDesignerStringByIndex))]
 public class GrooveLevelDesignerFix
 {
-    internal static void Postfix(int index, MusicInfo __instance, ref string __result)
+    internal static void Postfix(MusicInfo __instance, ref string __result)
     {
-        Melon<UITweaksMod>.Logger.Msg($"Level designer for {__instance.uid}_{index} is {__result}");
+        // TODO do nothing if turned off via config
+
+        // no MusicUidDefine entry as of 6.6.0
+        if (__instance.uid == "29-0")
+        {
+            __result = __result
+                .Replace("' ", "'")
+                .Replace(" !", "!");
+        }
     }
 }
