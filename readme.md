@@ -441,7 +441,7 @@ Fullwidth exclamation mark symbol (not supported by some of the fonts) is replac
 | Korean | ![](readme-images/ui-tweaks/gc-title-ko-before.webp) | ![](readme-images/ui-tweaks/gc-title-ko-after.webp) |
 | Japanese<br>Both Chinese<br>(all using the same font) | ![](readme-images/ui-tweaks/gc-title-rest-before.webp) | ![](readme-images/ui-tweaks/gc-title-rest-after.webp) |
 
-#### Groove Prayer level designers.
+#### Groove Prayer level designers
 Whitespaces inside `'s` in "`Let's`" for Hard and before `!` for all difficulties are removed:
 | State ╲ Difficulty | Easy | Hard | Master |
 | --: | :-- | :-- | :-- |
