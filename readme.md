@@ -309,6 +309,7 @@ The following UI tweaks are currently available:
 - [Achievements header styling](#achievements-header-styling) for song info screen
 - [Character and elfin select appearance animation](#character-and-elfin-select-appearance-animation) for song info screen
 - [Tabular numbers](#tabular-numbers-in-scoreboard) for the scoreboard
+- [Some text fixes](#text-fixes-for-groove-coaster) for the Groove Coaster collab album
 
 Each feature can be toggled on and off independently of others.
 
@@ -429,6 +430,27 @@ By default, thousands are also separated with a space. Set `TabularScoreSeparate
 
 I tried. Font editing is fun.
 
+### Text fixes for Groove Coaster
+This tweak fixes some text formatting issues with the Groove Coaster collab album.
+
+#### Album title
+Fullwidth exclamation mark symbol (not supported by some of the fonts) is replaced with a regular one. Space between `'` and `s` in `Let's` is removed:
+| Language | Before | After |
+| --: | :--: | :--: |
+| English<br>(note the `!`) | ![](readme-images/ui-tweaks/gc-title-en-before.webp) | ![](readme-images/ui-tweaks/gc-title-en-after.webp) |
+| Korean | ![](readme-images/ui-tweaks/gc-title-ko-before.webp) | ![](readme-images/ui-tweaks/gc-title-ko-after.webp) |
+| Japanese<br>Both Chinese<br>(all using the same font) | ![](readme-images/ui-tweaks/gc-title-rest-before.webp) | ![](readme-images/ui-tweaks/gc-title-rest-after.webp) |
+
+#### Groove Prayer level designers.
+Whitespaces inside `'s` in "`Let's`" for Hard and before `!` for all difficulties are removed:
+| State ╲ Difficulty | Easy | Hard | Master |
+| --: | :-- | :-- | :-- |
+| Before | `Welcome to GROOVE COASTER !` | `Let' s GROOVE !` | `Anytime, anywhere, GROOVE !` |
+| After | `Welcome to GROOVE COASTER!` | `Let's GROOVE!` | `Anytime, anywhere, GROOVE!` |
+
+>[!NOTE]
+>Both changes are toggled by the same variable. It's currently impossible to use either one without the other. 
+
 ### Configuration
 This mod's preferences are used to toggle the individual tweaks. In addition, some of them have additional toggles.
 
@@ -455,6 +477,8 @@ CharacterSelectAnimation = true
 TabularNumbersScoreboard = true
 # Adds a space separator for thousands in scoreboard, if tabular numbers are on. E.g. 123456 -> 123 456.
 TabularScoreSeparateThousands = true
+# Fixes minor formatting issues for Groove Coaster collab album.
+FixGCTexts = true
 ```
 By default, all toggleable features are enabled. Set a relevant value to `false` to disable a feature.
 
