@@ -10,10 +10,9 @@ public class GrooveLevelDesignerFix
 {
     internal static void Postfix(MusicInfo __instance, ref string __result)
     {
-        // TODO do nothing if turned off via config
-
-        // no MusicUidDefine entry as of 6.6.0
-        if (__instance.uid == "29-0")
+        if (Melon<UITweaksMod>.Instance.FixGrooveCoasterTexts
+            // no MusicUidDefine entry as of 6.6.0
+            && __instance.uid == "29-0")
         {
             __result = __result
                 .Replace("' ", "'")
