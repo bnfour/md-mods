@@ -21,8 +21,10 @@ public class SofterBackgroundDimMod : MelonMod
     /// Alpha of the black rectangle when the background is additionally dimmed.
     /// </summary>
     /// <remarks>
-    /// While we store ready to use alphas, all calculations are carried in
-    /// brightness space, hence all those "1 -".
+    /// The original formula in _brightness_ space was
+    /// 1 - ((1 - Intensity) * (1 - Default)),
+    /// where 1 - value is conversion between alpha and brightness.
+    /// The code uses simplified equivalent expression.
     /// </remarks>
     internal float DimmedAlpha
     {
@@ -30,9 +32,7 @@ public class SofterBackgroundDimMod : MelonMod
         {
             if (DefaultAlpha.HasValue)
             {
-                // convert alpha to brightness, dim it by multiplier,
-                // convert resulting brightness back to alpha
-                return 1f - ((1f - DimmingIntensity) * (1f - DefaultAlpha.Value));
+                return DefaultAlpha.Value + DimmingIntensity - DefaultAlpha.Value * DimmingIntensity;
             }
             LoggerInstance.Error("Default alpha not present, defaulting to full dim.");
             return 1f;
@@ -42,7 +42,7 @@ public class SofterBackgroundDimMod : MelonMod
     private MelonPreferences_Category _prefsCategory;
     private MelonPreferences_Entry<float> _dimIntensity;
 
-    internal float DimmingIntensity => _dimIntensity.Value;
+    private float DimmingIntensity => _dimIntensity.Value;
 
     public override void OnInitializeMelon()
     {
