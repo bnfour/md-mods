@@ -20,6 +20,7 @@ public class UITweaksMod : MelonMod
     private MelonPreferences_Entry<bool> _charSelectAnimation;
     private MelonPreferences_Entry<bool> _tabularFonts;
     private MelonPreferences_Entry<bool> _tabularScoreSeparateThousands;
+    private MelonPreferences_Entry<bool> _fixGcFormatting;
 
     internal bool WiderAlbumTitlesEnabled => _widerTitlesEnabled.Value;
     internal bool AchievementIconsSyncEnabled => _cupImageSyncEnabled.Value;
@@ -31,6 +32,7 @@ public class UITweaksMod : MelonMod
     internal bool AnimateCharacterSelector => _charSelectAnimation.Value;
     internal bool ScoreboardTabularFonts => _tabularFonts.Value;
     internal bool TabularScoreThousandsSeparator => _tabularScoreSeparateThousands.Value;
+    internal bool FixGrooveCoasterTexts => _fixGcFormatting.Value;
 
     internal FontChanger FontChanger => ScoreboardTabularFonts ? new() : null;
 
@@ -59,11 +61,14 @@ public class UITweaksMod : MelonMod
             "Tabular numbers for scoreboard", "Makes score and accuracy numbers in the scoreboard monospace for easy comparing.");
         _tabularScoreSeparateThousands = _prefsCategory.CreateEntry("TabularScoreSeparateThousands", true,
             "Thousands separator for score", "Adds a space separator for thousands in scoreboard, if tabular numbers are on. E.g. 123456 -> 123 456.");
+        _fixGcFormatting = _prefsCategory.CreateEntry("FixGCTexts", true,
+            "Fix Groove Coaster texts", "Fixes minor formatting issues for Groove Coaster collab album.");
 
         if (!WiderAlbumTitlesEnabled && !AchievementIconsSyncEnabled
             && !HpFeverFlowSyncEnabled && !AutoFeverNoticeEnabled
             && !FullCapsForOptionButtons && !AchievementsHeaderClassicStyling
-            && !AnimateCharacterSelector && !ScoreboardTabularFonts)
+            && !AnimateCharacterSelector && !ScoreboardTabularFonts
+            && !FixGrooveCoasterTexts)
         {
             LoggerInstance.Warning("No features of the mod enabled, might as well uninstall it.");
         }

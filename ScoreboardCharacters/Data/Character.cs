@@ -38,8 +38,8 @@ public enum Character
     BuroTheDiver,
     MarijaUma,
     MarijaGhost,
+    RinPhantomThief,
     // these are here so that we can use typed IDs even without an update
-    MysteryCharacter36,
     MysteryCharacter37,
     MysteryCharacter38,
     MysteryCharacter39

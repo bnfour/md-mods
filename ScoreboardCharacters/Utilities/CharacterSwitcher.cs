@@ -2,6 +2,7 @@ using HarmonyLib;
 using UnityEngine;
 
 using Il2CppAssets.Scripts.Database;
+using Il2CppAssets.Scripts.Helpers;
 using Il2CppAssets.Scripts.PeroTools.Commons;
 using Il2CppAssets.Scripts.PeroTools.Managers;
 using Il2CppAssets.Scripts.PeroTools.Nice.Components;
@@ -46,6 +47,18 @@ public class CharacterSwitcher
         }
 
         DataHelper.selectedRoleIndex = (int)character;
+
+        // TODO shouldn't be relevant for most cases where the new character was first selected,
+        // but better safe than sorry
+        if (character == Character.RinPhantomThief)
+        {
+            if (!RinThiefSkillHelper.IsValidTarget(RinThiefSkillHelper.GetStolenTargetRoleIndex()))
+            {
+                // set to the most basic skill available just so we have appropriated something
+                RinThiefSkillHelper.SetStolenTargetRoleIndex((int)Character.RinDefault);
+            }
+        }
+
         DataHelper.selectedElfinIndex = (int)elfin;
         // TODO actually find out what resetting does with the new UI
         GlobalDataBase.s_DbLevelConfig.ResetCurLevelConfig();
