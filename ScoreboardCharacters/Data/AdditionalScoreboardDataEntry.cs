@@ -10,7 +10,18 @@ public record AdditionalScoreboardDataEntry
 
     public AdditionalScoreboardDataEntry(Api.PlayInfo detail)
     {
-        Character = (Character)int.Parse(detail.CharacterId);
+        var character = (Character)int.Parse(detail.CharacterId);
+        // Phantom Thief Rin is transparently replaced with the actual character
+        // if the data to do so if available
+        if (character == Character.RinPhantomThief && !string.IsNullOrEmpty(detail.KaitouActualId))
+        {
+            Character = (Character)int.Parse(detail.KaitouActualId);
+        }
+        else
+        {
+            Character = character;
+        }
+
         Elfin = string.IsNullOrEmpty(detail.ElfinId) ? Elfin.NoElfin : (Elfin)int.Parse(detail.ElfinId);
     }
 }
