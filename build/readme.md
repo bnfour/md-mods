@@ -3,10 +3,10 @@ _since v39, 2026-08_
 
 It's way overdue for this repo to get some kind of CI for even more transparency: anybody can check (for the first 90 days GitHub retains the logs) that the binaries the runner built from the published sources are attached to a release, instead of me building it locally and uploading the archive.
 
-It also allows me to automate even more work than the old `pack_release.sh` script did for v30–38. The only manual parts in this workflow are stating the pipeline and completing the release notes.
+It also allows me to automate even more work than the old `pack_release.sh` script did for v30–38. The only manual parts in this workflow are starting the pipeline <!-- because I still occasionally commit straight to master, so not (yet?) on commits there --> and completing the release notes.
 
 # The workflow
-See [the YAML](../.github/workflows/release.yml) for the defined steps. Some context on why I did something may be present in the [my test repo](https://github.com/bnfour/workflow-testing) I used to get myself familiar with GitHub's flavor of CI/CD.
+See the [YAML](../.github/workflows/release.yml) for the defined steps. Some context on why I did something in the way I did may be present in the [my test repo](https://github.com/bnfour/workflow-testing) I used to get myself familiar with GitHub's flavor of CI/CD.
 
 I tried to make steps atomic, so there are quite a bit of them. They run commands verbosely wherever possible so that the logs could be easily inspected.
 
@@ -15,11 +15,10 @@ I feel that the assemblies from repo's `references` folder, especially game and 
 
 I'm probably taking this to an unnecessary extreme, but with the workflow setup, I'm trying to not distribute any (potentially) problematic binaries _anywhere_ outside a pipeline under my control, as long as it still builds there; so even stripped assemblies are not available outside the runner VMs.
 
-The assemblies required to build and test my code are hosted at an undisclosed URL with authentication, and both the URL and password are set as repo secrets, and are not really accessible outside the runners that are provided with values for those secrets. The uploaded assemblies are even stripped of any code — only the signatures to build against are retained. These stripped assemblies, as before, are not included in any published assets. I just need a way to provide these DLLs I always used to build locally to a runner, and this is the cleanest reasonable solution I could come up with. It's still kinda in the gray zone (just like the repo itself), and my "strategy" is just hoping really hard peropero wouldn't decide to choose violence against this project one day 🥺🙏 <!-- i mean, why would they? -->
+The assemblies required to build and test my code are hosted at an undisclosed URL with authentication, and both the URL and password are set as repo secrets, and are not really accessible outside the runners that are provided with values for those secrets. The uploaded assemblies are even stripped of any code — only the signatures to build against are retained. These stripped assemblies, as before, are not included in any published assets. I just need a way to provide these DLLs I always used to build locally to a runner, and this is the cleanest reasonable solution I could come up with. It's still kinda in the gray zone (just like the entire repo), and my "strategy" is just hoping really hard peropero wouldn't decide to choose violence against this project one day 🥺🙏 <!-- i mean, why would they? -->
 
 >[!NOTE]
 > MelonLoader assemblies are not stripped, because some testing code relies on it to run. It's not a big deal since it's still free software.
-
 
 # This folder contents
 This file, .NET solution filters, and helper bash scripts (mostly for the build process).
@@ -40,7 +39,6 @@ Solution filters are, by Microsoft customs, JSON with comments. The only purpose
 <!-- inb4 i'll forget to update this section when i'll add more stuff there -->
 
 ## Scripts
-
 While the steps are supposed to be atomic, I don't really like writing bash inside YAML without my beloved [Shellcheck](https://www.shellcheck.net/) or even syntax highlighting, so basically:
 
 if it's more than one command, it's in a script file.
