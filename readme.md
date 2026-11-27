@@ -493,12 +493,12 @@ The project (as published) contains the bare minimum for a mod that is successfu
 # Installation
 These are [MelonLoader](https://melonwiki.xyz/) mods. In order to run these, you need to have it installed. Currently, MelonLoader 0.7.3 is supported. While older version may work _(or not ¯\\\_(ツ)\_/¯)_, I won't fix an issue if it's not reproducible on the supported version.
 
-Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall. Some of the mods store configuration in MelonLoader's default configuration file, `UserData/MelonPreferences.cfg`. These are preserved regardless of mod install status. Remove the settings section from the file to reset mod's configuration to default.
+Once you have MelonLoader installed, drop the DLLs of desired mods into the `Mods` folder. Remove to uninstall. Some mods store configuration in MelonLoader's default configuration file, `UserData/MelonPreferences.cfg`. It's preserved regardless of mod install status. Remove the relevant section from the file to reset mod's configuration to default — it will be restored on the first run with the mod installed.
 
 >[!IMPORTANT]
->Scoreboard characters mod also requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder.
+>Scoreboard characters mod requires SkiaSharp libraries (`libSkiaSharp.dll`, `SkiaSharp.dll`) to be placed in `UserLibs` folder.
 >  
->Song info also requires K4os.Compression.LZ4 library (`K4os.Compression.LZ4.dll`) to be placed in `UserLibs` folder.
+>Song info would like K4os.Compression.LZ4 library (`K4os.Compression.LZ4.dll`) to be placed in `UserLibs` folder.
 >  
 >These libraries are included in the download.
 
@@ -509,7 +509,7 @@ Otherwise, please verify the downloads.
 ## Verification
 Every published release is accompanied with SHA256 hashes of every DLL. MelonLoader does print these in console when loading mods, but I suggest to verify the hashes before installation.
 
-For v39 and later, as long as the Actions logs are retained (90 days after a build), you can check build logs to verify the release process.
+For `v39` and later, as long as the Actions logs are retained (90 days after a build), you can check build logs to verify the release process.
 
 # Frequently Asked Questions
 _(or, more accurately, "I thought you may want to know this")_
@@ -559,43 +559,41 @@ This repo is a run-of-the-mill .NET solution targeting .NET 6. (The tests use la
 
 The only roadbump is that some libraries required to build it are not included because of file size (and licensing, mostly) issues. Your installation of MelonLoader will generate them for you.
 
-Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be dumped directly inside the folder, no subfolders needed.
+Copy everything from `MelonLoader/Il2CppAssemblies` and `MelonLoader/net6` folders from the game install to the `references` folder of this repo. All DLLs should be placed directly inside into folder, no subfolders needed.
 
-This covers the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries — check the csprojs and the directory-wide props to see which are referenced: just `ripgrep` for the `references` folder mentions.)
+This covers the local references for all projects. (Actually, **most** of the DLLs are not necessary to build the solution; I just don't plan on keeping an accurate and up to date list of required libraries — check the csprojs and the directory-wide props to see which are referenced: `ripgrep` for the `references` folder mentions or something ¯\\\_(ツ)\_/¯)
 
 After installing the dependencies, `dotnet build`.
 
 ## Creating a release
-<details><summary>History</summary>
+<details><summary>Previously on md-mods</summary>
 The first 29 releases were formed by hand on my local machine. ¯\_(ツ)_/¯
 
-From v30–v38, a script that creates an archive in the format the releases are published, also providing the checksums for the DLLs, was used locally. See [`pack_release.sh`](/pack_release.sh) to learn how it works.
+For `v30`–`v38`, a script that creates an archive in the format the releases are published, also providing the checksums for the DLLs, was used locally. It has been since removed from the repo. You can still check the [last used version at `v38`](https://github.com/bnfour/md-mods/blob/v38/pack_release.sh).
 </details>
 
-Starting with v39, GitHub Actions are used to build and publish the release. The old `pack_release.sh` script will still work locally for _a while_, since the build process did not change much, but it **will** be removed in the future as soon as it significantly diverges with the actual build process, it **will not** be updated.
-
-Check [the dedicated doc](build/readme.md) for the Actions setup.
+From `v39` onward, GitHub Actions are used to build and publish the release. Check the [dedicated doc](build/readme.md) for the Actions setup.
 
 ## Unit tests
 **Very** limited coverage.
 
-Most of the code in this repo is very tightly coupled with the game code and can't be run outside the game. However, there are a few utility classes that are standalone enough to be tested. Better than nothing.
+Most of the code in this repo is very tightly coupled with the game code and can't be run outside modded Muse Dash. However, there are a few utility classes that are standalone enough to be tested. Better than nothing.
 
 Tests are based on [xUnit 3](https://xunit.net/index.html?tabs=cs). `dotnet test` should work.
 
 ## Extra DLLs
 >[!TIP]
->The release pipeline does the stuff described in the following section automatically and in a more efficient manner.
+>The release workflow does the stuff described in the following section automatically and in a more efficient manner.
 
-Some of the mods require extra libraries to be installed in order to work properly. Being free software, these are included in this repo's downloads.
+Some of the mods require third party libraries to be installed in order to work properly. Being free software, these are included in this repo's downloads.
 
-This section covers all cases of mods using those NuGet libraries — not already provided by MelonLoader installation.
+This section covers mods using those NuGet libraries, not already provided by MelonLoader installation.
 
 ### Scoreboard characters
-Scoreboard characters uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and these DLLs are included in downloads for convenience.
+Scoreboard characters uses [SkiaSharp](https://mono.github.io/SkiaSharp/index.html) library ([GitHub](https://github.com/mono/SkiaSharp/), [main package NuGet](https://www.nuget.org/packages/SkiaSharp), [native libs NuGet](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Win32)) for image editing. Its DLLs (`SkiaSharp.dll`, `libSkiaSharp.dll`) should be placed in `UserLibs` folder of the modded game install. SkiaSharp is MIT-licensed, and these DLLs are included in downloads for convenience, making the bulk of the download >_<.
 
 >[!WARNING]
->Scoreboard characters will not work at all if SkiaSharp binaries are not installed. Please do not forget to do that.
+>Scoreboard characters will not work at all if SkiaSharp binaries are not provided. Please do not forget to do that.
 
 If you want to get these straight from NuGet instead, you can use `dotnet publish` command:
 ```bash
@@ -607,7 +605,7 @@ The SkiaSharp DLLs will be placed in `ScoreboardCharacters/bin/Release/net6.0/wi
 Song info uses K4os.Compression.LZ4 ([GitHub](https://github.com/MiloszKrajewski/K4os.Compression.LZ4), [NuGet](https://www.nuget.org/packages/K4os.Compression.LZ4)) to parse asset bundles faster than game's resource manager can. `K4os.Compression.LZ4.dll` should be placed in `UserLibs` folder of the modded game install. The library is MIT-licensed, and is included in the downloads.
 
 >[!TIP]
->While Song info can work without the library installed (as long as MelonLoader allows missing dependencies), installation is _highly_ recommended for best experience.
+>While Song info can work without the library provided (as long as MelonLoader allows missing dependencies), installation is _highly_ recommended for best experience.
 
 To get it from NuGet instead, `publish` Song info's project:
 ```bash
